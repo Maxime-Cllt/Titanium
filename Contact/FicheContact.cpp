@@ -52,10 +52,10 @@ void FicheContact::setPhoto(const QString &photo) {
     Photo = photo;
 }
 
-const QString &FicheContact::getDateCreation() const {
+const QDate &FicheContact::getDateCreation() const {
     return DateCreation;
 }
 
-void FicheContact::setDateCreation(const QString &dateCreation) {
+void FicheContact::setDateCreation(const QDate &dateCreation) {
     DateCreation = dateCreation;
 }

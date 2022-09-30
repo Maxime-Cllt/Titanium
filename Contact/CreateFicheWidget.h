@@ -8,6 +8,7 @@
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include "FicheContact.h"
 
 class CreateFicheWidget : public QDialog
 {
@@ -17,11 +18,13 @@ public:
 
 private:
     QVBoxLayout *layout{};
-    QHBoxLayout *layoutCenter{};
-    QVBoxLayout *layGauche{};
-    QVBoxLayout *layDroite{};
+    QHBoxLayout *layoutTop{};
+    QVBoxLayout *layoutCenter{};
+    FicheContact contact;
 
 
+
+    void dateWidget();
 };
 
 

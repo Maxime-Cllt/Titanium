@@ -5,6 +5,7 @@
 #ifndef UNTITLED2_FICHECONTACT_H
 #define UNTITLED2_FICHECONTACT_H
 
+#include <QDate>
 #include "QString"
 
 
@@ -18,7 +19,7 @@ private:
     QString Mail;
     QString Telephone;
     QString Photo;
-    QString DateCreation;
+    QDate DateCreation;
 
 public:
     const QString &getNom() const;
@@ -45,9 +46,9 @@ public:
 
     void setPhoto(const QString &photo);
 
-    const QString &getDateCreation() const;
+    const QDate &getDateCreation() const;
 
-    void setDateCreation(const QString &dateCreation);
+    void setDateCreation(const QDate &dateCreation);
 
 };
 
