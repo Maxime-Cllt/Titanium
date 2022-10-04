@@ -11,6 +11,8 @@
 #include <QFileDialog>
 #include <QString>
 #include <QList>
+#include <QTextStream>
+#include <QRegExpValidator>
 
 
 QHBoxLayout* getLay(const QList<QWidget *>& list);
@@ -58,7 +60,7 @@ CreateFicheWidget::CreateFicheWidget(QWidget *parent) : QDialog(parent)
     auto *lab6 = new QLabel("Photo : ",this);
     auto *le6 = new QLineEdit(this);
     le6->setReadOnly(true);
-    auto *bt6 = new QPushButton("choisir image",this);
+    auto *bt6 = new QPushButton("Choisir image",this);
 
     connect(bt6,&QPushButton::clicked,this,[=](){
         auto *fileDiag = new QFileDialog;
@@ -97,20 +99,33 @@ CreateFicheWidget::CreateFicheWidget(QWidget *parent) : QDialog(parent)
 
     layout->addWidget(bt);
 
-    connect(bt,&QPushButton::clicked, this, [=](){
+    QPalette* palette = new QPalette();
+
+
+
+        connect(bt,&QPushButton::clicked, this, [=](){
         bool pass = true;
         for (auto *line : findChildren<QLineEdit*>()){
-            if(line->text() == ""){
+//            QTextStream(stdout) << "[" <<line->text() << "]" << endl;
+            if(!line->text().contains(QRegExp("^[A-Za-z0-9\\/_\\*\\\\]+"))){
                 pass = false;
-                break;
+                palette->setColor(QPalette::Base,QColor(255,0,0));
+                line->setPalette(*palette);
+//                break;
             }
+            else{
+                palette->setColor(QPalette::Base,QColor(255,255,255));
+                line->setPalette(*palette);
+            }
+
         }
         if(!pass){
             QMessageBox::critical(this,"Erreur","Des champs de texte sont vide !!");
         }else{
-            QMessageBox::information(this,"Information","Le contact à été ajouté avec succes.");
+            QMessageBox::information(this,"Information","Le contact à été ajouté avec succès.");
         }
     });
+
 
     for (auto *line : findChildren<QLineEdit*>()){line->setSizePolicy(QSizePolicy::Expanding , QSizePolicy::Expanding);}
     for (auto *lab : findChildren<QLabel*>()){lab->setMinimumWidth(100);}
