@@ -23,22 +23,45 @@ ModifContactDialog::ModifContactDialog(FicheContact contact, QWidget *parent) : 
 
 void ModifContactDialog::btAddClicked()
 {
+    QString mess("Des champs sont vides !!\n");
     bool pass = true;
     int autreQueLettreOuNombre = 0;
     for (auto *line: findChildren<QLineEdit *>())
     {
-        for (auto c: line->text())
+        if (line->text().isEmpty())
         {
-            if (!c.isDigit() && !c.isLetter())
-                autreQueLettreOuNombre++;
+            pass = false;
+            break;
+        } else
+        {
+            if (line->objectName() == "tel")
+            {
+                for (auto c: line->text())
+                {
+                    if (!c.isDigit())
+                    {
+                        mess +=  "Le Telephone doit contenir uniquement des chiffres !!";
+                        pass = false;
+                        break;
+                    }
+                }
+            } else
+            {
+                for (auto c: line->text())
+                {
+                    if (!c.isDigit() && !c.isLetter())
+                        autreQueLettreOuNombre++;
+                }
+            }
         }
+
         if (autreQueLettreOuNombre == line->text().size() && !line->text().isEmpty())
             pass = false;
         autreQueLettreOuNombre = 0;
     }
     if (!pass)
     {
-        QMessageBox::critical(this, "Erreur", "Des champs de texte sont vide !!");
+        QMessageBox::critical(this, "Erreur", mess);
     } else
     {
         int rep = QMessageBox::information(this, "Information", "Le contact à été modifié avec succès.");
