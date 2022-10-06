@@ -11,14 +11,14 @@
 #include <QFileDialog>
 #include <QString>
 #include <QList>
-#include <QTextStream>
-#include <QRegExpValidator>
 
 
 QHBoxLayout* getLay(const QList<QWidget *>& list);
 
 CreateFicheWidget::CreateFicheWidget(QWidget *parent) : QDialog(parent)
 {
+
+    setModal(true);
     setWindowTitle("Creation de la fiche contact");
 
     setMinimumSize(QSize(500,400));
@@ -93,7 +93,7 @@ CreateFicheWidget::CreateFicheWidget(QWidget *parent) : QDialog(parent)
 
     connect(bt7,&QPushButton::clicked,this,[=]()
     {
-        dateWidget();
+        dateDialog();
     });
     auto *bt = new QPushButton("Ajouter");
 
@@ -106,16 +106,9 @@ CreateFicheWidget::CreateFicheWidget(QWidget *parent) : QDialog(parent)
         connect(bt,&QPushButton::clicked, this, [=](){
         bool pass = true;
         for (auto *line : findChildren<QLineEdit*>()){
-//            QTextStream(stdout) << "[" <<line->text() << "]" << endl;
-            if(!line->text().contains(QRegExp("^[A-Za-z0-9\\/_\\*\\\\]+"))){
+            if(line->text() == ""){
                 pass = false;
-                palette->setColor(QPalette::Base,QColor(255,0,0));
-                line->setPalette(*palette);
-//                break;
-            }
-            else{
-                palette->setColor(QPalette::Base,QColor(255,255,255));
-                line->setPalette(*palette);
+                break;
             }
 
         }
@@ -133,7 +126,7 @@ CreateFicheWidget::CreateFicheWidget(QWidget *parent) : QDialog(parent)
 
 }
 
-void CreateFicheWidget::dateWidget(){
+void CreateFicheWidget::dateDialog(){
     auto *diag = new QDialog();
     auto *lay = new QVBoxLayout(diag);
     diag->setMinimumSize(350,250);
@@ -144,7 +137,9 @@ void CreateFicheWidget::dateWidget(){
     auto *bt = new QPushButton("Valider");
     lay->addWidget(bt);
     connect(bt,&QPushButton::clicked,this,[=](){
-        contact.setDateCreation(calendar->selectedDate());
+        QDateTime date;
+        date.setDate(calendar->selectedDate());
+        contact.setDateCreation(date);
         findChildren<QLabel*>("creation")[0]->setText(calendar->selectedDate().toString());
         findChildren<QLineEdit*>("date")[0]->setText(calendar->selectedDate().toString());
         diag->close();

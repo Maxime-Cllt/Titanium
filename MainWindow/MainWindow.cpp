@@ -5,6 +5,7 @@
 #include "MainWindow.h"
 #include <QPushButton>
 #include "../Contact/CreateFicheWidget.h"
+#include "../MdificationContact/ModificationWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -20,6 +21,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         CreateFicheWidget fiche;
         fiche.show();
         fiche.exec();
+    });
+
+    auto *bt1 = new QPushButton("wsh mon frr");
+    layout->addWidget(bt1, 1, 0);
+    connect(bt1, &QPushButton::clicked, this, [=]()
+    {
+        ModificationWidget modificationWidget;
+        modificationWidget.show();
+        modificationWidget.exec();
     });
 
 

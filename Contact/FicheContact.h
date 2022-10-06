@@ -19,7 +19,8 @@ private:
     QString Mail;
     QString Telephone;
     QString Photo;
-    QDate DateCreation;
+    QDateTime DateCreation;
+    QList<QString> lstModif;
 
 public:
     const QString &getNom() const;
@@ -46,9 +47,9 @@ public:
 
     void setPhoto(const QString &photo);
 
-    const QDate &getDateCreation() const;
+    const QDateTime &getDateCreation() const;
 
-    void setDateCreation(const QDate &dateCreation);
+    void setDateCreation(const QDateTime &dateCreation);
 
 };
 

@@ -24,7 +24,7 @@ private:
 
 
 
-    void dateWidget();
+    void dateDialog();
 };
 
 
