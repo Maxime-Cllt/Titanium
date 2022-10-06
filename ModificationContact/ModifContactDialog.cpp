@@ -35,7 +35,6 @@ void ModifContactDialog::btAddClicked()
         if (autreQueLettreOuNombre == line->text().size() && !line->text().isEmpty())
             pass = false;
         autreQueLettreOuNombre = 0;
-
     }
     if (!pass)
     {
