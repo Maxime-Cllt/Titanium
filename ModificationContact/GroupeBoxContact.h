@@ -2,15 +2,15 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#ifndef UNTITLED2_WIDGETCONTACT_H
-#define UNTITLED2_WIDGETCONTACT_H
+#ifndef UNTITLED2_GROUPEBOXCONTACT_H
+#define UNTITLED2_GROUPEBOXCONTACT_H
 
 #include <QGroupBox>
 #include <QGridLayout>
 #include "../Contact/FicheContact.h"
 
 
-class WidgetContact: public QGroupBox
+class GroupeBoxContact: public QGroupBox
 {
     Q_OBJECT
 protected:
@@ -19,7 +19,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 public:
-    WidgetContact(FicheContact contact, QWidget * parent = nullptr);
+    GroupeBoxContact(FicheContact contact, QWidget * parent = nullptr);
 private:
 
     FicheContact contact;
@@ -30,4 +30,4 @@ private:
 };
 
 
-#endif //UNTITLED2_WIDGETCONTACT_H
+#endif //UNTITLED2_GROUPEBOXCONTACT_H

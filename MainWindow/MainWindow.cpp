@@ -4,8 +4,8 @@
 
 #include "MainWindow.h"
 #include <QPushButton>
-#include "../Contact/CreateFicheWidget.h"
-#include "../MdificationContact/ModificationWidget.h"
+#include "../FicheContactDialog/FicheContactDialog.h"
+#include "../ModificationContact/ModificationWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addWidget(bt, 0, 0);
     connect(bt, &QPushButton::clicked, this, [=]()
     {
-        CreateFicheWidget fiche;
+        FicheContactDialog fiche;
         fiche.show();
         fiche.exec();
     });
