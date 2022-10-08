@@ -1,27 +1,16 @@
 //
-// Created by Rahman  Yilmaz on 06/10/2022.
+// Created by rahman on 08/10/22.
 //
 
-#include "ModifContactDialog.h"
+#include "CreationContactDialog.h"
 
-ModifContactDialog::ModifContactDialog(QtFicheContact contact, QWidget *parent) : FicheContactDialog(parent)
+
+CreationContactDialog::CreationContactDialog(QWidget *parent) : FicheContactDialog(parent)
 {
-    QPixmap im(contact.getPhoto());
-    labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
-
-    line1->setText(contact.getNom());
-    line2->setText(contact.getPrenom());
-    line3->setText(contact.getEntreprise());
-    line4->setText(contact.getMail());
-    line5->setText(contact.getTelephone());
-    line6->setText(contact.getPhoto());
-    line7->setText(contact.getDateCreation().toString());
-
-    btAdd->setText("Modifier");
 
 }
 
-void ModifContactDialog::btAddClicked()
+void CreationContactDialog::btAddClicked()
 {
     QString mess("Des champs sont vides !!\n");
     bool pass = true;
@@ -64,7 +53,12 @@ void ModifContactDialog::btAddClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        int rep = QMessageBox::information(this, "Information", "Le contact à été modifié avec succès.");
+        QtFicheContact qtFicheContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(),
+                                      line6->text(), dateTime, {});
+        qobject_cast<MainWindow *>(parent())->addContact(
+                new StdFicheContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtFicheContact)));
+
+        int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)
         {
             close();

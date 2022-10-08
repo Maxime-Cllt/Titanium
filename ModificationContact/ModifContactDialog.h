@@ -14,7 +14,7 @@ class ModifContactDialog : public FicheContactDialog
 Q_OBJECT
 
 public:
-    explicit ModifContactDialog(QtFicheContact contact , QWidget *parent = nullptr);
+    explicit ModifContactDialog(QtFicheContact contact, QWidget *parent = nullptr);
 
     virtual void btAddClicked();
 

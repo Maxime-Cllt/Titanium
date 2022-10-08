@@ -16,7 +16,8 @@ QtFicheContact::QtFicheContact(const QString &nom, const QString &prenom, const 
                                                                                                 Photo(photo),
                                                                                                 DateCreation(
                                                                                                         dateCreation),
-                                                                                                lstModif(lstModif) {}
+                                                                                                lstModif(lstModif)
+{}
 
 const QString &QtFicheContact::getNom() const
 {
@@ -88,7 +89,8 @@ void QtFicheContact::setDateCreation(const QDateTime &dateCreation)
     DateCreation = dateCreation;
 }
 
-QtFicheContact::QtFicheContact() {}
+QtFicheContact::QtFicheContact()
+{}
 
 const QList<QString> &QtFicheContact::getLstModif() const
 {
@@ -100,20 +102,3 @@ void QtFicheContact::setLstModif(const QList<QString> &lstModif)
     QtFicheContact::lstModif = lstModif;
 }
 
-StdFicheContact QtFicheContactToStdFicheContact(QtFicheContact &contact)
-{
-    date::year_month_day d(date::year(contact.getDateCreation().date().year()),
-                           date::month(contact.getDateCreation().date().month()),
-                           date::day(contact.getDateCreation().date().day()));
-
-    std::list<std::string> lst;
-    for (auto s: contact.getLstModif())
-    {
-        lst.push_back(s.toStdString());
-    }
-
-    return StdFicheContact(contact.getNom().toStdString(), contact.getPrenom().toStdString(),
-                           contact.getEntreprise().toStdString(), contact.getMail().toStdString(),
-                           contact.getTelephone().toStdString(), contact.getPhoto().toStdString(),
-                           d, lst);
-}

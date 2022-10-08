@@ -10,26 +10,89 @@ StdFicheContact::StdFicheContact(const std::string &nom, const std::string &pren
                                  const std::string &mail, const std::string &telephone, const std::string &photo,
                                  const date::year_month_day &dateCreation, const std::list<std::string> &lstModif)
         : Nom(nom), Prenom(prenom), Entreprise(entreprise), Mail(mail), Telephone(telephone), Photo(photo),
-          DateCreation(dateCreation), lstModif(lstModif) {}
+          DateCreation(dateCreation), lstModif(lstModif)
+{}
 
-StdFicheContact::StdFicheContact() {}
+StdFicheContact::StdFicheContact()
+{}
 
-QtFicheContact StdFicheContact::toQtFicheContact()
+
+const std::string &StdFicheContact::getNom() const
 {
-    QDate date(static_cast<int>(DateCreation.year()), static_cast<unsigned >(DateCreation.month()),
-               static_cast<unsigned>(DateCreation.day()));
-    QDateTime dateTime;
-    dateTime.setDate(date);
+    return Nom;
+}
 
-    QList<QString> list;
+void StdFicheContact::setNom(const std::string &nom)
+{
+    Nom = nom;
+}
 
-    for (std::string &s: lstModif)
-    {
-        list.push_back(QString::fromStdString(s));
-    }
+const std::string &StdFicheContact::getPrenom() const
+{
+    return Prenom;
+}
 
-    return QtFicheContact(QString::fromStdString(Nom), QString::fromStdString(Prenom),
-                          QString::fromStdString(Entreprise), QString::fromStdString(Mail),
-                          QString::fromStdString(Telephone),
-                          QString::fromStdString(Photo), dateTime, list);
+void StdFicheContact::setPrenom(const std::string &prenom)
+{
+    Prenom = prenom;
+}
+
+const std::string &StdFicheContact::getEntreprise() const
+{
+    return Entreprise;
+}
+
+void StdFicheContact::setEntreprise(const std::string &entreprise)
+{
+    Entreprise = entreprise;
+}
+
+const std::string &StdFicheContact::getMail() const
+{
+    return Mail;
+}
+
+void StdFicheContact::setMail(const std::string &mail)
+{
+    Mail = mail;
+}
+
+const std::string &StdFicheContact::getTelephone() const
+{
+    return Telephone;
+}
+
+void StdFicheContact::setTelephone(const std::string &telephone)
+{
+    Telephone = telephone;
+}
+
+const std::string &StdFicheContact::getPhoto() const
+{
+    return Photo;
+}
+
+void StdFicheContact::setPhoto(const std::string &photo)
+{
+    Photo = photo;
+}
+
+const date::year_month_day &StdFicheContact::getDateCreation() const
+{
+    return DateCreation;
+}
+
+void StdFicheContact::setDateCreation(const date::year_month_day &dateCreation)
+{
+    DateCreation = dateCreation;
+}
+
+const std::list<std::string> &StdFicheContact::getLstModif() const
+{
+    return lstModif;
+}
+
+void StdFicheContact::setLstModif(const std::list<std::string> &lstModif)
+{
+    StdFicheContact::lstModif = lstModif;
 }

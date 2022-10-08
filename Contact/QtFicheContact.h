@@ -35,7 +35,6 @@ public:
     explicit QtFicheContact();
 
 
-
     const QString &getNom() const;
 
     void setNom(const QString &nom);

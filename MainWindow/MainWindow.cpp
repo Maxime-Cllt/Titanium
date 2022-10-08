@@ -4,11 +4,13 @@
 
 #include "MainWindow.h"
 #include <QPushButton>
-#include "../FicheContactDialog/FicheContactDialog.h"
-#include "../ModificationContact/ModificationWidget.h"
+#include "../CreationContact/CreationContactDialog.h"
+#include "../ModificationContact/ModificationDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+
+    lstContact = new QList<StdFicheContact *>();
     setWindowTitle("Projet");
     central = new QWidget();
     layout = new QGridLayout(central);
@@ -18,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addWidget(bt, 0, 0);
     connect(bt, &QPushButton::clicked, this, [=]()
     {
-        FicheContactDialog fiche;
+        CreationContactDialog fiche(this);
         fiche.show();
         fiche.exec();
     });
@@ -27,10 +29,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addWidget(bt1, 1, 0);
     connect(bt1, &QPushButton::clicked, this, [=]()
     {
-        ModificationWidget modificationWidget;
+        ModificationDialog modificationWidget(this);
         modificationWidget.show();
         modificationWidget.exec();
     });
 
+
+}
+
+QList<StdFicheContact *> *MainWindow::getLstContact() const
+{
+    return this->lstContact;
+}
+
+void MainWindow::addContact(StdFicheContact *contact)
+{
+    lstContact->push_back(contact);
 
 }

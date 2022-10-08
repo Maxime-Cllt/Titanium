@@ -10,16 +10,17 @@
 #include "../Contact/QtFicheContact.h"
 
 
-class GroupeBoxContact: public QGroupBox
+class GroupeBoxContact : public QGroupBox
 {
-    Q_OBJECT
+Q_OBJECT
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 public:
-    GroupeBoxContact(QtFicheContact contact, QWidget * parent = nullptr);
+    GroupeBoxContact(QtFicheContact contact, QWidget *parent = nullptr);
+
 private:
 
     QtFicheContact contact;

@@ -12,10 +12,11 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QMessageBox>
+#include <QDateTime>
 
 class FicheContactDialog : public QDialog
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     explicit FicheContactDialog(QWidget *parent = nullptr);
 
@@ -34,10 +35,13 @@ protected:
     QPushButton *bt6{};
     QPushButton *bt7{};
     QPushButton *btAdd{};
+    QDateTime dateTime{};
 
 
 public slots:
+
     void bt6Clicked();
+
     void bt7Clicked();
 
     virtual void btAddClicked();

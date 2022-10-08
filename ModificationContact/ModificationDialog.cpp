@@ -2,14 +2,15 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#include "ModificationWidget.h"
+#include "ModificationDialog.h"
 #include "../Contact/QtFicheContact.h"
 #include "GroupeBoxContact.h"
 #include <QLabel>
 #include <QLineEdit>
 
-ModificationWidget::ModificationWidget(QWidget *parent) : QDialog(parent)
+ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
 {
+    lstContact = qobject_cast<MainWindow *>(parent)->getLstContact();
 
     setModal(true);
 
@@ -35,7 +36,8 @@ ModificationWidget::ModificationWidget(QWidget *parent) : QDialog(parent)
     scrollArea->setWidget(scrollAreaWidget);
     scrollArea->setWidgetResizable(true);
     scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     lay->addWidget(scrollArea);
 
 
@@ -44,8 +46,9 @@ ModificationWidget::ModificationWidget(QWidget *parent) : QDialog(parent)
     fich1.setPrenom("bbbbb");
     fich1.setEntreprise("CCCCCC");
     fich1.setMail("CCrvfeerCCCC");
-    fich1.setPhoto("/Users/sr-71/Downloads/images.jpeg");
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
+    fich1.setPhoto("/home/rahman/Téléchargements/mw2.jpg");
+    layScrollArea->addWidget(
+            new GroupeBoxContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*lstContact->takeAt(0))));
     layScrollArea->addWidget(new GroupeBoxContact(fich1));
     layScrollArea->addWidget(new GroupeBoxContact(fich1));
     layScrollArea->addWidget(new GroupeBoxContact(fich1));
