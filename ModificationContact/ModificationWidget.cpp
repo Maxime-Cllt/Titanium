@@ -3,7 +3,7 @@
 //
 
 #include "ModificationWidget.h"
-#include "../Contact/FicheContact.h"
+#include "../Contact/QtFicheContact.h"
 #include "GroupeBoxContact.h"
 #include <QLabel>
 #include <QLineEdit>
@@ -13,15 +13,16 @@ ModificationWidget::ModificationWidget(QWidget *parent) : QDialog(parent)
 
     setModal(true);
 
-    setMinimumSize(QSize(500,500));
+    setMinimumSize(QSize(500, 500));
 
     lay = new QVBoxLayout(this);
 
-    auto * layTop = new QHBoxLayout;
+    auto *layTop = new QHBoxLayout;
 
     layTop->addWidget(new QLabel("Rechercher un contact : "));
 
-    auto* lineRecherche = new QLineEdit(this);
+    auto *lineRecherche = new QLineEdit(this);
+    lineRecherche->setPlaceholderText("toto");
 
     layTop->addWidget(lineRecherche);
 
@@ -38,7 +39,7 @@ ModificationWidget::ModificationWidget(QWidget *parent) : QDialog(parent)
     lay->addWidget(scrollArea);
 
 
-    FicheContact fich1;
+    QtFicheContact fich1;
     fich1.setNom("aaaa");
     fich1.setPrenom("bbbbb");
     fich1.setEntreprise("CCCCCC");

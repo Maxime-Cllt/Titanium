@@ -14,7 +14,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(untitled2 main.cpp Contact/FicheContact.cpp Contact/FicheContact.h MainWindow/MainWindow.cpp MainWindow/MainWindow.h ModificationContact/GroupeBoxContact.cpp ModificationContact/GroupeBoxContact.cpp ModificationContact/GroupeBoxContact.h ModificationContact/ModificationWidget.cpp ModificationContact/ModificationWidget.h ModificationContact/ModifContactDialog.cpp ModificationContact/ModifContactDialog.h FicheContactDialog/FicheContactDialog.cpp FicheContactDialog/FicheContactDialog.h)
+add_executable(untitled2 main.cpp Contact/QtFicheContact.cpp Contact/QtFicheContact.h MainWindow/MainWindow.cpp MainWindow/MainWindow.h ModificationContact/GroupeBoxContact.cpp ModificationContact/GroupeBoxContact.cpp ModificationContact/GroupeBoxContact.h ModificationContact/ModificationWidget.cpp ModificationContact/ModificationWidget.h ModificationContact/ModifContactDialog.cpp ModificationContact/ModifContactDialog.h FicheContactDialog/FicheContactDialog.cpp FicheContactDialog/FicheContactDialog.h Contact/StdFicheContact.cpp Contact/StdFicheContact.h)
 target_link_libraries(untitled2
         Qt::Core
         Qt::Gui

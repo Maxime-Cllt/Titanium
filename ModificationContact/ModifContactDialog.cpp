@@ -4,7 +4,7 @@
 
 #include "ModifContactDialog.h"
 
-ModifContactDialog::ModifContactDialog(FicheContact contact, QWidget *parent) : FicheContactDialog(parent)
+ModifContactDialog::ModifContactDialog(QtFicheContact contact, QWidget *parent) : FicheContactDialog(parent)
 {
     QPixmap im(contact.getPhoto());
     labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));

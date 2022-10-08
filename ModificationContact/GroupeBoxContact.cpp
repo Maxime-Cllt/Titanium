@@ -7,7 +7,7 @@
 #include <QLabel>
 #include "ModifContactDialog.h"
 
-GroupeBoxContact::GroupeBoxContact(FicheContact contact, QWidget *parent ) : QGroupBox(parent), contact(contact)
+GroupeBoxContact::GroupeBoxContact(QtFicheContact contact, QWidget *parent ) : QGroupBox(parent), contact(contact)
 {
 
     layout = new QGridLayout(this);

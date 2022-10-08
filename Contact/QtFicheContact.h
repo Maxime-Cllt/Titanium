@@ -2,14 +2,15 @@
 // Created by Rahman  Yilmaz on 22/09/2022.
 //
 
-#ifndef UNTITLED2_FICHECONTACT_H
-#define UNTITLED2_FICHECONTACT_H
+#ifndef UNTITLED2_QTFICHECONTACT_H
+#define UNTITLED2_QTFICHECONTACT_H
 
 #include <QDate>
-#include "QString"
+#include <QString>
+#include <QList>
 
 
-class FicheContact
+class QtFicheContact
 {
 
 private:
@@ -23,6 +24,18 @@ private:
     QList<QString> lstModif;
 
 public:
+    QtFicheContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
+                   const QString &telephone, const QString &photo, const QDateTime &dateCreation,
+                   const QList<QString> &lstModif);
+
+    const QList<QString> &getLstModif() const;
+
+    void setLstModif(const QList<QString> &lstModif);
+
+    explicit QtFicheContact();
+
+
+
     const QString &getNom() const;
 
     void setNom(const QString &nom);
@@ -54,4 +67,4 @@ public:
 };
 
 
-#endif //UNTITLED2_FICHECONTACT_H
+#endif //UNTITLED2_QTFICHECONTACT_H

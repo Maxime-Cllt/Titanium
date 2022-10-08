@@ -7,14 +7,14 @@
 
 #include <QDialog>
 #include "../FicheContactDialog/FicheContactDialog.h"
-#include "../Contact/FicheContact.h"
+#include "../Contact/QtFicheContact.h"
 
 class ModifContactDialog : public FicheContactDialog
 {
 Q_OBJECT
 
 public:
-    explicit ModifContactDialog(FicheContact contact ,QWidget *parent = nullptr);
+    explicit ModifContactDialog(QtFicheContact contact , QWidget *parent = nullptr);
 
     virtual void btAddClicked();
 
