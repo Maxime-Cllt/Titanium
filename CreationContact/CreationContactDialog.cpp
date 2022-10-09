@@ -5,12 +5,12 @@
 #include "CreationContactDialog.h"
 
 
-CreationContactDialog::CreationContactDialog(QWidget *parent) : FicheContactDialog(parent)
+CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(parent)
 {
 
 }
 
-void CreationContactDialog::btAddClicked()
+void CreationContactDialog::btActionClicked()
 {
     QString mess("Des champs sont vides !!\n");
     bool pass = true;
@@ -53,11 +53,7 @@ void CreationContactDialog::btAddClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        QtFicheContact qtFicheContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(),
-                                      line6->text(), dateTime, {});
-        qobject_cast<MainWindow *>(parent())->addContact(
-                new StdFicheContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtFicheContact)));
-
+        qobject_cast<MainWindow *>(parent())->getLstContact()->addContact(getContact());
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)
         {

@@ -10,7 +10,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
 
-    lstContact = new QList<StdFicheContact *>();
+    lstContact = new StdListContact;
     setWindowTitle("Projet");
     central = new QWidget();
     layout = new QGridLayout(central);
@@ -32,18 +32,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         ModificationDialog modificationWidget(this);
         modificationWidget.show();
         modificationWidget.exec();
+
     });
 
 
 }
 
-QList<StdFicheContact *> *MainWindow::getLstContact() const
+StdListContact *MainWindow::getLstContact()
 {
-    return this->lstContact;
-}
-
-void MainWindow::addContact(StdFicheContact *contact)
-{
-    lstContact->push_back(contact);
-
+    return lstContact;
 }

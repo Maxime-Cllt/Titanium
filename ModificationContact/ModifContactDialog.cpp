@@ -4,24 +4,26 @@
 
 #include "ModifContactDialog.h"
 
-ModifContactDialog::ModifContactDialog(QtFicheContact contact, QWidget *parent) : FicheContactDialog(parent)
+ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : ContactDialog(parent), contact(contact)
 {
-    QPixmap im(contact.getPhoto());
+    QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
+
+    QPixmap im(qtContact.getPhoto());
     labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
 
-    line1->setText(contact.getNom());
-    line2->setText(contact.getPrenom());
-    line3->setText(contact.getEntreprise());
-    line4->setText(contact.getMail());
-    line5->setText(contact.getTelephone());
-    line6->setText(contact.getPhoto());
-    line7->setText(contact.getDateCreation().toString());
+    line1->setText(qtContact.getNom());
+    line2->setText(qtContact.getPrenom());
+    line3->setText(qtContact.getEntreprise());
+    line4->setText(qtContact.getMail());
+    line5->setText(qtContact.getTelephone());
+    line6->setText(qtContact.getPhoto());
+    line7->setText(qtContact.getDateCreation().toString());
 
-    btAdd->setText("Modifier");
-
+    btAction->setText("Modifier");
 }
 
-void ModifContactDialog::btAddClicked()
+
+void ModifContactDialog::btActionClicked()
 {
     QString mess("Des champs sont vides !!\n");
     bool pass = true;
@@ -64,10 +66,19 @@ void ModifContactDialog::btAddClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
+        auto *ancien = contact;
+        contact = new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(getContact()));
+        qDebug() << "ici";
+        delete ancien;
+        qDebug() << "ici";
+
         int rep = QMessageBox::information(this, "Information", "Le contact à été modifié avec succès.");
         if (rep == QMessageBox::Ok)
         {
             close();
+            qobject_cast<ModificationDialog *>(
+                    qobject_cast<GroupeBoxContact *>(parent())->parent())->createContactGroupBox();
+            qDebug() << "ici";
         }
     }
 }

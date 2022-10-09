@@ -2,15 +2,15 @@
 // Created by Rahman  Yilmaz on 22/09/2022.
 //
 
-#ifndef UNTITLED2_QTFICHECONTACT_H
-#define UNTITLED2_QTFICHECONTACT_H
+#ifndef UNTITLED2_QTCONTACT_H
+#define UNTITLED2_QTCONTACT_H
 
 #include <QDate>
 #include <QString>
 #include <QList>
+#include "Interaction.h"
 
-
-class QtFicheContact
+class QtContact
 {
 
 private:
@@ -21,18 +21,18 @@ private:
     QString Telephone;
     QString Photo;
     QDateTime DateCreation;
-    QList<QString> lstModif;
+    QList<Interaction> lstInteraction;
 
 public:
-    QtFicheContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
-                   const QString &telephone, const QString &photo, const QDateTime &dateCreation,
-                   const QList<QString> &lstModif);
+    QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
+              const QString &telephone, const QString &photo, const QDateTime &dateCreation,
+              const QList<Interaction> &lstInteraction);
 
-    const QList<QString> &getLstModif() const;
+    const QList<Interaction> &getLstInteraction() const;
 
-    void setLstModif(const QList<QString> &lstModif);
+    void setLstInteraction(const QList<Interaction> &lstInteraction);
 
-    explicit QtFicheContact();
+    explicit QtContact();
 
 
     const QString &getNom() const;
@@ -66,4 +66,4 @@ public:
 };
 
 
-#endif //UNTITLED2_QTFICHECONTACT_H
+#endif //UNTITLED2_QTCONTACT_H

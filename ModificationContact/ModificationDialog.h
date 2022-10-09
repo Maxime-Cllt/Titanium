@@ -8,7 +8,6 @@
 #include <QDialog>
 #include <QScrollArea>
 #include <QLayout>
-#include "../Contact/StdFicheContact.h"
 #include "../MainWindow/MainWindow.h"
 #include "../Contact/TraductionQtStd.h"
 
@@ -20,8 +19,9 @@ Q_OBJECT
 public:
     explicit ModificationDialog(QWidget *parent);
 
+    void createContactGroupBox();
+
 private:
-    QList<StdFicheContact *> *lstContact{};
     QVBoxLayout *lay{};
     QScrollArea *scrollArea{};
     QWidget *scrollAreaWidget{};

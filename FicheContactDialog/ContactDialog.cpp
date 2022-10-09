@@ -2,12 +2,7 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#include "FicheContactDialog.h"
-
-
-//
-// Created by Rahman  Yilmaz on 22/09/2022.
-//
+#include "ContactDialog.h"
 
 #include <QLabel>
 #include <QPushButton>
@@ -15,12 +10,11 @@
 #include <QFileDialog>
 #include <QString>
 #include <QList>
-#include <QDoubleValidator>
 
 
 QHBoxLayout *getLay(const QList<QWidget *> &list);
 
-FicheContactDialog::FicheContactDialog(QWidget *parent) : QDialog(parent)
+ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 {
 
     setModal(true);
@@ -68,7 +62,7 @@ FicheContactDialog::FicheContactDialog(QWidget *parent) : QDialog(parent)
     line6->setReadOnly(true);
     bt6 = new QPushButton("Choisir image", this);
 
-    connect(bt6, &QPushButton::clicked, this, &FicheContactDialog::bt6Clicked);
+    connect(bt6, &QPushButton::clicked, this, &ContactDialog::bt6Clicked);
 
     layoutCenter->addLayout(getLay({lab6, line6, bt6}));
 
@@ -81,12 +75,12 @@ FicheContactDialog::FicheContactDialog(QWidget *parent) : QDialog(parent)
 
     layoutCenter->addLayout(getLay({lab7, line7, bt7}));
 
-    connect(bt7, &QPushButton::clicked, this, &FicheContactDialog::bt7Clicked);
-    btAdd = new QPushButton("Ajouter");
+    connect(bt7, &QPushButton::clicked, this, &ContactDialog::bt7Clicked);
+    btAction = new QPushButton("Ajouter");
 
-    connect(btAdd, &QPushButton::clicked, this, &FicheContactDialog::btAddClicked);
+    connect(btAction, &QPushButton::clicked, this, &ContactDialog::btActionClicked);
 
-    layout->addWidget(btAdd);
+    layout->addWidget(btAction);
 
     for (auto *line: findChildren<QLineEdit *>())
     {
@@ -98,7 +92,7 @@ FicheContactDialog::FicheContactDialog(QWidget *parent) : QDialog(parent)
 
 }
 
-void FicheContactDialog::bt7Clicked()
+void ContactDialog::bt7Clicked()
 {
     auto *diag = new QDialog();
     auto *lay = new QVBoxLayout(diag);
@@ -120,7 +114,7 @@ void FicheContactDialog::bt7Clicked()
 }
 
 
-void FicheContactDialog::bt6Clicked()
+void ContactDialog::bt6Clicked()
 {
     auto *fileDiag = new QFileDialog;
     fileDiag->setNameFilter(tr("Fichier video (*.png *.jpg *.JPG *.jpeg *.tif .svg)"));
@@ -138,8 +132,14 @@ void FicheContactDialog::bt6Clicked()
     delete fileDiag;
 }
 
-void FicheContactDialog::btAddClicked()
+void ContactDialog::btActionClicked()
 {
+}
+
+QtContact ContactDialog::getContact()
+{
+    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), dateTime,
+                     QList<Interaction>());
 }
 
 

@@ -5,16 +5,16 @@
 #ifndef UNTITLED2_TRADUCTIONQTSTD_H
 #define UNTITLED2_TRADUCTIONQTSTD_H
 
-#include "QtFicheContact.h"
-#include "StdFicheContact.h"
+#include "QtContact.h"
+#include "StdContact.h"
 
 class TraductionQtStd
 {
 
 public:
-    static StdFicheContact QtFicheContactToStdFicheContact(const QtFicheContact &contact);
+    static StdContact QtFicheContactToStdFicheContact(const QtContact &contact);
 
-    static QtFicheContact StdFicheContacttoQtFicheContact(const StdFicheContact &contact);
+    static QtContact StdFicheContacttoQtFicheContact(const StdContact &contact);
 
 };
 

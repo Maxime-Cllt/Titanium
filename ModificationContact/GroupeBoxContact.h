@@ -7,7 +7,10 @@
 
 #include <QGroupBox>
 #include <QGridLayout>
-#include "../Contact/QtFicheContact.h"
+#include "../Contact/StdListContact.h"
+#include "ModificationDialog.h"
+#include <QMouseEvent>
+#include <QMenu>
 
 
 class GroupeBoxContact : public QGroupBox
@@ -19,11 +22,12 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 public:
-    GroupeBoxContact(QtFicheContact contact, QWidget *parent = nullptr);
+    GroupeBoxContact(StdContact *contact, QWidget *parent = nullptr);
+
+    StdContact *contact;
 
 private:
 
-    QtFicheContact contact;
 
     QGridLayout *layout{};
 

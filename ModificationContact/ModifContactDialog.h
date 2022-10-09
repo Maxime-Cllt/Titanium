@@ -6,19 +6,20 @@
 #define UNTITLED2_MODIFCONTACTDIALOG_H
 
 #include <QDialog>
-#include "../FicheContactDialog/FicheContactDialog.h"
-#include "../Contact/QtFicheContact.h"
+#include "../FicheContactDialog/ContactDialog.h"
+#include "GroupeBoxContact.h"
 
-class ModifContactDialog : public FicheContactDialog
+class ModifContactDialog : public ContactDialog
 {
 Q_OBJECT
 
 public:
-    explicit ModifContactDialog(QtFicheContact contact, QWidget *parent = nullptr);
+    explicit ModifContactDialog(StdContact *contact, QWidget *parent);
 
-    virtual void btAddClicked();
+    virtual void btActionClicked();
 
 private:
+    StdContact *contact{};
 
 
 };

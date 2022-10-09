@@ -8,8 +8,7 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include <QWidget>
-#include "../Contact/QtFicheContact.h"
-#include "../Contact/StdFicheContact.h"
+#include "../Contact/StdListContact.h"
 
 class MainWindow : public QMainWindow
 {
@@ -17,12 +16,11 @@ Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-    void addContact(StdFicheContact *contact);
+    StdListContact *getLstContact();
 
-    QList<StdFicheContact *> *getLstContact() const;
 
 private:
-    QList<StdFicheContact *> *lstContact{};
+    StdListContact *lstContact{};
     QGridLayout *layout{};
     QWidget *central{};
 

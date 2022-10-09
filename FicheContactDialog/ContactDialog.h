@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#ifndef UNTITLED2_FICHECONTACTDIALOG_H
-#define UNTITLED2_FICHECONTACTDIALOG_H
+#ifndef UNTITLED2_CONTACTDIALOG_H
+#define UNTITLED2_CONTACTDIALOG_H
 
 #include <QDialog>
 #include <QHBoxLayout>
@@ -13,12 +13,13 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QDateTime>
+#include "../Contact/TraductionQtStd.h"
 
-class FicheContactDialog : public QDialog
+class ContactDialog : public QDialog
 {
 Q_OBJECT
 public:
-    explicit FicheContactDialog(QWidget *parent = nullptr);
+    explicit ContactDialog(QWidget *parent = nullptr);
 
 protected:
     QVBoxLayout *layout{};
@@ -34,7 +35,7 @@ protected:
     QLineEdit *line7{};
     QPushButton *bt6{};
     QPushButton *bt7{};
-    QPushButton *btAdd{};
+    QPushButton *btAction{};
     QDateTime dateTime{};
 
 
@@ -44,8 +45,10 @@ public slots:
 
     void bt7Clicked();
 
-    virtual void btAddClicked();
+    virtual void btActionClicked();
+
+    QtContact getContact();
 };
 
 
-#endif //UNTITLED2_FICHECONTACTDIALOG_H
+#endif //UNTITLED2_CONTACTDIALOG_H

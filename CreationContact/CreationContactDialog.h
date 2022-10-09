@@ -5,21 +5,18 @@
 #ifndef UNTITLED2_CREATIONCONTACTDIALOG_H
 #define UNTITLED2_CREATIONCONTACTDIALOG_H
 
-#include "../FicheContactDialog/FicheContactDialog.h"
-#include "../Contact/TraductionQtStd.h"
+#include "../FicheContactDialog/ContactDialog.h"
 #include "../MainWindow/MainWindow.h"
 
-class CreationContactDialog : public FicheContactDialog
+class CreationContactDialog : public ContactDialog
 {
 Q_OBJECT
 
 public:
     explicit CreationContactDialog(QWidget *parent);
 
-private:
-    QList<StdFicheContact> *lstContact{};
 public:
-    virtual void btAddClicked();
+    virtual void btActionClicked();
 };
 
 

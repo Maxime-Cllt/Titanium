@@ -3,15 +3,12 @@
 //
 
 #include "ModificationDialog.h"
-#include "../Contact/QtFicheContact.h"
 #include "GroupeBoxContact.h"
 #include <QLabel>
 #include <QLineEdit>
 
 ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
 {
-    lstContact = qobject_cast<MainWindow *>(parent)->getLstContact();
-
     setModal(true);
 
     setMinimumSize(QSize(500, 500));
@@ -41,24 +38,14 @@ ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
     lay->addWidget(scrollArea);
 
 
-    QtFicheContact fich1;
-    fich1.setNom("aaaa");
-    fich1.setPrenom("bbbbb");
-    fich1.setEntreprise("CCCCCC");
-    fich1.setMail("CCrvfeerCCCC");
-    fich1.setPhoto("/home/rahman/Téléchargements/mw2.jpg");
-    layScrollArea->addWidget(
-            new GroupeBoxContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*lstContact->takeAt(0))));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
-    layScrollArea->addWidget(new GroupeBoxContact(fich1));
+    createContactGroupBox();
 
+}
 
+void ModificationDialog::createContactGroupBox()
+{
+    for (auto contact: *(qobject_cast<MainWindow *>(parent())->getLstContact())->getLstContact())
+    {
+        layScrollArea->addWidget(new GroupeBoxContact(contact));
+    }
 }

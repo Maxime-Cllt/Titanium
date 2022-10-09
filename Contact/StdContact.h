@@ -2,23 +2,24 @@
 // Created by Rahman  Yilmaz on 07/10/2022.
 //
 
-#ifndef UNTITLED2_STDFICHECONTACT_H
-#define UNTITLED2_STDFICHECONTACT_H
+#ifndef UNTITLED2_STDCONTACT_H
+#define UNTITLED2_STDCONTACT_H
 
 #include <iostream>
 #include <string>
 #include <list>
 #include "../date.h"
+#include "Interaction.h"
 
 
-class StdFicheContact
+class StdContact
 {
 public:
-    StdFicheContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
-                    const std::string &mail, const std::string &telephone, const std::string &photo,
-                    const date::year_month_day &dateCreation, const std::list<std::string> &lstModif);
+    StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
+               const std::string &mail, const std::string &telephone, const std::string &photo,
+               const date::year_month_day &dateCreation, const std::list<Interaction> &lstInteraction);
 
-    explicit StdFicheContact();
+    explicit StdContact();
 
 private:
     std::string Nom;
@@ -26,7 +27,13 @@ private:
     std::string Entreprise;
     std::string Mail;
     std::string Telephone;
+    std::string Photo;
+    date::year_month_day DateCreation;
+    std::list<Interaction> lstInteraction;
 public:
+
+    friend std::ostream &operator<<(std::ostream &os, const StdContact &contact);
+
     const std::string &getNom() const;
 
     void setNom(const std::string &nom);
@@ -55,16 +62,11 @@ public:
 
     void setDateCreation(const date::year_month_day &dateCreation);
 
-    const std::list<std::string> &getLstModif() const;
+    const std::list<Interaction> &getLstInteraction() const;
 
-    void setLstModif(const std::list<std::string> &lstModif);
-
-private:
-    std::string Photo;
-    date::year_month_day DateCreation;
-    std::list<std::string> lstModif;
+    void setlstInteraction(const std::list<Interaction> &lstInteraction);
 
 };
 
 
-#endif //UNTITLED2_STDFICHECONTACT_H
+#endif //UNTITLED2_STDCONTACT_H
