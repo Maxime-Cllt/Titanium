@@ -6,12 +6,15 @@
 
 #include <QLabel>
 #include "ModifContactDialog.h"
+#include "../Interaction/CreationInteractionDialog.h"
+#include "../Interaction/ListInteractionDialog.h"
 
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     setMaximumHeight(200);
 
+    setObjectName("GroupBoxContact");
 
     layout = new QGridLayout(this);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
@@ -30,7 +33,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 {
     QGroupBox::mousePressEvent(event);
-    setStyleSheet("QGroupBox{background-color: gray;border-radius: 5px; color: white;}");
+    setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray;border-radius: 5px; color: white;}");
     if (event->button() == Qt::RightButton)
     {
         auto *menu = new QMenu(this);
@@ -41,6 +44,18 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         menu->addAction(action1);
         menu->addAction(action2);
+
+        connect(action1, &QAction::triggered, this, [=]()
+        {
+            CreationInteractionDialog diag(contact, this);
+            diag.exec();
+        });
+
+        connect(action2, &QAction::triggered, this, [=]()
+        {
+            ListInteractionDialog diag(contact->getLstInteraction(), this);
+            diag.exec();
+        });
 
         menu->exec(event->globalPosition().toPoint());
 

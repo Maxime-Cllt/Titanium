@@ -8,11 +8,10 @@
 
 QtContact::QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
                      const QString &telephone, const QString &photo, const QDateTime &dateCreation,
-                     const QList<Interaction> &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
-                                                                 Mail(mail), Telephone(telephone), Photo(photo),
-                                                                 DateCreation(dateCreation),
-                                                                 lstInteraction(lstInteraction)
-{}
+                     const QList<Interaction *> &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
+                                                                   Mail(mail), Telephone(telephone), Photo(photo),
+                                                                   DateCreation(dateCreation),
+                                                                   lstInteraction(lstInteraction) {}
 
 const QString &QtContact::getNom() const
 {
@@ -84,16 +83,20 @@ void QtContact::setDateCreation(const QDateTime &dateCreation)
     DateCreation = dateCreation;
 }
 
-QtContact::QtContact()
-{}
+QtContact::QtContact() {}
 
-const QList<Interaction> &QtContact::getLstInteraction() const
+const QList<Interaction *> QtContact::getLstInteraction() const
 {
     return lstInteraction;
 }
 
-void QtContact::setLstInteraction(const QList<Interaction> &lstInteraction)
+void QtContact::setLstInteraction(const QList<Interaction *> &lstInteraction)
 {
     QtContact::lstInteraction = lstInteraction;
+}
+
+QList<Interaction *> *QtContact::getLstInteraction()
+{
+    return &lstInteraction;
 }
 

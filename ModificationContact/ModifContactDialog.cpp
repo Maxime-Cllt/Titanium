@@ -21,7 +21,7 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
 
     btAction->setText("Modifier");
 
-    dateTime = QDateTime::fromMSecsSinceEpoch(contact->getDateCreation()*1000);
+    dateTime = QDateTime::fromMSecsSinceEpoch(contact->getDateCreation() * 1000);
 
 }
 

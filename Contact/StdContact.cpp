@@ -8,13 +8,11 @@
 
 StdContact::StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                        const std::string &mail, const std::string &telephone, const std::string &photo,
-                       const time_t &dateCreation, const std::list<Interaction> &lstInteraction) : Nom(
+                       const time_t &dateCreation, const std::list<Interaction *> &lstInteraction) : Nom(
         nom), Prenom(prenom), Entreprise(entreprise), Mail(mail), Telephone(telephone), Photo(photo), DateCreation(
-        dateCreation), lstInteraction(lstInteraction)
-{}
+        dateCreation), lstInteraction(lstInteraction) {}
 
-StdContact::StdContact()
-{}
+StdContact::StdContact() {}
 
 
 const std::string &StdContact::getNom() const
@@ -87,12 +85,12 @@ void StdContact::setDateCreation(const time_t &dateCreation)
     DateCreation = dateCreation;
 }
 
-const std::list<Interaction> &StdContact::getLstInteraction() const
+const std::list<Interaction *> &StdContact::getLstInteraction() const
 {
     return lstInteraction;
 }
 
-void StdContact::setlstInteraction(const std::list<Interaction> &lstInteraction)
+void StdContact::setlstInteraction(const std::list<Interaction *> &lstInteraction)
 {
     StdContact::lstInteraction = lstInteraction;
 }
@@ -102,6 +100,26 @@ std::ostream &operator<<(std::ostream &os, const StdContact &contact)
     os << "Nom : " << contact.getNom() << " Prenom : " << contact.getPrenom() << " Entreprise : "
        << contact.getEntreprise() << " Telephone : " << contact.getTelephone() << " Mail : " << contact.getMail();
     return os;
+}
+
+void StdContact::addInteraction(const Interaction &interaction)
+{
+    lstInteraction.push_back(new Interaction(interaction));
+
+}
+
+StdContact::~StdContact()
+{
+    for (auto interaction: lstInteraction)
+    {
+        delete interaction;
+    }
+
+}
+
+std::list<Interaction *> *StdContact::getLstInteraction()
+{
+    return &lstInteraction;
 }
 
 

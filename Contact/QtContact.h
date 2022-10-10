@@ -8,7 +8,7 @@
 #include <QDate>
 #include <QString>
 #include <QList>
-#include "Interaction.h"
+#include "../Interaction/Interaction.h"
 
 class QtContact
 {
@@ -21,16 +21,18 @@ private:
     QString Telephone;
     QString Photo;
     QDateTime DateCreation;
-    QList<Interaction> lstInteraction;
+    QList<Interaction *> lstInteraction;
 
 public:
     QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
               const QString &telephone, const QString &photo, const QDateTime &dateCreation,
-              const QList<Interaction> &lstInteraction);
+              const QList<Interaction *> &lstInteraction);
 
-    const QList<Interaction> &getLstInteraction() const;
+    const QList<Interaction *> getLstInteraction() const;
 
-    void setLstInteraction(const QList<Interaction> &lstInteraction);
+    QList<Interaction *> *getLstInteraction();
+
+    void setLstInteraction(const QList<Interaction *> &lstInteraction);
 
     explicit QtContact();
 

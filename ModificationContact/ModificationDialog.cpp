@@ -27,7 +27,8 @@ ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
     lay->addLayout(layTop);
 
     scrollArea = new QScrollArea(this);
-    scrollAreaWidget = new QWidget();
+    scrollArea->setStyleSheet("QScrollArea{border: none;}");
+    scrollAreaWidget = new QWidget;
     layScrollArea = new QVBoxLayout(scrollAreaWidget);
 
     scrollArea->setWidget(scrollAreaWidget);

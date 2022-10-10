@@ -14,20 +14,22 @@ class Interaction
 {
 
 public:
-    Interaction(const std::string &note);
+    Interaction(const std::string &contenu);
 
     explicit Interaction();
 
 private:
     std::time_t date{};
-    std::string note{};
+    std::string contenu{};
 
 public:
+    const std::string &getContenu() const;
+
+    void setContenu(const std::string &contenu);
+
     const std::time_t &getDate() const;
 
-    const std::string &getNote() const;
-
-    void setNote(const std::string &note);
+    void setDate(time_t date);
 
 };
 
