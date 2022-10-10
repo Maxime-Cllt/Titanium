@@ -17,9 +17,12 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
     line4->setText(qtContact.getMail());
     line5->setText(qtContact.getTelephone());
     line6->setText(qtContact.getPhoto());
-    line7->setText(qtContact.getDateCreation().toString());
+    line7->setText(qtContact.getDateCreation().toString("dddd MMMM d yyyy"));
 
     btAction->setText("Modifier");
+
+    dateTime = QDateTime::fromMSecsSinceEpoch(contact->getDateCreation()*1000);
+
 }
 
 
@@ -66,19 +69,12 @@ void ModifContactDialog::btActionClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        auto *ancien = contact;
-        contact = new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(getContact()));
-        qDebug() << "ici";
-        delete ancien;
-        qDebug() << "ici";
-
+        *contact = TraductionQtStd::QtFicheContactToStdFicheContact(getContact());
         int rep = QMessageBox::information(this, "Information", "Le contact à été modifié avec succès.");
         if (rep == QMessageBox::Ok)
         {
+            qobject_cast<GroupeBoxContact *>(parent())->reactualiseDonne();
             close();
-            qobject_cast<ModificationDialog *>(
-                    qobject_cast<GroupeBoxContact *>(parent())->parent())->createContactGroupBox();
-            qDebug() << "ici";
         }
     }
 }

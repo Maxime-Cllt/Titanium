@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout = new QGridLayout(central);
     setCentralWidget(central);
 
-    auto *bt = new QPushButton("wsh mon gars");
+    auto *bt = new QPushButton("ajout contact");
     layout->addWidget(bt, 0, 0);
     connect(bt, &QPushButton::clicked, this, [=]()
     {
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         fiche.exec();
     });
 
-    auto *bt1 = new QPushButton("wsh mon frr");
+    auto *bt1 = new QPushButton("liste des contact");
     layout->addWidget(bt1, 1, 0);
     connect(bt1, &QPushButton::clicked, this, [=]()
     {

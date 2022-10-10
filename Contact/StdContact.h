@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "../date.h"
 #include "Interaction.h"
 
 
@@ -17,7 +16,7 @@ class StdContact
 public:
     StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                const std::string &mail, const std::string &telephone, const std::string &photo,
-               const date::year_month_day &dateCreation, const std::list<Interaction> &lstInteraction);
+               const time_t &dateCreation, const std::list<Interaction> &lstInteraction);
 
     explicit StdContact();
 
@@ -28,7 +27,7 @@ private:
     std::string Mail;
     std::string Telephone;
     std::string Photo;
-    date::year_month_day DateCreation;
+    std::time_t DateCreation;
     std::list<Interaction> lstInteraction;
 public:
 
@@ -58,9 +57,9 @@ public:
 
     void setPhoto(const std::string &photo);
 
-    const date::year_month_day &getDateCreation() const;
+    const time_t &getDateCreation() const;
 
-    void setDateCreation(const date::year_month_day &dateCreation);
+    void setDateCreation(const time_t &dateCreation);
 
     const std::list<Interaction> &getLstInteraction() const;
 

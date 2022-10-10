@@ -5,7 +5,7 @@
 #ifndef UNTITLED2_CREATIONCONTACTDIALOG_H
 #define UNTITLED2_CREATIONCONTACTDIALOG_H
 
-#include "../FicheContactDialog/ContactDialog.h"
+#include "../ContactDialog/ContactDialog.h"
 #include "../MainWindow/MainWindow.h"
 
 class CreationContactDialog : public ContactDialog

@@ -37,15 +37,16 @@ ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     lay->addWidget(scrollArea);
 
+    StdContact *contact1 = new StdContact;
+    contact1->setNom("Alooo");
 
-    createContactGroupBox();
 
-}
-
-void ModificationDialog::createContactGroupBox()
-{
-    for (auto contact: *(qobject_cast<MainWindow *>(parent())->getLstContact())->getLstContact())
+    for (auto contact: *(qobject_cast<MainWindow *>(parent)->getLstContact())->getLstContact())
     {
         layScrollArea->addWidget(new GroupeBoxContact(contact));
     }
+    layScrollArea->addWidget(new GroupeBoxContact(contact1));
+    layScrollArea->addWidget(new GroupeBoxContact(contact1));
+
+
 }

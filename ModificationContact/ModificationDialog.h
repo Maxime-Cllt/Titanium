@@ -19,8 +19,6 @@ Q_OBJECT
 public:
     explicit ModificationDialog(QWidget *parent);
 
-    void createContactGroupBox();
-
 private:
     QVBoxLayout *lay{};
     QScrollArea *scrollArea{};

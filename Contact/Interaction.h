@@ -19,11 +19,11 @@ public:
     explicit Interaction();
 
 private:
-    date::year_month_day date{};
+    std::time_t date{};
     std::string note{};
 
 public:
-    const date::year_month_day &getDate() const;
+    const std::time_t &getDate() const;
 
     const std::string &getNote() const;
 

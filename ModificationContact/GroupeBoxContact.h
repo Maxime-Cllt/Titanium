@@ -24,12 +24,16 @@ protected:
 public:
     GroupeBoxContact(StdContact *contact, QWidget *parent = nullptr);
 
-    StdContact *contact;
+    void reactualiseDonne();
+
 
 private:
 
+    void createUi();
 
     QGridLayout *layout{};
+
+    StdContact *contact{};
 
 
 };

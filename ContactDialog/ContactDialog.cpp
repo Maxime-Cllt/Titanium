@@ -89,7 +89,6 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     for (auto *lab: findChildren<QLabel *>())
     { lab->setMinimumWidth(100); }
 
-
 }
 
 void ContactDialog::bt7Clicked()
@@ -106,8 +105,8 @@ void ContactDialog::bt7Clicked()
     connect(bt, &QPushButton::clicked, this, [=]()
     {
         dateTime.setDate(calendar->selectedDate());
-        findChildren<QLabel *>("creation")[0]->setText(calendar->selectedDate().toString());
-        findChildren<QLineEdit *>("date")[0]->setText(calendar->selectedDate().toString());
+        findChildren<QLabel *>("creation")[0]->setText(calendar->selectedDate().toString("dddd MMMM d yyyy"));
+        findChildren<QLineEdit *>("date")[0]->setText(calendar->selectedDate().toString("dddd MMMM d yyyy"));
         diag->close();
     });
     diag->exec();
@@ -139,7 +138,7 @@ void ContactDialog::btActionClicked()
 QtContact ContactDialog::getContact()
 {
     return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), dateTime,
-                     QList<Interaction>());
+                     {});
 }
 
 
