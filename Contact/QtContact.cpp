@@ -123,3 +123,11 @@ void QtContact::setDateCreation(time_t dateCreation)
     DateCreation = dateCreation;
 }
 
+QtContact::~QtContact()
+{
+    for(auto interaction : lstInteraction){
+        delete interaction;
+    }
+
+}
+

@@ -36,6 +36,7 @@ public:
 
     explicit QtContact();
 
+    ~QtContact();
 
     const QString &getNom() const;
 

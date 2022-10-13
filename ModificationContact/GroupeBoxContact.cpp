@@ -33,7 +33,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 {
     QGroupBox::mousePressEvent(event);
-    setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray;border-radius: 5px; color: white;}");
+    setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray;border-radius: 10px; color: white;}");
     if (event->button() == Qt::RightButton)
     {
         auto *menu = new QMenu(this);

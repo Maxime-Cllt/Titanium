@@ -35,3 +35,12 @@ void StdListContact::supContact(StdContact *contact)
     lstContact.remove(contact);
 
 }
+
+StdListContact::~StdListContact()
+{
+
+    for(auto contact : lstContact){
+        delete contact;
+    }
+
+}

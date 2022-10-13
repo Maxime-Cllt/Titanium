@@ -46,4 +46,5 @@ StdListContact *MainWindow::getLstContact()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
+    delete lstContact;
 }

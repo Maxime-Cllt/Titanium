@@ -8,10 +8,20 @@ CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(pa
 {
     setWindowTitle("Creation de la fiche contact");
 
-    QDateTime date;
-    date.setMSecsSinceEpoch(time(nullptr) * 1000);
-    QLocale local(QLocale::Language::French);
-    labDateCreation->setText(local.toString(date, "dddd, MMMM d yyyy"));
+
+    auto *timer = new QTimer(this);
+    timer->setInterval(100);
+
+    connect(timer, &QTimer::timeout, this, [this]()
+    {
+        QDateTime date;
+        long t = time(nullptr) * 1000;
+        date.setMSecsSinceEpoch(t);
+        QLocale local(QLocale::Language::French);
+        labDateCreation->setText(local.toString(date, "dddd, MMMM d yyyy hh:mm:ss"));
+    });
+    timer->start();
+
 
     btAction->setText("Ajouter");
 
