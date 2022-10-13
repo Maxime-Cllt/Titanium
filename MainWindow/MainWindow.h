@@ -9,6 +9,7 @@
 #include <QGridLayout>
 #include <QWidget>
 #include "../Contact/StdListContact.h"
+#include "../BaseDeDonne/BD.h"
 
 class MainWindow : public QMainWindow
 {
@@ -23,6 +24,9 @@ private:
     StdListContact *lstContact{};
     QGridLayout *layout{};
     QWidget *central{};
+    BD *bd{};
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
 
 };

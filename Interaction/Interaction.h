@@ -7,8 +7,6 @@
 
 #include <iostream>
 #include <string>
-#include "../date.h"
-
 
 class Interaction
 {

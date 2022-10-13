@@ -96,6 +96,9 @@ void ContactDialog::bt7Clicked()
     auto *lay = new QVBoxLayout(diag);
     diag->setMinimumSize(350, 250);
     auto *calendar = new QCalendarWidget();
+    QLocale local(QLocale::Language::French);
+    calendar->setLocale(local);
+
     calendar->setMinimumDate(QDate(1800, 1, 1));
     calendar->setMaximumDate(QDate(2023, 1, 1));
     lay->addWidget(calendar);
@@ -104,8 +107,9 @@ void ContactDialog::bt7Clicked()
     connect(bt, &QPushButton::clicked, this, [=]()
     {
         dateTime.setDate(calendar->selectedDate());
-        findChildren<QLabel *>("creation")[0]->setText(calendar->selectedDate().toString("dddd MMMM d yyyy"));
-        findChildren<QLineEdit *>("date")[0]->setText(calendar->selectedDate().toString("dddd MMMM d yyyy"));
+        QString date(local.toString(calendar->selectedDate(),"dddd, MMMM d yyyy"));
+        findChildren<QLabel *>("creation")[0]->setText(date);
+        findChildren<QLineEdit *>("date")[0]->setText(date);
         diag->close();
     });
     diag->exec();

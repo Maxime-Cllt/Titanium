@@ -9,8 +9,9 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    bd = new BD;
 
-    lstContact = new StdListContact;
+    lstContact = new StdListContact(bd->getData());
     setWindowTitle("Projet");
     central = new QWidget();
     layout = new QGridLayout(central);
@@ -41,4 +42,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 StdListContact *MainWindow::getLstContact()
 {
     return lstContact;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QWidget::closeEvent(event);
+    qDebug()<< "cic";
+    bd->addOnBD(*lstContact);
 }
