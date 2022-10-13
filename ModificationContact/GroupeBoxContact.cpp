@@ -42,8 +42,11 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         auto *action2 = new QAction("Liste des interactions");
 
+        auto *action3 = new QAction("Supprimer");
+
         menu->addAction(action1);
         menu->addAction(action2);
+        menu->addAction(action3);
 
         connect(action1, &QAction::triggered, this, [=]()
         {
@@ -55,6 +58,15 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         {
             ListInteractionDialog diag(contact->getLstInteraction(), this);
             diag.exec();
+        });
+
+        connect(action3, &QAction::triggered, this, [=]()
+        {
+            BD::sup(*contact);
+            qobject_cast<MainWindow *>(parent()->parent()->parent()->parent()->parent())->getLstContact()->supContact(
+                    contact);
+            close();
+            delete contact;
         });
 
         menu->exec(event->globalPosition().toPoint());

@@ -22,6 +22,8 @@ public:
 
     void addContact(const QtContact &contact);
 
+    void supContact(StdContact *contact);
+
     std::list<StdContact *> *getLstContact();
 
 private:

@@ -29,3 +29,9 @@ std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
     }
     return os;
 }
+
+void StdListContact::supContact(StdContact *contact)
+{
+    lstContact.remove(contact);
+
+}

@@ -16,8 +16,10 @@ Q_OBJECT
 public:
     explicit BD(QObject *parent = nullptr);
 
-    void addOnBD(StdListContact *lstContact);
-    StdListContact getData();
+    static void addOnBD(StdListContact *lstContact);
+    static StdListContact getData();
+    static void addOnBD(StdContact contact);
+    static void sup(StdContact contact);
 
 private:
     QSqlDatabase db;

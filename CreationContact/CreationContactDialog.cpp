@@ -3,6 +3,7 @@
 //
 
 #include "CreationContactDialog.h"
+#include "../BaseDeDonne/BD.h"
 
 
 CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(parent)
@@ -54,6 +55,7 @@ void CreationContactDialog::btActionClicked()
     } else
     {
         qobject_cast<MainWindow *>(parent())->getLstContact()->addContact(getContact());
+        BD::addOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(getContact()));
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)
         {

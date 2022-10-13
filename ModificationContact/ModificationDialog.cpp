@@ -44,10 +44,10 @@ ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
 
     for (auto contact: *(qobject_cast<MainWindow *>(parent)->getLstContact())->getLstContact())
     {
-        layScrollArea->addWidget(new GroupeBoxContact(contact));
+        layScrollArea->addWidget(new GroupeBoxContact(contact, this));
     }
-    layScrollArea->addWidget(new GroupeBoxContact(contact1));
-    layScrollArea->addWidget(new GroupeBoxContact(contact1));
+    layScrollArea->addWidget(new GroupeBoxContact(contact1,this));
+    layScrollArea->addWidget(new GroupeBoxContact(contact1,this));
 
 
 }

@@ -5,6 +5,7 @@
 #include "BD.h"
 #include <QFileInfo>
 #include <QFile>
+#include <QMessageBox>
 
 
 BD::BD(QObject *parent) : QObject(parent)
@@ -33,10 +34,32 @@ BD::BD(QObject *parent) : QObject(parent)
                    "Mail VARCHAR(255) not null,"
                    "Telephone VARCHAR(10) not null,"
                    "Photo TEXT not null,"
-                   "DateCreation BIGINT not null,"
-                   "UNIQUE(Nom,Prenom,Entreprise,Mail,Telephone,Photo,DateCreation)"
+                   "DateCreation BIGINT not null PRIMARY KEY"
                    ");");
     }
+}
+void BD::addOnBD(StdContact contact) {
+
+    QSqlQuery query;
+    const QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(contact));
+    const QString &nom(qtContact.getNom());
+    const QString &prenom(qtContact.getPrenom());
+    const QString &entreprise(qtContact.getEntreprise());
+    const QString &mail(qtContact.getMail());
+    const QString &telephone(qtContact.getTelephone());
+    const QString &photo(qtContact.getPhoto());
+    QString date;
+    query.prepare("INSERT INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
+                  "VALUES (:nom, :prenom, :entreprise, :mail, :tel, :photo, :date)");
+    date.setNum(contact.getDateCreation());
+    query.bindValue(":nom", nom);
+    query.bindValue(":prenom", prenom);
+    query.bindValue(":entreprise", entreprise);
+    query.bindValue(":mail", mail);
+    query.bindValue(":tel", telephone);
+    query.bindValue(":photo", photo);
+    query.bindValue(":date", date);
+    qDebug()<<query.exec();
 }
 
 void BD::addOnBD(StdListContact *stdListContact)
@@ -88,4 +111,23 @@ StdListContact BD::getData()
         lst.addContact(contact);
     }
     return lst;
+}
+
+void BD::sup(StdContact contact)
+{
+
+    QSqlQuery query;
+    QString date;
+    date.setNum(contact.getDateCreation());
+
+    query.prepare("DELETE FROM CONTACTS"
+                  "WHERE DateCreation = ?");
+    query.addBindValue(1665612000);
+    qDebug() <<query.exec();
+    qDebug()<< date;
+//    if(query.exec()){
+//        QMessageBox::information(nullptr,"Succes", "Le contact a été suprimé avec succes.");
+//    }else{
+//        QMessageBox::warning(nullptr,"Erreur", "Une erreur est survenue lors de la supression du contact.");
+//    }
 }

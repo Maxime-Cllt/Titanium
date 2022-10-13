@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     bd = new BD;
 
-    lstContact = new StdListContact(bd->getData());
+    lstContact = new StdListContact(BD::getData());
     setWindowTitle("Projet");
     central = new QWidget();
     layout = new QGridLayout(central);
@@ -33,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         ModificationDialog modificationWidget(this);
         modificationWidget.show();
         modificationWidget.exec();
-
     });
 
 
@@ -47,5 +46,4 @@ StdListContact *MainWindow::getLstContact()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
-    bd->addOnBD(lstContact);
 }
