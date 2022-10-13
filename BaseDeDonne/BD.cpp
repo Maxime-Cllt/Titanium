@@ -33,7 +33,9 @@ BD::BD(QObject *parent) : QObject(parent)
                    "Mail VARCHAR(255) not null,"
                    "Telephone VARCHAR(10) not null,"
                    "Photo TEXT not null,"
-                   "DateCreation BIGINT not null);");
+                   "DateCreation BIGINT not null,"
+                   "UNIQUE(Nom,Prenom,Entreprise,Mail,Telephone,Photo,DateCreation)"
+                   ");");
     }
 }
 
@@ -50,7 +52,7 @@ void BD::addOnBD(StdListContact *stdListContact)
         const QString &telephone(qtContact.getTelephone());
         const QString &photo(qtContact.getPhoto());
         QString date;
-        query.prepare("INSERT IF NOT EXISTS INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
+        query.prepare("INSERT INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
                       "VALUES (:nom, :prenom, :entreprise, :mail, :tel, :photo, :date)");
         date.setNum(contact->getDateCreation());
         query.bindValue(":nom", nom);
@@ -60,6 +62,7 @@ void BD::addOnBD(StdListContact *stdListContact)
         query.bindValue(":tel", telephone);
         query.bindValue(":photo", photo);
         query.bindValue(":date", date);
+        qDebug()<<query.exec();
     }
 }
 
