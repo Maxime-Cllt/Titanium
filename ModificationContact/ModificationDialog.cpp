@@ -46,8 +46,8 @@ ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
     {
         layScrollArea->addWidget(new GroupeBoxContact(contact, this));
     }
-    layScrollArea->addWidget(new GroupeBoxContact(contact1,this));
-    layScrollArea->addWidget(new GroupeBoxContact(contact1,this));
+    layScrollArea->addWidget(new GroupeBoxContact(contact1, this));
+    layScrollArea->addWidget(new GroupeBoxContact(contact1, this));
 
 
 }

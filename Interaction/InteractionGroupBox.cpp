@@ -41,7 +41,7 @@ InteractionGroupBox::InteractionGroupBox(Interaction *interaction, QWidget *pare
     {
         interaction->setContenu(textEdit->document()->toRawText().toStdString());
         interaction->setDate(std::time_t(time(nullptr)));
-        QMessageBox::information(this,"Succes","La modification à bien été prise en compte.");
+        QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
     });
 
 }

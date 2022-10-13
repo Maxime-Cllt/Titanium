@@ -17,10 +17,14 @@ public:
     explicit BD(QObject *parent = nullptr);
 
     static void addOnBD(StdListContact *lstContact);
+
     static StdListContact getData();
-    static void addOnBD(const StdContact& contact);
-    static void supContact(const StdContact& contact);
-    static bool modifyContact(const StdContact& contact);
+
+    static void addOnBD(const StdContact &contact);
+
+    static void supContact(const StdContact &contact);
+
+    static bool modifyContact(const StdContact &contact);
 
 private:
     QSqlDatabase db;

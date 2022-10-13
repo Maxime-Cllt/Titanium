@@ -18,62 +18,74 @@ QtContact::QtContact(const QString &nom, const QString &prenom, const QString &e
                                                                    lstInteraction(lstInteraction) {}
 
 //Getter de l'attribut Nom
-const QString &QtContact::getNom() const {
+const QString &QtContact::getNom() const
+{
     return Nom;
 }
 
 //Setter de l'attribut Nom
-void QtContact::setNom(const QString &nom) {
+void QtContact::setNom(const QString &nom)
+{
     Nom = nom;
 }
 
 //Getter de l'attribut Prenom
-const QString &QtContact::getPrenom() const {
+const QString &QtContact::getPrenom() const
+{
     return Prenom;
 }
 
 //Setter de l'attribut Prenom
-void QtContact::setPrenom(const QString &prenom) {
+void QtContact::setPrenom(const QString &prenom)
+{
     Prenom = prenom;
 }
 
 //Getter de l'attribut Entreprise
-const QString &QtContact::getEntreprise() const {
+const QString &QtContact::getEntreprise() const
+{
     return Entreprise;
 }
 
 //Setter de l'attribut Entreprise
-void QtContact::setEntreprise(const QString &entreprise) {
+void QtContact::setEntreprise(const QString &entreprise)
+{
     Entreprise = entreprise;
 }
 
 //Getter de l'attribut Mail
-const QString &QtContact::getMail() const {
+const QString &QtContact::getMail() const
+{
     return Mail;
 }
 
 //Setter de l'attribut Mail
-void QtContact::setMail(const QString &mail) {
+void QtContact::setMail(const QString &mail)
+{
     Mail = mail;
 }
 
 //Getter de l'attribut Telephone
-const QString &QtContact::getTelephone() const {
+const QString &QtContact::getTelephone() const
+{
     return Telephone;
 }
 
 //Setter de l'attribut Telephone
-void QtContact::setTelephone(const QString &telephone) {
+void QtContact::setTelephone(const QString &telephone)
+{
     Telephone = telephone;
 }
 
 //Getter de l'attribut Photo
-const QString &QtContact::getPhoto() const {
+const QString &QtContact::getPhoto() const
+{
     return Photo;
 }
 
 //Setter de l'attribut Photo
-void QtContact::setPhoto(const QString &photo) {
+void QtContact::setPhoto(const QString &photo)
+{
     Photo = photo;
 }
 
@@ -81,17 +93,20 @@ void QtContact::setPhoto(const QString &photo) {
 QtContact::QtContact() {}
 
 //Getter de l'attribut lstInteraction
-const QList<Interaction *> QtContact::getLstInteraction() const {
+const QList<Interaction *> QtContact::getLstInteraction() const
+{
     return lstInteraction;
 }
 
 //Setter de l'attribut lstInteraction
-void QtContact::setLstInteraction(const QList<Interaction *> &lstInteraction) {
+void QtContact::setLstInteraction(const QList<Interaction *> &lstInteraction)
+{
     QtContact::lstInteraction = lstInteraction;
 }
 
 //Getter de l'attribut lstInteraction
-QList<Interaction *> *QtContact::getLstInteraction() {
+QList<Interaction *> *QtContact::getLstInteraction()
+{
     return &lstInteraction;
 }
 
@@ -101,6 +116,7 @@ time_t QtContact::getDateCreation() const
 {
     return DateCreation;
 }
+
 //Setter de l'attribut DateCreation
 void QtContact::setDateCreation(time_t dateCreation)
 {

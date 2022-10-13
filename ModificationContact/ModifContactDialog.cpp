@@ -12,9 +12,9 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
 
     QDateTime date;
-    date.setMSecsSinceEpoch(contact->getDateCreation()*1000);
+    date.setMSecsSinceEpoch(contact->getDateCreation() * 1000);
     QLocale local(QLocale::Language::French);
-    labDateCreation->setText(local.toString(date,"dddd, MMMM d yyyy hh:mm:ss"));
+    labDateCreation->setText(local.toString(date, "dddd, MMMM d yyyy hh:mm:ss"));
 
     QPixmap im(qtContact.getPhoto());
     labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
@@ -75,10 +75,11 @@ void ModifContactDialog::btActionClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        QtContact qtContact(getContact(contact->getDateCreation(),*contact->getLstInteraction()));
+        QtContact qtContact(getContact(contact->getDateCreation(), *contact->getLstInteraction()));
         *contact = TraductionQtStd::QtFicheContactToStdFicheContact(qtContact);
         int rep = BD::modifyContact(*contact);
-        if (rep){
+        if (rep)
+        {
             qobject_cast<GroupeBoxContact *>(parent())->reactualiseDonne();
             close();
         }

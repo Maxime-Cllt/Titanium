@@ -38,7 +38,9 @@ BD::BD(QObject *parent) : QObject(parent)
                    ");");
     }
 }
-void BD::addOnBD(const StdContact& contact) {
+
+void BD::addOnBD(const StdContact &contact)
+{
 
     QSqlQuery query;
     const QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(contact));
@@ -65,28 +67,8 @@ void BD::addOnBD(const StdContact& contact) {
 void BD::addOnBD(StdListContact *stdListContact)
 {
     for (const auto contact: *stdListContact->getLstContact())
-    {
-        QSqlQuery query;
-        const QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
-        const QString &nom(qtContact.getNom());
-        const QString &prenom(qtContact.getPrenom());
-        const QString &entreprise(qtContact.getEntreprise());
-        const QString &mail(qtContact.getMail());
-        const QString &telephone(qtContact.getTelephone());
-        const QString &photo(qtContact.getPhoto());
-        QVariant date;
-        query.prepare("INSERT INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
-                      "VALUES (:nom, :prenom, :entreprise, :mail, :tel, :photo, :date)");
-        date.setValue(contact->getDateCreation());
-        query.bindValue(":nom", nom);
-        query.bindValue(":prenom", prenom);
-        query.bindValue(":entreprise", entreprise);
-        query.bindValue(":mail", mail);
-        query.bindValue(":tel", telephone);
-        query.bindValue(":photo", photo);
-        query.bindValue(":date", date);
-        qDebug()<<query.exec();
-    }
+        addOnBD(*contact);
+
 }
 
 StdListContact BD::getData()
@@ -113,7 +95,7 @@ StdListContact BD::getData()
     return lst;
 }
 
-void BD::supContact(const StdContact& contact)
+void BD::supContact(const StdContact &contact)
 {
 
     QSqlQuery query;
@@ -123,14 +105,16 @@ void BD::supContact(const StdContact& contact)
     query.prepare("DELETE FROM CONTACTS WHERE ? = DateCreation");
     query.addBindValue(date);
 
-    if(query.exec()){
-        QMessageBox::information(nullptr,"Succes", "Le contact a été suprimé avec succes.");
-    }else{
-        QMessageBox::warning(nullptr,"Erreur", "Une erreur est survenue lors de la supression du contact.");
+    if (query.exec())
+    {
+        QMessageBox::information(nullptr, "Succes", "Le contact a été suprimé avec succes.");
+    } else
+    {
+        QMessageBox::warning(nullptr, "Erreur", "Une erreur est survenue lors de la supression du contact.");
     }
 }
 
-bool BD::modifyContact(const StdContact& contact)
+bool BD::modifyContact(const StdContact &contact)
 {
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(contact));
 
@@ -154,7 +138,8 @@ bool BD::modifyContact(const StdContact& contact)
     dateCreation.setNum(qtContact.getDateCreation());
     query.addBindValue(dateCreation);
 
-    if (query.exec()){
+    if (query.exec())
+    {
         int rep = QMessageBox::information(nullptr, "Information", "Le contact à été modifié avec succès.");
         if (rep == QMessageBox::Ok)
         {
