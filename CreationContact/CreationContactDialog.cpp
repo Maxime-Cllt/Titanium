@@ -3,11 +3,17 @@
 //
 
 #include "CreationContactDialog.h"
-#include "../BaseDeDonne/BD.h"
-
 
 CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(parent)
 {
+    setWindowTitle("Creation de la fiche contact");
+
+    QDateTime date;
+    date.setMSecsSinceEpoch(time(nullptr)*1000);
+    QLocale local(QLocale::Language::French);
+    labDateCreation->setText(local.toString(date,"dddd, MMMM d yyyy"));
+
+    btAction->setText("Ajouter");
 
 }
 
@@ -54,8 +60,9 @@ void CreationContactDialog::btActionClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        qobject_cast<MainWindow *>(parent())->getLstContact()->addContact(getContact());
-        BD::addOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(getContact()));
+        QtContact qtContact(getContact(time(nullptr),{}));
+        qobject_cast<MainWindow *>(parent())->getLstContact()->addContact(qtContact);
+        BD::addOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)
         {

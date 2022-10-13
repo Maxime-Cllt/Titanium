@@ -62,7 +62,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         connect(action3, &QAction::triggered, this, [=]()
         {
-            BD::sup(*contact);
+            BD::supContact(*contact);
             qobject_cast<MainWindow *>(parent()->parent()->parent()->parent()->parent())->getLstContact()->supContact(
                     contact);
             close();

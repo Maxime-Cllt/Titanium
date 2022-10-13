@@ -18,7 +18,6 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 {
 
     setModal(true);
-    setWindowTitle("Creation de la fiche contact");
 
     setMinimumSize(QSize(500, 400));
 
@@ -31,8 +30,7 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     labIm = new QLabel(this);
     layoutTop->addWidget(labIm);
 
-    auto *labDateCreation = new QLabel(this);
-    labDateCreation->setObjectName("creation");
+    labDateCreation = new QLabel(this);
     labDateCreation->setAlignment(Qt::AlignTop | Qt::AlignRight);
     layoutTop->addWidget(labDateCreation);
 
@@ -61,22 +59,14 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     line6 = new QLineEdit(this);
     line6->setReadOnly(true);
     bt6 = new QPushButton("Choisir image", this);
+    bt6->setDefault(false);
 
     connect(bt6, &QPushButton::clicked, this, &ContactDialog::bt6Clicked);
 
     layoutCenter->addLayout(getLay({lab6, line6, bt6}));
 
-    auto *lab7 = new QLabel("Date de creation de l'entreprise : ", this);
-    lab7->setWordWrap(true);
-    line7 = new QLineEdit(this);
-    line7->setObjectName("date");
-    line7->setReadOnly(true);
-    bt7 = new QPushButton("Choisir date", this);
-
-    layoutCenter->addLayout(getLay({lab7, line7, bt7}));
-
-    connect(bt7, &QPushButton::clicked, this, &ContactDialog::bt7Clicked);
-    btAction = new QPushButton("Ajouter");
+    btAction = new QPushButton(this);
+    btAction->setDefault(true);
 
     connect(btAction, &QPushButton::clicked, this, &ContactDialog::btActionClicked);
 
@@ -88,31 +78,6 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     }
     for (auto *lab: findChildren<QLabel *>()) { lab->setMinimumWidth(100); }
 
-}
-
-void ContactDialog::bt7Clicked()
-{
-    auto *diag = new QDialog();
-    auto *lay = new QVBoxLayout(diag);
-    diag->setMinimumSize(350, 250);
-    auto *calendar = new QCalendarWidget();
-    QLocale local(QLocale::Language::French);
-    calendar->setLocale(local);
-
-    calendar->setMinimumDate(QDate(1800, 1, 1));
-    calendar->setMaximumDate(QDate(2023, 1, 1));
-    lay->addWidget(calendar);
-    auto *bt = new QPushButton("Valider");
-    lay->addWidget(bt);
-    connect(bt, &QPushButton::clicked, this, [=]()
-    {
-        dateTime.setDate(calendar->selectedDate());
-        QString date(local.toString(calendar->selectedDate(),"dddd, MMMM d yyyy"));
-        findChildren<QLabel *>("creation")[0]->setText(date);
-        findChildren<QLineEdit *>("date")[0]->setText(date);
-        diag->close();
-    });
-    diag->exec();
 }
 
 
@@ -138,10 +103,12 @@ void ContactDialog::btActionClicked()
 {
 }
 
-QtContact ContactDialog::getContact()
+QtContact ContactDialog::getContact(long time, std::list<Interaction *> lst)
 {
-    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), dateTime,
-                     {});
+    QList<Interaction * > qList;
+    for(auto elmt : lst){qList << elmt;}
+    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(),
+                             time,qList);
 }
 
 

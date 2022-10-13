@@ -26,28 +26,23 @@ protected:
     QHBoxLayout *layoutTop{};
     QVBoxLayout *layoutCenter{};
     QLabel *labIm{};
+    QLabel *labDateCreation{};
     QLineEdit *line1{};
     QLineEdit *line2{};
     QLineEdit *line3{};
     QLineEdit *line4{};
     QLineEdit *line5{};
     QLineEdit *line6{};
-    QLineEdit *line7{};
     QPushButton *bt6{};
-    QPushButton *bt7{};
     QPushButton *btAction{};
-    QDateTime dateTime{};
-
 
 public slots:
 
     void bt6Clicked();
 
-    void bt7Clicked();
-
     virtual void btActionClicked();
 
-    QtContact getContact();
+    QtContact getContact(long time, std::list<Interaction *> lst);
 };
 
 

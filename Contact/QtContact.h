@@ -20,12 +20,12 @@ private:
     QString Mail;
     QString Telephone;
     QString Photo;
-    QDateTime DateCreation;
+    std::time_t DateCreation{};
     QList<Interaction *> lstInteraction;
 
 public:
     QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
-              const QString &telephone, const QString &photo, const QDateTime &dateCreation,
+              const QString &telephone, const QString &photo, const time_t &dateCreation,
               const QList<Interaction *> &lstInteraction);
 
     const QList<Interaction *> getLstInteraction() const;
@@ -61,11 +61,9 @@ public:
 
     void setPhoto(const QString &photo);
 
-    const QDateTime &getDateCreation() const;
+    time_t getDateCreation() const;
 
-    void setDateCreation(const QDateTime &dateCreation);
-
+    void setDateCreation(time_t dateCreation);
 };
-
 
 #endif //UNTITLED2_QTCONTACT_H

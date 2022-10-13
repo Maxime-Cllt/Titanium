@@ -6,7 +6,15 @@
 
 ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : ContactDialog(parent), contact(contact)
 {
+
+    setWindowTitle("Modification de la fiche contact");
+
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
+
+    QDateTime date;
+    date.setMSecsSinceEpoch(contact->getDateCreation()*1000);
+    QLocale local(QLocale::Language::French);
+    labDateCreation->setText(local.toString(date,"dddd, MMMM d yyyy hh:mm:ss"));
 
     QPixmap im(qtContact.getPhoto());
     labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
@@ -17,11 +25,9 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
     line4->setText(qtContact.getMail());
     line5->setText(qtContact.getTelephone());
     line6->setText(qtContact.getPhoto());
-    line7->setText(qtContact.getDateCreation().toString("dddd MMMM d yyyy"));
 
     btAction->setText("Modifier");
 
-    dateTime = QDateTime::fromMSecsSinceEpoch(contact->getDateCreation() * 1000);
 
 }
 
@@ -69,10 +75,10 @@ void ModifContactDialog::btActionClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        *contact = TraductionQtStd::QtFicheContactToStdFicheContact(getContact());
-        int rep = QMessageBox::information(this, "Information", "Le contact à été modifié avec succès.");
-        if (rep == QMessageBox::Ok)
-        {
+        QtContact qtContact(getContact(contact->getDateCreation(),*contact->getLstInteraction()));
+        *contact = TraductionQtStd::QtFicheContactToStdFicheContact(qtContact);
+        int rep = BD::modifyContact(*contact);
+        if (rep){
             qobject_cast<GroupeBoxContact *>(parent())->reactualiseDonne();
             close();
         }

@@ -17,7 +17,7 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
     return QtContact(QString::fromStdString(contact.getNom()), QString::fromStdString(contact.getPrenom()),
                      QString::fromStdString(contact.getEntreprise()), QString::fromStdString(contact.getMail()),
                      QString::fromStdString(contact.getTelephone()), QString::fromStdString(contact.getPhoto()),
-                     QDateTime::fromMSecsSinceEpoch(contact.getDateCreation() * 1000), {});
+                     contact.getDateCreation(), {});
 }
 
 StdContact TraductionQtStd::QtFicheContactToStdFicheContact(const QtContact &contact)
@@ -31,5 +31,5 @@ StdContact TraductionQtStd::QtFicheContactToStdFicheContact(const QtContact &con
     return StdContact(contact.getNom().toStdString(), contact.getPrenom().toStdString(),
                       contact.getEntreprise().toStdString(), contact.getMail().toStdString(),
                       contact.getTelephone().toStdString(), contact.getPhoto().toStdString(),
-                      time_t(contact.getDateCreation().toSecsSinceEpoch()), lst);
+                      contact.getDateCreation(), lst);
 }
