@@ -16,7 +16,7 @@ Q_OBJECT
 public:
     explicit BD(QObject *parent = nullptr);
 
-    void addOnBD(StdListContact &lstContact);
+    void addOnBD(StdListContact *lstContact);
     StdListContact getData();
 
 private:

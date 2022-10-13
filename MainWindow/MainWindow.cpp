@@ -47,6 +47,5 @@ StdListContact *MainWindow::getLstContact()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
-    qDebug()<< "cic";
-    bd->addOnBD(*lstContact);
+    bd->addOnBD(lstContact);
 }

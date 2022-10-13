@@ -5,19 +5,18 @@
 #include "BD.h"
 #include <QFileInfo>
 #include <QFile>
-#include <unistd.h>
 
 
 BD::BD(QObject *parent) : QObject(parent)
 {
-    QString path("/Users/sr-71/Documents/ProjetQT/database.db");
+    QString path("database.db");
     bool exist = QFileInfo::exists(path);
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
 
     if (!db.open())
     {
-        qDebug() << "Error: connection with database failed";
+        qDebug() << "Erreur; impossible de se connecter à la base de donné.";
         exit(0);
     } else
     {
@@ -38,9 +37,9 @@ BD::BD(QObject *parent) : QObject(parent)
     }
 }
 
-void BD::addOnBD(StdListContact &stdListContact)
+void BD::addOnBD(StdListContact *stdListContact)
 {
-    for (const auto contact: *stdListContact.getLstContact())
+    for (const auto contact: *stdListContact->getLstContact())
     {
         QSqlQuery query;
         const QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
@@ -51,7 +50,7 @@ void BD::addOnBD(StdListContact &stdListContact)
         const QString &telephone(qtContact.getTelephone());
         const QString &photo(qtContact.getPhoto());
         QString date;
-        query.prepare("INSERT INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
+        query.prepare("INSERT IF NOT EXISTS INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
                       "VALUES (:nom, :prenom, :entreprise, :mail, :tel, :photo, :date)");
         date.setNum(contact->getDateCreation());
         query.bindValue(":nom", nom);
@@ -60,7 +59,7 @@ void BD::addOnBD(StdListContact &stdListContact)
         query.bindValue(":mail", mail);
         query.bindValue(":tel", telephone);
         query.bindValue(":photo", photo);
-        query.bindValue(":date", qtContact.getDateCreation().toSecsSinceEpoch());
+        query.bindValue(":date", date);
     }
 }
 
