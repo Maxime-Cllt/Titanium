@@ -4,7 +4,7 @@
 
 #include "TraductionQtStd.h"
 
-
+//Fonction pour traduire de C++ à Qt
 QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &contact)
 {
 
@@ -20,6 +20,7 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
                      contact.getDateCreation(), {});
 }
 
+//Fonction pour traduire de C++ à Qt
 StdContact TraductionQtStd::QtFicheContactToStdFicheContact(const QtContact &contact)
 {
     std::list<Interaction *> lst;
