@@ -23,6 +23,11 @@ std::list<StdContact *> *StdListContact::getLstContact()
     return &lstContact;
 }
 
+void StdListContact::addContact(StdContact *contact){
+    lstContact.push_back(contact);
+
+}
+
 std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
 {
     for (const auto &contact: lst.lstContact)

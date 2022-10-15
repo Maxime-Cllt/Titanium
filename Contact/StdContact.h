@@ -9,6 +9,7 @@
 #include <string>
 #include <list>
 #include "../Interaction/Interaction.h"
+#include "../Interaction/ListInteraction.h"
 
 
 class StdContact
@@ -16,7 +17,7 @@ class StdContact
 public:
     StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                const std::string &mail, const std::string &telephone, const std::string &photo,
-               const time_t &dateCreation, const std::list<Interaction *> &lstInteraction);
+               const time_t &dateCreation, const ListInteraction &lstInteraction);
 
     explicit StdContact();
 
@@ -30,7 +31,7 @@ private:
     std::string Telephone;
     std::string Photo;
     std::time_t DateCreation;
-    std::list<Interaction *> lstInteraction;
+    ListInteraction lstInteraction;
 public:
 
     friend std::ostream &operator<<(std::ostream &os, const StdContact &contact);
@@ -63,11 +64,11 @@ public:
 
     void setDateCreation(const time_t &dateCreation);
 
-    const std::list<Interaction *> &getLstInteraction() const;
+    const ListInteraction &getLstInteraction() const;
 
-    std::list<Interaction *> *getLstInteraction();
+    ListInteraction *getLstInteraction();
 
-    void setlstInteraction(const std::list<Interaction *> &lstInteraction);
+    void setlstInteraction(const ListInteraction &lstInteraction);
 
     void addInteraction(const Interaction &interaction);
 

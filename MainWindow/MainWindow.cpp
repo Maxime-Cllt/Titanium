@@ -5,11 +5,13 @@
 #include "MainWindow.h"
 #include <QPushButton>
 #include "../CreationContact/CreationContactDialog.h"
-#include "../ListContact/ListContactWidget.h"
 #include "../MenuBar/MenuBar.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+
+    setMinimumHeight(500);
+
     bd = new BD;
     modificationMap = new ModificationMap;
 
@@ -18,12 +20,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     lstContact = new StdListContact(BD::getData());
     setWindowTitle("Projet");
     auto *central = new QWidget();
-    auto *layout = new QHBoxLayout(central);
+    layout = new QHBoxLayout(central);
     setCentralWidget(central);
 
-    layout->addWidget(new ListContactWidget(this));
 
 
+    listContactWidget = new ListContactWidget(this);
+    layout->addWidget(listContactWidget);
 }
 
 StdListContact *MainWindow::getLstContact()
@@ -40,4 +43,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
 ModificationMap *MainWindow::getModificationMap() const
 {
     return modificationMap;
+}
+
+void MainWindow::addContact(const StdContact &contact)
+{
+    auto *c = new StdContact(contact);
+    lstContact->addContact(c);
+    listContactWidget->addContactBox(c);
+
+}
+
+void MainWindow::setListInteractionWidget(QWidget *widget)
+{
+    layout->addWidget(widget);
 }

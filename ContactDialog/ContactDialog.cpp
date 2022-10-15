@@ -103,12 +103,10 @@ void ContactDialog::btActionClicked()
 {
 }
 
-QtContact ContactDialog::getContact(long time, std::list<Interaction *> lst)
+QtContact ContactDialog::getContact(long time)
 {
-    QList<Interaction *> qList;
-    for (auto elmt: lst) { qList << elmt; }
     return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(),
-                     time, qList);
+                     time, ListInteraction(time));
 }
 
 

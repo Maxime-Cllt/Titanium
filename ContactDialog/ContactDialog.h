@@ -42,7 +42,7 @@ public slots:
 
     virtual void btActionClicked();
 
-    QtContact getContact(long time, std::list<Interaction *> lst);
+    QtContact getContact(long time);
 };
 
 

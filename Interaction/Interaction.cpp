@@ -31,4 +31,7 @@ void Interaction::setDate(time_t date)
     Interaction::date = date;
 }
 
-Interaction::Interaction() = default;
+Interaction::Interaction(){
+    this->contenu = "";
+    date = std::time(nullptr);
+}

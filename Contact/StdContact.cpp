@@ -8,12 +8,11 @@
 //Constructeur de StdContact
 StdContact::StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                        const std::string &mail, const std::string &telephone, const std::string &photo,
-                       const time_t &dateCreation, const std::list<Interaction *> &lstInteraction) : Nom(
+                       const time_t &dateCreation, const ListInteraction &lstInteraction) : Nom(
         nom), Prenom(prenom), Entreprise(entreprise), Mail(mail), Telephone(telephone), Photo(photo), DateCreation(
         dateCreation), lstInteraction(lstInteraction) {}
 
 //Constructeur de StdContact par defaut
-StdContact::StdContact() {}
 
 
 //Getter de l'attribut Nom
@@ -87,14 +86,14 @@ void StdContact::setDateCreation(const time_t &dateCreation)
     DateCreation = dateCreation;
 }
 //Getter de l'attribut lstInteraction
-const std::list<Interaction *> &StdContact::getLstInteraction() const
+const ListInteraction &StdContact::getLstInteraction() const
 {
     return lstInteraction;
 }
 //Setter de l'attribut lstInteraction
-void StdContact::setlstInteraction(const std::list<Interaction *> &lstInteraction)
+void StdContact::setlstInteraction(const ListInteraction &lstInteraction)
 {
-    StdContact::lstInteraction = lstInteraction;
+    this->lstInteraction = lstInteraction;
 }
 
 std::ostream &operator<<(std::ostream &os, const StdContact &contact)
@@ -106,22 +105,20 @@ std::ostream &operator<<(std::ostream &os, const StdContact &contact)
 //Methode pour ajouter une interaction
 void StdContact::addInteraction(const Interaction &interaction)
 {
-    lstInteraction.push_back(new Interaction(interaction));
+    lstInteraction.addInteraction(new Interaction(interaction));
 
 }
 //Destructeur de StdContact
-StdContact::~StdContact()
-{
-    for (auto interaction: lstInteraction)
-    {
-        delete interaction;
-    }
-
-}
+StdContact::~StdContact(){}
 //Getter de l'attribut lstInteraction
-std::list<Interaction *> *StdContact::getLstInteraction()
+ListInteraction *StdContact::getLstInteraction()
 {
     return &lstInteraction;
+}
+
+StdContact::StdContact(): lstInteraction(ListInteraction(getDateCreation()))
+{
+
 }
 
 

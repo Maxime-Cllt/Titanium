@@ -26,10 +26,14 @@ public:
 
     static bool modifyContact(const StdContact &contact);
 
+    void addModif(long idContact, const std::string& modif);
+
+    static void addInteraction(long idContact, const Interaction&);
+    static void modifyInteraction(long idContact, const Interaction&);
+    static void supInteraction(long idContact, const Interaction&);
+
 private:
     QSqlDatabase db;
-
-    void addModif(long idContact, const std::string& modif);
 };
 
 

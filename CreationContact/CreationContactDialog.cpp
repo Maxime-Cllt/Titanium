@@ -18,7 +18,7 @@ CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(pa
         long t = time(nullptr) * 1000;
         date.setMSecsSinceEpoch(t);
         QLocale local(QLocale::Language::French);
-        labDateCreation->setText(local.toString(date, "dddd, MMMM d yyyy hh:mm:ss"));
+        labDateCreation->setText(local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
     });
     timer->start();
 
@@ -72,14 +72,20 @@ void CreationContactDialog::btActionClicked()
     } else
     {
         auto *mainWindow = new QObject(this);
-        while (mainWindow->parent()) { mainWindow = mainWindow->parent(); }
-        QtContact qtContact(getContact(time(nullptr), {}));
-        qobject_cast<MainWindow *>(mainWindow)->getLstContact()->addContact(qtContact);
+        while (mainWindow->parent())
+        { mainWindow = mainWindow->parent();
+            if(strcmp(mainWindow->metaObject()->className(),"MainWindow") == 0)
+                break;
+        }
+
+        QtContact qtContact(getContact(time(nullptr)));
+
+        qobject_cast<MainWindow *>(mainWindow)->addContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
+        qDebug()<< qtContact.getLstInteraction()->getContactId() << TraductionQtStd::QtFicheContactToStdFicheContact(qtContact).getLstInteraction()->getContactId();
         BD::addContactOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
+
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)
-        {
             close();
-        }
     }
 }

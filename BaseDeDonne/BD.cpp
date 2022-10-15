@@ -42,6 +42,11 @@ BD::BD(QObject *parent) : QObject(parent)
                    "DateModification BIGINT not null,"
                    "Modification TEXT"
                    ");");
+
+        query.exec("CREATE TABLE IF NOT EXISTS INTERACTIONS("
+                   "IdContact BIGINT not null,"
+                   "Contenu TEXT"
+                   ");");
     }
 }
 
@@ -77,7 +82,8 @@ void BD::addContactOnBD(StdListContact *stdListContact)
 
 }
 
-void BD::addModif(long idContact, const std::string& modif){
+void BD::addModif(long idContact, const std::string &modif)
+{
     QSqlQuery query("INSERT INTO MODIFICATIONS "
                     "(IdContact, DateModification,Modification) "
                     "VALUES (? , ? , ?)");
@@ -162,4 +168,28 @@ bool BD::modifyContact(const StdContact &contact)
         }
     }
     return false;
+}
+
+void BD::addInteraction(long idContact, const Interaction& interaction)
+{
+    QSqlQuery query("INSERT INTO INTERACTIONS (IdContact , Contenu) VALUES ( ? , ?)");
+    query.addBindValue(QString::number(idContact));
+    query.addBindValue(QString::fromStdString(interaction.getContenu()));
+    query.exec();
+}
+
+void BD::supInteraction(long idContact, const Interaction& interaction)
+{
+    QSqlQuery query("DELETE FROM INTERACTIONS WHERE ? = IdContact and ? = Contenu");
+    query.addBindValue(QString::number(idContact));
+    query.addBindValue(QString::fromStdString(interaction.getContenu()));
+    query.exec();
+}
+
+void BD::modifyInteraction(long idContact, const Interaction& interaction)
+{
+    QSqlQuery query("UPDATE FROM INTERACTIONS WHERE ? = IdContact and ? = Contenu");
+    query.addBindValue(QString::number(idContact));
+    query.addBindValue(QString::fromStdString(interaction.getContenu()));
+    query.exec();
 }

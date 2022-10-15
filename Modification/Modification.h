@@ -5,6 +5,7 @@
 #ifndef PROJET_QT_MODIFICATION_H
 #define PROJET_QT_MODIFICATION_H
 #include <iostream>
+#include <ctime>
 
 class Modification
 {

@@ -8,7 +8,7 @@
 #include <QGroupBox>
 #include <QGridLayout>
 #include "../Contact/StdListContact.h"
-#include "ListContactWidget.h"
+#include "../Interaction/ListInteractionWidget.h"
 #include <QMouseEvent>
 #include <QMenu>
 
@@ -26,14 +26,21 @@ public:
 
     void reactualiseDonne();
 
+    void cache();
+
+    ListInteractionWidget *getListInteractionWidget();
+
 
 private:
 
     void createUi();
 
+private:
     QGridLayout *layout{};
 
     StdContact *contact{};
+
+    ListInteractionWidget * listInteractionWidget{};
 
 
 };

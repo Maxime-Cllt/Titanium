@@ -9,7 +9,7 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
 {
 
     QList<Interaction *> list;
-    for (auto i: contact.getLstInteraction())
+    for (auto i: contact.getLstInteraction().getListInteraction())
     {
         list.push_back(i);
     }
@@ -17,20 +17,14 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
     return QtContact(QString::fromStdString(contact.getNom()), QString::fromStdString(contact.getPrenom()),
                      QString::fromStdString(contact.getEntreprise()), QString::fromStdString(contact.getMail()),
                      QString::fromStdString(contact.getTelephone()), QString::fromStdString(contact.getPhoto()),
-                     contact.getDateCreation(), {});
+                     contact.getDateCreation(), contact.getLstInteraction());
 }
 
 //Fonction pour traduire de C++ à Qt
 StdContact TraductionQtStd::QtFicheContactToStdFicheContact(const QtContact &contact)
 {
-    std::list<Interaction *> lst;
-    for (const auto i: contact.getLstInteraction())
-    {
-        lst.push_back(i);
-    }
-
     return StdContact(contact.getNom().toStdString(), contact.getPrenom().toStdString(),
                       contact.getEntreprise().toStdString(), contact.getMail().toStdString(),
                       contact.getTelephone().toStdString(), contact.getPhoto().toStdString(),
-                      contact.getDateCreation(), lst);
+                      contact.getDateCreation(), contact.getLstInteraction());
 }

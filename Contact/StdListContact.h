@@ -22,6 +22,8 @@ public:
 
     void addContact(const StdContact &contact);
 
+    void addContact(StdContact *contact);
+
     void addContact(const QtContact &contact);
 
     void supContact(StdContact *contact);

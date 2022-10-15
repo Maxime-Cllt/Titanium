@@ -12,7 +12,7 @@
 //Constructeur principal de la classe QtContact
 QtContact::QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
                      const QString &telephone, const QString &photo, const time_t &dateCreation,
-                     const QList<Interaction *> &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
+                     const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
                                                                    Mail(mail), Telephone(telephone), Photo(photo),
                                                                    DateCreation(dateCreation),
                                                                    lstInteraction(lstInteraction) {}
@@ -93,19 +93,19 @@ void QtContact::setPhoto(const QString &photo)
 QtContact::QtContact() {}
 
 //Getter de l'attribut lstInteraction
-const QList<Interaction *> QtContact::getLstInteraction() const
+const ListInteraction QtContact::getLstInteraction() const
 {
     return lstInteraction;
 }
 
 //Setter de l'attribut lstInteraction
-void QtContact::setLstInteraction(const QList<Interaction *> &lstInteraction)
+void QtContact::setLstInteraction(const ListInteraction &lstInteraction)
 {
     QtContact::lstInteraction = lstInteraction;
 }
 
 //Getter de l'attribut lstInteraction
-QList<Interaction *> *QtContact::getLstInteraction()
+ListInteraction *QtContact::getLstInteraction()
 {
     return &lstInteraction;
 }
@@ -125,7 +125,7 @@ void QtContact::setDateCreation(time_t dateCreation)
 
 QtContact::~QtContact()
 {
-    for(auto interaction : lstInteraction){
+    for(auto interaction : lstInteraction.getListInteraction()){
         delete interaction;
     }
 

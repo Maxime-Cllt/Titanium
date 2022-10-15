@@ -7,12 +7,14 @@
 #include <QLabel>
 #include "ModifContactDialog.h"
 #include "../Interaction/CreationInteractionDialog.h"
-#include "../Interaction/ListInteractionDialog.h"
+#include "../BaseDeDonne/BD.h"
+#include "../MainWindow/MainWindow.h"
+#include "ListContactWidget.h"
+
 
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    setMaximumHeight(200);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
 
     setObjectName("GroupBoxContact");
 
@@ -24,9 +26,8 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 
     for (auto lab: findChildren<QLabel *>())
     {
-        lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        lab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     }
-
 }
 
 
@@ -36,11 +37,14 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
     setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray;border-radius: 10px; color: white;}");
     if (event->button() == Qt::RightButton)
     {
+        listInteractionWidget->hide();
+        findChildren<QLabel *>().last()->setText("0");
+
         auto *menu = new QMenu(this);
 
         auto *action1 = new QAction("Ajouter une interaction");
 
-        auto *action2 = new QAction("Liste des interactions");
+        auto *action2 = new QAction("Modifier");
 
         auto *action3 = new QAction("Supprimer");
 
@@ -56,15 +60,20 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         connect(action2, &QAction::triggered, this, [=]()
         {
-            ListInteractionDialog diag(contact->getLstInteraction(), this);
-            diag.exec();
+            ModifContactDialog modif(this->contact, this);
+            modif.exec();
         });
 
         connect(action3, &QAction::triggered, this, [=]()
         {
             BD::supContact(*contact);
             auto *mainWindow = new QObject(this);
-            while (mainWindow->parent()) { mainWindow = mainWindow->parent(); }
+            while (mainWindow->parent())
+            {
+                mainWindow = mainWindow->parent();
+                if (strcmp(mainWindow->metaObject()->className(), "MainWindow") == 0)
+                    break;
+            }
             qobject_cast<MainWindow *>(mainWindow)->getLstContact()->supContact(contact);
             close();
             delete contact;
@@ -73,7 +82,6 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         menu->exec(event->globalPosition().toPoint());
 
         setStyleSheet("");
-
     }
 }
 
@@ -83,11 +91,19 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
     QGroupBox::mouseReleaseEvent(event);
     if (event->button() == Qt::LeftButton)
     {
-        setStyleSheet("");
-
-        ModifContactDialog modif(this->contact, this);
-        modif.setModal(true);
-        modif.exec();
+        if (!listInteractionWidget)
+            listInteractionWidget = new ListInteractionWidget(contact->getLstInteraction(), this);
+        else
+            listInteractionWidget->show();
+        auto *listContactWidget = new QWidget(this);
+        while (listContactWidget->parentWidget())
+        {
+            listContactWidget = listContactWidget->parentWidget();
+            if (strcmp(listContactWidget->metaObject()->className(), "ListContactWidget") == 0)
+                break;
+        }
+        qobject_cast<ListContactWidget *>(listContactWidget)->setLastConctactselected(this);
+        findChildren<QLabel *>().last()->setText(">>");
     }
 
 }
@@ -118,5 +134,21 @@ void GroupeBoxContact::createUi()
     layout->addWidget(new QLabel("Mail : " + qtContact.getMail(), this), 1, 1);
     layout->addWidget(new QLabel("Téléphone : " + qtContact.getTelephone(), this), 1, 2);
 
+    auto lab = new QLabel("" , this);
+    lab->setScaledContents(true);
+    layout->addWidget(lab, 0, 3);
+
+}
+
+void GroupeBoxContact::cache()
+{
+    listInteractionWidget->hide();
+    setStyleSheet("");
+    findChildren<QLabel *>().last()->setText("");
+}
+
+ListInteractionWidget *GroupeBoxContact::getListInteractionWidget()
+{
+    return listInteractionWidget;
 }
 

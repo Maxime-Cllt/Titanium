@@ -10,6 +10,7 @@
 #include <QWidget>
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
+#include "../ListContact/ListContactWidget.h"
 #include "../Modification/ModificationMap.h"
 
 class MainWindow : public QMainWindow
@@ -20,7 +21,15 @@ public:
 
     StdListContact *getLstContact();
 
+    void addContact(const StdContact &contact);
+
+    void setListInteractionWidget(QWidget *widget);
+
 private:
+    QHBoxLayout * layout{};
+
+    ListContactWidget *listContactWidget{};
+
     StdListContact *lstContact{};
     ModificationMap *modificationMap{};
     BD *bd{};
