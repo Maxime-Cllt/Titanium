@@ -10,7 +10,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QList>
-
+#include <QLocale>
 
 QHBoxLayout *getLay(const QList<QWidget *> &list);
 
