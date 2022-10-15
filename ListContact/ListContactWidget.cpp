@@ -2,29 +2,18 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#include "ModificationDialog.h"
+#include "ListContactWidget.h"
 #include "GroupeBoxContact.h"
 #include <QLabel>
 #include <QLineEdit>
 
-ModificationDialog::ModificationDialog(QWidget *parent) : QDialog(parent)
+ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
 {
-    setModal(true);
-
     setMinimumSize(QSize(500, 500));
 
+    setContentsMargins(0,0,0,0);
+
     lay = new QVBoxLayout(this);
-
-    auto *layTop = new QHBoxLayout;
-
-    layTop->addWidget(new QLabel("Rechercher un contact : "));
-
-    auto *lineRecherche = new QLineEdit(this);
-    lineRecherche->setPlaceholderText("toto");
-
-    layTop->addWidget(lineRecherche);
-
-    lay->addLayout(layTop);
 
     scrollArea = new QScrollArea(this);
     scrollArea->setStyleSheet("QScrollArea{border: none;}");

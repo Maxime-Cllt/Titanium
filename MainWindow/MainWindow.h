@@ -10,6 +10,7 @@
 #include <QWidget>
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
+#include "../Modification/ModificationMap.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,12 +20,13 @@ public:
 
     StdListContact *getLstContact();
 
-
 private:
     StdListContact *lstContact{};
-    QGridLayout *layout{};
-    QWidget *central{};
+    ModificationMap *modificationMap{};
     BD *bd{};
+public:
+    ModificationMap *getModificationMap() const;
+
 protected:
     void closeEvent(QCloseEvent *event) override;
 

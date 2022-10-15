@@ -34,12 +34,18 @@ BD::BD(QObject *parent) : QObject(parent)
                    "Mail VARCHAR(255) not null,"
                    "Telephone VARCHAR(10) not null,"
                    "Photo TEXT not null,"
-                   "DateCreation INT not null"
+                   "DateCreation BIGINT not null"
+                   ");");
+
+        query.exec("CREATE TABLE IF NOT EXISTS MODIFICATIONS("
+                   "IdContact BIGINT not null,"
+                   "DateModification BIGINT not null,"
+                   "Modification TEXT"
                    ");");
     }
 }
 
-void BD::addOnBD(const StdContact &contact)
+void BD::addContactOnBD(const StdContact &contact)
 {
 
     QSqlQuery query;
@@ -64,11 +70,20 @@ void BD::addOnBD(const StdContact &contact)
     query.exec();
 }
 
-void BD::addOnBD(StdListContact *stdListContact)
+void BD::addContactOnBD(StdListContact *stdListContact)
 {
     for (const auto contact: *stdListContact->getLstContact())
-        addOnBD(*contact);
+        addContactOnBD(*contact);
 
+}
+
+void BD::addModif(long idContact, const std::string& modif){
+    QSqlQuery query("INSERT INTO MODIFICATIONS "
+                    "(IdContact, DateModification,Modification) "
+                    "VALUES (? , ? , ?)");
+    query.addBindValue(QString::number(idContact));
+    query.addBindValue(QString::fromStdString(modif));
+    query.addBindValue("?");
 }
 
 StdListContact BD::getData()

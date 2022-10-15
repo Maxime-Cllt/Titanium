@@ -16,11 +16,11 @@ Q_OBJECT
 public:
     explicit BD(QObject *parent = nullptr);
 
-    static void addOnBD(StdListContact *lstContact);
+    static void addContactOnBD(StdListContact *lstContact);
 
     static StdListContact getData();
 
-    static void addOnBD(const StdContact &contact);
+    static void addContactOnBD(const StdContact &contact);
 
     static void supContact(const StdContact &contact);
 
@@ -29,6 +29,7 @@ public:
 private:
     QSqlDatabase db;
 
+    void addModif(long idContact, const std::string& modif);
 };
 
 

@@ -5,19 +5,19 @@
 #ifndef UNTITLED2_MODIFICATIONDIALOG_H
 #define UNTITLED2_MODIFICATIONDIALOG_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QScrollArea>
 #include <QLayout>
 #include "../MainWindow/MainWindow.h"
 #include "../Contact/TraductionQtStd.h"
 
 
-class ModificationDialog : public QDialog
+class ListContactWidget : public QWidget
 {
 Q_OBJECT
 
 public:
-    explicit ModificationDialog(QWidget *parent);
+    explicit ListContactWidget(QWidget *parent);
 
 private:
     QVBoxLayout *lay{};

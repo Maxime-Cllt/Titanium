@@ -24,6 +24,7 @@ CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(pa
 
 
     btAction->setText("Ajouter");
+    btAction->setShortcut(Qt::Key_Enter);
 
 }
 
@@ -70,9 +71,11 @@ void CreationContactDialog::btActionClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
+        auto *mainWindow = new QObject(this);
+        while (mainWindow->parent()) { mainWindow = mainWindow->parent(); }
         QtContact qtContact(getContact(time(nullptr), {}));
-        qobject_cast<MainWindow *>(parent())->getLstContact()->addContact(qtContact);
-        BD::addOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
+        qobject_cast<MainWindow *>(mainWindow)->getLstContact()->addContact(qtContact);
+        BD::addContactOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)
         {

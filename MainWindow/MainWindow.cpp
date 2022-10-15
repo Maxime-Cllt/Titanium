@@ -5,35 +5,23 @@
 #include "MainWindow.h"
 #include <QPushButton>
 #include "../CreationContact/CreationContactDialog.h"
-#include "../ModificationContact/ModificationDialog.h"
+#include "../ListContact/ListContactWidget.h"
+#include "../MenuBar/MenuBar.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     bd = new BD;
+    modificationMap = new ModificationMap;
+
+    setMenuBar(new MenuBar(this));
 
     lstContact = new StdListContact(BD::getData());
     setWindowTitle("Projet");
-    central = new QWidget();
-    layout = new QGridLayout(central);
+    auto *central = new QWidget();
+    auto *layout = new QHBoxLayout(central);
     setCentralWidget(central);
 
-    auto *bt = new QPushButton("ajout contact");
-    layout->addWidget(bt, 0, 0);
-    connect(bt, &QPushButton::clicked, this, [=]()
-    {
-        CreationContactDialog fiche(this);
-        fiche.show();
-        fiche.exec();
-    });
-
-    auto *bt1 = new QPushButton("liste des contact");
-    layout->addWidget(bt1, 1, 0);
-    connect(bt1, &QPushButton::clicked, this, [=]()
-    {
-        ModificationDialog modificationWidget(this);
-        modificationWidget.show();
-        modificationWidget.exec();
-    });
+    layout->addWidget(new ListContactWidget(this));
 
 
 }
@@ -47,4 +35,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
     delete lstContact;
+}
+
+ModificationMap *MainWindow::getModificationMap() const
+{
+    return modificationMap;
 }
