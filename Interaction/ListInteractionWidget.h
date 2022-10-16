@@ -29,6 +29,7 @@ public:
     ListInteraction *getLstInteraction() const;
 
 private slots:
+
     void ajoutInteraction();
 
 };

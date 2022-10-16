@@ -23,7 +23,7 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setWidgetResizable(true);
     scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Expanding);
+    scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     lay->addWidget(scrollArea);
 

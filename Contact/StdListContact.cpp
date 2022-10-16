@@ -12,18 +12,21 @@ void StdListContact::addContact(const StdContact &contact)
 {
     lstContact.push_back(new StdContact(contact));
 }
+
 //Fonction pour ajouter un contact
 void StdListContact::addContact(const QtContact &contact)
 {
     lstContact.push_back(new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(contact)));
 }
+
 //Getter de l'attribut lstContact
 std::list<StdContact *> *StdListContact::getLstContact()
 {
     return &lstContact;
 }
 
-void StdListContact::addContact(StdContact *contact){
+void StdListContact::addContact(StdContact *contact)
+{
     lstContact.push_back(contact);
 
 }
@@ -36,6 +39,7 @@ std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
     }
     return os;
 }
+
 //Fonction pour supprimer un contact
 void StdListContact::supContact(StdContact *contact)
 {
@@ -45,7 +49,8 @@ void StdListContact::supContact(StdContact *contact)
 //Destructeur de StdListContact
 StdListContact::~StdListContact()
 {
-    for(auto contact : lstContact){
+    for (auto contact: lstContact)
+    {
         delete contact;
     }
 }

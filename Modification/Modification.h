@@ -4,13 +4,14 @@
 
 #ifndef PROJET_QT_MODIFICATION_H
 #define PROJET_QT_MODIFICATION_H
+
 #include <iostream>
 #include <ctime>
 
 class Modification
 {
 public:
-    explicit Modification(const std::time_t &dateCreationContact,std::string contenuModif);
+    explicit Modification(const std::time_t &dateCreationContact, std::string contenuModif);
 
 private:
     std::string contenuModif;

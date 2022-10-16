@@ -4,17 +4,19 @@
 
 #include "ModificationMap.h"
 
-ModificationMap::ModificationMap(){}
+ModificationMap::ModificationMap()
+{}
 
 void ModificationMap::addModif(const Modification &modification)
 {
-    lst.insert_or_assign(time(nullptr),new Modification(modification));
+    lst.insert_or_assign(time(nullptr), new Modification(modification));
 }
 
 ModificationMap::~ModificationMap()
 {
 
-    for(auto [key, elmt] : lst){
+    for (auto [key, elmt]: lst)
+    {
         delete elmt;
     }
 }

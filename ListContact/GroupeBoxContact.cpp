@@ -134,7 +134,7 @@ void GroupeBoxContact::createUi()
     layout->addWidget(new QLabel("Mail : " + qtContact.getMail(), this), 1, 1);
     layout->addWidget(new QLabel("Téléphone : " + qtContact.getTelephone(), this), 1, 2);
 
-    auto lab = new QLabel("" , this);
+    auto lab = new QLabel("", this);
     lab->setScaledContents(true);
     layout->addWidget(lab, 0, 3);
 

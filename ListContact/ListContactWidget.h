@@ -21,6 +21,7 @@ public:
     explicit ListContactWidget(QWidget *parent);
 
     void addContactBox(StdContact *contact);
+
     void setLastConctactselected(GroupeBoxContact *lastConctactselected);
 
 private:

@@ -7,9 +7,9 @@
 
 #include <QMenuBar>
 
-class MenuBar :public QMenuBar
+class MenuBar : public QMenuBar
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit MenuBar(QWidget *parent);

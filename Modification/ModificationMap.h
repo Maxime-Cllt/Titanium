@@ -13,12 +13,13 @@ class ModificationMap
 {
 public:
     explicit ModificationMap();
+
     ~ModificationMap();
 
     void addModif(const Modification &modification);
 
 private:
-    std::map<time_t, Modification*> lst;
+    std::map<time_t, Modification *> lst;
 
 };
 

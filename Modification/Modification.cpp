@@ -6,7 +6,9 @@
 
 #include <utility>
 
-Modification::Modification(const std::time_t &dateCreationContact,std::string contenuModif) :  dateCreationContact(dateCreationContact), contenuModif(std::move(contenuModif)){
+Modification::Modification(const std::time_t &dateCreationContact, std::string contenuModif) : dateCreationContact(
+        dateCreationContact), contenuModif(std::move(contenuModif))
+{
 
 
 }

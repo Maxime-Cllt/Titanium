@@ -40,7 +40,7 @@ private:
 
     StdContact *contact{};
 
-    ListInteractionWidget * listInteractionWidget{};
+    ListInteractionWidget *listInteractionWidget{};
 
 
 };

@@ -26,7 +26,7 @@ public:
     void setListInteractionWidget(QWidget *widget);
 
 private:
-    QHBoxLayout * layout{};
+    QHBoxLayout *layout{};
 
     ListContactWidget *listContactWidget{};
 
