@@ -11,11 +11,12 @@
 
 //Constructeur principal de la classe QtContact
 QtContact::QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
-                     const QString &telephone, const QString &photo, const time_t &dateCreation,
+                     const QString &telephone, const QString &photo, const uint64_t &dateCreation,
                      const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
-                                                                   Mail(mail), Telephone(telephone), Photo(photo),
-                                                                   DateCreation(dateCreation),
-                                                                   lstInteraction(lstInteraction) {}
+                                                              Mail(mail), Telephone(telephone), Photo(photo),
+                                                              DateCreation(dateCreation),
+                                                              lstInteraction(new ListInteraction(lstInteraction))
+{}
 
 //Getter de l'attribut Nom
 const QString &QtContact::getNom() const
@@ -90,44 +91,42 @@ void QtContact::setPhoto(const QString &photo)
 }
 
 //Constructeur par défaut de la classe QtContact
-QtContact::QtContact() {}
+QtContact::QtContact()
+{}
 
 //Getter de l'attribut lstInteraction
 const ListInteraction QtContact::getLstInteraction() const
 {
-    return lstInteraction;
+    return *lstInteraction;
 }
 
 //Setter de l'attribut lstInteraction
 void QtContact::setLstInteraction(const ListInteraction &lstInteraction)
 {
-    QtContact::lstInteraction = lstInteraction;
+    QtContact::lstInteraction = new ListInteraction(lstInteraction);
 }
 
 //Getter de l'attribut lstInteraction
 ListInteraction *QtContact::getLstInteraction()
 {
-    return &lstInteraction;
+    return lstInteraction;
 }
 
 //Getter de l'attribut DateCreation
 
-time_t QtContact::getDateCreation() const
+uint64_t QtContact::getDateCreation() const
 {
     return DateCreation;
 }
 
 //Setter de l'attribut DateCreation
-void QtContact::setDateCreation(time_t dateCreation)
+void QtContact::setDateCreation(uint64_t dateCreation)
 {
     DateCreation = dateCreation;
 }
 
 QtContact::~QtContact()
 {
-    for(auto interaction : lstInteraction.getListInteraction()){
-        delete interaction;
-    }
-
+    delete lstInteraction;
 }
 

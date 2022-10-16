@@ -12,7 +12,9 @@
 class ListInteraction
 {
 public:
-    ListInteraction(std::time_t id);
+    ListInteraction(uint64_t id);
+
+    ListInteraction(const ListInteraction &);
 
     explicit ListInteraction();
 
@@ -20,18 +22,20 @@ public:
 
     void addInteraction(Interaction *interaction);
 
-    void supInteraction(Interaction * interaction);
+    void addInteraction(const Interaction &interaction);
 
-    time_t getContactId() const;
+    void supInteraction(Interaction *interaction);
 
-    void setContactId(time_t contactId);
+    uint64_t getContactId() const;
+
+    void setContactId(uint64_t contactId);
 
     const std::list<Interaction *> &getListInteraction() const;
 
     void setListInteraction(const std::list<Interaction *> &listInteraction);
 
 private:
-    std::time_t contactId{};
+    uint64_t contactId{};
     std::list<Interaction *> listInteraction{};
 };
 

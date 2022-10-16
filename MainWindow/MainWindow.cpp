@@ -17,12 +17,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setMenuBar(new MenuBar(this));
 
-    lstContact = new StdListContact(BD::getData());
+    lstContact = new StdListContact(BD::getContactData());
+
     setWindowTitle("Projet");
     auto *central = new QWidget();
     layout = new QHBoxLayout(central);
     setCentralWidget(central);
-
 
 
     listContactWidget = new ListContactWidget(this);

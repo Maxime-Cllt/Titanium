@@ -18,7 +18,8 @@ public:
 
     static void addContactOnBD(StdListContact *lstContact);
 
-    static StdListContact getData();
+    static StdListContact getContactData();
+
 
     static void addContactOnBD(const StdContact &contact);
 
@@ -26,11 +27,16 @@ public:
 
     static bool modifyContact(const StdContact &contact);
 
-    void addModif(long idContact, const std::string& modif);
+    void addModif(uint64_t idContact, const std::string &modif);
 
-    static void addInteraction(long idContact, const Interaction&);
-    static void modifyInteraction(long idContact, const Interaction&);
-    static void supInteraction(long idContact, const Interaction&);
+    static void addInteraction(uint64_t idContact, const Interaction &);
+
+    static void modifyInteraction(const Interaction &);
+
+    static void supInteraction(const Interaction &);
+
+private:
+    static ListInteraction getListInteractionData(const uint64_t &idContact);
 
 private:
     QSqlDatabase db;

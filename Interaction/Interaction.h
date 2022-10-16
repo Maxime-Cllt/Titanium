@@ -18,17 +18,16 @@ public:
     explicit Interaction();
 
 private:
-    std::time_t date{};
     std::string contenu{};
-
+    uint64_t id{};
 public:
+    uint64_t getId() const;
+
+    void setId(uint64_t id);
+
     const std::string &getContenu() const;
 
     void setContenu(const std::string &contenu);
-
-    const std::time_t &getDate() const;
-
-    void setDate(time_t date);
 
 };
 

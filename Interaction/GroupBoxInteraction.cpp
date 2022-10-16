@@ -15,7 +15,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 {
     QLocale local(QLocale::Language::French);
     QDateTime date;
-    date.setMSecsSinceEpoch(interaction->getDate() * 1000);
+    date.setMSecsSinceEpoch(interaction->getId());
     setTitle(local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -53,21 +53,22 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
     connect(modifBtn, &QPushButton::clicked, this, [=]()
     {
         interaction->setContenu(textEdit->document()->toRawText().toStdString());
-        interaction->setDate(std::time_t(time(nullptr)));
         QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
+        BD::modifyInteraction(*interaction);
     });
 
     connect(supBtn, &QPushButton::clicked, this, [=]()
     {
         auto *lstInteractionWidget = new QWidget(this);
         while (lstInteractionWidget->parentWidget())
-        { lstInteractionWidget = lstInteractionWidget->parentWidget();
-            if(strcmp(lstInteractionWidget->metaObject()->className(),"ListInteractionWidget") == 0)
+        {
+            lstInteractionWidget = lstInteractionWidget->parentWidget();
+            if (strcmp(lstInteractionWidget->metaObject()->className(), "ListInteractionWidget") == 0)
                 break;
         }
         qobject_cast<ListInteractionWidget *>(lstInteractionWidget)->getLstInteraction()->supInteraction(interaction);
 
-        BD::supInteraction(qobject_cast<ListInteractionWidget *>(lstInteractionWidget)->getLstInteraction()->getContactId(),*interaction);
+        BD::supInteraction(*interaction);
         delete interaction;
         close();
     });

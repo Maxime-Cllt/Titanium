@@ -15,8 +15,7 @@ CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(pa
     connect(timer, &QTimer::timeout, this, [this]()
     {
         QDateTime date;
-        long t = time(nullptr) * 1000;
-        date.setMSecsSinceEpoch(t);
+        date.setMSecsSinceEpoch(time(nullptr) * 1000);
         QLocale local(QLocale::Language::French);
         labDateCreation->setText(local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
     });
@@ -71,17 +70,19 @@ void CreationContactDialog::btActionClicked()
         QMessageBox::critical(this, "Erreur", mess);
     } else
     {
-        auto *mainWindow = new QObject(this);
-        while (mainWindow->parent())
-        { mainWindow = mainWindow->parent();
-            if(strcmp(mainWindow->metaObject()->className(),"MainWindow") == 0)
+        auto *mainWindow = new QWidget(this);
+        while (mainWindow->parentWidget())
+        {
+            mainWindow = mainWindow->parentWidget();
+            if (strcmp(mainWindow->metaObject()->className(), "MainWindow") == 0)
                 break;
         }
 
-        QtContact qtContact(getContact(time(nullptr)));
+        uint64_t time = duration_cast<std::chrono::milliseconds>(
+                std::chrono::system_clock::now().time_since_epoch()).count();
+        QtContact qtContact(getContact(time));
 
         qobject_cast<MainWindow *>(mainWindow)->addContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
-        qDebug()<< qtContact.getLstInteraction()->getContactId() << TraductionQtStd::QtFicheContactToStdFicheContact(qtContact).getLstInteraction()->getContactId();
         BD::addContactOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
 
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");

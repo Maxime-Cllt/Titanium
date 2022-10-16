@@ -17,7 +17,7 @@ class StdContact
 public:
     StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                const std::string &mail, const std::string &telephone, const std::string &photo,
-               const time_t &dateCreation, const ListInteraction &lstInteraction);
+               const uint64_t &dateCreation, const ListInteraction &lstInteraction);
 
     explicit StdContact();
 
@@ -30,8 +30,8 @@ private:
     std::string Mail;
     std::string Telephone;
     std::string Photo;
-    std::time_t DateCreation;
-    ListInteraction lstInteraction;
+    uint64_t DateCreation;
+    ListInteraction *lstInteraction;
 public:
 
     friend std::ostream &operator<<(std::ostream &os, const StdContact &contact);
@@ -60,15 +60,17 @@ public:
 
     void setPhoto(const std::string &photo);
 
-    const time_t &getDateCreation() const;
+    const uint64_t &getDateCreation() const;
 
-    void setDateCreation(const time_t &dateCreation);
+    void setDateCreation(const uint64_t &dateCreation);
 
     const ListInteraction &getLstInteraction() const;
 
     ListInteraction *getLstInteraction();
 
     void setlstInteraction(const ListInteraction &lstInteraction);
+
+    void setlstInteraction(ListInteraction *lstInteraction);
 
     void addInteraction(const Interaction &interaction);
 

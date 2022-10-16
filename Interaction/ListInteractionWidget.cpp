@@ -7,13 +7,13 @@
 #include "GroupBoxInteraction.h"
 #include "../BaseDeDonne/BD.h"
 
-ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QWidget *parent)
-        : lstInteraction(lstInteraction), QWidget(parent)
+ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QWidget *parent) : lstInteraction(
+        lstInteraction), QWidget(parent)
 {
     auto *layout = new QVBoxLayout(this);
 
     ajoutBtn = new QPushButton("Ajouter", this);
-    setMinimumWidth(320);
+    setMinimumWidth(350);
     ajoutBtn->setDefault(true);
 
     connect(ajoutBtn, &QPushButton::clicked, this, &ListInteractionWidget::ajoutInteraction);
@@ -47,7 +47,7 @@ void ListInteractionWidget::ajoutInteraction()
     auto *interaction = new Interaction;
     lstInteraction->addInteraction(interaction);
     layoutScroll->addWidget(new GroupBoxInteraction(interaction, this));
-    BD::addInteraction(lstInteraction->getContactId(),*interaction);
+    BD::addInteraction(lstInteraction->getContactId(), *interaction);
 }
 
 ListInteraction *ListInteractionWidget::getLstInteraction() const

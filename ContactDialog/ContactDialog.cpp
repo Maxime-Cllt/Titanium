@@ -76,7 +76,8 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     {
         line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     }
-    for (auto *lab: findChildren<QLabel *>()) { lab->setMinimumWidth(100); }
+    for (auto *lab: findChildren<QLabel *>())
+    { lab->setMinimumWidth(100); }
 
 }
 
@@ -103,10 +104,10 @@ void ContactDialog::btActionClicked()
 {
 }
 
-QtContact ContactDialog::getContact(long time)
+QtContact ContactDialog::getContact(uint64_t time)
 {
-    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(),
-                     time, ListInteraction(time));
+    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), time,
+                     ListInteraction(time));
 }
 
 

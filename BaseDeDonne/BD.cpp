@@ -45,6 +45,7 @@ BD::BD(QObject *parent) : QObject(parent)
 
         query.exec("CREATE TABLE IF NOT EXISTS INTERACTIONS("
                    "IdContact BIGINT not null,"
+                   "IdInteraction BIGINT not null,"
                    "Contenu TEXT"
                    ");");
     }
@@ -82,7 +83,7 @@ void BD::addContactOnBD(StdListContact *stdListContact)
 
 }
 
-void BD::addModif(long idContact, const std::string &modif)
+void BD::addModif(uint64_t idContact, const std::string &modif)
 {
     QSqlQuery query("INSERT INTO MODIFICATIONS "
                     "(IdContact, DateModification,Modification) "
@@ -92,11 +93,12 @@ void BD::addModif(long idContact, const std::string &modif)
     query.addBindValue("?");
 }
 
-StdListContact BD::getData()
+StdListContact BD::getContactData()
 {
     StdListContact lst;
 
     QSqlQuery query("SELECT * FROM CONTACTS");
+
 
     while (query.next())
     {
@@ -107,6 +109,8 @@ StdListContact BD::getData()
         qtContact.setMail(query.value(3).toString());
         qtContact.setTelephone(query.value(4).toString());
         qtContact.setPhoto(query.value(5).toString());
+
+        qtContact.setLstInteraction(getListInteractionData(query.value(6).toLongLong()));
 
         StdContact contact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
         contact.setDateCreation(query.value(6).toLongLong());
@@ -170,26 +174,47 @@ bool BD::modifyContact(const StdContact &contact)
     return false;
 }
 
-void BD::addInteraction(long idContact, const Interaction& interaction)
+void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
 {
-    QSqlQuery query("INSERT INTO INTERACTIONS (IdContact , Contenu) VALUES ( ? , ?)");
+    QSqlQuery query("INSERT INTO INTERACTIONS (IdContact ,IdInteraction, Contenu) VALUES ( ?, ? , ?)");
     query.addBindValue(QString::number(idContact));
+    query.addBindValue(QString::number(interaction.getId()));
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.exec();
 }
 
-void BD::supInteraction(long idContact, const Interaction& interaction)
+void BD::supInteraction(const Interaction &interaction)
 {
-    QSqlQuery query("DELETE FROM INTERACTIONS WHERE ? = IdContact and ? = Contenu");
-    query.addBindValue(QString::number(idContact));
-    query.addBindValue(QString::fromStdString(interaction.getContenu()));
+    QSqlQuery query("DELETE FROM INTERACTIONS WHERE ? = IdInteraction");
+    query.addBindValue(QString::number(interaction.getId()));
     query.exec();
 }
 
-void BD::modifyInteraction(long idContact, const Interaction& interaction)
+void BD::modifyInteraction(const Interaction &interaction)
 {
-    QSqlQuery query("UPDATE FROM INTERACTIONS WHERE ? = IdContact and ? = Contenu");
-    query.addBindValue(QString::number(idContact));
+    QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ? WHERE ? = IdInteraction");
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
+    query.addBindValue(QString::number(interaction.getId()));
     query.exec();
+}
+
+ListInteraction BD::getListInteractionData(const uint64_t &idContact)
+{
+    QSqlQuery query("SELECT * FROM INTERACTIONS WHERE ? = IdContact");
+    query.addBindValue(QString::number(idContact));
+
+    ListInteraction listInteraction(idContact);
+
+    query.exec();
+
+    while (query.next())
+    {
+        Interaction interaction;
+
+        interaction.setId(query.value(1).toLongLong());
+        interaction.setContenu(query.value(2).toString().toStdString());
+        listInteraction.addInteraction(interaction);
+    }
+
+    return listInteraction;
 }

@@ -2,18 +2,15 @@
 // Created by rahman on 09/10/22.
 //
 
+#include <chrono>
 #include "Interaction.h"
-
-const std::time_t &Interaction::getDate() const
-{
-    return date;
-}
 
 Interaction::Interaction(const std::string &contenu)
 {
     this->contenu = contenu;
 
-    date = std::time(nullptr);   // recuperation de la date de maintenant
+    id = duration_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();// recuperation de la date de maintenant
 }
 
 const std::string &Interaction::getContenu() const
@@ -26,12 +23,19 @@ void Interaction::setContenu(const std::string &contenu)
     Interaction::contenu = contenu;
 }
 
-void Interaction::setDate(time_t date)
+Interaction::Interaction()
 {
-    Interaction::date = date;
+    this->contenu = "";
+    id = duration_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();// recuperation de la date de maintenant
 }
 
-Interaction::Interaction(){
-    this->contenu = "";
-    date = std::time(nullptr);
+uint64_t Interaction::getId() const
+{
+    return id;
+}
+
+void Interaction::setId(uint64_t id)
+{
+    Interaction::id = id;
 }

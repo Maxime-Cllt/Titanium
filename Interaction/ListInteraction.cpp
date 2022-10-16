@@ -4,7 +4,7 @@
 
 #include "ListInteraction.h"
 
-ListInteraction::ListInteraction(std::time_t id) : contactId(id)
+ListInteraction::ListInteraction(uint64_t id) : contactId(id)
 {
 
 }
@@ -19,12 +19,12 @@ void ListInteraction::supInteraction(Interaction *interaction)
     listInteraction.remove(interaction);
 }
 
-time_t ListInteraction::getContactId() const
+uint64_t ListInteraction::getContactId() const
 {
     return contactId;
 }
 
-void ListInteraction::setContactId(time_t contactId)
+void ListInteraction::setContactId(uint64_t contactId)
 {
     ListInteraction::contactId = contactId;
 }
@@ -41,8 +41,7 @@ void ListInteraction::setListInteraction(const std::list<Interaction *> &listInt
 
 ListInteraction::~ListInteraction()
 {
-
-    for (auto interaction : listInteraction )
+    for (auto interaction: listInteraction)
     {
         delete interaction;
     }
@@ -51,4 +50,19 @@ ListInteraction::~ListInteraction()
 ListInteraction::ListInteraction()
 {
 
+}
+
+void ListInteraction::addInteraction(const Interaction &interaction)
+{
+    listInteraction.push_back(new Interaction(interaction));
+
+}
+
+ListInteraction::ListInteraction(const ListInteraction &lst)
+{
+    for (auto inter: lst.getListInteraction())
+    {
+        addInteraction(*inter);
+    }
+    contactId = lst.getContactId();
 }
