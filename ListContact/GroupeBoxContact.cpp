@@ -47,8 +47,10 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
     setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray;border-radius: 10px; color: white;}");
     if (event->button() == Qt::RightButton)
     {
-        listInteractionWidget->hide();
-        findChildren<QLabel *>().last()->setText("0");
+        if (listInteractionWidget != nullptr)
+            listInteractionWidget->hide();
+
+        findChildren<QLabel *>().last()->setText("");
 
         auto *menu = new QMenu(this);
 
