@@ -6,6 +6,11 @@
 
 #include <utility>
 
+/**
+ * Constructeur de la classe Modification
+ * @param dateCreationContact
+ * @param contenuModif
+ */
 Modification::Modification(const std::time_t &dateCreationContact, std::string contenuModif) : dateCreationContact(
         dateCreationContact), contenuModif(std::move(contenuModif))
 {
@@ -13,21 +18,37 @@ Modification::Modification(const std::time_t &dateCreationContact, std::string c
 
 }
 
+/**
+ *
+ * @return contenuModif
+ */
 const std::string &Modification::getContenuModif() const
 {
     return contenuModif;
 }
 
+/**
+ *
+ * @param contenuModif
+ */
 void Modification::setContenuModif(const std::string &contenuModif)
 {
     Modification::contenuModif = contenuModif;
 }
 
+/**
+ *
+ * @return dateCreationContact
+ */
 time_t Modification::getDateCreationContact() const
 {
     return dateCreationContact;
 }
 
+/**
+ *
+ * @param dateCreationContact
+ */
 void Modification::setDateCreationContact(time_t dateCreationContact)
 {
     Modification::dateCreationContact = dateCreationContact;

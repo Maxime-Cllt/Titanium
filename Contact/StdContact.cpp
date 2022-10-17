@@ -2,10 +2,21 @@
 // Created by Rahman  Yilmaz on 07/10/2022.
 //
 
+
 #include "StdContact.h"
 #include "QtContact.h"
 
-//Constructeur de StdContact
+/**
+ * Constructeur de la classe StdContact
+ * @param nom
+ * @param prenom
+ * @param entreprise
+ * @param mail
+ * @param telephone
+ * @param photo
+ * @param dateCreation
+ * @param lstInteraction
+ */
 StdContact::StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                        const std::string &mail, const std::string &telephone, const std::string &photo,
                        const uint64_t &dateCreation, const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom),
@@ -21,105 +32,158 @@ StdContact::StdContact(const std::string &nom, const std::string &prenom, const 
 {
 }
 
-//Constructeur de StdContact par defaut
 
 
-//Getter de l'attribut Nom
+/**
+ *
+ * @return Nom du StdContact
+ */
 const std::string &StdContact::getNom() const
 {
     return Nom;
 }
 
-//Setter de l'attribut Nom
+/**
+ *
+ * @param Nom du StdContact
+ */
 void StdContact::setNom(const std::string &nom)
 {
     Nom = nom;
 }
 
-//Getter de l'attribut Prenom
+/**
+ *
+ * @return Prenom du StdContact
+ */
 const std::string &StdContact::getPrenom() const
 {
     return Prenom;
 }
 
-//Setter de l'attribut Prenom
+/**
+ *
+ * @param Prenom du StdContact
+ */
 void StdContact::setPrenom(const std::string &prenom)
 {
     Prenom = prenom;
 }
 
-//Getter de l'attribut Entreprise
+/**
+ *
+ * @return Entreprise du StdContact
+ */
 const std::string &StdContact::getEntreprise() const
 {
     return Entreprise;
 }
 
-//Setter de l'attribut Entreprise
+/**
+ *
+ * @param entreprise du StdContact
+ */
 void StdContact::setEntreprise(const std::string &entreprise)
 {
     Entreprise = entreprise;
 }
 
-//Getter de l'attribut Mail
+/**
+ *
+ * @return Mail du StdContact
+ */
 const std::string &StdContact::getMail() const
 {
     return Mail;
 }
 
-//Setter de l'attribut Mail
+/**
+ *
+ * @param mail du StdContact
+ */
 void StdContact::setMail(const std::string &mail)
 {
     Mail = mail;
 }
 
-//Getter de l'attribut Telephone
+/**
+ *
+ * @return Telephone du StdContact
+ */
 const std::string &StdContact::getTelephone() const
 {
     return Telephone;
 }
 
-//Setter de l'attribut Telephone
+/**
+ *
+ * @param telephone du StdContact
+ */
 void StdContact::setTelephone(const std::string &telephone)
 {
     Telephone = telephone;
 }
 
-//Getter de l'attribut Photo
+/**
+ *
+ * @return Photo du StdContact
+ */
 const std::string &StdContact::getPhoto() const
 {
     return Photo;
 }
 
-//Setter de l'attribut photo
+/**
+ *
+ * @param photo du StdContact
+ */
 void StdContact::setPhoto(const std::string &photo)
 {
     Photo = photo;
 }
 
-//Getter de l'attribut DateCreation
+/**
+ *
+ * @return DateCreation du StdContact
+ */
 const uint64_t &StdContact::getDateCreation() const
 {
     return DateCreation;
 }
 
-//Setter de l'attribut dateCreation
+/**
+ *
+ * @param dateCreation du StdContact
+ */
 void StdContact::setDateCreation(const uint64_t &dateCreation)
 {
     DateCreation = dateCreation;
 }
 
-//Getter de l'attribut lstInteraction
+/**
+ *
+ * @return lstInteraction du StdContact
+ */
 const ListInteraction &StdContact::getLstInteraction() const
 {
     return *lstInteraction;
 }
 
-//Setter de l'attribut lstInteraction
+/**
+ *
+ * @param lstInteraction du StdContact
+ */
 void StdContact::setlstInteraction(const ListInteraction &lstInteraction)
 {
     this->lstInteraction = new ListInteraction(lstInteraction);
 }
 
+/**
+ *
+ * @param os
+ * @param contact
+ * @return
+ */
 std::ostream &operator<<(std::ostream &os, const StdContact &contact)
 {
     os << "Nom : " << contact.getNom() << " Prenom : " << contact.getPrenom() << " Entreprise : "
@@ -127,27 +191,42 @@ std::ostream &operator<<(std::ostream &os, const StdContact &contact)
     return os;
 }
 
-//Methode pour ajouter une interaction
+/**
+ *
+ * @param interaction du StdContact
+ */
 void StdContact::addInteraction(const Interaction &interaction)
 {
     lstInteraction->addInteraction(new Interaction(interaction));
 
 }
 
-//Destructeur de StdContact
+/**
+ * @return Destructeur du StdContact
+ */
 StdContact::~StdContact()
 {}
 
-//Getter de l'attribut lstInteraction
+/**
+ *
+ * @return lstInteraction du StdContact
+ */
 ListInteraction *StdContact::getLstInteraction()
 {
     return lstInteraction;
 }
 
+/**
+ * @param lstInteraction du StdContact
+ */
 StdContact::StdContact() : lstInteraction(new ListInteraction(getDateCreation()))
 {
 }
 
+/**
+ *
+ * @param lstInteraction du StdContact
+ */
 void StdContact::setlstInteraction(ListInteraction *lstInteraction)
 {
     StdContact::lstInteraction = lstInteraction;

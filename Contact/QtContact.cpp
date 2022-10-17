@@ -1,15 +1,27 @@
 //
 // Created by Rahman  Yilmaz on 22/09/2022.
 //
-/*
-*   Classe QtContact: Modelise un contact dans l'application
-*
-*/
+
+
+/**
+ * Classe QtContact: Modelise un contact dans l'application
+ */
 
 #include "QtContact.h"
 #include "StdContact.h"
 
-//Constructeur principal de la classe QtContact
+
+/**
+ * Constructeur de la classe QtContact
+ * @param nom
+ * @param prenom
+ * @param entreprise
+ * @param mail
+ * @param telephone
+ * @param photo
+ * @param dateCreation
+ * @param lstInteraction
+ */
 QtContact::QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
                      const QString &telephone, const QString &photo, const uint64_t &dateCreation,
                      const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
@@ -18,49 +30,73 @@ QtContact::QtContact(const QString &nom, const QString &prenom, const QString &e
                                                               lstInteraction(new ListInteraction(lstInteraction))
 {}
 
-//Getter de l'attribut Nom
+/**
+ *
+ * @return le nom du contact
+ */
 const QString &QtContact::getNom() const
 {
     return Nom;
 }
 
-//Setter de l'attribut Nom
+/**
+ *
+ * @param nom du contact
+ */
 void QtContact::setNom(const QString &nom)
 {
     Nom = nom;
 }
 
-//Getter de l'attribut Prenom
+/**
+ *
+ * @return le prenom du contact
+ */
 const QString &QtContact::getPrenom() const
 {
     return Prenom;
 }
 
-//Setter de l'attribut Prenom
+/**
+ *
+ * @param prenom du contact
+ */
 void QtContact::setPrenom(const QString &prenom)
 {
     Prenom = prenom;
 }
 
-//Getter de l'attribut Entreprise
+/**
+ *
+ * @return entreprise du contact
+ */
 const QString &QtContact::getEntreprise() const
 {
     return Entreprise;
 }
 
-//Setter de l'attribut Entreprise
+/**
+ *
+ * @param entreprise du contact
+ */
 void QtContact::setEntreprise(const QString &entreprise)
 {
     Entreprise = entreprise;
 }
 
-//Getter de l'attribut Mail
+/**
+ *
+ * @return mail du contact
+ */
 const QString &QtContact::getMail() const
 {
     return Mail;
 }
 
-//Setter de l'attribut Mail
+/**
+ *
+ * @param mail du contact
+ */
 void QtContact::setMail(const QString &mail)
 {
     Mail = mail;
@@ -72,59 +108,87 @@ const QString &QtContact::getTelephone() const
     return Telephone;
 }
 
-//Setter de l'attribut Telephone
+/**
+ *
+ * @param telephone du contact
+ */
 void QtContact::setTelephone(const QString &telephone)
 {
     Telephone = telephone;
 }
 
-//Getter de l'attribut Photo
+/**
+ *
+ * @return photo du contact
+ */
 const QString &QtContact::getPhoto() const
 {
     return Photo;
 }
 
-//Setter de l'attribut Photo
+/**
+ *
+ * @param photo du contact
+ */
 void QtContact::setPhoto(const QString &photo)
 {
     Photo = photo;
 }
 
-//Constructeur par défaut de la classe QtContact
+/**
+ * @param Constructeur par defaut d'un Contact
+ */
 QtContact::QtContact()
 {}
 
-//Getter de l'attribut lstInteraction
+/**
+ *
+ * @return lstInteraction la liste d'interaction du contact
+ */
 const ListInteraction QtContact::getLstInteraction() const
 {
     return *lstInteraction;
 }
 
-//Setter de l'attribut lstInteraction
+/**
+ *
+ * @param lstInteraction du contact
+ */
 void QtContact::setLstInteraction(const ListInteraction &lstInteraction)
 {
     QtContact::lstInteraction = new ListInteraction(lstInteraction);
 }
 
-//Getter de l'attribut lstInteraction
+/**
+ *
+ * @return lstInteraction la liste d'interaction du contact
+ */
 ListInteraction *QtContact::getLstInteraction()
 {
     return lstInteraction;
 }
 
-//Getter de l'attribut DateCreation
-
+/**
+ *
+ * @return date de creation du contact
+ */
 uint64_t QtContact::getDateCreation() const
 {
     return DateCreation;
 }
 
-//Setter de l'attribut DateCreation
+/**
+ *
+ * @param dateCreation du contact
+ */
 void QtContact::setDateCreation(uint64_t dateCreation)
 {
     DateCreation = dateCreation;
 }
 
+/**
+ *  Destructeur de la classe QtContact
+ */
 QtContact::~QtContact()
 {
     delete lstInteraction;

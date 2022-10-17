@@ -5,6 +5,11 @@
 #include "ModifContactDialog.h"
 #include "../BaseDeDonne/BD.h"
 
+/**
+ * Constructeur de ModifContactDialog
+ * @param contact
+ * @param parent
+ */
 ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : ContactDialog(parent), contact(contact)
 {
 

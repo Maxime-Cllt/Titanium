@@ -12,6 +12,11 @@
 #include "ListContactWidget.h"
 
 
+/**
+ * Constructeur de GroupeBoxContact
+ * @param contact
+ * @param parent
+ */
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
@@ -31,6 +36,10 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 }
 
 
+/**
+ *
+ * @param event
+ */
 void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 {
     QGroupBox::mousePressEvent(event);
@@ -79,13 +88,17 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
             delete contact;
         });
 
-        menu->exec(event->globalPosition().toPoint());
+        menu->exec(event->globalPos());
 
         setStyleSheet("");
     }
 }
 
 
+/**
+ *
+ * @param event
+ */
 void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
 {
     QGroupBox::mouseReleaseEvent(event);
@@ -108,6 +121,9 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
 
 }
 
+/**
+ * @details Actualise les champs
+ */
 void GroupeBoxContact::reactualiseDonne()
 {
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
@@ -121,6 +137,9 @@ void GroupeBoxContact::reactualiseDonne()
 
 }
 
+/**
+ * @details Creation de l'interface pour la fiche d'un contact
+ */
 void GroupeBoxContact::createUi()
 {
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
@@ -147,6 +166,10 @@ void GroupeBoxContact::cache()
     findChildren<QLabel *>().last()->setText("");
 }
 
+/**
+ *
+ * @return listInteractionWidget
+ */
 ListInteractionWidget *GroupeBoxContact::getListInteractionWidget()
 {
     return listInteractionWidget;

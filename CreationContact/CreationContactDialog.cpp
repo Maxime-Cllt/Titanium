@@ -4,6 +4,10 @@
 
 #include "CreationContactDialog.h"
 
+/**
+ * Constructeur de CreationContactDialog
+ * @param parent
+ */
 CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(parent)
 {
     setWindowTitle("Creation de la fiche contact");

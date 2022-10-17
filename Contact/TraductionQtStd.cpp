@@ -4,7 +4,11 @@
 
 #include "TraductionQtStd.h"
 
-//Fonction pour traduire de C++ à Qt
+/**
+ *
+ * @param StdContact
+ * @return Un QtContact
+ */
 QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &contact)
 {
 
@@ -14,7 +18,11 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
                      contact.getDateCreation(), contact.getLstInteraction());
 }
 
-//Fonction pour traduire de C++ à Qt
+/**
+ *
+ * @param QtContact
+ * @return StdContact
+ */
 StdContact TraductionQtStd::QtFicheContactToStdFicheContact(const QtContact &contact)
 {
     return StdContact(contact.getNom().toStdString(), contact.getPrenom().toStdString(),
