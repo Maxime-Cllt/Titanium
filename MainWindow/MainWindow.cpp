@@ -14,10 +14,10 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
 
-    setMinimumHeight(500);
-
+    setBaseSize(600, 450);
+    setMinimumHeight(450);
     bd = new BD;
-    modificationMap = new ModificationMap;
+    listModification = new ListModification;
 
     setMenuBar(new MenuBar(this));
 
@@ -50,34 +50,18 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
     delete lstContact;
-}
-
-/**
- *
- * @return modificationMap
- */
-ModificationMap *MainWindow::getModificationMap() const
-{
-    return modificationMap;
-}
-
-/**
- * Ajouter un StdContact dans la liste
- * @param contact
- */
-void MainWindow::addContact(const StdContact &contact)
-{
-    auto *c = new StdContact(contact);
-    lstContact->addContact(c);
-    listContactWidget->addContactBox(c);
-
+    delete listModification;
+    delete bd;
 }
 
 /**
  * Ajoute un widget avec la liste d'interaction
  * @param widget
  */
-void MainWindow::setListInteractionWidget(QWidget *widget)
+void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
 {
+    if (listInteractionWidget)
+        layout->removeWidget(listInteractionWidget);
     layout->addWidget(widget);
+    listInteractionWidget = widget;
 }

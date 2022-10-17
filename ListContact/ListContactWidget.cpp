@@ -49,19 +49,24 @@ void ListContactWidget::addContactBox(StdContact *contact)
 }
 
 /**
- *
+ * @details Fonction qui cache la Liste des interactions d'un contact s'il n'est plus selectionné, et envoie au MainWindow
+ * la nouvelle liste de inetraction du contact selectionné.
  * @param lastConctactselected
  */
 void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactselected)
 {
+    //on regarde que la liste des inetractions qui est deja afficher est differente de lastConctactselected.
     if (this->lastConctactselected != lastConctactselected)
     {
+        // si le pointeur n'est pas null on cache le widget.
         if (this->lastConctactselected)
         {
             this->lastConctactselected->cache();
         }
+        // envoie au MainWindow qui set charge de l'ajouter a son propre layout.
         qobject_cast<MainWindow *>(parentWidget()->parentWidget())->setListInteractionWidget(
                 lastConctactselected->getListInteractionWidget());
+        //on remplace la liste des interaction par la nouvelle du contact selectionné
         this->lastConctactselected = lastConctactselected;
     }
 }

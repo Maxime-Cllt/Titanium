@@ -99,7 +99,7 @@ void ListInteraction::addInteraction(const Interaction &interaction)
 }
 
 /**
- *
+ * Constructeur de copie, qui cree de nouveaux pointeurs d'interaction.
  * @param lst
  */
 ListInteraction::ListInteraction(const ListInteraction &lst)
@@ -111,6 +111,9 @@ ListInteraction::ListInteraction(const ListInteraction &lst)
     contactId = lst.getContactId();
 }
 
+/*
+ * Fonction qui applique un trie decroissant sur la liste des interactions.
+ */
 void ListInteraction::reverse()
 {
     listInteraction.sort([](Interaction *interaction, Interaction *interaction1)

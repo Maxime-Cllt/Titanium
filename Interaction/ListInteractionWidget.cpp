@@ -39,6 +39,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     scrollArea->setObjectName("scrollArea");
     scrollArea->setStyleSheet("QScrollArea#scrollArea{border: none;}");
+    scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout->addWidget(scrollArea);
 

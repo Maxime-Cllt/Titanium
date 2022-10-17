@@ -11,7 +11,7 @@
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
 #include "../ListContact/ListContactWidget.h"
-#include "../Modification/ModificationMap.h"
+#include "../Modification/ListModification.h"
 
 class MainWindow : public QMainWindow
 {
@@ -21,20 +21,17 @@ public:
 
     StdListContact *getLstContact();
 
-    void addContact(const StdContact &contact);
-
-    void setListInteractionWidget(QWidget *widget);
+    void setListInteractionWidget(ListInteractionWidget *widget);
 
 private:
     QHBoxLayout *layout{};
 
     ListContactWidget *listContactWidget{};
+    ListInteractionWidget *listInteractionWidget{};
 
     StdListContact *lstContact{};
-    ModificationMap *modificationMap{};
+    ListModification *listModification{};
     BD *bd{};
-public:
-    ModificationMap *getModificationMap() const;
 
 protected:
     void closeEvent(QCloseEvent *event) override;

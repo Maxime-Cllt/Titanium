@@ -11,20 +11,34 @@
 class Modification
 {
 public:
-    explicit Modification(const std::time_t &dateCreationContact, std::string contenuModif);
+    explicit Modification(const uint64_t &dateCreationContact, std::string contenuModif);
 
 private:
-    std::string contenuModif;
-    std::time_t dateCreationContact;
+    std::string contenuModif{};
+    uint64_t dateCreationContact{};
+    uint64_t dateCreation{};
+
 public:
+
+    friend bool operator<(const Modification &lhs, const Modification &rhs);
+
+    friend bool operator>(const Modification &lhs, const Modification &rhs);
+
+    friend bool operator<=(const Modification &lhs, const Modification &rhs);
+
+    friend bool operator>=(const Modification &lhs, const Modification &rhs);
+
+    uint64_t getDateCreation() const;
+
+    void setDateCreation(uint64_t dateCreation);
 
     const std::string &getContenuModif() const;
 
     void setContenuModif(const std::string &contenuModif);
 
-    time_t getDateCreationContact() const;
+    uint64_t getDateCreationContact() const;
 
-    void setDateCreationContact(time_t dateCreationContact);
+    void setDateCreationContact(uint64_t dateCreationContact);
 };
 
 

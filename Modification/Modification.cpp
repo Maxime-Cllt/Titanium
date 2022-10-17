@@ -4,17 +4,18 @@
 
 #include "Modification.h"
 
-#include <utility>
+#include <chrono>
 
 /**
  * @details Constructeur de la classe Modification
  * @param dateCreationContact
  * @param contenuModif
  */
-Modification::Modification(const std::time_t &dateCreationContact, std::string contenuModif) : dateCreationContact(
+Modification::Modification(const uint64_t &dateCreationContact, std::string contenuModif) : dateCreationContact(
         dateCreationContact), contenuModif(std::move(contenuModif))
 {
-
+    dateCreation = std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();
 
 }
 
@@ -40,7 +41,7 @@ void Modification::setContenuModif(const std::string &contenuModif)
  *
  * @return dateCreationContact
  */
-time_t Modification::getDateCreationContact() const
+uint64_t Modification::getDateCreationContact() const
 {
     return dateCreationContact;
 }
@@ -49,7 +50,45 @@ time_t Modification::getDateCreationContact() const
  *
  * @param dateCreationContact
  */
-void Modification::setDateCreationContact(time_t dateCreationContact)
+void Modification::setDateCreationContact(uint64_t dateCreationContact)
 {
     Modification::dateCreationContact = dateCreationContact;
+}
+
+/**
+ *
+ * @return dateCreation
+ */
+uint64_t Modification::getDateCreation() const
+{
+    return dateCreation;
+}
+
+/**
+ *
+ * @param dateCreation
+ */
+void Modification::setDateCreation(uint64_t dateCreation)
+{
+    Modification::dateCreation = dateCreation;
+}
+
+bool operator<(const Modification &lhs, const Modification &rhs)
+{
+    return lhs.dateCreation < rhs.dateCreation;
+}
+
+bool operator>(const Modification &lhs, const Modification &rhs)
+{
+    return rhs < lhs;
+}
+
+bool operator<=(const Modification &lhs, const Modification &rhs)
+{
+    return !(rhs < lhs);
+}
+
+bool operator>=(const Modification &lhs, const Modification &rhs)
+{
+    return !(lhs < rhs);
 }

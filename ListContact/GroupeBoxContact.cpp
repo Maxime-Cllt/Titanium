@@ -19,7 +19,7 @@
  */
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 
     setObjectName("GroupBoxContact");
 
@@ -32,6 +32,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     for (auto lab: findChildren<QLabel *>())
     {
         lab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        lab->setWordWrap(true);
     }
 }
 
@@ -88,7 +89,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
             delete contact;
         });
 
-        menu->exec(event->globalPos());
+        menu->exec(event->globalPosition().toPoint());
 
         setStyleSheet("");
     }
@@ -96,7 +97,9 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
 
 /**
- *
+ * @details Quand le click gauche est release,
+ * On creé une listInteractionWidget si elle pas deja été crée,
+ * si elle existe deja on l'affiche par la fonction show.
  * @param event
  */
 void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
@@ -122,7 +125,7 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
 }
 
 /**
- * @details Actualise les champs
+ * @details Actualise les donnés
  */
 void GroupeBoxContact::reactualiseDonne()
 {
@@ -159,6 +162,9 @@ void GroupeBoxContact::createUi()
 
 }
 
+/**
+ * @details Fonction qui cache le widget des Interactions.
+ */
 void GroupeBoxContact::cache()
 {
     listInteractionWidget->hide();
