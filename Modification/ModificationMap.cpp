@@ -4,8 +4,7 @@
 
 #include "ModificationMap.h"
 
-ModificationMap::ModificationMap()
-{}
+ModificationMap::ModificationMap() {}
 
 void ModificationMap::addModif(const Modification &modification)
 {

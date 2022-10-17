@@ -33,6 +33,13 @@ private:
     uint64_t DateCreation;
     ListInteraction *lstInteraction;
 public:
+    friend bool operator<(const StdContact &lhs, const StdContact &rhs);
+
+    friend bool operator>(const StdContact &lhs, const StdContact &rhs);
+
+    friend bool operator<=(const StdContact &lhs, const StdContact &rhs);
+
+    friend bool operator>=(const StdContact &lhs, const StdContact &rhs);
 
     friend std::ostream &operator<<(std::ostream &os, const StdContact &contact);
 

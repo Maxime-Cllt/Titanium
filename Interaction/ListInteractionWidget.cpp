@@ -13,7 +13,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     auto *layout = new QVBoxLayout(this);
 
     ajoutBtn = new QPushButton("Ajouter", this);
-    setMinimumWidth(350);
+    ajoutBtn->setMinimumWidth(400);
     ajoutBtn->setDefault(true);
 
     connect(ajoutBtn, &QPushButton::clicked, this, &ListInteractionWidget::ajoutInteraction);
@@ -25,6 +25,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     scrollArea->setWidget(scrollWidget);
 
     layoutScroll = new QVBoxLayout(scrollWidget);
+    layoutScroll->setSpacing(30);
 
     scrollArea->setWidgetResizable(true);
     scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -36,9 +37,10 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     layout->addWidget(scrollArea);
 
 
+    lstInteraction->reverse();
     for (auto interaction: lstInteraction->getListInteraction())
     {
-        layoutScroll->addWidget(new GroupBoxInteraction(interaction, this));
+        layoutScroll->addWidget(new GroupBoxInteraction(interaction, scrollArea));
     }
 }
 
@@ -46,11 +48,24 @@ void ListInteractionWidget::ajoutInteraction()
 {
     auto *interaction = new Interaction;
     lstInteraction->addInteraction(interaction);
-    layoutScroll->addWidget(new GroupBoxInteraction(interaction, this));
+    reactualiseUi();
     BD::addInteraction(lstInteraction->getContactId(), *interaction);
 }
 
 ListInteraction *ListInteractionWidget::getLstInteraction() const
 {
     return lstInteraction;
+}
+
+void ListInteractionWidget::reactualiseUi()
+{
+    lstInteraction->reverse();
+    for (auto *widget: scrollArea->findChildren<GroupBoxInteraction *>())
+    {
+        widget->close();
+    }
+    for (auto interaction: lstInteraction->getListInteraction())
+    {
+        layoutScroll->addWidget(new GroupBoxInteraction(interaction, scrollArea));
+    }
 }

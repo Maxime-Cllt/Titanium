@@ -9,6 +9,7 @@
 #include "Interaction.h"
 #include <QTextEdit>
 #include <QPushButton>
+#include <QLabel>
 
 class GroupBoxInteraction : public QGroupBox
 {
@@ -19,11 +20,14 @@ public:
 
 private:
     Interaction *interaction{};
+    QLabel *labDateModif{};
     QPushButton *modifBtn{};
     QPushButton *supBtn{};
     QTextEdit *textEdit{};
 
+    QWidget *getListInteractionParent();
 
+    void reactualiseDateModif();
 };
 
 

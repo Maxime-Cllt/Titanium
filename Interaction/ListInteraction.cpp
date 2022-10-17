@@ -3,6 +3,8 @@
 //
 
 #include "ListInteraction.h"
+#include <list>
+
 
 ListInteraction::ListInteraction(uint64_t id) : contactId(id)
 {
@@ -65,4 +67,12 @@ ListInteraction::ListInteraction(const ListInteraction &lst)
         addInteraction(*inter);
     }
     contactId = lst.getContactId();
+}
+
+void ListInteraction::reverse()
+{
+    listInteraction.sort([](Interaction *interaction, Interaction *interaction1)
+                         {
+                             return *interaction > *interaction1;
+                         });
 }

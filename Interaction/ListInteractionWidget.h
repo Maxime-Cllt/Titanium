@@ -28,6 +28,8 @@ private:
 public:
     ListInteraction *getLstInteraction() const;
 
+    void reactualiseUi();
+
 private slots:
 
     void ajoutInteraction();

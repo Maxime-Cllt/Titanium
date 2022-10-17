@@ -16,6 +16,8 @@ class StdListContact
 public:
     explicit StdListContact();
 
+    StdListContact(const StdListContact &);
+
     ~StdListContact();
 
     friend std::ostream &operator<<(std::ostream &os, const StdListContact &lst);

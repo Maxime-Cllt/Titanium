@@ -54,3 +54,11 @@ StdListContact::~StdListContact()
         delete contact;
     }
 }
+
+StdListContact::StdListContact(const StdListContact &lst)
+{
+    for (auto contact: lst.lstContact)
+    {
+        addContact(*contact);
+    }
+}

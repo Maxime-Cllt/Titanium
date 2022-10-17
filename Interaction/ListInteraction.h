@@ -34,6 +34,9 @@ public:
 
     void setListInteraction(const std::list<Interaction *> &listInteraction);
 
+    void reverse();
+
+
 private:
     uint64_t contactId{};
     std::list<Interaction *> listInteraction{};

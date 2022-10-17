@@ -46,6 +46,7 @@ BD::BD(QObject *parent) : QObject(parent)
         query.exec("CREATE TABLE IF NOT EXISTS INTERACTIONS("
                    "IdContact BIGINT not null,"
                    "IdInteraction BIGINT not null,"
+                   "DateModification BIGINT not null,"
                    "Contenu TEXT"
                    ");");
     }
@@ -176,9 +177,11 @@ bool BD::modifyContact(const StdContact &contact)
 
 void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
 {
-    QSqlQuery query("INSERT INTO INTERACTIONS (IdContact ,IdInteraction, Contenu) VALUES ( ?, ? , ?)");
+    QSqlQuery query(
+            "INSERT INTO INTERACTIONS (IdContact ,IdInteraction,DateModification, Contenu) VALUES ( ? , ? , ? , ?)");
     query.addBindValue(QString::number(idContact));
     query.addBindValue(QString::number(interaction.getId()));
+    query.addBindValue(QString::number(interaction.getDateModif()));
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.exec();
 }
@@ -192,8 +195,9 @@ void BD::supInteraction(const Interaction &interaction)
 
 void BD::modifyInteraction(const Interaction &interaction)
 {
-    QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ? WHERE ? = IdInteraction");
+    QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ?, DateModification = ? WHERE ? = IdInteraction");
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
+    query.addBindValue(QString::number(interaction.getDateModif()));
     query.addBindValue(QString::number(interaction.getId()));
     query.exec();
 }
@@ -212,7 +216,8 @@ ListInteraction BD::getListInteractionData(const uint64_t &idContact)
         Interaction interaction;
 
         interaction.setId(query.value(1).toLongLong());
-        interaction.setContenu(query.value(2).toString().toStdString());
+        interaction.setDateModif(query.value(2).toLongLong());
+        interaction.setContenu(query.value(3).toString().toStdString());
         listInteraction.addInteraction(interaction);
     }
 

@@ -135,8 +135,7 @@ void StdContact::addInteraction(const Interaction &interaction)
 }
 
 //Destructeur de StdContact
-StdContact::~StdContact()
-{}
+StdContact::~StdContact() {}
 
 //Getter de l'attribut lstInteraction
 ListInteraction *StdContact::getLstInteraction()
@@ -151,6 +150,26 @@ StdContact::StdContact() : lstInteraction(new ListInteraction(getDateCreation())
 void StdContact::setlstInteraction(ListInteraction *lstInteraction)
 {
     StdContact::lstInteraction = lstInteraction;
+}
+
+bool operator<(const StdContact &lhs, const StdContact &rhs)
+{
+    return lhs.DateCreation < rhs.DateCreation;
+}
+
+bool operator>(const StdContact &lhs, const StdContact &rhs)
+{
+    return rhs < lhs;
+}
+
+bool operator<=(const StdContact &lhs, const StdContact &rhs)
+{
+    return !(rhs < lhs);
+}
+
+bool operator>=(const StdContact &lhs, const StdContact &rhs)
+{
+    return !(lhs < rhs);
 }
 
 
