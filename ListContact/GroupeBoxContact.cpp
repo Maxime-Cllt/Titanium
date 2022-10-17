@@ -19,13 +19,13 @@
  */
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     setObjectName("GroupBoxContact");
 
     layout = new QGridLayout(this);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    layout->setSpacing(30);
+    layout->setSpacing(20);
 
     createUi();
 
@@ -33,7 +33,10 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     {
         lab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         lab->setWordWrap(true);
+        lab->setMinimumWidth(150);
     }
+    findChildren<QLabel *>()[0]->setFixedWidth(75);
+
 }
 
 
@@ -121,7 +124,6 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
                 break;
         }
         qobject_cast<ListContactWidget *>(listContactWidget)->setLastConctactselected(this);
-        findChildren<QLabel *>().last()->setText(">>");
     }
 
 }
@@ -151,16 +153,12 @@ void GroupeBoxContact::createUi()
 
     QPixmap im(qtContact.getPhoto());
     auto *labIm = new QLabel(this);
-    labIm->setPixmap(im.scaled(50, 50, Qt::KeepAspectRatio));
+    labIm->setPixmap(im.scaled(75 ,75, Qt::KeepAspectRatio));
     layout->addWidget(labIm);
     layout->addWidget(new QLabel("Nom Prénom : " + qtContact.getNom() + " " + qtContact.getPrenom(), this), 0, 1);
     layout->addWidget(new QLabel("Entreprise : " + qtContact.getEntreprise(), this), 0, 2);
     layout->addWidget(new QLabel("Mail : " + qtContact.getMail(), this), 1, 1);
     layout->addWidget(new QLabel("Téléphone : " + qtContact.getTelephone(), this), 1, 2);
-
-    auto lab = new QLabel("", this);
-    lab->setScaledContents(true);
-    layout->addWidget(lab, 0, 3);
 
 }
 
@@ -171,7 +169,6 @@ void GroupeBoxContact::cache()
 {
     listInteractionWidget->hide();
     setStyleSheet("");
-    findChildren<QLabel *>().last()->setText("");
 }
 
 /**

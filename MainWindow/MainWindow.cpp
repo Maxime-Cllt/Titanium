@@ -14,7 +14,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
 
-    setBaseSize(600, 450);
+    setBaseSize(500, 450);
     setMinimumHeight(450);
     bd = new BD;
     listModification = new ListModification;
