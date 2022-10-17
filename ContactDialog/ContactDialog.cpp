@@ -15,7 +15,7 @@
 QHBoxLayout *getLay(const QList<QWidget *> &list);
 
 /**
- * Constructeur de ContactDialog
+ * @details Constructeur de ContactDialog
  * @param parent
  */
 ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
@@ -85,6 +85,9 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 
 }
 
+/**
+ * @details Clic sur bouton pour ouvrir QFileDialog
+ */
 void ContactDialog::bt6Clicked()
 {
     auto *fileDiag = new QFileDialog;

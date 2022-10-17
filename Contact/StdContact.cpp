@@ -7,7 +7,7 @@
 #include "QtContact.h"
 
 /**
- * Constructeur de la classe StdContact
+ * @details Constructeur de la classe StdContact
  * @param nom
  * @param prenom
  * @param entreprise

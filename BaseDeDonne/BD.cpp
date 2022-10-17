@@ -9,7 +9,7 @@
 
 
 /**
- * Constructeur de la classe BD pour la base de données
+ * Constructeur de la classe BD pour la base de données de l'application
  * @param parent
  */
 BD::BD(QObject *parent) : QObject(parent)

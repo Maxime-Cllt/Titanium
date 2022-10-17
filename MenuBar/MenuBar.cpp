@@ -6,7 +6,7 @@
 #include "../CreationContact/CreationContactDialog.h"
 
 /**
- * Constructeur de la classe MenuBar
+ * @details Constructeur de la classe MenuBar
  * @param parent
  */
 MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)

@@ -7,7 +7,7 @@
 #include <utility>
 
 /**
- * Constructeur de la classe Modification
+ * @details Constructeur de la classe Modification
  * @param dateCreationContact
  * @param contenuModif
  */

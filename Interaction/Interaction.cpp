@@ -7,7 +7,7 @@
 
 
 /**
- * Constructeur de la classe Interaction
+ * @details Constructeur de la classe Interaction
  * @param contenu
  */
 Interaction::Interaction(const std::string &contenu)
@@ -20,7 +20,7 @@ Interaction::Interaction(const std::string &contenu)
 
 /**
  *
- * @return contenu de l'interaction
+ * @return Contenu de l'interaction
  */
 const std::string &Interaction::getContenu() const
 {
@@ -36,6 +36,9 @@ void Interaction::setContenu(const std::string &contenu)
     Interaction::contenu = contenu;
 }
 
+/**
+ * @details Connaitre la date à l'instant
+ */
 Interaction::Interaction()
 {
     this->contenu = "";

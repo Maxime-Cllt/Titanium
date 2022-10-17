@@ -5,7 +5,7 @@
 #include "TraductionQtStd.h"
 
 /**
- *
+ * @details Traduire de Std vers QT
  * @param StdContact
  * @return Un QtContact
  */
@@ -19,7 +19,7 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
 }
 
 /**
- *
+ * @details Traduire de QT vers Std
  * @param QtContact
  * @return StdContact
  */

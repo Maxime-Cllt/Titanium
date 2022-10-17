@@ -11,7 +11,7 @@
 
 
 /**
- *  Constructeur de ListContactWidget
+ *  @details Constructeur de la classe ListContactWidget
  * @param parent
  */
 ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)

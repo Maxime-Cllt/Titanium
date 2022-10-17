@@ -8,7 +8,7 @@
 #include "../MenuBar/MenuBar.h"
 
 /**
- * Constructeur de la classe MainWindow
+ * @details Constructeur de la classe MainWindow
  * @param parent
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)

@@ -3,16 +3,12 @@
 //
 
 
-/**
- * Classe QtContact: Modelise un contact dans l'application
- */
-
 #include "QtContact.h"
 #include "StdContact.h"
 
 
 /**
- * Constructeur de la classe QtContact
+ * @details Constructeur de la classe QtContact
  * @param nom
  * @param prenom
  * @param entreprise
@@ -32,7 +28,7 @@ QtContact::QtContact(const QString &nom, const QString &prenom, const QString &e
 
 /**
  *
- * @return le nom du contact
+ * @return le Nom du contact
  */
 const QString &QtContact::getNom() const
 {
@@ -41,7 +37,7 @@ const QString &QtContact::getNom() const
 
 /**
  *
- * @param nom du contact
+ * @param Nom du contact
  */
 void QtContact::setNom(const QString &nom)
 {
@@ -50,7 +46,7 @@ void QtContact::setNom(const QString &nom)
 
 /**
  *
- * @return le prenom du contact
+ * @return Le Prenom du contact
  */
 const QString &QtContact::getPrenom() const
 {
@@ -59,7 +55,7 @@ const QString &QtContact::getPrenom() const
 
 /**
  *
- * @param prenom du contact
+ * @param Prenom du contact
  */
 void QtContact::setPrenom(const QString &prenom)
 {
@@ -68,7 +64,7 @@ void QtContact::setPrenom(const QString &prenom)
 
 /**
  *
- * @return entreprise du contact
+ * @return L'Entreprise du contact
  */
 const QString &QtContact::getEntreprise() const
 {
@@ -77,7 +73,7 @@ const QString &QtContact::getEntreprise() const
 
 /**
  *
- * @param entreprise du contact
+ * @param Entreprise du contact
  */
 void QtContact::setEntreprise(const QString &entreprise)
 {
@@ -86,7 +82,7 @@ void QtContact::setEntreprise(const QString &entreprise)
 
 /**
  *
- * @return mail du contact
+ * @return Le Mail du contact
  */
 const QString &QtContact::getMail() const
 {
@@ -95,14 +91,17 @@ const QString &QtContact::getMail() const
 
 /**
  *
- * @param mail du contact
+ * @param Mail du contact
  */
 void QtContact::setMail(const QString &mail)
 {
     Mail = mail;
 }
 
-//Getter de l'attribut Telephone
+/**
+ *
+ * @return Le Telephone du contact
+ */
 const QString &QtContact::getTelephone() const
 {
     return Telephone;
@@ -110,7 +109,7 @@ const QString &QtContact::getTelephone() const
 
 /**
  *
- * @param telephone du contact
+ * @param Telephone du contact
  */
 void QtContact::setTelephone(const QString &telephone)
 {
@@ -119,7 +118,7 @@ void QtContact::setTelephone(const QString &telephone)
 
 /**
  *
- * @return photo du contact
+ * @return La Photo du contact
  */
 const QString &QtContact::getPhoto() const
 {
@@ -128,7 +127,7 @@ const QString &QtContact::getPhoto() const
 
 /**
  *
- * @param photo du contact
+ * @param Photo du contact
  */
 void QtContact::setPhoto(const QString &photo)
 {
@@ -136,14 +135,14 @@ void QtContact::setPhoto(const QString &photo)
 }
 
 /**
- * @param Constructeur par defaut d'un Contact
+ * @details Constructeur par defaut d'un Contact
  */
 QtContact::QtContact()
 {}
 
 /**
  *
- * @return lstInteraction la liste d'interaction du contact
+ * @return La liste d'interaction du contact lstInteraction
  */
 const ListInteraction QtContact::getLstInteraction() const
 {
@@ -161,7 +160,7 @@ void QtContact::setLstInteraction(const ListInteraction &lstInteraction)
 
 /**
  *
- * @return lstInteraction la liste d'interaction du contact
+ * @return La liste d'interaction du contact lstInteraction
  */
 ListInteraction *QtContact::getLstInteraction()
 {
@@ -170,7 +169,7 @@ ListInteraction *QtContact::getLstInteraction()
 
 /**
  *
- * @return date de creation du contact
+ * @return DateCreation de creation du contact
  */
 uint64_t QtContact::getDateCreation() const
 {
@@ -179,7 +178,7 @@ uint64_t QtContact::getDateCreation() const
 
 /**
  *
- * @param dateCreation du contact
+ * @param DateCreation du contact
  */
 void QtContact::setDateCreation(uint64_t dateCreation)
 {
@@ -187,7 +186,7 @@ void QtContact::setDateCreation(uint64_t dateCreation)
 }
 
 /**
- *  Destructeur de la classe QtContact
+ * @details Destructeur de la classe QtContact
  */
 QtContact::~QtContact()
 {

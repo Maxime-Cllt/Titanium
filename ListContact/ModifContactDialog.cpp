@@ -6,7 +6,7 @@
 #include "../BaseDeDonne/BD.h"
 
 /**
- * Constructeur de ModifContactDialog
+ * @details Constructeur de la classe ModifContactDialog
  * @param contact
  * @param parent
  */

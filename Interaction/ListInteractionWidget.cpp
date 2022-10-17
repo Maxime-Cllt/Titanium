@@ -9,7 +9,7 @@
 
 
 /**
- * Constructeur de ListInteractionWidget
+ * @details Constructeur de la classe ListInteractionWidget
  * @param lstInteraction
  * @param parent
  */

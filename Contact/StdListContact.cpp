@@ -5,7 +5,7 @@
 #include "StdListContact.h"
 
 /**
- *  Constructeur par defaut de StdListContact
+ *  @details Constructeur par defaut de la classe StdListContact
  */
 StdListContact::StdListContact() = default;
 

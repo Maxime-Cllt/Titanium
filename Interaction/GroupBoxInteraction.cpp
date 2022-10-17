@@ -11,7 +11,7 @@
 #include "../BaseDeDonne/BD.h"
 
 /**
- * Constructeur de GroupBoxInteraction
+ * @details Constructeur de la classe GroupBoxInteraction
  * @param interaction
  * @param parent
  */

@@ -5,7 +5,7 @@
 #include "ModificationMap.h"
 
 /**
- * Constructeur par defaut de la classe ModificationMap
+ * @details Constructeur par defaut de la classe ModificationMap
  */
 ModificationMap::ModificationMap()
 {}

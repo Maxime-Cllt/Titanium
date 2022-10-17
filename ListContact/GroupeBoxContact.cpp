@@ -13,7 +13,7 @@
 
 
 /**
- * Constructeur de GroupeBoxContact
+ * @details Constructeur de la classe GroupeBoxContact
  * @param contact
  * @param parent
  */

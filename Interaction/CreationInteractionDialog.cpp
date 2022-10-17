@@ -8,7 +8,7 @@
 
 
 /**
- * Constructeur de CreationInteractionDialog
+ * @details Constructeur de la classe CreationInteractionDialog
  * @param contact
  * @param parent
  */

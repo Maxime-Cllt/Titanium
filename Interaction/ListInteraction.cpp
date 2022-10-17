@@ -5,7 +5,7 @@
 #include "ListInteraction.h"
 
 /**
- * Constructeur de ListInteraction
+ * @details Constructeur de la classe ListInteraction
  * @param id
  */
 ListInteraction::ListInteraction(uint64_t id) : contactId(id)
