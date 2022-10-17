@@ -6,6 +6,12 @@
 #include <QVBoxLayout>
 #include <QMessageBox>
 
+
+/**
+ * @details Constructeur de la classe CreationInteractionDialog
+ * @param contact
+ * @param parent
+ */
 CreationInteractionDialog::CreationInteractionDialog(StdContact *contact, QWidget *parent) : QDialog(parent),
                                                                                              contact(contact)
 {
@@ -24,7 +30,7 @@ CreationInteractionDialog::CreationInteractionDialog(StdContact *contact, QWidge
         } else
         {
             contact->addInteraction(Interaction(text->document()->toRawText().toStdString()));
-            QMessageBox::information(this, "Succes", "Interaction ajouté avec succes.");
+            QMessageBox::information(this, "Succès", "Interaction ajouté avec succès.");
             close();
         }
     });

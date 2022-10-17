@@ -4,9 +4,13 @@
 
 #include "CreationContactDialog.h"
 
+/**
+ * @details Constructeur de la classe CreationContactDialog
+ * @param parent
+ */
 CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(parent)
 {
-    setWindowTitle("Creation de la fiche contact");
+    setWindowTitle("Création de la fiche contact");
 
 
     auto *timer = new QTimer(this);
@@ -27,6 +31,9 @@ CreationContactDialog::CreationContactDialog(QWidget *parent) : ContactDialog(pa
 
 }
 
+/**
+ * @details Clic du bouton pour ajouter un contact
+ */
 void CreationContactDialog::btActionClicked()
 {
     QString mess("Des champs sont vides !!\n");

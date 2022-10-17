@@ -5,6 +5,10 @@
 #include "MenuBar.h"
 #include "../CreationContact/CreationContactDialog.h"
 
+/**
+ * @details Constructeur de la classe MenuBar
+ * @param parent
+ */
 MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
 {
     menu1 = new QMenu(tr("&Ajouter"), this);

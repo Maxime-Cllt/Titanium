@@ -5,6 +5,11 @@
 #include <chrono>
 #include "Interaction.h"
 
+
+/**
+ * @details Constructeur de la classe Interaction
+ * @param contenu
+ */
 Interaction::Interaction(const std::string &contenu)
 {
     Interaction::contenu = contenu;
@@ -14,16 +19,27 @@ Interaction::Interaction(const std::string &contenu)
     dateModif = id;
 }
 
+/**
+ *
+ * @return Contenu de l'interaction
+ */
 const std::string &Interaction::getContenu() const
 {
     return contenu;
 }
 
+/**
+ *
+ * @param contenu
+ */
 void Interaction::setContenu(const std::string &contenu)
 {
     Interaction::contenu = contenu;
 }
 
+/**
+ * @details Connaitre la date à l'instant
+ */
 Interaction::Interaction()
 {
     Interaction::contenu = "";
@@ -32,11 +48,19 @@ Interaction::Interaction()
     dateModif = id;
 }
 
+/**
+ *
+ * @return id du contact
+ */
 uint64_t Interaction::getId() const
 {
     return id;
 }
 
+/**
+ *
+ * @param id
+ */
 void Interaction::setId(uint64_t id)
 {
     Interaction::id = id;

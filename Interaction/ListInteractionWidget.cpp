@@ -7,6 +7,12 @@
 #include "GroupBoxInteraction.h"
 #include "../BaseDeDonne/BD.h"
 
+
+/**
+ * @details Constructeur de la classe ListInteractionWidget
+ * @param lstInteraction
+ * @param parent
+ */
 ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QWidget *parent) : lstInteraction(
         lstInteraction), QWidget(parent)
 {
@@ -44,6 +50,9 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     }
 }
 
+/**
+ * @details Ajoute une interaction dans la base de données
+ */
 void ListInteractionWidget::ajoutInteraction()
 {
     auto *interaction = new Interaction;
@@ -52,6 +61,10 @@ void ListInteractionWidget::ajoutInteraction()
     BD::addInteraction(lstInteraction->getContactId(), *interaction);
 }
 
+/**
+ *
+ * @return lstInteraction
+ */
 ListInteraction *ListInteractionWidget::getLstInteraction() const
 {
     return lstInteraction;

@@ -14,6 +14,10 @@
 
 QHBoxLayout *getLay(const QList<QWidget *> &list);
 
+/**
+ * @details Constructeur de ContactDialog
+ * @param parent
+ */
 ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 {
 
@@ -80,7 +84,9 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 
 }
 
-
+/**
+ * @details Clic sur bouton pour ouvrir QFileDialog
+ */
 void ContactDialog::bt6Clicked()
 {
     auto *fileDiag = new QFileDialog;
@@ -103,13 +109,22 @@ void ContactDialog::btActionClicked()
 {
 }
 
+/**
+ *
+ * @param time
+ * @return QtContact
+ */
 QtContact ContactDialog::getContact(uint64_t time)
 {
     return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), time,
                      ListInteraction(time));
 }
 
-
+/**
+ *
+ * @param list
+ * @return QHBoxLayout
+ */
 QHBoxLayout *getLay(const QList<QWidget *> &list)
 {
     auto *lay = new QHBoxLayout;

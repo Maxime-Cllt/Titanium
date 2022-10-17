@@ -10,6 +10,11 @@
 #include "ListInteractionWidget.h"
 #include "../BaseDeDonne/BD.h"
 
+/**
+ * @details Constructeur de la classe GroupBoxInteraction
+ * @param interaction
+ * @param parent
+ */
 GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *parent) : QGroupBox(parent),
                                                                                       interaction(interaction)
 {

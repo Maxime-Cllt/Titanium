@@ -9,6 +9,11 @@
 #include <QLabel>
 #include <QLineEdit>
 
+
+/**
+ *  @details Constructeur de la classe ListContactWidget
+ * @param parent
+ */
 ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
 {
 
@@ -35,11 +40,18 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
 
 }
 
+/**
+ * @param contact
+ */
 void ListContactWidget::addContactBox(StdContact *contact)
 {
     layScrollArea->addWidget(new GroupeBoxContact(contact, scrollArea));
 }
 
+/**
+ *
+ * @param lastConctactselected
+ */
 void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactselected)
 {
     if (this->lastConctactselected != lastConctactselected)

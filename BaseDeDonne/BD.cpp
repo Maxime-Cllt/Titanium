@@ -8,6 +8,10 @@
 #include <QMessageBox>
 
 
+/**
+ * Constructeur de la classe BD pour la base de données de l'application
+ * @param parent
+ */
 BD::BD(QObject *parent) : QObject(parent)
 {
     QString path("database.db");
@@ -52,6 +56,10 @@ BD::BD(QObject *parent) : QObject(parent)
     }
 }
 
+/**
+ * Ajoute un contact dans la base de données via un StdContact
+ * @param contact
+ */
 void BD::addContactOnBD(const StdContact &contact)
 {
 
@@ -77,6 +85,10 @@ void BD::addContactOnBD(const StdContact &contact)
     query.exec();
 }
 
+/**
+ * Ajoute un contact dans la base de données via une StdListContact
+ * @param contact
+ */
 void BD::addContactOnBD(StdListContact *stdListContact)
 {
     for (const auto contact: *stdListContact->getLstContact())
@@ -84,6 +96,11 @@ void BD::addContactOnBD(StdListContact *stdListContact)
 
 }
 
+/**
+ * Ajoute une modification d'un contact via son id et la modification
+ * @param idContact
+ * @param modif
+ */
 void BD::addModif(uint64_t idContact, const std::string &modif)
 {
     QSqlQuery query("INSERT INTO MODIFICATIONS "
@@ -94,6 +111,10 @@ void BD::addModif(uint64_t idContact, const std::string &modif)
     query.addBindValue("?");
 }
 
+/**
+ * Retourne la liste des contacts de la table CONTACTS
+ * @return lst
+ */
 StdListContact BD::getContactData()
 {
     StdListContact lst;
@@ -121,6 +142,10 @@ StdListContact BD::getContactData()
     return lst;
 }
 
+/**
+ * Supprimer un contact de la base de données
+ * @param contact
+ */
 void BD::supContact(const StdContact &contact)
 {
 
@@ -140,6 +165,11 @@ void BD::supContact(const StdContact &contact)
     }
 }
 
+/**
+ *  Modifier un contact de la base de données
+ * @param contact
+ * @return
+ */
 bool BD::modifyContact(const StdContact &contact)
 {
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(contact));
@@ -175,6 +205,11 @@ bool BD::modifyContact(const StdContact &contact)
     return false;
 }
 
+/**
+ * Ajouter une interaction d'un contact dans la base de données
+ * @param idContact
+ * @param interaction
+ */
 void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
 {
     QSqlQuery query(
@@ -186,6 +221,10 @@ void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
     query.exec();
 }
 
+/**
+ * Supprimer une interaction d'un contact dans la base de données en fonction de son id
+ * @param interaction
+ */
 void BD::supInteraction(const Interaction &interaction)
 {
     QSqlQuery query("DELETE FROM INTERACTIONS WHERE ? = IdInteraction");
@@ -193,6 +232,10 @@ void BD::supInteraction(const Interaction &interaction)
     query.exec();
 }
 
+/**
+ * Modifier l'interaction d'un contact dans la base de données
+ * @param interaction
+ */
 void BD::modifyInteraction(const Interaction &interaction)
 {
     QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ?, DateModification = ? WHERE ? = IdInteraction");
@@ -202,6 +245,11 @@ void BD::modifyInteraction(const Interaction &interaction)
     query.exec();
 }
 
+/**
+ * Obtenir la liste des interactions d'un contact via son id
+ * @param idContact
+ * @return listInteraction
+ */
 ListInteraction BD::getListInteractionData(const uint64_t &idContact)
 {
     QSqlQuery query("SELECT * FROM INTERACTIONS WHERE ? = IdContact");

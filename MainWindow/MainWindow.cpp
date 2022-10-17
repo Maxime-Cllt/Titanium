@@ -7,6 +7,10 @@
 #include "../CreationContact/CreationContactDialog.h"
 #include "../MenuBar/MenuBar.h"
 
+/**
+ * @details Constructeur de la classe MainWindow
+ * @param parent
+ */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
 
@@ -29,22 +33,38 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addWidget(listContactWidget);
 }
 
+/**
+ *
+ * @return lstContact
+ */
 StdListContact *MainWindow::getLstContact()
 {
     return lstContact;
 }
 
+/**
+ *
+ * @param event
+ */
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
     delete lstContact;
 }
 
+/**
+ *
+ * @return modificationMap
+ */
 ModificationMap *MainWindow::getModificationMap() const
 {
     return modificationMap;
 }
 
+/**
+ * Ajouter un StdContact dans la liste
+ * @param contact
+ */
 void MainWindow::addContact(const StdContact &contact)
 {
     auto *c = new StdContact(contact);
@@ -53,6 +73,10 @@ void MainWindow::addContact(const StdContact &contact)
 
 }
 
+/**
+ * Ajoute un widget avec la liste d'interaction
+ * @param widget
+ */
 void MainWindow::setListInteractionWidget(QWidget *widget)
 {
     layout->addWidget(widget);
