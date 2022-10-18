@@ -89,7 +89,7 @@ void CreationContactDialog::btActionClicked()
                 std::chrono::system_clock::now().time_since_epoch()).count();
         QtContact qtContact(getContact(time));
 
-        qobject_cast<MainWindow *>(mainWindow)->getLstContact()->addContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
+        qobject_cast<MainWindow *>(mainWindow)->addContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
         BD::addContactOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
 
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");

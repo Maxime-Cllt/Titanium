@@ -55,6 +55,18 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 /**
+ * Ajouter un StdContact dans la liste des contact et dans le widget des contacts pour l'afficher.
+ * @param contact
+ */
+void MainWindow::addContact(const StdContact &contact)
+{
+    auto *c = new StdContact(contact);
+    lstContact->addContact(c);
+    listContactWidget->addContactBox(c);
+
+}
+
+/**
  * Ajoute un widget avec la liste d'interaction
  * @param widget
  */

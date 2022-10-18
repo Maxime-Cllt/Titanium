@@ -21,6 +21,8 @@ public:
 
     StdListContact *getLstContact();
 
+    void addContact(const StdContact &contact);
+
     void setListInteractionWidget(ListInteractionWidget *widget);
 
 private:
