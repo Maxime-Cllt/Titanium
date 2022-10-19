@@ -19,6 +19,12 @@
  */
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
+
+    setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
+    QLocale local(QLocale::Language::French);
+    QDateTime date;
+    date.setMSecsSinceEpoch(this->contact->getDateCreation());
+    setTitle("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     setObjectName("GroupBoxContact");
@@ -26,6 +32,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     layout = new QGridLayout(this);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     layout->setSpacing(20);
+
 
     createUi();
 
@@ -47,7 +54,9 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 {
     QGroupBox::mousePressEvent(event);
-    setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray;border-radius: 10px; color: white;}");
+    setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray; color: white;padding-top:20px;border-radius : 10px;}"
+                  "QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;padding-top:5px;}");
+
     if (event->button() == Qt::RightButton)
     {
         if (listInteractionWidget != nullptr)
@@ -96,7 +105,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         menu->exec(event->globalPosition().toPoint());
 
-        setStyleSheet("");
+        setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
     }
 }
 
@@ -153,7 +162,7 @@ void GroupeBoxContact::createUi()
 
     QPixmap im(qtContact.getPhoto());
     auto *labIm = new QLabel(this);
-    labIm->setPixmap(im.scaled(75 ,75, Qt::KeepAspectRatio));
+    labIm->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
     layout->addWidget(labIm);
     layout->addWidget(new QLabel("Nom Prénom : " + qtContact.getNom() + " " + qtContact.getPrenom(), this), 0, 1);
     layout->addWidget(new QLabel("Entreprise : " + qtContact.getEntreprise(), this), 0, 2);
@@ -168,7 +177,7 @@ void GroupeBoxContact::createUi()
 void GroupeBoxContact::cache()
 {
     listInteractionWidget->hide();
-    setStyleSheet("");
+    setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
 }
 
 /**

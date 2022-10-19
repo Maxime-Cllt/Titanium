@@ -230,4 +230,23 @@ void StdContact::setlstInteraction(ListInteraction *lstInteraction)
     StdContact::lstInteraction = lstInteraction;
 }
 
+bool StdContact::operator<(const StdContact &rhs) const
+{
+    return DateCreation < rhs.DateCreation;
+}
+
+bool StdContact::operator>(const StdContact &rhs) const
+{
+    return rhs < *this;
+}
+
+bool StdContact::operator<=(const StdContact &rhs) const
+{
+    return !(rhs < *this);
+}
+
+bool StdContact::operator>=(const StdContact &rhs) const
+{
+    return !(*this < rhs);
+}
 

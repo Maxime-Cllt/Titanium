@@ -42,7 +42,7 @@ std::list<StdContact *> *StdListContact::getLstContact()
  */
 void StdListContact::addContact(StdContact *contact)
 {
-    lstContact.push_back(contact);
+    lstContact.push_front(contact);
 }
 
 /**
@@ -86,4 +86,14 @@ StdListContact::StdListContact(const StdListContact &lst)
     {
         addContact(*contact);
     }
+}
+
+/**
+ * @details Trie la liste des contacts dans l'ordre décroissant.
+ */
+void StdListContact::sort()
+{
+    lstContact.sort([](StdContact *contact1,StdContact *contact2){
+        return *contact1 > *contact2;
+    });
 }

@@ -13,15 +13,15 @@
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-
-    setBaseSize(500, 450);
     setMinimumHeight(450);
+    setMinimumWidth(1000);
     bd = new BD;
     listModification = new ListModification;
 
     setMenuBar(new MenuBar(this));
 
     lstContact = new StdListContact(BD::getContactData());
+    lstContact->sort();
 
     setWindowTitle("Projet");
     auto *central = new QWidget();

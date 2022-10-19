@@ -18,6 +18,8 @@
 GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *parent) : QGroupBox(parent),
                                                                                       interaction(interaction)
 {
+    setStyleSheet("QGroupBox::title {subcontrol-origin: margin;subcontrol-position: top;}");
+
     QLocale local(QLocale::Language::French);
     QDateTime date;
     date.setMSecsSinceEpoch(this->interaction->getId());
@@ -30,6 +32,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     date.setMSecsSinceEpoch(this->interaction->getDateModif());
     labDateModif = new QLabel("Dernière modification : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"), this);
+    labDateModif->setAlignment(Qt::AlignHCenter);
 
     layout->addWidget(labDateModif);
 

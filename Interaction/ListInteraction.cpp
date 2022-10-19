@@ -111,13 +111,13 @@ ListInteraction::ListInteraction(const ListInteraction &lst)
     contactId = lst.getContactId();
 }
 
-/*
- * Fonction qui applique un trie decroissant sur la liste des interactions.
+/**
+ * @details Fonction qui applique un trie decroissant sur la liste des interactions.
  */
 void ListInteraction::reverse()
 {
-    listInteraction.sort([](Interaction *interaction, Interaction *interaction1)
+    listInteraction.sort([](Interaction *interaction1, Interaction *interaction2)
                          {
-                             return *interaction > *interaction1;
+                             return *interaction1 > *interaction2;
                          });
 }

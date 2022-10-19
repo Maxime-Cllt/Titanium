@@ -31,6 +31,7 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
     scrollArea->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     lay->addWidget(scrollArea);
+    layScrollArea->setSpacing(30);
 
 
     for (auto contact: *(qobject_cast<MainWindow *>(parent)->getLstContact())->getLstContact())
@@ -45,7 +46,7 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
  */
 void ListContactWidget::addContactBox(StdContact *contact)
 {
-    layScrollArea->addWidget(new GroupeBoxContact(contact, scrollArea));
+    layScrollArea->insertWidget(0,new GroupeBoxContact(contact, scrollArea));
 }
 
 /**

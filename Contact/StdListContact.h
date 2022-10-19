@@ -32,6 +32,8 @@ public:
 
     std::list<StdContact *> *getLstContact();
 
+    void sort();
+
 private:
     std::list<StdContact *> lstContact;
 
