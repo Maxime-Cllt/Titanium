@@ -27,7 +27,10 @@ private:
 
     QWidget *getListInteractionParent();
 
+    void parseTache(const QString &str);
+
 signals:
+
     void *supBtnClicked(Interaction *interaction);
 
     void *modifBtnClicked();

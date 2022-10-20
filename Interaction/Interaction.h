@@ -22,12 +22,12 @@ private:
     std::string contenu{};
     uint64_t id{};
     uint64_t dateModif{};
-    ListTache lstTache{};
+    ListTache *lstTache{};
 
 public:
-    const ListTache &getLstTache() const;
+    ListTache *getLstTache() const;
 
-    void setLstTache(const ListTache &lstTache);
+    void setLstTache(ListTache *lstTache);
 
 public:
     friend bool operator<(const Interaction &lhs, const Interaction &rhs);
@@ -52,7 +52,8 @@ public:
 
     void modif();
 
-    void addTache(std::string tag, std::string contenu);
+    void addTache(const Tache &tache);
+
 };
 
 #endif //UNTITLED2_INTERACTION_H

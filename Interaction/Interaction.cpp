@@ -104,17 +104,18 @@ void Interaction::modif()
             std::chrono::system_clock::now().time_since_epoch()).count());
 }
 
-const ListTache &Interaction::getLstTache() const
+
+void Interaction::addTache(const Tache &tache)
+{
+    lstTache->addTache(new Tache(tache));
+}
+
+ListTache *Interaction::getLstTache() const
 {
     return lstTache;
 }
 
-void Interaction::setLstTache(const ListTache &lstTache)
+void Interaction::setLstTache(ListTache *lstTache)
 {
     Interaction::lstTache = lstTache;
 }
-
-//void Interaction::addTache(std::string tag, std::string contenu)
-//{
-//    lstTache.addTache(Tache(std::move(tag),std::move(contenu)));
-//}

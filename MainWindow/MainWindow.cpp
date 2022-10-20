@@ -3,7 +3,6 @@
 //
 
 #include "MainWindow.h"
-#include <QPushButton>
 #include <QStatusBar>
 #include "../CreationContact/CreationContactDialog.h"
 #include "../MenuBar/MenuBar.h"
@@ -35,9 +34,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     auto *status = new QStatusBar(this);
 
-    auto * lab =new QLabel("Nombre de contact : "+QString::number(lstContact->getLstContact()->size()));
+    auto *lab = new QLabel("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
     lab->setAlignment(Qt::AlignCenter);
-    status->addWidget(lab,1);
+    status->addWidget(lab, 1);
 
     setStatusBar(status);
 

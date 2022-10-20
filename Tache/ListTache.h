@@ -3,7 +3,7 @@
 //
 
 /************************************************
- *  Classe qui sert a stocker toutes les interactions d'un seul contact.
+ *  Classe qui sert a stocker toutes les Taches d'une Interaction.
  ***********************************************/
 
 #ifndef PROJET_QT_LISTTACHE_H
@@ -20,11 +20,19 @@ public:
 
     ~ListTache();
 
+
+    ListTache(const ListTache &lst);
+
 private:
     std::list<Tache *> lstTache;
+public:
+    const std::list<Tache *> &getLstTache() const;
+
+    void setLstTache(const std::list<Tache *> &lstTache);
 
 public:
-    void addTache(const Tache& tache);
+    void addTache(const Tache &tache);
+
     void addTache(Tache *tache);
 
 };

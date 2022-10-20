@@ -53,6 +53,14 @@ BD::BD(QObject *parent) : QObject(parent)
                    "DateModification BIGINT not null,"
                    "Contenu TEXT"
                    ");");
+
+        query.exec("CREATE TABLE IF NOT EXISTS TACHE("
+                   "IdInteraction BIGINT not null,"
+                   "DateTag BIGINT not null,"
+                   "Tag1 VARCHAR(20) not null,"
+                   "Tag2 VARCHAR(20) not null,"
+                   "Contenu TEXT not null"
+                   ");");
     }
 }
 
@@ -73,7 +81,7 @@ void BD::addContactOnBD(const StdContact &contact)
     const QString &photo(qtContact.getPhoto());
     QString date;
     query.prepare("INSERT INTO CONTACTS (Nom, Prenom, Entreprise, Mail, Telephone, Photo, DateCreation) "
-                  "VALUES (:nom, :prenom, :entreprise, :mail, :tel, :photo, :date)");
+                  "VALUES (:nom, :prenom, :entreprise, :mail, :tel, :photo, :date);");
     date.setNum(contact.getDateCreation());
     query.bindValue(":nom", nom);
     query.bindValue(":prenom", prenom);
@@ -105,7 +113,7 @@ void BD::addModif(uint64_t idContact, const std::string &modif)
 {
     QSqlQuery query("INSERT INTO MODIFICATIONS "
                     "(IdContact, DateModification,Modification) "
-                    "VALUES (? , ? , ?)");
+                    "VALUES (? , ? , ?);");
     query.addBindValue(QString::number(idContact));
     query.addBindValue(QString::fromStdString(modif));
     query.addBindValue("?");
@@ -213,7 +221,7 @@ bool BD::modifyContact(const StdContact &contact)
 void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
 {
     QSqlQuery query(
-            "INSERT INTO INTERACTIONS (IdContact ,IdInteraction,DateModification, Contenu) VALUES ( ? , ? , ? , ?)");
+            "INSERT INTO INTERACTIONS (IdContact ,IdInteraction,DateModification, Contenu) VALUES ( ? , ? , ? , ?);");
     query.addBindValue(QString::number(idContact));
     query.addBindValue(QString::number(interaction.getId()));
     query.addBindValue(QString::number(interaction.getDateModif()));
@@ -238,11 +246,27 @@ void BD::supInteraction(const Interaction &interaction)
  */
 void BD::modifyInteraction(const Interaction &interaction)
 {
-    QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ?, DateModification = ? WHERE ? = IdInteraction");
+    QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ?, DateModification = ? WHERE ? = IdInteraction;");
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.addBindValue(QString::number(interaction.getDateModif()));
     query.addBindValue(QString::number(interaction.getId()));
     query.exec();
+
+    query.prepare("DELETE FROM TACHE WHERE ? = IdInteraction;");
+    query.addBindValue(interaction.getId());
+    query.exec();
+
+    for (auto tache: interaction.getLstTache()->getLstTache())
+    {
+        query.prepare("INSERT INTO TACHE VALUES (? , ? ,? , ?, ?);");
+        query.addBindValue(interaction.getId());
+        query.addBindValue(tache->getdateTag());
+        query.addBindValue(QString::fromStdString(tache->getTag1()));
+        query.addBindValue(QString::fromStdString(tache->getTag2()));
+        query.addBindValue(QString::fromStdString(tache->getcontenu()));
+        query.exec();
+    }
+
 }
 
 /**

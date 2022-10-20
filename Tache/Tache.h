@@ -13,15 +13,32 @@
 class Tache
 {
 public:
+    explicit Tache();
+
+    Tache(std::string tag1, std::string contenu);
 
 private:
-    std::string tag1;
-    std::string contenu1;
+    std::string tag1{};
+    std::string contenu{};
+    std::string tag2{};
+    uint64_t dateTag{};
 
-    std::string tag2;
-    uint64_t dateTag2;
 public:
+    const std::string &getTag1() const;
 
+    void setTag1(const std::string &tag1);
+
+    const std::string &getcontenu() const;
+
+    void setcontenu(const std::string &contenu);
+
+    const std::string &getTag2() const;
+
+    void setTag2(const std::string &tag2);
+
+    uint64_t getdateTag() const;
+
+    void setdateTag(uint64_t dateTag);
 
 };
 

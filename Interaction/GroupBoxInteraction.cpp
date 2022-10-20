@@ -4,10 +4,10 @@
 
 #include "GroupBoxInteraction.h"
 #include <QDateTime>
+#include <iostream>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
-#include <QRegularExpression>
 #include "ListInteractionWidget.h"
 #include "../BaseDeDonne/BD.h"
 
@@ -68,31 +68,12 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
     {
         this->interaction->setContenu(textEdit->document()->toRawText().toStdString());
         this->interaction->modif();
-        QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
+        parseTache(textEdit->toPlainText());
+        for (auto tache: this->interaction->getLstTache()->getLstTache())
+            QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
         BD::modifyInteraction(*this->interaction);
 
         emit modifBtnClicked();
-
-        QStringList lst(textEdit->document()->toPlainText().split("\n"));
-        QRegularExpression reg1("@todo");
-        QRegularExpression reg2("@date");
-        QRegularExpressionMatch match1;
-        QRegularExpressionMatch match2;
-        for (auto item: lst)
-        {
-            match1 = reg1.match(item);
-            match2 = reg2.match(item);
-            if(match1.hasMatch()){
-                if(match2.hasMatch()){
-
-                }
-                qDebug()<< item;
-            }else{
-                if(match2.hasMatch()){
-
-                }
-            }
-        }
 
     });
 
@@ -117,3 +98,44 @@ QWidget *GroupBoxInteraction::getListInteractionParent()
     }
     return lstInteractionWidget;
 }
+
+void GroupBoxInteraction::parseTache(const QString &str)
+{
+    QStringList lst(str.split("\n"));
+    ListTache lstTache;
+
+
+    for (const auto &line: lst)
+    {
+        QStringList lstWord(line.split(" "));
+        Tache tache;
+        if (lstWord.contains("@todo"))
+        {
+            tache.setTag1("@todo");
+            int i = lstWord.indexOf("@todo");
+
+            QString strr(lstWord[i + 1]);
+            for (int o = i + 2; o < lstWord.size(); o++)
+            {
+                if (lstWord[o] != "@date")
+                {
+                    strr += " " + lstWord[o];
+                } else
+                {
+                    tache.setTag2("@date");
+                    QDate date(lstWord[o + 1].split("/")[2].toInt(), lstWord[o + 1].split("/")[1].toInt(),
+                               lstWord[o + 1].split("/")[0].toInt());
+                    QDateTime dateTime;
+                    dateTime.setDate(date);
+                    u_int64_t d = dateTime.toMSecsSinceEpoch();
+                    tache.setdateTag(d);
+                    break;
+                }
+            }
+            tache.setcontenu(strr.toStdString());
+            lstTache.addTache(tache);
+        }
+    }
+    interaction->setLstTache(new ListTache(lstTache));
+}
+
