@@ -48,10 +48,11 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     for (auto interaction: lstInteraction->getListInteraction())
     {
         auto *box = new GroupBoxInteraction(interaction, scrollArea);
-        connect(box, &GroupBoxInteraction::supBtnClicked,this,[this](Interaction *interaction){
+        connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
+        {
             this->lstInteraction->supInteraction(interaction);
         });
-        connect(box,&GroupBoxInteraction::modifBtnClicked,this,&ListInteractionWidget::reactualiseUi);
+        connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::reactualiseUi);
         layoutScroll->addWidget(box);
     }
 }
@@ -63,7 +64,7 @@ void ListInteractionWidget::ajoutInteraction()
 {
     auto *interaction = new Interaction;
     lstInteraction->addInteraction(interaction);
-    layoutScroll->insertWidget(0,new GroupBoxInteraction(interaction,scrollArea));
+    layoutScroll->insertWidget(0, new GroupBoxInteraction(interaction, scrollArea));
     BD::addInteraction(lstInteraction->getContactId(), *interaction);
 }
 

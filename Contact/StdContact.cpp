@@ -202,8 +202,7 @@ void StdContact::addInteraction(const Interaction &interaction)
 /**
  * @return Destructeur du StdContact
  */
-StdContact::~StdContact()
-{}
+StdContact::~StdContact() {}
 
 /**
  *

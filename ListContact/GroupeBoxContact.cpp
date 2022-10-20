@@ -54,8 +54,9 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 {
     QGroupBox::mousePressEvent(event);
-    setStyleSheet("QGroupBox#GroupBoxContact{background-color: gray; color: white;padding-top:20px;border-radius : 10px;}"
-                  "QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;padding-top:5px;}");
+    setStyleSheet(
+            "QGroupBox#GroupBoxContact{background-color: gray; color: white;padding-top:20px;border-radius : 10px;}"
+            "QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;padding-top:5px;}");
 
     if (event->button() == Qt::RightButton)
     {

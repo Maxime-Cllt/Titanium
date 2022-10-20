@@ -46,7 +46,7 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
  */
 void ListContactWidget::addContactBox(StdContact *contact)
 {
-    layScrollArea->insertWidget(0,new GroupeBoxContact(contact, scrollArea));
+    layScrollArea->insertWidget(0, new GroupeBoxContact(contact, scrollArea));
 }
 
 /**

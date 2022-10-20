@@ -26,8 +26,7 @@ QtContact::QtContact(const QString &nom, const QString &prenom, const QString &e
                      const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
                                                               Mail(mail), Telephone(telephone), Photo(photo),
                                                               DateCreation(dateCreation),
-                                                              lstInteraction(new ListInteraction(lstInteraction))
-{}
+                                                              lstInteraction(new ListInteraction(lstInteraction)) {}
 
 /**
  *
@@ -140,8 +139,7 @@ void QtContact::setPhoto(const QString &photo)
 /**
  * @param Constructeur par defaut d'un Contact
  */
-QtContact::QtContact()
-{}
+QtContact::QtContact() {}
 
 /**
  *

@@ -93,9 +93,10 @@ StdListContact::StdListContact(const StdListContact &lst)
  */
 void StdListContact::sortDateCreation()
 {
-    lstContact.sort([](StdContact *contact1,StdContact *contact2){
-        return *contact1 > *contact2;
-    });
+    lstContact.sort([](StdContact *contact1, StdContact *contact2)
+                    {
+                        return *contact1 > *contact2;
+                    });
 }
 
 
@@ -104,7 +105,8 @@ void StdListContact::sortDateCreation()
  */
 void StdListContact::sortNom()
 {
-    lstContact.sort([](StdContact *contact1,StdContact *contact2){
-        return contact1->getNom() < contact2->getNom();
-    });
+    lstContact.sort([](StdContact *contact1, StdContact *contact2)
+                    {
+                        return contact1->getNom() < contact2->getNom();
+                    });
 }
