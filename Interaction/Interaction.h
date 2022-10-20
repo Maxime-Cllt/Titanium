@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include "../Tache/ListTache.h"
 
 class Interaction
 {
@@ -21,6 +22,12 @@ private:
     std::string contenu{};
     uint64_t id{};
     uint64_t dateModif{};
+    ListTache lstTache{};
+
+public:
+    const ListTache &getLstTache() const;
+
+    void setLstTache(const ListTache &lstTache);
 
 public:
     friend bool operator<(const Interaction &lhs, const Interaction &rhs);
@@ -44,6 +51,8 @@ public:
     void setContenu(const std::string &contenu);
 
     void modif();
+
+    void addTache(std::string tag, std::string contenu);
 };
 
 #endif //UNTITLED2_INTERACTION_H

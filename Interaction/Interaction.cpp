@@ -3,6 +3,7 @@
 //
 
 #include <chrono>
+#include <utility>
 #include "Interaction.h"
 
 
@@ -14,8 +15,9 @@ Interaction::Interaction(const std::string &contenu)
 {
     Interaction::contenu = contenu;
 
+    // recuperation de la date de maintenant en milliseconde
     id = duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count();// recuperation de la date de maintenant
+            std::chrono::system_clock::now().time_since_epoch()).count();
     dateModif = id;
 }
 
@@ -100,4 +102,19 @@ void Interaction::modif()
 {
     setDateModif(duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count());
+}
+
+const ListTache &Interaction::getLstTache() const
+{
+    return lstTache;
+}
+
+void Interaction::setLstTache(const ListTache &lstTache)
+{
+    Interaction::lstTache = lstTache;
+}
+
+void Interaction::addTache(std::string tag, std::string contenu)
+{
+    lstTache.addTache(Tache(std::move(tag),std::move(contenu)));
 }

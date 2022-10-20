@@ -71,6 +71,8 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
         BD::modifyInteraction(*this->interaction);
 
         qobject_cast<ListInteractionWidget *>(getListInteractionParent())->reactualiseUi();
+
+        qDebug()<< textEdit->document()->find("@").document()->toRawText();
     });
 
     connect(supBtn, &QPushButton::clicked, this, [=]()
