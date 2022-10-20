@@ -27,7 +27,10 @@ private:
 
     QWidget *getListInteractionParent();
 
-    void reactualiseDateModif();
+signals:
+    void *supBtnClicked(Interaction *interaction);
+
+    void *modifBtnClicked();
 };
 
 

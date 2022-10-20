@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
+#include <QRegularExpression>
 #include "ListInteractionWidget.h"
 #include "../BaseDeDonne/BD.h"
 
@@ -70,15 +71,34 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
         QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
         BD::modifyInteraction(*this->interaction);
 
-        qobject_cast<ListInteractionWidget *>(getListInteractionParent())->reactualiseUi();
+        emit modifBtnClicked();
 
-        qDebug()<< textEdit->document()->find("@").document()->toRawText();
+        QStringList lst(textEdit->document()->toPlainText().split("\n"));
+        QRegularExpression reg1("@todo");
+        QRegularExpression reg2("@date");
+        QRegularExpressionMatch match1;
+        QRegularExpressionMatch match2;
+        for (auto item: lst)
+        {
+            match1 = reg1.match(item);
+            match2 = reg2.match(item);
+            if(match1.hasMatch()){
+                if(match2.hasMatch()){
+
+                }
+                qDebug()<< item;
+            }else{
+                if(match2.hasMatch()){
+
+                }
+            }
+        }
+
     });
 
     connect(supBtn, &QPushButton::clicked, this, [=]()
     {
-        qobject_cast<ListInteractionWidget *>(getListInteractionParent())->getLstInteraction()->supInteraction(
-                this->interaction);
+        emit supBtnClicked(this->interaction);
 
         BD::supInteraction(*this->interaction);
         delete this->interaction;

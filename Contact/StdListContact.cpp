@@ -89,11 +89,22 @@ StdListContact::StdListContact(const StdListContact &lst)
 }
 
 /**
- * @details Trie la liste des contacts dans l'ordre décroissant.
+ * @details Trie la liste des contacts dans l'ordre décroissant en fonction de la date de creation du contact.
  */
-void StdListContact::sort()
+void StdListContact::sortDateCreation()
 {
     lstContact.sort([](StdContact *contact1,StdContact *contact2){
         return *contact1 > *contact2;
+    });
+}
+
+
+/**
+ * @details Trie la liste des contacts dans l'ordre croissant en fonction du nom du contact.
+ */
+void StdListContact::sortNom()
+{
+    lstContact.sort([](StdContact *contact1,StdContact *contact2){
+        return contact1->getNom() < contact2->getNom();
     });
 }

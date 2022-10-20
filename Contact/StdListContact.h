@@ -32,7 +32,9 @@ public:
 
     std::list<StdContact *> *getLstContact();
 
-    void sort();
+    void sortDateCreation();
+
+    void sortNom();
 
 private:
     std::list<StdContact *> lstContact;

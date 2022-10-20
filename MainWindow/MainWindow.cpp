@@ -4,6 +4,7 @@
 
 #include "MainWindow.h"
 #include <QPushButton>
+#include <QStatusBar>
 #include "../CreationContact/CreationContactDialog.h"
 #include "../MenuBar/MenuBar.h"
 
@@ -21,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setMenuBar(new MenuBar(this));
 
     lstContact = new StdListContact(BD::getContactData());
-    lstContact->sort();
+    lstContact->sortDateCreation();
 
     setWindowTitle("Projet");
     auto *central = new QWidget();
@@ -31,6 +32,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     listContactWidget = new ListContactWidget(this);
     layout->addWidget(listContactWidget);
+
+    auto *status = new QStatusBar(this);
+
+    auto * lab =new QLabel("Nombre de contact : "+QString::number(lstContact->getLstContact()->size()));
+    lab->setAlignment(Qt::AlignCenter);
+    status->addWidget(lab,1);
+
+    setStatusBar(status);
+
 }
 
 /**

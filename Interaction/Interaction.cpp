@@ -114,7 +114,7 @@ void Interaction::setLstTache(const ListTache &lstTache)
     Interaction::lstTache = lstTache;
 }
 
-void Interaction::addTache(std::string tag, std::string contenu)
-{
-    lstTache.addTache(Tache(std::move(tag),std::move(contenu)));
-}
+//void Interaction::addTache(std::string tag, std::string contenu)
+//{
+//    lstTache.addTache(Tache(std::move(tag),std::move(contenu)));
+//}
