@@ -39,6 +39,10 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     textEdit = new QTextEdit(this);
     textEdit->setText(QString::fromStdString(this->interaction->getContenu()));
+    for (auto tache: *interaction->getLstTache()->getLstTache())
+    {
+        textEdit->append(QString::fromStdString(tache->getcontenu()));
+    }
     textEdit->setMinimumHeight(200);
 
     layout->addWidget(textEdit);
@@ -66,11 +70,16 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     connect(modifBtn, &QPushButton::clicked, this, [=]()
     {
-        this->interaction->setContenu(textEdit->document()->toRawText().toStdString());
-        this->interaction->modif();
         parseTache(textEdit->toPlainText());
-        for (auto tache: this->interaction->getLstTache()->getLstTache())
-            QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
+        QString str = textEdit->document()->toPlainText();
+        for (auto tache: *this->interaction->getLstTache()->getLstTache())
+        {
+            str.remove(QString::fromStdString(tache->getcontenu()));
+        }
+        str.replace(str.indexOf("\n"), 0, "");
+        this->interaction->setContenu(str.toStdString());
+        this->interaction->modif();
+        QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
         BD::modifyInteraction(*this->interaction);
 
         emit modifBtnClicked();
@@ -111,18 +120,14 @@ void GroupBoxInteraction::parseTache(const QString &str)
         Tache tache;
         if (lstWord.contains("@todo"))
         {
-            tache.setTag1("@todo");
+            tache.setcontenu(line.toStdString());
             int i = lstWord.indexOf("@todo");
 
             QString strr(lstWord[i + 1]);
             for (int o = i + 2; o < lstWord.size(); o++)
             {
-                if (lstWord[o] != "@date")
+                if (lstWord[o] == "@date")
                 {
-                    strr += " " + lstWord[o];
-                } else
-                {
-                    tache.setTag2("@date");
                     QDate date(lstWord[o + 1].split("/")[2].toInt(), lstWord[o + 1].split("/")[1].toInt(),
                                lstWord[o + 1].split("/")[0].toInt());
                     QDateTime dateTime;
@@ -132,7 +137,6 @@ void GroupBoxInteraction::parseTache(const QString &str)
                     break;
                 }
             }
-            tache.setcontenu(strr.toStdString());
             lstTache.addTache(tache);
         }
     }

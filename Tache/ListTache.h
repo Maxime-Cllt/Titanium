@@ -24,11 +24,12 @@ public:
     ListTache(const ListTache &lst);
 
 private:
-    std::list<Tache *> lstTache;
+    std::list<Tache *> *lstTache;
 public:
-    const std::list<Tache *> &getLstTache() const;
+    std::list<Tache *> *getLstTache() const;
 
-    void setLstTache(const std::list<Tache *> &lstTache);
+    void setLstTache(std::list<Tache *> *lstTache);
+
 
 public:
     void addTache(const Tache &tache);

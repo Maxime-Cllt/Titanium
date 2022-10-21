@@ -195,14 +195,17 @@ std::ostream &operator<<(std::ostream &os, const StdContact &contact)
  */
 void StdContact::addInteraction(const Interaction &interaction)
 {
-    lstInteraction->addInteraction(new Interaction(interaction));
+    lstInteraction->addInteraction(interaction);
 
 }
 
 /**
  * @return Destructeur du StdContact
  */
-StdContact::~StdContact() {}
+StdContact::~StdContact()
+{
+    delete lstInteraction;
+}
 
 /**
  *
@@ -247,5 +250,18 @@ bool StdContact::operator<=(const StdContact &rhs) const
 bool StdContact::operator>=(const StdContact &rhs) const
 {
     return !(*this < rhs);
+}
+
+StdContact::StdContact(const StdContact &contact)
+{
+    setNom(contact.getNom());
+    setPrenom(contact.getPrenom());
+    setEntreprise(contact.getEntreprise());
+    setMail(contact.getMail());
+    setTelephone(contact.getTelephone());
+    setPhoto(contact.getPhoto());
+    setDateCreation(contact.getDateCreation());
+    setlstInteraction(new ListInteraction(contact.getLstInteraction()));
+
 }
 

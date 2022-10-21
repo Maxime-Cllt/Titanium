@@ -16,7 +16,11 @@ class Interaction
 public:
     Interaction(const std::string &contenu);
 
+    Interaction(const Interaction &interaction);
+
     explicit Interaction();
+
+    ~Interaction();
 
 private:
     std::string contenu{};
@@ -28,6 +32,8 @@ public:
     ListTache *getLstTache() const;
 
     void setLstTache(ListTache *lstTache);
+
+    void setLstTache(const ListTache &lstTache);
 
 public:
     friend bool operator<(const Interaction &lhs, const Interaction &rhs);

@@ -19,6 +19,7 @@ Interaction::Interaction(const std::string &contenu)
     id = duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
     dateModif = id;
+    lstTache = new ListTache();
 }
 
 /**
@@ -48,6 +49,8 @@ Interaction::Interaction()
     id = duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();// recuperation de la date de maintenant
     dateModif = id;
+    lstTache = new ListTache();
+
 }
 
 /**
@@ -117,5 +120,25 @@ ListTache *Interaction::getLstTache() const
 
 void Interaction::setLstTache(ListTache *lstTache)
 {
-    Interaction::lstTache = lstTache;
+    setLstTache(*lstTache);
+}
+
+void Interaction::setLstTache(const ListTache &lstTache)
+{
+    this->lstTache = new ListTache(lstTache);
+}
+
+
+Interaction::~Interaction()
+{
+    delete lstTache;
+}
+
+Interaction::Interaction(const Interaction &interaction)
+{
+    lstTache = new ListTache(*interaction.getLstTache());
+    contenu = interaction.getContenu();
+    id = interaction.getId();
+    dateModif = interaction.getDateModif();
+
 }

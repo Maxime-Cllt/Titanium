@@ -10,10 +10,9 @@
 /**
  * @details constructeur qui affecte à tag1, contenu les valeurs passer en parametre et
  * initialise la date du tag à la date de la création de l'objet
- * @param tag1
  * @param contenu
  */
-Tache::Tache(std::string tag1, std::string contenu) : tag1(std::move(tag1)), contenu(std::move(contenu))
+Tache::Tache(std::string contenu) : contenu(std::move(contenu))
 {
     dateTag = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
@@ -27,24 +26,6 @@ Tache::Tache()
     dateTag = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
 };
-
-/**
- * @details getter de tag1.
- * @return tag1
- */
-const std::string &Tache::getTag1() const
-{
-    return tag1;
-}
-
-/**
- * @details setter de tag1.
- * @param tag1
- */
-void Tache::setTag1(const std::string &tag1)
-{
-    Tache::tag1 = tag1;
-}
 
 /**
  * @details getter de contenu.
@@ -62,24 +43,6 @@ const std::string &Tache::getcontenu() const
 void Tache::setcontenu(const std::string &contenu)
 {
     Tache::contenu = contenu;
-}
-
-/**
- * @details getter de tag2.
- * @return tag2
- */
-const std::string &Tache::getTag2() const
-{
-    return tag2;
-}
-
-/**
- * @details setter de tag2.
- * @param tag2
- */
-void Tache::setTag2(const std::string &tag2)
-{
-    Tache::tag2 = tag2;
 }
 
 /**

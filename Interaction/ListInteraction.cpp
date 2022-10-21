@@ -12,7 +12,7 @@
  */
 ListInteraction::ListInteraction(uint64_t id) : contactId(id)
 {
-
+    listInteraction = new std::list<Interaction *>();
 }
 
 /**
@@ -21,7 +21,7 @@ ListInteraction::ListInteraction(uint64_t id) : contactId(id)
  */
 void ListInteraction::addInteraction(Interaction *interaction)
 {
-    listInteraction.push_back(interaction);
+    addInteraction(*interaction);
 }
 
 /**
@@ -30,7 +30,7 @@ void ListInteraction::addInteraction(Interaction *interaction)
  */
 void ListInteraction::supInteraction(Interaction *interaction)
 {
-    listInteraction.remove(interaction);
+    listInteraction->remove(interaction);
 }
 
 /**
@@ -51,42 +51,39 @@ void ListInteraction::setContactId(uint64_t contactId)
     ListInteraction::contactId = contactId;
 }
 
-/**
- *
- * @return listInteraction
- */
-const std::list<Interaction *> &ListInteraction::getListInteraction() const
+std::list<Interaction *> *ListInteraction::getListInteraction() const
 {
     return listInteraction;
 }
 
-/**
- *
- * @param listInteraction
- */
-void ListInteraction::setListInteraction(const std::list<Interaction *> &listInteraction)
+void ListInteraction::setListInteraction(std::list<Interaction *> *listInteraction)
 {
-    ListInteraction::listInteraction = listInteraction;
-}
-
-/**
- * @param Destructeur de la classe ListInteraction
- */
-ListInteraction::~ListInteraction()
-{
-    for (auto interaction: listInteraction)
+    for (auto interaction: *listInteraction)
     {
-        delete interaction;
+        addInteraction(interaction);
     }
 }
 
+
 /**
- * @return Constructeur de la classe ListInteraction
+ * @details Destructeur de la classe ListInteraction qui delete tous les pointeurs D'interaction contenu dans listInteraction.
+ */
+ListInteraction::~ListInteraction()
+{
+    for (auto interaction: *listInteraction)
+    {
+        delete interaction;
+    }
+    delete listInteraction;
+}
+
+/**
+ * @details Constructeur par defaut.
  */
 ListInteraction::ListInteraction()
 {
-
-}
+    listInteraction = new std::list<Interaction *>();
+};
 
 /**
  * Ajouter une interaction
@@ -94,8 +91,7 @@ ListInteraction::ListInteraction()
  */
 void ListInteraction::addInteraction(const Interaction &interaction)
 {
-    listInteraction.push_back(new Interaction(interaction));
-
+    listInteraction->push_back(new Interaction(interaction));
 }
 
 /**
@@ -104,7 +100,8 @@ void ListInteraction::addInteraction(const Interaction &interaction)
  */
 ListInteraction::ListInteraction(const ListInteraction &lst)
 {
-    for (auto inter: lst.getListInteraction())
+    listInteraction = new std::list<Interaction *>();
+    for (auto inter: *lst.getListInteraction())
     {
         addInteraction(*inter);
     }
@@ -116,8 +113,8 @@ ListInteraction::ListInteraction(const ListInteraction &lst)
  */
 void ListInteraction::reverse()
 {
-    listInteraction.sort([](Interaction *interaction1, Interaction *interaction2)
-                         {
-                             return *interaction1 > *interaction2;
-                         });
+    listInteraction->sort([](Interaction *interaction1, Interaction *interaction2)
+                          {
+                              return *interaction1 > *interaction2;
+                          });
 }

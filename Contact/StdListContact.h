@@ -37,7 +37,7 @@ public:
     void sortNom();
 
 private:
-    std::list<StdContact *> lstContact;
+    std::list<StdContact *> *lstContact;
 
 
 };

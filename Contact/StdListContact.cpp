@@ -7,7 +7,10 @@
 /**
  *  @details Constructeur par defaut de la classe StdListContact
  */
-StdListContact::StdListContact() = default;
+StdListContact::StdListContact()
+{
+    lstContact = new std::list<StdContact *>();
+};
 
 /**
  * Ajouter un StdContact à la liste lstContact
@@ -15,7 +18,8 @@ StdListContact::StdListContact() = default;
  */
 void StdListContact::addContact(const StdContact &contact)
 {
-    lstContact.push_back(new StdContact(contact));
+    lstContact->push_back(new StdContact(contact));
+
 }
 
 /**
@@ -24,7 +28,7 @@ void StdListContact::addContact(const StdContact &contact)
  */
 void StdListContact::addContact(const QtContact &contact)
 {
-    lstContact.push_back(new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(contact)));
+    lstContact->push_back(new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(contact)));
 }
 
 /**
@@ -33,7 +37,7 @@ void StdListContact::addContact(const QtContact &contact)
  */
 std::list<StdContact *> *StdListContact::getLstContact()
 {
-    return &lstContact;
+    return lstContact;
 }
 
 /**
@@ -42,7 +46,7 @@ std::list<StdContact *> *StdListContact::getLstContact()
  */
 void StdListContact::addContact(StdContact *contact)
 {
-    lstContact.push_front(contact);
+    lstContact->push_front(contact);
 }
 
 /**
@@ -53,7 +57,7 @@ void StdListContact::addContact(StdContact *contact)
  */
 std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
 {
-    for (const auto &contact: lst.lstContact)
+    for (const auto &contact: *lst.lstContact)
     {
         os << contact << "\n";
     }
@@ -66,7 +70,7 @@ std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
  */
 void StdListContact::supContact(StdContact *contact)
 {
-    lstContact.remove(contact);
+    lstContact->remove(contact);
 }
 
 /**
@@ -74,7 +78,7 @@ void StdListContact::supContact(StdContact *contact)
  */
 StdListContact::~StdListContact()
 {
-    for (auto contact: lstContact)
+    for (auto contact: *lstContact)
     {
         delete contact;
     }
@@ -82,10 +86,11 @@ StdListContact::~StdListContact()
 
 StdListContact::StdListContact(const StdListContact &lst)
 {
-    for (auto contact: lst.lstContact)
+    for (auto contact: *lst.lstContact)
     {
         addContact(*contact);
     }
+    delete lstContact;
 }
 
 /**
@@ -93,10 +98,10 @@ StdListContact::StdListContact(const StdListContact &lst)
  */
 void StdListContact::sortDateCreation()
 {
-    lstContact.sort([](StdContact *contact1, StdContact *contact2)
-                    {
-                        return *contact1 > *contact2;
-                    });
+    lstContact->sort([](StdContact *contact1, StdContact *contact2)
+                     {
+                         return *contact1 > *contact2;
+                     });
 }
 
 
@@ -105,8 +110,8 @@ void StdListContact::sortDateCreation()
  */
 void StdListContact::sortNom()
 {
-    lstContact.sort([](StdContact *contact1, StdContact *contact2)
-                    {
-                        return contact1->getNom() < contact2->getNom();
-                    });
+    lstContact->sort([](StdContact *contact1, StdContact *contact2)
+                     {
+                         return contact1->getNom() < contact2->getNom();
+                     });
 }

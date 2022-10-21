@@ -45,7 +45,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
 
 
     lstInteraction->reverse();
-    for (auto interaction: lstInteraction->getListInteraction())
+    for (auto interaction: *lstInteraction->getListInteraction())
     {
         auto *box = new GroupBoxInteraction(interaction, scrollArea);
         connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
@@ -77,7 +77,6 @@ ListInteraction *ListInteractionWidget::getLstInteraction() const
     return lstInteraction;
 }
 
-
 /**
  * @details reactualise le widget qui contient les groupebox des interaction a chaque fois qu'une nouvelle interaction est ajouté.
  */
@@ -88,7 +87,7 @@ void ListInteractionWidget::reactualiseUi()
     {
         widget->close();
     }
-    for (auto interaction: lstInteraction->getListInteraction())
+    for (auto interaction: *lstInteraction->getListInteraction())
     {
         layoutScroll->addWidget(new GroupBoxInteraction(interaction, scrollArea));
     }

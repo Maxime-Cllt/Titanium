@@ -29,6 +29,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 
     setObjectName("GroupBoxContact");
 
+
     layout = new QGridLayout(this);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     layout->setSpacing(20);
@@ -160,6 +161,7 @@ void GroupeBoxContact::reactualiseDonne()
 void GroupeBoxContact::createUi()
 {
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
+
 
     QPixmap im(qtContact.getPhoto());
     auto *labIm = new QLabel(this);

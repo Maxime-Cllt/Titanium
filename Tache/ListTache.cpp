@@ -8,18 +8,32 @@
  * @details constructeur par defaut.
  */
 ListTache::ListTache()
-= default;
+{
+    lstTache = new std::list<Tache *>();
+}
 
 /**
  * @details destructeur qui delete tous les pointers de Tache contenu dans lstTache
  */
 ListTache::~ListTache()
 {
-    for (auto tache: lstTache)
+    for (auto tache: *lstTache)
     {
         delete tache;
     }
+    delete lstTache;
 }
+
+std::list<Tache *> *ListTache::getLstTache() const
+{
+    return lstTache;
+}
+
+void ListTache::setLstTache(std::list<Tache *> *lstTache)
+{
+    ListTache::lstTache = lstTache;
+}
+
 
 /**
  * @details ajoute la tache en paramètre à la liste des taches.
@@ -27,7 +41,7 @@ ListTache::~ListTache()
  */
 void ListTache::addTache(const Tache &tache)
 {
-    lstTache.push_back(new Tache(tache));
+    lstTache->push_back(new Tache(tache));
 }
 
 /**
@@ -36,25 +50,7 @@ void ListTache::addTache(const Tache &tache)
  */
 void ListTache::addTache(Tache *tache)
 {
-    lstTache.push_back(new Tache(*tache));
-}
-
-/**
- * @details getter de la liste des taches.
- * @return la liste des taches
- */
-const std::list<Tache *> &ListTache::getLstTache() const
-{
-    return lstTache;
-}
-
-/**
- * @details setter de la lite des taches.
- * @param lstTache
- */
-void ListTache::setLstTache(const std::list<Tache *> &lstTache)
-{
-    ListTache::lstTache = lstTache;
+    lstTache->push_back(new Tache(*tache));
 }
 
 /**
@@ -63,7 +59,8 @@ void ListTache::setLstTache(const std::list<Tache *> &lstTache)
  */
 ListTache::ListTache(const ListTache &lst)
 {
-    for (auto tache: lst.lstTache)
+    lstTache = new std::list<Tache *>();
+    for (auto tache: *lst.lstTache)
     {
         addTache(tache);
     }

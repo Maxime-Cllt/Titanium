@@ -22,7 +22,7 @@ private:
     QString Telephone;
     QString Photo;
     std::uint64_t DateCreation{};
-    ListInteraction *lstInteraction;
+    ListInteraction *lstInteraction{};
 
 public:
     QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
@@ -36,6 +36,8 @@ public:
     void setLstInteraction(const ListInteraction &lstInteraction);
 
     explicit QtContact();
+
+    QtContact(const QtContact &qtContact);
 
     ~QtContact();
 

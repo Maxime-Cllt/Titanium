@@ -11,7 +11,6 @@
  */
 QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &contact)
 {
-
     return QtContact(QString::fromStdString(contact.getNom()), QString::fromStdString(contact.getPrenom()),
                      QString::fromStdString(contact.getEntreprise()), QString::fromStdString(contact.getMail()),
                      QString::fromStdString(contact.getTelephone()), QString::fromStdString(contact.getPhoto()),

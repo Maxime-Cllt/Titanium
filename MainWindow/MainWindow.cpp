@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     lstContact = new StdListContact(BD::getContactData());
     lstContact->sortDateCreation();
 
+
     setWindowTitle("Projet");
     auto *central = new QWidget();
     layout = new QHBoxLayout(central);

@@ -194,3 +194,16 @@ QtContact::~QtContact()
     delete lstInteraction;
 }
 
+QtContact::QtContact(const QtContact &qtContact)
+{
+    setNom(qtContact.getNom());
+    setPrenom(qtContact.getPrenom());
+    setEntreprise(qtContact.getEntreprise());
+    setMail(qtContact.getMail());
+    setTelephone(qtContact.getTelephone());
+    setPhoto(qtContact.getPhoto());
+    setDateCreation(qtContact.getDateCreation());
+    setLstInteraction(qtContact.getLstInteraction());
+
+}
+

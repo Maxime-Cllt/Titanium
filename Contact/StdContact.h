@@ -23,6 +23,8 @@ public:
 
     explicit StdContact();
 
+    StdContact(const StdContact &contact);
+
     ~StdContact();
 
 private:

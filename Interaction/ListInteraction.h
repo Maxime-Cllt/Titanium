@@ -30,16 +30,16 @@ public:
 
     void setContactId(uint64_t contactId);
 
-    const std::list<Interaction *> &getListInteraction() const;
-
-    void setListInteraction(const std::list<Interaction *> &listInteraction);
 
     void reverse();
 
+    std::list<Interaction *> *getListInteraction() const;
+
+    void setListInteraction(std::list<Interaction *> *listInteraction);
 
 private:
     uint64_t contactId{};
-    std::list<Interaction *> listInteraction{};
+    std::list<Interaction *> *listInteraction{};
 };
 
 
