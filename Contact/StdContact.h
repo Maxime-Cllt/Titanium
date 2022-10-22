@@ -11,9 +11,9 @@
 #include "../Interaction/Interaction.h"
 #include "../Interaction/ListInteraction.h"
 
-/*
- * Classe StdContact qui utilise uniquement des objets c/c++, cette classe definit un contact.
- */
+/**
+* @details Classe StdContact qui utilise uniquement des objets c/c++, cette classe definit un contact.
+*/
 class StdContact
 {
 public:

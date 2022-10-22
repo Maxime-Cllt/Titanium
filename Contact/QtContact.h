@@ -11,6 +11,9 @@
 #include "../Interaction/Interaction.h"
 #include "../Interaction/ListInteraction.h"
 
+/**
+* @details  Classe QtContact : Modélise un contact avec les primitives de Qt.
+*/
 class QtContact
 {
 

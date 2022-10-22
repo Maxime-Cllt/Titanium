@@ -23,7 +23,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
     QLocale local(QLocale::Language::French);
     QDateTime date;
-    date.setMSecsSinceEpoch(this->contact->getDateCreation());
+    date.setMSecsSinceEpoch(this->contact->getDateCreation()/1000);
     setTitle("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -102,7 +102,6 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
             }
             qobject_cast<MainWindow *>(mainWindow)->getLstContact()->supContact(contact);
             close();
-            delete contact;
         });
 
         menu->exec(event->globalPosition().toPoint());

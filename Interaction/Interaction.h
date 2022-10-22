@@ -10,11 +10,14 @@
 #include <ctime>
 #include "../Tache/ListTache.h"
 
+/**
+ * @details Classe Interaction qui modélise une intércation avec les primitives c/c++.
+ */
 class Interaction
 {
 
 public:
-    Interaction(const std::string &contenu);
+    explicit Interaction(const std::string &contenu);
 
     Interaction(const Interaction &interaction);
 
@@ -36,13 +39,13 @@ public:
     void setLstTache(const ListTache &lstTache);
 
 public:
-    friend bool operator<(const Interaction &lhs, const Interaction &rhs);
+    bool operator<(const Interaction &rhs) const;
 
-    friend bool operator>(const Interaction &lhs, const Interaction &rhs);
+    bool operator>(const Interaction &rhs) const;
 
-    friend bool operator<=(const Interaction &lhs, const Interaction &rhs);
+    bool operator<=(const Interaction &rhs) const;
 
-    friend bool operator>=(const Interaction &lhs, const Interaction &rhs);
+    bool operator>=(const Interaction &rhs) const;
 
     uint64_t getDateModif() const;
 

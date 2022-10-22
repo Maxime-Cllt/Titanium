@@ -33,8 +33,8 @@ StdContact::StdContact(const std::string &nom, const std::string &prenom, const 
 }
 
 /**
- *
- * @return Nom du StdContact
+ * @details getter de Nom
+ * @return Nom du Contact
  */
 const std::string &StdContact::getNom() const
 {
@@ -42,8 +42,8 @@ const std::string &StdContact::getNom() const
 }
 
 /**
- *
- * @param Nom du StdContact
+ * @details setter de Nom
+ * @param Nom du Contact
  */
 void StdContact::setNom(const std::string &nom)
 {
@@ -51,8 +51,8 @@ void StdContact::setNom(const std::string &nom)
 }
 
 /**
- *
- * @return Prenom du StdContact
+ * @details getter de Prenom
+ * @return Prenom du Contact
  */
 const std::string &StdContact::getPrenom() const
 {
@@ -60,8 +60,8 @@ const std::string &StdContact::getPrenom() const
 }
 
 /**
- *
- * @param Prenom du StdContact
+ * @details setter de Prenom
+ * @param Prenom du Contact
  */
 void StdContact::setPrenom(const std::string &prenom)
 {
@@ -69,8 +69,8 @@ void StdContact::setPrenom(const std::string &prenom)
 }
 
 /**
- *
- * @return Entreprise du StdContact
+ * @details getter de Entreprise
+ * @return Entreprise du Contact
  */
 const std::string &StdContact::getEntreprise() const
 {
@@ -78,8 +78,8 @@ const std::string &StdContact::getEntreprise() const
 }
 
 /**
- *
- * @param entreprise du StdContact
+ * @details setter de Entreprise
+ * @param entreprise du Contact
  */
 void StdContact::setEntreprise(const std::string &entreprise)
 {
@@ -87,8 +87,8 @@ void StdContact::setEntreprise(const std::string &entreprise)
 }
 
 /**
- *
- * @return Mail du StdContact
+ * @details getter de Mail
+ * @return Mail du Contact
  */
 const std::string &StdContact::getMail() const
 {
@@ -96,8 +96,8 @@ const std::string &StdContact::getMail() const
 }
 
 /**
- *
- * @param mail du StdContact
+ * @details setter de Mail
+ * @param mail du Contact
  */
 void StdContact::setMail(const std::string &mail)
 {
@@ -105,8 +105,8 @@ void StdContact::setMail(const std::string &mail)
 }
 
 /**
- *
- * @return Telephone du StdContact
+ * @details getter de Telephone
+ * @return Telephone du Contact
  */
 const std::string &StdContact::getTelephone() const
 {
@@ -114,8 +114,8 @@ const std::string &StdContact::getTelephone() const
 }
 
 /**
- *
- * @param telephone du StdContact
+ * @details setter de Telephone
+ * @param telephone du Contact
  */
 void StdContact::setTelephone(const std::string &telephone)
 {
@@ -123,8 +123,8 @@ void StdContact::setTelephone(const std::string &telephone)
 }
 
 /**
- *
- * @return Photo du StdContact
+ * @details getter de Photo
+ * @return Photo du Contact
  */
 const std::string &StdContact::getPhoto() const
 {
@@ -132,8 +132,8 @@ const std::string &StdContact::getPhoto() const
 }
 
 /**
- *
- * @param photo du StdContact
+ * @details setter de Photo
+ * @param photo du Contact
  */
 void StdContact::setPhoto(const std::string &photo)
 {
@@ -141,8 +141,8 @@ void StdContact::setPhoto(const std::string &photo)
 }
 
 /**
- *
- * @return DateCreation du StdContact
+ * @details getter de DateCreation
+ * @return DateCreation du Contact
  */
 const uint64_t &StdContact::getDateCreation() const
 {
@@ -150,7 +150,7 @@ const uint64_t &StdContact::getDateCreation() const
 }
 
 /**
- *
+ * @details setter de lstInteraction
  * @param dateCreation du StdContact
  */
 void StdContact::setDateCreation(const uint64_t &dateCreation)
@@ -159,8 +159,8 @@ void StdContact::setDateCreation(const uint64_t &dateCreation)
 }
 
 /**
- *
- * @return lstInteraction du StdContact
+ * @details getter de lstInteraction
+ * @return le contenu de lstInteraction du contact
  */
 const ListInteraction &StdContact::getLstInteraction() const
 {
@@ -168,8 +168,8 @@ const ListInteraction &StdContact::getLstInteraction() const
 }
 
 /**
- *
- * @param lstInteraction du StdContact
+ * @details setter de lstInteraction
+ * @param lstInteraction du Contact
  */
 void StdContact::setlstInteraction(const ListInteraction &lstInteraction)
 {
@@ -177,10 +177,10 @@ void StdContact::setlstInteraction(const ListInteraction &lstInteraction)
 }
 
 /**
- *
+ * @details surcharge de l'operateur << pour faire l'affichage de l'objet StdContact.
  * @param os
  * @param contact
- * @return
+ * @return os
  */
 std::ostream &operator<<(std::ostream &os, const StdContact &contact)
 {
@@ -190,8 +190,8 @@ std::ostream &operator<<(std::ostream &os, const StdContact &contact)
 }
 
 /**
- *
- * @param interaction du StdContact
+ * @details Ajoute à la liste dse interactions du contact une nouvelle interaction.
+ * @param interaction du Contact
  */
 void StdContact::addInteraction(const Interaction &interaction)
 {
@@ -208,8 +208,8 @@ StdContact::~StdContact()
 }
 
 /**
- *
- * @return lstInteraction du StdContact
+ * @details getter de lstInteraction
+ * @return lstInteraction du Contact
  */
 ListInteraction *StdContact::getLstInteraction()
 {
@@ -217,41 +217,65 @@ ListInteraction *StdContact::getLstInteraction()
 }
 
 /**
- * @param lstInteraction du StdContact
+ * @details constructeur par defaut
  */
 StdContact::StdContact() : lstInteraction(new ListInteraction(getDateCreation()))
 {
 }
 
 /**
- *
+ * @details setter de lstInteraction avec un pointeur de ListInteraction en parametre.
  * @param lstInteraction du StdContact
  */
 void StdContact::setlstInteraction(ListInteraction *lstInteraction)
 {
-    StdContact::lstInteraction = lstInteraction;
+    setlstInteraction(*lstInteraction);
 }
 
+/**
+ * @details surcharge operateur < qui compare les dates de creation des 2 StdContact.
+ * @param rhs
+ * @return
+ */
 bool StdContact::operator<(const StdContact &rhs) const
 {
     return DateCreation < rhs.DateCreation;
 }
 
+/**
+ * @details surcharge operateur >.
+ * @param rhs
+ * @return
+ */
 bool StdContact::operator>(const StdContact &rhs) const
 {
     return rhs < *this;
 }
 
+/**
+ * @details surcharge operateur <=.
+ * @param rhs
+ * @return
+ */
 bool StdContact::operator<=(const StdContact &rhs) const
 {
     return !(rhs < *this);
 }
 
+/**
+ * @details surcharge operateur >=.
+ * @param rhs
+ * @return
+ */
 bool StdContact::operator>=(const StdContact &rhs) const
 {
     return !(*this < rhs);
 }
 
+/**
+ * @details constructeur par copie.
+ * @param contact
+ */
 StdContact::StdContact(const StdContact &contact)
 {
     setNom(contact.getNom());
@@ -261,7 +285,6 @@ StdContact::StdContact(const StdContact &contact)
     setTelephone(contact.getTelephone());
     setPhoto(contact.getPhoto());
     setDateCreation(contact.getDateCreation());
-    setlstInteraction(new ListInteraction(contact.getLstInteraction()));
-
+    setlstInteraction(contact.getLstInteraction());
 }
 

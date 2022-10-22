@@ -23,7 +23,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     QLocale local(QLocale::Language::French);
     QDateTime date;
-    date.setMSecsSinceEpoch(this->interaction->getId());
+    date.setMSecsSinceEpoch(this->interaction->getId()/1000);
     setTitle("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
 
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
@@ -31,7 +31,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     auto *layout = new QVBoxLayout(this);
 
-    date.setMSecsSinceEpoch(this->interaction->getDateModif());
+    date.setMSecsSinceEpoch(this->interaction->getDateModif()/1000);
     labDateModif = new QLabel("Dernière modification : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"), this);
     labDateModif->setAlignment(Qt::AlignHCenter);
 

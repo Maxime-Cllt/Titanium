@@ -14,7 +14,7 @@
  */
 Tache::Tache(std::string contenu) : contenu(std::move(contenu))
 {
-    dateTag = std::chrono::duration_cast<std::chrono::milliseconds>(
+    dateTag = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
@@ -23,7 +23,7 @@ Tache::Tache(std::string contenu) : contenu(std::move(contenu))
  */
 Tache::Tache()
 {
-    dateTag = std::chrono::duration_cast<std::chrono::milliseconds>(
+    dateTag = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
 };
 

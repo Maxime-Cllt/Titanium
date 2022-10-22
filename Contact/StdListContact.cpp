@@ -13,26 +13,17 @@ StdListContact::StdListContact()
 };
 
 /**
- * Ajouter un StdContact à la liste lstContact
+ * @details Ajoute un StdContact à la liste lstContact
  * @param StdContact
  */
 void StdListContact::addContact(const StdContact &contact)
 {
     lstContact->push_back(new StdContact(contact));
-
 }
 
-/**
- * Ajouter un QtContact à la liste lstContact
- * @param QtContact
- */
-void StdListContact::addContact(const QtContact &contact)
-{
-    lstContact->push_back(new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(contact)));
-}
 
 /**
- *
+ * @details getter de lstContact
  * @return lstContact de la classe StdContact
  */
 std::list<StdContact *> *StdListContact::getLstContact()
@@ -41,7 +32,7 @@ std::list<StdContact *> *StdListContact::getLstContact()
 }
 
 /**
- * Ajouter un contact dans la liste lstContact
+ * @details Ajoute un StdContact dans la liste lstContact
  * @param contact
  */
 void StdListContact::addContact(StdContact *contact)
@@ -50,7 +41,7 @@ void StdListContact::addContact(StdContact *contact)
 }
 
 /**
- * Surcharge de l'operator <<
+ * @details Surcharge de l'operator <<
  * @param os
  * @param lst
  * @return contact
@@ -58,19 +49,18 @@ void StdListContact::addContact(StdContact *contact)
 std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
 {
     for (const auto &contact: *lst.lstContact)
-    {
         os << contact << "\n";
-    }
     return os;
 }
 
 /**
- * Supprimer un contact de la liste lstContact
+ * @details retire le StdContact en paramètre de lstContact et le delete juste apres.
  * @param StdContact
  */
 void StdListContact::supContact(StdContact *contact)
 {
     lstContact->remove(contact);
+    delete contact;
 }
 
 /**
@@ -84,13 +74,17 @@ StdListContact::~StdListContact()
     }
 }
 
+/**
+ * @details Constructeur par copie.
+ * @param lst
+ */
 StdListContact::StdListContact(const StdListContact &lst)
 {
+    lstContact = new std::list<StdContact *>();
     for (auto contact: *lst.lstContact)
     {
         addContact(*contact);
     }
-    delete lstContact;
 }
 
 /**

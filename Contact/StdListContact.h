@@ -2,6 +2,7 @@
 // Created by rahman on 09/10/22.
 //
 
+
 #ifndef UNTITLED2_STDLISTCONTACT_H
 #define UNTITLED2_STDLISTCONTACT_H
 
@@ -11,6 +12,9 @@
 #include "QtContact.h"
 #include "TraductionQtStd.h"
 
+/**
+ *  @details Classe StdListContact qui sert à stocker les objets de type StdContact et à réaliser divers operations.
+ */
 class StdListContact
 {
 public:
@@ -26,8 +30,6 @@ public:
 
     void addContact(StdContact *contact);
 
-    void addContact(const QtContact &contact);
-
     void supContact(StdContact *contact);
 
     std::list<StdContact *> *getLstContact();
@@ -37,7 +39,7 @@ public:
     void sortNom();
 
 private:
-    std::list<StdContact *> *lstContact;
+    std::list<StdContact *> *lstContact{};
 
 
 };

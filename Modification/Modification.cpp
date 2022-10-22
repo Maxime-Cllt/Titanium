@@ -14,7 +14,7 @@
 Modification::Modification(const uint64_t &dateCreationContact, std::string contenuModif) : dateCreationContact(
         dateCreationContact), contenuModif(std::move(contenuModif))
 {
-    dateCreation = std::chrono::duration_cast<std::chrono::milliseconds>(
+    dateCreation = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
 
 }
