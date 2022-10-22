@@ -56,7 +56,7 @@ BD::BD(QObject *parent) : QObject(parent)
 
         query.exec("CREATE TABLE IF NOT EXISTS TACHE("
                    "IdInteraction BIGINT not null,"
-                   "DateTag BIGINT not null,"
+                   "date BIGINT not null,"
                    "Contenu TEXT not null"
                    ");");
     }
@@ -268,7 +268,7 @@ void BD::modifyInteraction(const Interaction &interaction)
     {
         query.prepare("INSERT INTO TACHE VALUES (? , ? ,? );");
         query.addBindValue(QString::number(interaction.getId()));
-        query.addBindValue(QString::number(tache->getdateTag()));
+        query.addBindValue(QString::number(tache->getdate()));
         query.addBindValue(QString::fromStdString(tache->getcontenu()));
         query.exec();
     }
@@ -315,7 +315,7 @@ ListTache BD::getListTacheData(const uint64_t &idContact)
     while (query.next())
     {
         Tache tache(query.value(2).toString().toStdString());
-        tache.setdateTag(query.value(1).toLongLong());
+        tache.setdate(query.value(1).toLongLong());
         lst.addTache(tache);
     }
     return lst;
@@ -323,7 +323,7 @@ ListTache BD::getListTacheData(const uint64_t &idContact)
 
 void BD::supTache(const Tache &tache)
 {
-    QSqlQuery query("DELETE FROM TACHE WHERE ? = DateTag");
-    query.addBindValue(QString::number(tache.getdateTag()));
+    QSqlQuery query("DELETE FROM TACHE WHERE ? = date");
+    query.addBindValue(QString::number(tache.getdate()));
     query.exec();
 }

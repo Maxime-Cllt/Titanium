@@ -7,7 +7,8 @@
 /**
  * @details Constructeur par defaut de la classe ListModification
  */
-ListModification::ListModification() {}
+ListModification::ListModification()
+{}
 
 /**
  * @details Ajoute la modification en parametre à la liste.

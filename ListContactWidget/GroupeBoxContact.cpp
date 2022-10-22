@@ -5,7 +5,7 @@
 #include "GroupeBoxContact.h"
 
 #include <QLabel>
-#include "ModifContactDialog.h"
+#include "../ContactDialog/ModifContactDialog.h"
 #include "../Interaction/CreationInteractionDialog.h"
 #include "../BaseDeDonne/BD.h"
 #include "../MainWindow/MainWindow.h"
@@ -23,7 +23,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
     QLocale local(QLocale::Language::French);
     QDateTime date;
-    date.setMSecsSinceEpoch(this->contact->getDateCreation()/1000);
+    date.setMSecsSinceEpoch(this->contact->getDateCreation() / 1000);
     setTitle("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -56,15 +56,15 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 {
     QGroupBox::mousePressEvent(event);
     setStyleSheet(
-            "QGroupBox#GroupBoxContact{background-color: gray; color: white;padding-top:20px;border-radius : 10px;}"
+            "QGroupBox#GroupBoxContact{background-color: gray;color : white; padding-top:20px;border-radius : 10px;}"
             "QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;padding-top:5px;}");
+    for (auto lab: findChildren<QLabel *>())
+        lab->setStyleSheet("color : white;");
 
     if (event->button() == Qt::RightButton)
     {
         if (listInteractionWidget != nullptr)
             listInteractionWidget->hide();
-
-        findChildren<QLabel *>().last()->setText("");
 
         auto *menu = new QMenu(this);
 
@@ -104,9 +104,11 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
             close();
         });
 
-        menu->exec(event->globalPosition().toPoint());
+        menu->exec(event->globalPos());
 
         setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
+        for (auto lab: findChildren<QLabel *>())
+            lab->setStyleSheet("");
     }
 }
 
@@ -180,6 +182,8 @@ void GroupeBoxContact::cache()
 {
     listInteractionWidget->hide();
     setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
+    for (auto lab: findChildren<QLabel *>())
+        lab->setStyleSheet("");
 }
 
 /**

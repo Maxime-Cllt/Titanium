@@ -3,7 +3,7 @@
 //
 
 #include "MenuBar.h"
-#include "../CreationContact/CreationContactDialog.h"
+#include "../ContactDialog/CreationContactDialog.h"
 #include <QMessageBox>
 
 /**

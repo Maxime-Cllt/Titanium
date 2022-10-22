@@ -13,7 +13,8 @@ StdListContact::StdListContact()
 };
 
 /**
- * @details Ajoute un StdContact à la liste lstContact
+ * @details Ajoute le contact en paramètre à la liste des contacts en recréant un nouveau pointeur
+ * qui pointe sur un nouveau StdContact avec les attributs de memes valeur que le contact en paramètre.
  * @param StdContact
  */
 void StdListContact::addContact(const StdContact &contact)
@@ -21,6 +22,15 @@ void StdListContact::addContact(const StdContact &contact)
     lstContact->push_back(new StdContact(contact));
 }
 
+/**
+ * @details Ajoute le contact en paramètre à la liste des contacts en recréant un nouveau pointeur
+ * qui pointe sur un nouveau StdContact avec les attributs de memes valeur que le contact en paramètre.
+ * @param contact
+ */
+void StdListContact::addContact(StdContact *contact)
+{
+    addContact(*contact);
+}
 
 /**
  * @details getter de lstContact
@@ -31,14 +41,6 @@ std::list<StdContact *> *StdListContact::getLstContact()
     return lstContact;
 }
 
-/**
- * @details Ajoute un StdContact dans la liste lstContact
- * @param contact
- */
-void StdListContact::addContact(StdContact *contact)
-{
-    lstContact->push_front(contact);
-}
 
 /**
  * @details Surcharge de l'operator <<
@@ -48,8 +50,14 @@ void StdListContact::addContact(StdContact *contact)
  */
 std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
 {
-    for (const auto &contact: *lst.lstContact)
-        os << contact << "\n";
+    os << "StdListContact" << std::endl << "{" << std::endl;
+    int i = 1;
+    for (const auto contact: *lst.lstContact)
+    {
+        os << "\tContact n°" << i << " { " << *contact << " }" << std::endl;
+        i++;
+    }
+    os << "}" << std::endl;
     return os;
 }
 
@@ -75,7 +83,7 @@ StdListContact::~StdListContact()
 }
 
 /**
- * @details Constructeur par copie.
+ * @details Constructeur de copie.
  * @param lst
  */
 StdListContact::StdListContact(const StdListContact &lst)

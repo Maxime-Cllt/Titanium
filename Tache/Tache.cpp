@@ -8,22 +8,22 @@
 #include <chrono>
 
 /**
- * @details constructeur qui affecte à tag1, contenu les valeurs passer en parametre et
- * initialise la date du tag à la date de la création de l'objet
+ * @details Constructeur qui place contenu en paramètre à contenu l'attribut de l'objet Tache
+ * et initialise la date de la tache à la date de la création de l'objet.
  * @param contenu
  */
 Tache::Tache(std::string contenu) : contenu(std::move(contenu))
 {
-    dateTag = std::chrono::duration_cast<std::chrono::microseconds>(
+    date = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
 }
 
 /**
- * @details constructeur par defaut qui initialise la date du tag à la date de la création de l'objet.
+ * @details constructeur par defaut qui initialise la date de la tache à la date de la création de l'objet.
  */
 Tache::Tache()
 {
-    dateTag = std::chrono::duration_cast<std::chrono::microseconds>(
+    date = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
 };
 
@@ -46,19 +46,51 @@ void Tache::setcontenu(const std::string &contenu)
 }
 
 /**
- * @details getter de dateTag.
- * @return dateTag
+ * @details getter de date.
+ * @return date
  */
-uint64_t Tache::getdateTag() const
+uint64_t Tache::getdate() const
 {
-    return dateTag;
+    return date;
 }
 
 /**
- * @details setter de dateTag.
- * @param dateTag
+ * @details setter de date.
+ * @param date
  */
-void Tache::setdateTag(uint64_t dateTag)
+void Tache::setdate(uint64_t date)
 {
-    Tache::dateTag = dateTag;
+    Tache::date = date;
+}
+
+/**
+ * @details Surcharge de l'opérateur d'affichage ostream <<. Affiche le contenu de la tache et la date de la tache.
+ * @param os
+ * @param tache
+ * @return os
+ */
+std::ostream &operator<<(std::ostream &os, const Tache &tache)
+{
+    os << "contenu: " << tache.contenu << " date: " << tache.date;
+    return os;
+}
+
+bool Tache::operator<(const Tache &rhs) const
+{
+    return date < rhs.date;
+}
+
+bool Tache::operator>(const Tache &rhs) const
+{
+    return rhs < *this;
+}
+
+bool Tache::operator<=(const Tache &rhs) const
+{
+    return !(rhs < *this);
+}
+
+bool Tache::operator>=(const Tache &rhs) const
+{
+    return !(*this < rhs);
 }

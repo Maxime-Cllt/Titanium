@@ -16,6 +16,22 @@
 */
 class QtContact
 {
+public:
+    QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
+              const QString &telephone, const QString &photo, const uint64_t &dateCreation,
+              const ListInteraction &lstInteraction);
+
+    const ListInteraction getLstInteraction() const;
+
+    ListInteraction *getLstInteraction();
+
+    void setLstInteraction(const ListInteraction &);
+
+    explicit QtContact();
+
+    QtContact(const QtContact &);
+
+    ~QtContact();
 
 private:
     QString Nom;
@@ -28,21 +44,6 @@ private:
     ListInteraction *lstInteraction{};
 
 public:
-    QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
-              const QString &telephone, const QString &photo, const uint64_t &dateCreation,
-              const ListInteraction &lstInteraction);
-
-    const ListInteraction getLstInteraction() const;
-
-    ListInteraction *getLstInteraction();
-
-    void setLstInteraction(const ListInteraction &lstInteraction);
-
-    explicit QtContact();
-
-    QtContact(const QtContact &qtContact);
-
-    ~QtContact();
 
     const QString &getNom() const;
 

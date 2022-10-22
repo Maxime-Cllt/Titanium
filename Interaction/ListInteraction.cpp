@@ -16,7 +16,8 @@ ListInteraction::ListInteraction(uint64_t id) : contactId(id)
 }
 
 /**
- * Ajouter une interaction
+ * @details Ajoute l'interaction en paramètre à la liste des interactions en recréant un nouveau pointeur
+ * qui pointe sur une nouvelle interaction avec les attributs de memes valeur que l'interaction en paramètre.
  * @param interaction
  */
 void ListInteraction::addInteraction(Interaction *interaction)
@@ -25,16 +26,27 @@ void ListInteraction::addInteraction(Interaction *interaction)
 }
 
 /**
- * Supprimer une interaction
+ * @details Ajoute l'interaction en paramètre à la liste des interactions en recréant un nouveau pointeur
+ * qui pointe sur une nouvelle interaction avec les attributs de memes valeur que l'interaction en paramètre.
+ * @param interaction
+ */
+void ListInteraction::addInteraction(const Interaction &interaction)
+{
+    listInteraction->push_back(new Interaction(interaction));
+}
+
+/**
+ * @details Supprime l'interaction en paramètre de la liste et le delete.
  * @param interaction
  */
 void ListInteraction::supInteraction(Interaction *interaction)
 {
     listInteraction->remove(interaction);
+    delete interaction;
 }
 
 /**
- *
+ * @details Getter de contactId.
  * @return contactId
  */
 uint64_t ListInteraction::getContactId() const
@@ -43,7 +55,7 @@ uint64_t ListInteraction::getContactId() const
 }
 
 /**
- *
+ * @details Setter de contactId.
  * @param contactId
  */
 void ListInteraction::setContactId(uint64_t contactId)
@@ -51,11 +63,19 @@ void ListInteraction::setContactId(uint64_t contactId)
     ListInteraction::contactId = contactId;
 }
 
+/**
+ * @details Getter de listInteraction.
+ * @return La liste des interactions.
+ */
 std::list<Interaction *> *ListInteraction::getListInteraction() const
 {
     return listInteraction;
 }
 
+/**
+ * @details Setter de listInteraction
+ * @param listInteraction
+ */
 void ListInteraction::setListInteraction(std::list<Interaction *> *listInteraction)
 {
     for (auto interaction: *listInteraction)
@@ -86,16 +106,7 @@ ListInteraction::ListInteraction()
 };
 
 /**
- * Ajouter une interaction
- * @param interaction
- */
-void ListInteraction::addInteraction(const Interaction &interaction)
-{
-    listInteraction->push_back(new Interaction(interaction));
-}
-
-/**
- * Constructeur de copie, qui cree de nouveaux pointeurs d'interaction.
+ * @details Constructeur de copie.
  * @param lst
  */
 ListInteraction::ListInteraction(const ListInteraction &lst)
@@ -109,7 +120,7 @@ ListInteraction::ListInteraction(const ListInteraction &lst)
 }
 
 /**
- * @details Fonction qui applique un trie decroissant sur la liste des interactions.
+ * @details Fonction qui applique un trie décroissant sur la liste des interactions.
  */
 void ListInteraction::reverse()
 {
@@ -117,4 +128,24 @@ void ListInteraction::reverse()
                           {
                               return *interaction1 > *interaction2;
                           });
+}
+
+/**
+ * @details Surcharge de l'opérateur d'affichage ostream <<. Affiche l'id du contact et la liste des interactions.
+ * @param os
+ * @param interaction
+ * @return
+ */
+std::ostream &operator<<(std::ostream &os, const ListInteraction &lstInteraction)
+{
+    os << "ListInteraction" << std::endl << "{" << std::endl << "\tcontactId: " << lstInteraction.contactId
+       << std::endl;
+    int i = 1;
+    for (const auto interaction: *lstInteraction.getListInteraction())
+    {
+        os << "\tInteraction n°" << i << " { " << *interaction << " }" << std::endl;
+        i++;
+    }
+    os << "}" << std::endl;
+    return os;
 }

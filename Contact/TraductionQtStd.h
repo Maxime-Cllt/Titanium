@@ -12,9 +12,9 @@ class TraductionQtStd
 {
 
 public:
-    static StdContact QtFicheContactToStdFicheContact(const QtContact &contact);
+    static StdContact QtFicheContactToStdFicheContact(const QtContact &);
 
-    static QtContact StdFicheContacttoQtFicheContact(const StdContact &contact);
+    static QtContact StdFicheContacttoQtFicheContact(const StdContact &);
 
 };
 

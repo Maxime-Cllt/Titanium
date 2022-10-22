@@ -24,13 +24,13 @@ public:
 
     ~StdListContact();
 
-    friend std::ostream &operator<<(std::ostream &os, const StdListContact &lst);
+    friend std::ostream &operator<<(std::ostream &, const StdListContact &);
 
-    void addContact(const StdContact &contact);
+    void addContact(const StdContact &);
 
-    void addContact(StdContact *contact);
+    void addContact(StdContact *);
 
-    void supContact(StdContact *contact);
+    void supContact(StdContact *);
 
     std::list<StdContact *> *getLstContact();
 

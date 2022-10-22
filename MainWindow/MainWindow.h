@@ -10,7 +10,7 @@
 #include <QWidget>
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
-#include "../ListContact/ListContactWidget.h"
+#include "../ListContactWidget/ListContactWidget.h"
 #include "../Modification/ListModification.h"
 
 class MainWindow : public QMainWindow

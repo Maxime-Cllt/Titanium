@@ -4,7 +4,7 @@
 
 #include "MainWindow.h"
 #include <QStatusBar>
-#include "../CreationContact/CreationContactDialog.h"
+#include "../ContactDialog/CreationContactDialog.h"
 #include "../MenuBar/MenuBar.h"
 
 /**
@@ -14,7 +14,6 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setMinimumHeight(450);
-    setMinimumWidth(1000);
     bd = new BD;
     listModification = new ListModification;
 
@@ -73,7 +72,6 @@ void MainWindow::addContact(const StdContact &contact)
     auto *c = new StdContact(contact);
     lstContact->addContact(c);
     listContactWidget->addContactBox(c);
-
 }
 
 /**

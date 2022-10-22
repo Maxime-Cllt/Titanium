@@ -80,7 +80,8 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     {
         line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     }
-    for (auto *lab: findChildren<QLabel *>()) { lab->setMinimumWidth(100); }
+    for (auto *lab: findChildren<QLabel *>())
+    { lab->setMinimumWidth(130); }
 
 }
 

@@ -9,6 +9,9 @@
 #include <iostream>
 #include <list>
 
+/**
+ *  @details Classe ListInteraction qui sert à stocker les objets de type Interaction et à réaliser divers operations.
+ */
 class ListInteraction
 {
 public:
@@ -20,11 +23,13 @@ public:
 
     ~ListInteraction();
 
-    void addInteraction(Interaction *interaction);
+    friend std::ostream &operator<<(std::ostream &, const ListInteraction &);
 
-    void addInteraction(const Interaction &interaction);
+    void addInteraction(Interaction *);
 
-    void supInteraction(Interaction *interaction);
+    void addInteraction(const Interaction &);
+
+    void supInteraction(Interaction *);
 
     uint64_t getContactId() const;
 
@@ -35,7 +40,7 @@ public:
 
     std::list<Interaction *> *getListInteraction() const;
 
-    void setListInteraction(std::list<Interaction *> *listInteraction);
+    void setListInteraction(std::list<Interaction *> *lstInteraction);
 
 private:
     uint64_t contactId{};

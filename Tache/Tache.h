@@ -1,36 +1,47 @@
 //
 // Created by Rahman  Yilmaz on 20/10/2022.
 //
-/************************************************
- *  Classe qui reprensente une tache, une tache est composé d'un tag et de son contenu
- ***********************************************/
+
 
 #ifndef PROJET_QT_TACHE_H
 #define PROJET_QT_TACHE_H
 
 #include <iostream>
 
+/**
+ * @details Classe qui modelise une tache. Il comporte 2 attributs,
+ * un attribut contenu qui stock le contenu d'une tache
+ * et un attribut date date qui indique la date de la tache.
+ */
 class Tache
 {
 public:
     explicit Tache();
 
-    Tache(std::string contenu);
+    explicit Tache(std::string contenu);
 
 private:
     std::string contenu{};
-    uint64_t dateTag{};
+    uint64_t date{};
 
 public:
+    friend std::ostream &operator<<(std::ostream &, const Tache &);
 
     const std::string &getcontenu() const;
 
     void setcontenu(const std::string &contenu);
 
-    uint64_t getdateTag() const;
+    uint64_t getdate() const;
 
-    void setdateTag(uint64_t dateTag);
+    void setdate(uint64_t date);
 
+    bool operator<(const Tache &rhs) const;
+
+    bool operator>(const Tache &rhs) const;
+
+    bool operator<=(const Tache &rhs) const;
+
+    bool operator>=(const Tache &rhs) const;
 };
 
 

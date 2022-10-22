@@ -18,7 +18,7 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
     QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
 
     QDateTime date;
-    date.setMSecsSinceEpoch(this->contact->getDateCreation()/1000);
+    date.setMSecsSinceEpoch(this->contact->getDateCreation() / 1000);
     QLocale local(QLocale::Language::French);
     labDateCreation->setText(local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
 

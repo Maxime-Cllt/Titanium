@@ -13,7 +13,7 @@ ListTache::ListTache()
 }
 
 /**
- * @details destructeur qui delete tous les pointers de Tache contenu dans lstTache
+ * @details destructeur qui delete tous les pointers de Tache contenu dans lstTache.
  */
 ListTache::~ListTache()
 {
@@ -24,11 +24,19 @@ ListTache::~ListTache()
     delete lstTache;
 }
 
+/**
+ * @details Getter de lstTache.
+ * @return lstTache
+ */
 std::list<Tache *> *ListTache::getLstTache() const
 {
     return lstTache;
 }
 
+/**
+ * @details Setter de lstTache.
+ * @param lstTache
+ */
 void ListTache::setLstTache(std::list<Tache *> *lstTache)
 {
     ListTache::lstTache = lstTache;
@@ -36,7 +44,8 @@ void ListTache::setLstTache(std::list<Tache *> *lstTache)
 
 
 /**
- * @details ajoute la tache en paramètre à la liste des taches.
+ * @details Ajoute la tache en paramètre à la liste des taches en recréant un nouveau pointeur
+ * qui pointe sur une nouvelle tache avec les attributs de memes valeur que la tache en paramètre.
  * @param tache
  */
 void ListTache::addTache(const Tache &tache)
@@ -45,13 +54,26 @@ void ListTache::addTache(const Tache &tache)
 }
 
 /**
- * @details ajoute le pointer tache en paramètre à la liste des taches.
+ * @details Ajoute la tache en paramètre à la liste des taches en recréant un nouveau pointeur
+ * qui pointe sur une nouvelle tache avec les attributs de memes valeur que la tache en paramètre.
  * @param tache
  */
 void ListTache::addTache(Tache *tache)
 {
-    lstTache->push_back(new Tache(*tache));
+    addTache(*tache);
 }
+
+/**
+ * @details Supprime la tache de la liste.
+ * @param tache
+ */
+void ListTache::suppTache(Tache *tache)
+{
+    lstTache->remove(tache);
+    delete tache;
+
+}
+
 
 /**
  * @details destruteur qui détruit tous les pointeurs de tache contenu dans la liste des taches.
@@ -64,4 +86,23 @@ ListTache::ListTache(const ListTache &lst)
     {
         addTache(tache);
     }
+}
+
+/**
+ * @details Surcharge de l'opérateur d'affichage ostream <<. Affiche un à un les tache de la liste.
+ * @param os
+ * @param lstTache
+ * @return os
+ */
+std::ostream &operator<<(std::ostream &os, const ListTache &lstTache)
+{
+    os << "ListTache" << std::endl << "{" << std::endl;
+    int i = 1;
+    for (auto tache: *lstTache.getLstTache())
+    {
+        os << "\tTache n°" << i << " { " << *tache << " }" << std::endl;
+        i++;
+    }
+    os << "}" << std::endl;
+    return os;
 }

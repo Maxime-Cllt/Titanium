@@ -197,7 +197,7 @@ QtContact::~QtContact()
 }
 
 /**
- * @details Constructeur par copie.
+ * @details Constructeur de copie.
  * @param qtContact
  */
 QtContact::QtContact(const QtContact &qtContact)

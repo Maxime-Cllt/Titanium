@@ -19,7 +19,7 @@ class Interaction
 public:
     explicit Interaction(const std::string &contenu);
 
-    Interaction(const Interaction &interaction);
+    Interaction(const Interaction &);
 
     explicit Interaction();
 
@@ -34,18 +34,20 @@ private:
 public:
     ListTache *getLstTache() const;
 
-    void setLstTache(ListTache *lstTache);
+    void setLstTache(ListTache *);
 
-    void setLstTache(const ListTache &lstTache);
+    void setLstTache(const ListTache &);
 
 public:
-    bool operator<(const Interaction &rhs) const;
+    bool operator<(const Interaction &) const;
 
-    bool operator>(const Interaction &rhs) const;
+    bool operator>(const Interaction &) const;
 
-    bool operator<=(const Interaction &rhs) const;
+    bool operator<=(const Interaction &) const;
 
-    bool operator>=(const Interaction &rhs) const;
+    bool operator>=(const Interaction &) const;
+
+    friend std::ostream &operator<<(std::ostream &, const Interaction &);
 
     uint64_t getDateModif() const;
 
@@ -61,7 +63,7 @@ public:
 
     void modif();
 
-    void addTache(const Tache &tache);
+    void addTache(const Tache &);
 
 };
 

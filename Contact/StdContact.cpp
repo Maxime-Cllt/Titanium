@@ -184,8 +184,9 @@ void StdContact::setlstInteraction(const ListInteraction &lstInteraction)
  */
 std::ostream &operator<<(std::ostream &os, const StdContact &contact)
 {
-    os << "Nom : " << contact.getNom() << " Prenom : " << contact.getPrenom() << " Entreprise : "
-       << contact.getEntreprise() << " Telephone : " << contact.getTelephone() << " Mail : " << contact.getMail();
+    os << "Nom: " << contact.getNom() << " Prenom: " << contact.getPrenom() << " Entreprise: "
+       << contact.getEntreprise() << " Telephone: " << contact.getTelephone() << " Mail: " << contact.getMail()
+       << " DateCreation: " << contact.getDateCreation();
     return os;
 }
 
@@ -273,7 +274,7 @@ bool StdContact::operator>=(const StdContact &rhs) const
 }
 
 /**
- * @details constructeur par copie.
+ * @details Constructeur de copie.
  * @param contact
  */
 StdContact::StdContact(const StdContact &contact)

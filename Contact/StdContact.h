@@ -23,7 +23,7 @@ public:
 
     explicit StdContact();
 
-    StdContact(const StdContact &contact);
+    StdContact(const StdContact &);
 
     ~StdContact();
 
@@ -37,15 +37,15 @@ private:
     uint64_t DateCreation;
     ListInteraction *lstInteraction;
 public:
-    bool operator<(const StdContact &rhs) const;
+    bool operator<(const StdContact &) const;
 
-    bool operator>(const StdContact &rhs) const;
+    bool operator>(const StdContact &) const;
 
-    bool operator<=(const StdContact &rhs) const;
+    bool operator<=(const StdContact &) const;
 
-    bool operator>=(const StdContact &rhs) const;
+    bool operator>=(const StdContact &) const;
 
-    friend std::ostream &operator<<(std::ostream &os, const StdContact &contact);
+    friend std::ostream &operator<<(std::ostream &, const StdContact &);
 
     const std::string &getNom() const;
 
@@ -79,11 +79,11 @@ public:
 
     ListInteraction *getLstInteraction();
 
-    void setlstInteraction(const ListInteraction &lstInteraction);
+    void setlstInteraction(const ListInteraction &);
 
-    void setlstInteraction(ListInteraction *lstInteraction);
+    void setlstInteraction(ListInteraction *);
 
-    void addInteraction(const Interaction &interaction);
+    void addInteraction(const Interaction &);
 
 };
 

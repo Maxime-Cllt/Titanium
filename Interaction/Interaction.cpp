@@ -15,7 +15,8 @@ Interaction::Interaction(const std::string &contenu)
     Interaction::contenu = contenu;
 
     // recuperation de la date de maintenant en microseconde
-    id = duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    id = std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();
     dateModif = id;
     lstTache = new ListTache;
 }
@@ -44,7 +45,7 @@ void Interaction::setContenu(const std::string &contenu)
 Interaction::Interaction()
 {
     Interaction::contenu = "";
-    id = duration_cast<std::chrono::microseconds>(
+    id = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();// recuperation de la date de maintenant
     dateModif = id;
     lstTache = new ListTache;
@@ -92,7 +93,8 @@ void Interaction::setDateModif(uint64_t dateModif)
  */
 void Interaction::modif()
 {
-    setDateModif(duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+    setDateModif(std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count());
 }
 
 /**
@@ -140,7 +142,7 @@ Interaction::~Interaction()
 }
 
 /**
- * @details Constructeur par copie.
+ * @details Constructeur de copie.
  * @param interaction
  */
 Interaction::Interaction(const Interaction &interaction)
@@ -190,4 +192,16 @@ bool Interaction::operator<=(const Interaction &rhs) const
 bool Interaction::operator>=(const Interaction &rhs) const
 {
     return !(*this < rhs);
+}
+
+/**
+ * @details Surchage operateur << pour l'affichage. Affiche le contenu, l'id, la date de modification et la liste des taches.
+ * @param os
+ * @param interaction
+ * @return os
+ */
+std::ostream &operator<<(std::ostream &os, const Interaction &interaction)
+{
+    os << "contenu: " << interaction.contenu << " id: " << interaction.id << " dateModif: " << interaction.dateModif;
+    return os;
 }

@@ -6,8 +6,8 @@
 #define UNTITLED2_MODIFCONTACTDIALOG_H
 
 #include <QDialog>
-#include "../ContactDialog/ContactDialog.h"
-#include "GroupeBoxContact.h"
+#include "ContactDialog.h"
+#include "../ListContactWidget/GroupeBoxContact.h"
 
 class ModifContactDialog : public ContactDialog
 {
