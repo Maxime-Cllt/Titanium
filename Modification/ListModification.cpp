@@ -5,13 +5,13 @@
 #include "ListModification.h"
 
 /**
- * @details Constructeur par defaut de la classe ListModification
+ * @details Constructeur par défaut de la classe ListModification
  */
 ListModification::ListModification()
 {}
 
 /**
- * @details Ajoute la modification en parametre à la liste.
+ * @details Ajoute la modification en paramètre à la liste.
  * @param modification
  */
 void ListModification::addModif(const Modification &modification)
@@ -32,7 +32,7 @@ ListModification::~ListModification()
 }
 
 /**
- * @details Fonction qui ajoute une nouvelle modification à la liste par un pointer en parametre.
+ * @details Fonction qui ajoute une nouvelle modification à la liste par un pointeur en paramètre.
  */
 void ListModification::addModif(Modification *modification)
 {
@@ -40,7 +40,7 @@ void ListModification::addModif(Modification *modification)
 }
 
 /**
- * @details Trie decroissant de la liste des Modifications.
+ * @details Trie décroissant de la liste des Modifications.
  */
 void ListModification::sort()
 {

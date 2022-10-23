@@ -5,7 +5,7 @@
 #include "ListTache.h"
 
 /**
- * @details constructeur par defaut.
+ * @details Constructeur par défaut.
  */
 ListTache::ListTache()
 {
@@ -13,7 +13,7 @@ ListTache::ListTache()
 }
 
 /**
- * @details destructeur qui delete tous les pointers de Tache contenu dans lstTache.
+ * @details Destructeur qui supprime tous les pointeurs de Tache contenu dans lstTache.
  */
 ListTache::~ListTache()
 {

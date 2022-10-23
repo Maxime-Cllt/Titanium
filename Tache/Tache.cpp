@@ -19,7 +19,7 @@ Tache::Tache(std::string contenu) : contenu(std::move(contenu))
 }
 
 /**
- * @details constructeur par defaut qui initialise la date de la tache à la date de la création de l'objet.
+ * @details Constructeur par défaut qui initialise la date de la tache à la date de la création de l'objet.
  */
 Tache::Tache()
 {
@@ -28,7 +28,7 @@ Tache::Tache()
 };
 
 /**
- * @details getter de contenu.
+ * @details Getter de contenu.
  * @return
  */
 const std::string &Tache::getcontenu() const
@@ -37,7 +37,7 @@ const std::string &Tache::getcontenu() const
 }
 
 /**
- * @details setter de contenu.
+ * @details Setter de contenu.
  * @param contenu
  */
 void Tache::setcontenu(const std::string &contenu)
@@ -46,7 +46,7 @@ void Tache::setcontenu(const std::string &contenu)
 }
 
 /**
- * @details getter de date.
+ * @details Getter de date.
  * @return date
  */
 uint64_t Tache::getdate() const
@@ -55,7 +55,7 @@ uint64_t Tache::getdate() const
 }
 
 /**
- * @details setter de date.
+ * @details Setter de date.
  * @param date
  */
 void Tache::setdate(uint64_t date)
@@ -75,21 +75,41 @@ std::ostream &operator<<(std::ostream &os, const Tache &tache)
     return os;
 }
 
+/**
+ * @details Surcharge de l'opérateur <
+ * @param rhs
+ * @return
+ */
 bool Tache::operator<(const Tache &rhs) const
 {
     return date < rhs.date;
 }
 
+/**
+ * @details Surcharge de l'opérateur >
+ * @param rhs
+ * @return
+ */
 bool Tache::operator>(const Tache &rhs) const
 {
     return rhs < *this;
 }
 
+/**
+ * @details Surcharge de l'opérateur <=
+ * @param rhs
+ * @return
+ */
 bool Tache::operator<=(const Tache &rhs) const
 {
     return !(rhs < *this);
 }
 
+/**
+ * @details Surcharge de l'opérateur >=
+ * @param rhs
+ * @return
+ */
 bool Tache::operator>=(const Tache &rhs) const
 {
     return !(*this < rhs);
