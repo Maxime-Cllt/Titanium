@@ -17,12 +17,19 @@ class ListTache
 public:
     explicit ListTache();
 
+    explicit ListTache(uint64_t idInteraction);
+
     ~ListTache();
 
     ListTache(const ListTache &);
 
 private:
-    std::list<Tache *> *lstTache;
+    std::list<Tache *> *lstTache{};
+    uint64_t idInteraction{};
+public:
+    uint64_t getIdInteraction() const;
+
+    void setIdInteraction(uint64_t idInteraction);
 
 public:
     std::list<Tache *> *getLstTache() const;

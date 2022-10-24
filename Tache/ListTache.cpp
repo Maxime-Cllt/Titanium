@@ -4,12 +4,23 @@
 
 #include "ListTache.h"
 
+
 /**
  * @details constructeur par defaut.
  */
 ListTache::ListTache()
 {
     lstTache = new std::list<Tache *>();
+
+}
+
+/**
+ * @details constructeur avec l'id de l'intercation en parametre.
+ */
+ListTache::ListTache(uint64_t idInteraction)
+{
+    lstTache = new std::list<Tache *>();
+    idInteraction = idInteraction;
 }
 
 /**
@@ -40,6 +51,24 @@ std::list<Tache *> *ListTache::getLstTache() const
 void ListTache::setLstTache(std::list<Tache *> *lstTache)
 {
     ListTache::lstTache = lstTache;
+}
+
+/**
+ * @details Getter de idInteraction.
+ * @return idInteraction
+ */
+uint64_t ListTache::getIdInteraction() const
+{
+    return idInteraction;
+}
+
+/**
+ * @details Setter de idInteraction.
+ * @param idInteraction
+ */
+void ListTache::setIdInteraction(uint64_t idInteraction)
+{
+    ListTache::idInteraction = idInteraction;
 }
 
 

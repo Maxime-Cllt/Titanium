@@ -227,7 +227,7 @@ void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
     QSqlQuery query(
             "INSERT INTO INTERACTIONS (IdContact ,IdInteraction,DateModification, Contenu) VALUES ( ? , ? , ? , ?);");
     query.addBindValue(QString::number(idContact));
-    query.addBindValue(QString::number(interaction.getId()));
+    query.addBindValue(QString::number(interaction.getDateCreation()));
     query.addBindValue(QString::number(interaction.getDateModif()));
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.exec();
@@ -244,7 +244,7 @@ void BD::supInteraction(const Interaction &interaction)
         supTache(*tache);
     }
     QSqlQuery query("DELETE FROM INTERACTIONS WHERE ? = IdInteraction");
-    query.addBindValue(QString::number(interaction.getId()));
+    query.addBindValue(QString::number(interaction.getDateCreation()));
     query.exec();
 }
 
@@ -257,17 +257,17 @@ void BD::modifyInteraction(const Interaction &interaction)
     QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ?, DateModification = ? WHERE ? = IdInteraction;");
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.addBindValue(QString::number(interaction.getDateModif()));
-    query.addBindValue(QString::number(interaction.getId()));
+    query.addBindValue(QString::number(interaction.getDateCreation()));
     query.exec();
 
     query.prepare("DELETE FROM TACHE WHERE ? = IdInteraction;");
-    query.addBindValue(QString::number(interaction.getId()));
+    query.addBindValue(QString::number(interaction.getDateCreation()));
     query.exec();
 
     for (auto tache: *interaction.getLstTache()->getLstTache())
     {
         query.prepare("INSERT INTO TACHE VALUES (? , ? ,? );");
-        query.addBindValue(QString::number(interaction.getId()));
+        query.addBindValue(QString::number(interaction.getDateCreation()));
         query.addBindValue(QString::number(tache->getdate()));
         query.addBindValue(QString::fromStdString(tache->getcontenu()));
         query.exec();
@@ -293,10 +293,10 @@ ListInteraction BD::getListInteractionData(const uint64_t &idContact)
     {
         Interaction interaction;
 
-        interaction.setId(query.value(1).toLongLong());
+        interaction.setDateCreation(query.value(1).toLongLong());
         interaction.setDateModif(query.value(2).toLongLong());
         interaction.setContenu(query.value(3).toString().toStdString());
-        interaction.setLstTache(getListTacheData(interaction.getId()));
+        interaction.setLstTache(getListTacheData(interaction.getDateCreation()));
 
         listInteraction.addInteraction(interaction);
     }
@@ -304,10 +304,10 @@ ListInteraction BD::getListInteractionData(const uint64_t &idContact)
     return listInteraction;
 }
 
-ListTache BD::getListTacheData(const uint64_t &idContact)
+ListTache BD::getListTacheData(const uint64_t &idInteraction)
 {
     QSqlQuery query("SELECT * FROM TACHE WHERE ? = IdInteraction");
-    query.addBindValue(QString::number(idContact));
+    query.addBindValue(QString::number(idInteraction));
     query.exec();
 
     ListTache lst;

@@ -27,7 +27,7 @@ public:
 
 private:
     std::string contenu{};
-    uint64_t id{};
+    uint64_t dateCreation{};
     uint64_t dateModif{};
     ListTache *lstTache{};
 
@@ -53,9 +53,9 @@ public:
 
     void setDateModif(uint64_t dateModif);
 
-    uint64_t getId() const;
+    uint64_t getDateCreation() const;
 
-    void setId(uint64_t id);
+    void setDateCreation(uint64_t dateCreation);
 
     const std::string &getContenu() const;
 

@@ -23,7 +23,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     QLocale local(QLocale::Language::French);
     QDateTime date;
-    date.setMSecsSinceEpoch(this->interaction->getId() / 1000);
+    date.setMSecsSinceEpoch(this->interaction->getDateCreation() / 1000);
     setTitle("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
 
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
@@ -89,9 +89,6 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
     connect(supBtn, &QPushButton::clicked, this, [=]()
     {
         emit supBtnClicked(this->interaction);
-
-        BD::supInteraction(*this->interaction);
-        delete this->interaction;
         close();
     });
 }

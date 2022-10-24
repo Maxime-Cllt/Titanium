@@ -17,6 +17,7 @@
 ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
 {
 
+    setMinimumWidth(500);
     lay = new QVBoxLayout(this);
 
     scrollArea = new QScrollArea(this);

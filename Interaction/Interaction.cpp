@@ -15,9 +15,9 @@ Interaction::Interaction(const std::string &contenu)
     Interaction::contenu = contenu;
 
     // recuperation de la date de maintenant en microseconde
-    id = std::chrono::duration_cast<std::chrono::microseconds>(
+    dateCreation = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
-    dateModif = id;
+    dateModif = dateCreation;
     lstTache = new ListTache;
 }
 
@@ -45,9 +45,9 @@ void Interaction::setContenu(const std::string &contenu)
 Interaction::Interaction()
 {
     Interaction::contenu = "";
-    id = std::chrono::duration_cast<std::chrono::microseconds>(
+    dateCreation = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();// recuperation de la date de maintenant
-    dateModif = id;
+    dateModif = dateCreation;
     lstTache = new ListTache;
 
 }
@@ -56,18 +56,18 @@ Interaction::Interaction()
  * @details getter de id
  * @return id du contact
  */
-uint64_t Interaction::getId() const
+uint64_t Interaction::getDateCreation() const
 {
-    return id;
+    return dateCreation;
 }
 
 /**
  * @details setter de id
  * @param id
  */
-void Interaction::setId(uint64_t id)
+void Interaction::setDateCreation(uint64_t dateCreation)
 {
-    Interaction::id = id;
+    Interaction::dateCreation = dateCreation;
 }
 
 /**
@@ -149,7 +149,7 @@ Interaction::Interaction(const Interaction &interaction)
 {
     setLstTache(interaction.getLstTache());
     contenu = interaction.getContenu();
-    id = interaction.getId();
+    dateCreation = interaction.getDateCreation();
     dateModif = interaction.getDateModif();
 
 }
@@ -202,6 +202,6 @@ bool Interaction::operator>=(const Interaction &rhs) const
  */
 std::ostream &operator<<(std::ostream &os, const Interaction &interaction)
 {
-    os << "contenu: " << interaction.contenu << " id: " << interaction.id << " dateModif: " << interaction.dateModif;
+    os << "contenu: " << interaction.contenu << " id: " << interaction.dateCreation << " dateModif: " << interaction.dateModif;
     return os;
 }

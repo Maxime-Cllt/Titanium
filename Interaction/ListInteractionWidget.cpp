@@ -19,7 +19,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     auto *layout = new QVBoxLayout(this);
 
     ajoutBtn = new QPushButton("Ajouter", this);
-    ajoutBtn->setMinimumWidth(400);
+    setMinimumWidth(500);
     ajoutBtn->setDefault(true);
 
     connect(ajoutBtn, &QPushButton::clicked, this, &ListInteractionWidget::ajoutInteraction);
@@ -43,18 +43,8 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
 
     layout->addWidget(scrollArea);
 
+    createUi();
 
-    lstInteraction->reverse();
-    for (auto interaction: *lstInteraction->getListInteraction())
-    {
-        auto *box = new GroupBoxInteraction(interaction, scrollArea);
-        connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
-        {
-            this->lstInteraction->supInteraction(interaction);
-        });
-        connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::reactualiseUi);
-        layoutScroll->addWidget(box);
-    }
 }
 
 /**
@@ -82,13 +72,25 @@ ListInteraction *ListInteractionWidget::getLstInteraction() const
  */
 void ListInteractionWidget::reactualiseUi()
 {
-    lstInteraction->reverse();
     for (auto *widget: scrollArea->findChildren<GroupBoxInteraction *>())
     {
         widget->close();
     }
+    createUi();
+}
+
+void ListInteractionWidget::createUi()
+{
+    lstInteraction->reverse();
     for (auto interaction: *lstInteraction->getListInteraction())
     {
-        layoutScroll->addWidget(new GroupBoxInteraction(interaction, scrollArea));
+        auto *box = new GroupBoxInteraction(interaction, scrollArea);
+        connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
+        {
+            BD::supInteraction(*interaction);
+            this->lstInteraction->supInteraction(interaction);
+        });
+        connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::reactualiseUi);
+        layoutScroll->addWidget(box);
     }
 }

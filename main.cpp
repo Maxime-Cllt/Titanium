@@ -17,9 +17,9 @@ using namespace std::chrono;
  */
 int main(int argc, char *argv[])
 {
-//    QApplication a(argc, argv);
-//    MainWindow mainWindow;
-//    mainWindow.show();
+    QApplication a(argc, argv);
+    MainWindow mainWindow;
+    mainWindow.show();
 
     // dans le tas
     // liste de contacts et contact
@@ -85,7 +85,8 @@ int main(int argc, char *argv[])
     auto *lstTache = new ListTache;
     auto *t1 = new Tache("@todo il fait beau");
     auto *t2 = new Tache("@todo il fait moche");
-    t2->setdate(10e10);
+    auto *t3 = new Tache(*t2);
+//    t2->setdate(10e10);
 
     std::cout << *t1 << std::endl;
     std::cout << *t2 << std::endl;
@@ -97,9 +98,13 @@ int main(int argc, char *argv[])
     // ajout par valeur
     lstTache->addTache(*t2);
 
+    //suppression possible également
+    //lstTache->suppTache(lstTache->getLstTache()->front());
+
     std::cout << *lstTache << std::endl;
 
     std::cout << "*****************************************************************" << std::endl;
+
 
 
     listContact->getLstContact()->front()->setlstInteraction(listInteraction);
@@ -126,6 +131,6 @@ int main(int argc, char *argv[])
     delete listContact;
 
 
-//    return QApplication::exec();
+    return QApplication::exec();
 
 }

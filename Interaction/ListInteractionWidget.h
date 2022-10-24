@@ -25,6 +25,8 @@ private:
     QScrollArea *scrollArea{};
     QVBoxLayout *layoutScroll{};
     QPushButton *ajoutBtn{};
+
+    void createUi();
 public:
     ListInteraction *getLstInteraction() const;
 
