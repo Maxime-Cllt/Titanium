@@ -304,6 +304,12 @@ ListInteraction BD::getListInteractionData(const uint64_t &idContact)
     return listInteraction;
 }
 
+
+/**
+ * @details Fonction pour récupérer la liste d'intéraction d'un contact via son id
+ * @param idInteraction
+ * @return
+ */
 ListTache BD::getListTacheData(const uint64_t &idInteraction)
 {
     QSqlQuery query("SELECT * FROM TACHE WHERE ? = IdInteraction");
@@ -321,6 +327,11 @@ ListTache BD::getListTacheData(const uint64_t &idInteraction)
     return lst;
 }
 
+
+/**
+ * @details Fonction pour supprimer une tache via la date
+ * @param tache
+ */
 void BD::supTache(const Tache &tache)
 {
     QSqlQuery query("DELETE FROM TACHE WHERE ? = date");
