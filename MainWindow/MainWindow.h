@@ -8,6 +8,7 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include <QWidget>
+#include <QLabel>
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
 #include "../ListContactWidget/ListContactWidget.h"
@@ -34,6 +35,9 @@ private:
     StdListContact *lstContact{};
     ListModification *listModification{};
     BD *bd{};
+
+    QLabel *nbContactLab{};
+    QLabel *nbInetractionLab{};
 
 protected:
     void closeEvent(QCloseEvent *event) override;

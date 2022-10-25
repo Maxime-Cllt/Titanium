@@ -28,12 +28,18 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 
+    QFont font;
+    font.setPointSize(10);
+    setFont(font);
+
 
     auto *layout = new QVBoxLayout(this);
 
     date.setMSecsSinceEpoch(this->interaction->getDateModif() / 1000);
     labDateModif = new QLabel("Dernière modification : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"), this);
     labDateModif->setAlignment(Qt::AlignHCenter);
+    labDateModif->setFont(font);
+    labDateModif->setWordWrap(true);
 
     layout->addWidget(labDateModif);
 

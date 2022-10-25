@@ -27,6 +27,7 @@ private:
     QPushButton *ajoutBtn{};
 
     void createUi();
+
 public:
     ListInteraction *getLstInteraction() const;
 
@@ -36,6 +37,10 @@ private slots:
     void reactualiseUi();
 
     void ajoutInteraction();
+
+signals:
+
+    void updateNbInteraction(int nbInteraction);
 
 };
 

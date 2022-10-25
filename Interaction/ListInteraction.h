@@ -42,6 +42,8 @@ public:
 
     void setListInteraction(std::list<Interaction *> *lstInteraction);
 
+    int size();
+
 private:
     uint64_t contactId{};
     std::list<Interaction *> *listInteraction{};

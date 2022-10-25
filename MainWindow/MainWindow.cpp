@@ -13,7 +13,7 @@
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    setMinimumHeight(450);
+    setMinimumHeight(500);
     bd = new BD;
     listModification = new ListModification;
 
@@ -34,9 +34,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     auto *status = new QStatusBar(this);
 
-    auto *lab = new QLabel("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
-    lab->setAlignment(Qt::AlignCenter);
-    status->addWidget(lab, 1);
+    nbContactLab = new QLabel("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
+    nbContactLab->setAlignment(Qt::AlignHCenter);
+    status->addWidget(nbContactLab, 1);
+    nbInetractionLab = new QLabel("Nombre d'interaction : ");
+    status->addWidget(nbInetractionLab, 1);
+    nbInetractionLab->setAlignment(Qt::AlignHCenter);
 
     setStatusBar(status);
 
@@ -72,6 +75,7 @@ void MainWindow::addContact(const StdContact &contact)
     auto *c = new StdContact(contact);
     lstContact->addContact(c);
     listContactWidget->addContactBox(c);
+    nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
 }
 
 /**
@@ -84,4 +88,8 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
         layout->removeWidget(listInteractionWidget);
     layout->addWidget(widget);
     listInteractionWidget = widget;
+    connect(listInteractionWidget, &ListInteractionWidget::updateNbInteraction,this,[this](int nbInteractions){
+        nbInetractionLab->setText("Nombre d'interaction : " + QString::number(nbInteractions));
+    });
+    nbInetractionLab->setText("Nombre d'interaction : " + QString::number(listInteractionWidget->getLstInteraction()->size()));
 }

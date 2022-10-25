@@ -149,3 +149,11 @@ std::ostream &operator<<(std::ostream &os, const ListInteraction &lstInteraction
     os << "}" << std::endl;
     return os;
 }
+
+/**
+ * @return La taille de la liste.
+ */
+int ListInteraction::size()
+{
+    return listInteraction->size();
+}

@@ -25,7 +25,11 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     QDateTime date;
     date.setMSecsSinceEpoch(this->contact->getDateCreation() / 1000);
     setTitle("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+
+    QFont font;
+    font.setPointSize(10);
+    setFont(font);
 
     setObjectName("GroupBoxContact");
 
@@ -39,7 +43,7 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
 
     for (auto lab: findChildren<QLabel *>())
     {
-        lab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        lab->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
         lab->setWordWrap(true);
         lab->setMinimumWidth(150);
     }
