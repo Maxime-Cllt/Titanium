@@ -15,7 +15,7 @@ ListTache::ListTache()
 }
 
 /**
- * @details constructeur avec l'id de l'intercation en parametre.
+ * @details Constructeur avec l'id de l'interaction en paramètre.
  */
 ListTache::ListTache(uint64_t idInteraction)
 {
@@ -105,7 +105,7 @@ void ListTache::suppTache(Tache *tache)
 
 
 /**
- * @details destruteur qui détruit tous les pointeurs de tache contenu dans la liste des taches.
+ * @details Destructeur qui détruit tous les pointeurs de tache contenu dans la liste des taches.
  * @param lst
  */
 ListTache::ListTache(const ListTache &lst)

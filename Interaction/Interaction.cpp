@@ -54,7 +54,7 @@ Interaction::Interaction()
 
 /**
  * @details getter de id
- * @return id du contact
+ * @return dateCreation
  */
 uint64_t Interaction::getDateCreation() const
 {
@@ -155,7 +155,7 @@ Interaction::Interaction(const Interaction &interaction)
 }
 
 /**
- * @details Surcharge de l'operateur < qui compare la dateModif des 2 intéractions.
+ * @details Surcharge de l'opérateur < qui compare la dateModif des deux interactions.
  * @param rhs
  * @return
  */
@@ -165,7 +165,7 @@ bool Interaction::operator<(const Interaction &rhs) const
 }
 
 /**
- * @details Surcharge de l'operateur >.
+ * @details Surcharge de l'opérateur >.
  * @param rhs
  * @return
  */
@@ -175,7 +175,7 @@ bool Interaction::operator>(const Interaction &rhs) const
 }
 
 /**
- * @details Surcharge de l'operateur <=.
+ * @details Surcharge de l'opérateur <=.
  * @param rhs
  * @return
  */
@@ -185,7 +185,7 @@ bool Interaction::operator<=(const Interaction &rhs) const
 }
 
 /**
- * @details Surcharge de l'operateur >=.
+ * @details Surcharge de l'opérateur >=.
  * @param rhs
  * @return
  */
@@ -195,7 +195,7 @@ bool Interaction::operator>=(const Interaction &rhs) const
 }
 
 /**
- * @details Surchage operateur << pour l'affichage. Affiche le contenu, l'id, la date de modification et la liste des taches.
+ * @details Surcharge opérateur << pour l'affichage. Affiche le contenu, l'id, la date de modification et la liste des taches.
  * @param os
  * @param interaction
  * @return os

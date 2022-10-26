@@ -10,10 +10,9 @@
 using namespace std::chrono;
 
 /**
- * @details Main
+ * @details Fonction principale où est éxécuté mainWindow
  * @param argc
  * @param argv
- * @return Execution de mainWindow
  */
 int main(int argc, char *argv[])
 {

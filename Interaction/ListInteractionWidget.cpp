@@ -69,7 +69,7 @@ ListInteraction *ListInteractionWidget::getLstInteraction() const
 }
 
 /**
- * @details reactualise le widget qui contient les groupebox des interaction a chaque fois qu'une nouvelle interaction est ajouté.
+ * @details Réactualise le widget qui contient les groupebox des interaction a chaque fois qu'une nouvelle interaction est ajouté.
  */
 void ListInteractionWidget::reactualiseUi()
 {

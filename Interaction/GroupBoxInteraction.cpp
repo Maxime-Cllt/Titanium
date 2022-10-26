@@ -85,7 +85,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
         str.replace(str.indexOf("\n"), 0, "");
         this->interaction->setContenu(str.toStdString());
         this->interaction->modif();
-        QMessageBox::information(this, "Succes", "La modification à bien été prise en compte.");
+        QMessageBox::information(this, "Succès", "La modification à bien été prise en compte.");
         BD::modifyInteraction(*this->interaction);
 
         emit modifBtnClicked();
@@ -99,6 +99,10 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
     });
 }
 
+/**
+ * @details Fonction qui retourne la liste d'interaction du parent
+ * @return lstInteractionWidget
+ */
 QWidget *GroupBoxInteraction::getListInteractionParent()
 {
     auto *lstInteractionWidget = new QWidget(this);
@@ -111,6 +115,11 @@ QWidget *GroupBoxInteraction::getListInteractionParent()
     return lstInteractionWidget;
 }
 
+
+/**
+ * @details Fonction pour trier les tâches qui contiennent des TO-DO et récupérer cette tâche et voir si elle contient le tag @date
+ * @param str
+ */
 void GroupBoxInteraction::parseTache(const QString &str)
 {
     QStringList lst(str.split("\n"));

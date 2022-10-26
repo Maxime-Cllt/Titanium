@@ -98,7 +98,7 @@ ListInteraction::~ListInteraction()
 }
 
 /**
- * @details Constructeur par defaut.
+ * @details Constructeur par défaut.
  */
 ListInteraction::ListInteraction()
 {
