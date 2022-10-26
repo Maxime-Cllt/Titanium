@@ -37,7 +37,9 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
 
 }
 
-
+/**
+ * @details Fonction de vérification des champs saisis lors de l'ajout du contact
+ */
 void ModifContactDialog::btActionClicked()
 {
     QString mess("Des champs sont vides !!\n");
