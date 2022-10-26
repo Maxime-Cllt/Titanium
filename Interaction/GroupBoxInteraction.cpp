@@ -143,6 +143,6 @@ void GroupBoxInteraction::parseTache(const QString &str)
             lstTache.addTache(tache);
         }
     }
-    interaction->setLstTache(new ListTache(lstTache));
+    interaction->setLstTache(lstTache);
 }
 

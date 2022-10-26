@@ -18,17 +18,20 @@ class ListContactWidget : public QWidget
 Q_OBJECT
 
 public:
-    explicit ListContactWidget(QWidget *parent);
+    explicit ListContactWidget(StdListContact *lst,QWidget *parent);
 
     void addContactBox(StdContact *contact);
 
     void setLastConctactselected(GroupeBoxContact *lastConctactselected);
+
+    StdListContact *getLstContact() const;
 
 private:
     QVBoxLayout *lay{};
     QScrollArea *scrollArea{};
     QWidget *scrollAreaWidget{};
     QVBoxLayout *layScrollArea{};
+    StdListContact *lstContact{};
 
     GroupeBoxContact *lastConctactselected{};
 

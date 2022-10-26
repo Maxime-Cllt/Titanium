@@ -5,7 +5,7 @@
 #include "MainWindow.h"
 #include <QStatusBar>
 #include "../ContactDialog/CreationContactDialog.h"
-#include "../MenuBar/MenuBar.h"
+#include "../Menu/MenuBar.h"
 
 /**
  * @details Constructeur de la classe MainWindow
@@ -22,15 +22,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     lstContact = new StdListContact(BD::getContactData());
     lstContact->sortDateCreation();
 
+    layoutGauche = new QHBoxLayout;
+    layoutDroit = new QHBoxLayout;
+
 
     setWindowTitle("Projet");
     auto *central = new QWidget();
-    layout = new QHBoxLayout(central);
+    auto *layout = new QHBoxLayout(central);
     setCentralWidget(central);
 
+    layout->addLayout(layoutGauche);
+    layout->addLayout(layoutDroit);
 
-    listContactWidget = new ListContactWidget(this);
-    layout->addWidget(listContactWidget);
+    setListContactWidgetDefault();
 
     auto *status = new QStatusBar(this);
 
@@ -78,6 +82,21 @@ void MainWindow::addContact(const StdContact &contact)
     nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
 }
 
+void MainWindow::rechercheListContactWidget(StdListContact *lst)
+{
+    listContactWidget->close();
+    if (listContactWidget)
+    {
+        delete listContactWidget;
+        listContactWidget = new ListContactWidget(lst, this);
+        layoutGauche->addWidget(listContactWidget);
+        nbContactLab->setText("Nombre de contact : " + QString::number(lst->getLstContact()->size()));
+        if (listInteractionWidget)
+            layoutDroit->removeWidget(listInteractionWidget);
+        nbInetractionLab->setText("Nombre d'interaction : ");
+    }
+}
+
 /**
  * Ajoute un widget avec la liste d'interaction
  * @param widget
@@ -85,11 +104,34 @@ void MainWindow::addContact(const StdContact &contact)
 void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
 {
     if (listInteractionWidget)
-        layout->removeWidget(listInteractionWidget);
-    layout->addWidget(widget);
+        layoutDroit->removeWidget(listInteractionWidget);
+    layoutDroit->addWidget(widget);
     listInteractionWidget = widget;
-    connect(listInteractionWidget, &ListInteractionWidget::updateNbInteraction,this,[this](int nbInteractions){
+    connect(listInteractionWidget, &ListInteractionWidget::updateNbInteraction, this, [this](int nbInteractions)
+    {
         nbInetractionLab->setText("Nombre d'interaction : " + QString::number(nbInteractions));
     });
-    nbInetractionLab->setText("Nombre d'interaction : " + QString::number(listInteractionWidget->getLstInteraction()->size()));
+    nbInetractionLab->setText(
+            "Nombre d'interaction : " + QString::number(listInteractionWidget->getLstInteraction()->size()));
+}
+
+void MainWindow::setListContactWidgetDefault()
+{
+    if (listInteractionWidget)
+    {
+        layoutDroit->removeWidget(listInteractionWidget);
+        nbInetractionLab->setText("Nombre d'interaction : ");
+    }
+    if (listContactWidget)
+    {
+        nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
+        listContactWidget->close();
+    }
+    listContactWidget = new ListContactWidget(lstContact, this);
+    layoutGauche->addWidget(listContactWidget);
+}
+
+void MainWindow::updateNbContact()
+{
+    nbContactLab->setText("Nombre de contact : " + QString::number(listContactWidget->getLstContact()->getLstContact()->size()));
 }

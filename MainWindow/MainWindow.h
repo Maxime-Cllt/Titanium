@@ -24,10 +24,17 @@ public:
 
     void addContact(const StdContact &contact);
 
+    void updateNbContact();
+
+    void rechercheListContactWidget(StdListContact *lst);
+
     void setListInteractionWidget(ListInteractionWidget *widget);
 
+    void setListContactWidgetDefault();
+
 private:
-    QHBoxLayout *layout{};
+    QHBoxLayout *layoutGauche{};
+    QHBoxLayout *layoutDroit{};
 
     ListContactWidget *listContactWidget{};
     ListInteractionWidget *listInteractionWidget{};

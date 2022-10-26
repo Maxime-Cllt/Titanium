@@ -105,6 +105,8 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
                     break;
             }
             qobject_cast<MainWindow *>(mainWindow)->getLstContact()->supContact(contact);
+            emit supBtnClicled(contact);
+            qobject_cast<MainWindow *>(mainWindow)->updateNbContact();
             close();
         });
 

@@ -82,7 +82,9 @@ void ModifContactDialog::btActionClicked()
     } else
     {
         QtContact qtContact(getContact(contact->getDateCreation()));
+        auto *lst = contact->getLstInteraction();
         *contact = TraductionQtStd::QtFicheContactToStdFicheContact(qtContact);
+        contact->setlstInteraction(lst);
         int rep = BD::modifyContact(*contact);
         if (rep)
         {

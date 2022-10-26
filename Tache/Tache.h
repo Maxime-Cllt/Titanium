@@ -20,6 +20,8 @@ public:
 
     explicit Tache(std::string contenu);
 
+    Tache(const Tache &tache);
+
 private:
     std::string contenu{};
     uint64_t date{};

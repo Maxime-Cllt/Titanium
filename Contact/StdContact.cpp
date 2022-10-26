@@ -230,7 +230,7 @@ StdContact::StdContact() : lstInteraction(new ListInteraction(getDateCreation())
  */
 void StdContact::setlstInteraction(ListInteraction *lstInteraction)
 {
-    setlstInteraction(*lstInteraction);
+    StdContact::lstInteraction = lstInteraction;
 }
 
 /**

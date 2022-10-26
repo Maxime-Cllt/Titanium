@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
 
     std::cout << *c1 << std::endl;
 
-    // ajout par pointeur
-    listContact->addContact(c1);
+    // ajout par valeur
+    listContact->addContact(*c1);
 
     //constructeur de copie
     auto *c2 = new StdContact(*c1);
@@ -42,17 +42,16 @@ int main(int argc, char *argv[])
     std::cout << *c2 << std::endl;
 
     //comparaison
-    std::cout << "\nLe resultat de la comparaison des contact est : " << (*c1 < *c2) << std::endl;
+    std::cout << "\nLe resultat de la comparaison des contacts est : " << (*c1 < *c2) << std::endl;
 
-    //ajout par valeur
-    listContact->addContact(*c1);
+    //ajout par pointeur
+    listContact->addContact(c2);
 
     // suppresion d'un contact
-    listContact->supContact(listContact->getLstContact()->front());
+    listContact->supContact(c2);
 
-    // c1 et c2 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué à chaque ajout.
+    // c1 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué pour un ajout avec valeur.
     delete c1;
-    delete c2;
     std::cout << std::endl << *listContact << std::endl;
 
     // lite d'interaction et interaction
@@ -72,10 +71,9 @@ int main(int argc, char *argv[])
     listInteraction->addInteraction(*i2);
 
     // supression d'une interaction
-    listInteraction->supInteraction(listInteraction->getListInteraction()->front());
+    listInteraction->supInteraction(i1);
 
 //     i1 i2 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué à chaque ajout.
-    delete i1;
     delete i2;
 
     std::cout << *listInteraction << std::endl;
@@ -85,7 +83,6 @@ int main(int argc, char *argv[])
     auto *lstTache = new ListTache;
     auto *t1 = new Tache("@todo il fait beau");
     auto *t2 = new Tache("@todo il fait moche");
-    auto *t3 = new Tache(*t2);
 //    t2->setdate(10e10);
 
     std::cout << *t1 << std::endl;
@@ -98,25 +95,23 @@ int main(int argc, char *argv[])
     // ajout par valeur
     lstTache->addTache(*t2);
 
+    delete t2;
+
     //suppression possible également
-    //lstTache->suppTache(lstTache->getLstTache()->front());
+    //lstTache->suppTache(t1);
 
     std::cout << *lstTache << std::endl;
 
     std::cout << "*****************************************************************" << std::endl;
 
 
-
     listContact->getLstContact()->front()->setlstInteraction(listInteraction);
 
     // listInteraction n'est plus utilisé car un nouveau pointeur avec création de nouveaux pointeurs des interactions à été effectuer avec le setter
-    delete listInteraction;
 
     listContact->getLstContact()->front()->getLstInteraction()->getListInteraction()->front()->setLstTache(lstTache);
 
     // lstTache n'est plus utilisé car un nouveau pointeur avec création de nouveaux pointeurs des taches à été effectuer avec le setter
-    delete lstTache;
-
 
     std::cout << "--------------------------------------------------------------------------" << std::endl;
     std::cout << *listContact->getLstContact()->front()->getLstInteraction() << std::endl;

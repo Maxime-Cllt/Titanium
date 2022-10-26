@@ -14,8 +14,9 @@
  *  @details Constructeur de la classe ListContactWidget
  * @param parent
  */
-ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
+ListContactWidget::ListContactWidget(StdListContact *lst,QWidget *parent) : QWidget(parent)
 {
+    lstContact = lst;
 
     setMinimumWidth(500);
     lay = new QVBoxLayout(this);
@@ -35,9 +36,13 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
     layScrollArea->setSpacing(30);
 
 
-    for (auto contact: *(qobject_cast<MainWindow *>(parent)->getLstContact())->getLstContact())
+    for (auto contact: *lstContact->getLstContact())
     {
-        layScrollArea->addWidget(new GroupeBoxContact(contact, this));
+        auto* box = new GroupeBoxContact(contact, this);
+        layScrollArea->addWidget(box);
+        connect(box,&GroupeBoxContact::supBtnClicled,this,[=](StdContact *contact){
+            lstContact->getLstContact()->remove(contact);
+        });
     }
 
 }
@@ -47,7 +52,11 @@ ListContactWidget::ListContactWidget(QWidget *parent) : QWidget(parent)
  */
 void ListContactWidget::addContactBox(StdContact *contact)
 {
-    layScrollArea->insertWidget(0, new GroupeBoxContact(contact, scrollArea));
+    auto* box = new GroupeBoxContact(contact, this);
+    layScrollArea->insertWidget(0, box);
+    connect(box,&GroupeBoxContact::supBtnClicled,this,[=](StdContact *contact){
+        lstContact->getLstContact()->remove(contact);
+    });
 }
 
 /**
@@ -65,10 +74,15 @@ void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactse
         {
             this->lastConctactselected->cache();
         }
-        // envoie au MainWindow qui set charge de l'ajouter a son propre layout.
+        // envoie au MainWindow qui se charge de l'ajouter a son propre layout.
         qobject_cast<MainWindow *>(parentWidget()->parentWidget())->setListInteractionWidget(
                 lastConctactselected->getListInteractionWidget());
         //on remplace la liste des interaction par la nouvelle du contact selectionné
         this->lastConctactselected = lastConctactselected;
     }
+}
+
+StdListContact *ListContactWidget::getLstContact() const
+{
+    return lstContact;
 }

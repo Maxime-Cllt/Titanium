@@ -42,6 +42,10 @@ private:
 
     ListInteractionWidget *listInteractionWidget{};
 
+    signals:
+
+    void supBtnClicled(StdContact *contact);
+
 
 };
 

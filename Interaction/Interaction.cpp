@@ -121,7 +121,7 @@ ListTache *Interaction::getLstTache() const
  */
 void Interaction::setLstTache(ListTache *lstTache)
 {
-    setLstTache(*lstTache);
+    Interaction::lstTache = lstTache;
 }
 
 /**
@@ -147,7 +147,7 @@ Interaction::~Interaction()
  */
 Interaction::Interaction(const Interaction &interaction)
 {
-    setLstTache(interaction.getLstTache());
+    setLstTache(*interaction.getLstTache());
     contenu = interaction.getContenu();
     dateCreation = interaction.getDateCreation();
     dateModif = interaction.getDateModif();

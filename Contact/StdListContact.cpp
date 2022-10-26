@@ -29,7 +29,7 @@ void StdListContact::addContact(const StdContact &contact)
  */
 void StdListContact::addContact(StdContact *contact)
 {
-    addContact(*contact);
+    lstContact->push_back(contact);
 }
 
 /**

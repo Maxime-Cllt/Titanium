@@ -89,7 +89,7 @@ void ListTache::addTache(const Tache &tache)
  */
 void ListTache::addTache(Tache *tache)
 {
-    addTache(*tache);
+    lstTache->push_back(tache);
 }
 
 /**

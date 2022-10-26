@@ -114,3 +114,9 @@ bool Tache::operator>=(const Tache &rhs) const
 {
     return !(*this < rhs);
 }
+
+Tache::Tache(const Tache &tache)
+{
+    contenu = tache.contenu;
+    date = tache.date;
+}

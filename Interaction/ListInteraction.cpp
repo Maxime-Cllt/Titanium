@@ -22,7 +22,7 @@ ListInteraction::ListInteraction(uint64_t id) : contactId(id)
  */
 void ListInteraction::addInteraction(Interaction *interaction)
 {
-    addInteraction(*interaction);
+    listInteraction->push_back(interaction);
 }
 
 /**
