@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 07/10/2022.
 //
 
-#ifndef UNTITLED2_STDCONTACT_H
-#define UNTITLED2_STDCONTACT_H
+#ifndef PROJET_QT_STDCONTACT_H
+#define PROJET_QT_STDCONTACT_H
 
 #include <iostream>
 #include <string>
@@ -88,4 +88,4 @@ public:
 };
 
 
-#endif //UNTITLED2_STDCONTACT_H
+#endif //PROJET_QT_STDCONTACT_H

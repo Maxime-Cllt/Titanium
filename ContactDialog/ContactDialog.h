@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#ifndef UNTITLED2_CONTACTDIALOG_H
-#define UNTITLED2_CONTACTDIALOG_H
+#ifndef PROJET_QT_CONTACTDIALOG_H
+#define PROJET_QT_CONTACTDIALOG_H
 
 #include <QDialog>
 #include <QHBoxLayout>
@@ -46,4 +46,4 @@ public slots:
 };
 
 
-#endif //UNTITLED2_CONTACTDIALOG_H
+#endif //PROJET_QT_CONTACTDIALOG_H

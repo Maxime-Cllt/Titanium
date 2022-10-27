@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 22/09/2022.
 //
 
-#ifndef UNTITLED2_QTCONTACT_H
-#define UNTITLED2_QTCONTACT_H
+#ifndef PROJET_QT_QTCONTACT_H
+#define PROJET_QT_QTCONTACT_H
 
 #include <QDate>
 #include <QString>
@@ -74,4 +74,4 @@ public:
     void setDateCreation(uint64_t dateCreation);
 };
 
-#endif //UNTITLED2_QTCONTACT_H
+#endif //PROJET_QT_QTCONTACT_H

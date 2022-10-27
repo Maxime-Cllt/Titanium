@@ -2,8 +2,8 @@
 // Created by rahman on 08/10/22.
 //
 
-#ifndef UNTITLED2_CREATIONCONTACTDIALOG_H
-#define UNTITLED2_CREATIONCONTACTDIALOG_H
+#ifndef PROJET_QT_CREATIONCONTACTDIALOG_H
+#define PROJET_QT_CREATIONCONTACTDIALOG_H
 
 #include "ContactDialog.h"
 #include "../MainWindow/MainWindow.h"
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //UNTITLED2_CREATIONCONTACTDIALOG_H
+#endif //PROJET_QT_CREATIONCONTACTDIALOG_H

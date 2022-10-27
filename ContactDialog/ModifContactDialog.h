@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#ifndef UNTITLED2_MODIFCONTACTDIALOG_H
-#define UNTITLED2_MODIFCONTACTDIALOG_H
+#ifndef PROJET_QT_MODIFCONTACTDIALOG_H
+#define PROJET_QT_MODIFCONTACTDIALOG_H
 
 #include <QDialog>
 #include "ContactDialog.h"
@@ -25,4 +25,4 @@ private:
 };
 
 
-#endif //UNTITLED2_MODIFCONTACTDIALOG_H
+#endif //PROJET_QT_MODIFCONTACTDIALOG_H

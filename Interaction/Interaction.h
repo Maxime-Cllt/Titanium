@@ -2,8 +2,8 @@
 // Created by rahman on 09/10/22.
 //
 
-#ifndef UNTITLED2_INTERACTION_H
-#define UNTITLED2_INTERACTION_H
+#ifndef PROJET_QT_INTERACTION_H
+#define PROJET_QT_INTERACTION_H
 
 #include <iostream>
 #include <string>
@@ -67,4 +67,4 @@ public:
 
 };
 
-#endif //UNTITLED2_INTERACTION_H
+#endif //PROJET_QT_INTERACTION_H

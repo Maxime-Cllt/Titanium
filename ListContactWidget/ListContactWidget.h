@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#ifndef UNTITLED2_MODIFICATIONDIALOG_H
-#define UNTITLED2_MODIFICATIONDIALOG_H
+#ifndef PROJET_QT_MODIFICATIONDIALOG_H
+#define PROJET_QT_MODIFICATIONDIALOG_H
 
 #include <QWidget>
 #include <QScrollArea>
@@ -39,4 +39,4 @@ private:
 };
 
 
-#endif //UNTITLED2_MODIFICATIONDIALOG_H
+#endif //PROJET_QT_MODIFICATIONDIALOG_H

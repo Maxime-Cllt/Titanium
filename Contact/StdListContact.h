@@ -3,8 +3,8 @@
 //
 
 
-#ifndef UNTITLED2_STDLISTCONTACT_H
-#define UNTITLED2_STDLISTCONTACT_H
+#ifndef PROJET_QT_STDLISTCONTACT_H
+#define PROJET_QT_STDLISTCONTACT_H
 
 #include <iostream>
 #include <list>
@@ -47,4 +47,4 @@ private:
 };
 
 
-#endif //UNTITLED2_STDLISTCONTACT_H
+#endif //PROJET_QT_STDLISTCONTACT_H

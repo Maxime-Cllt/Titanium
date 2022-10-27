@@ -2,8 +2,8 @@
 // Created by rahman on 08/10/22.
 //
 
-#ifndef UNTITLED2_TRADUCTIONQTSTD_H
-#define UNTITLED2_TRADUCTIONQTSTD_H
+#ifndef PROJET_QT_TRADUCTIONQTSTD_H
+#define PROJET_QT_TRADUCTIONQTSTD_H
 
 #include "QtContact.h"
 #include "StdContact.h"
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //UNTITLED2_TRADUCTIONQTSTD_H
+#endif //PROJET_QT_TRADUCTIONQTSTD_H

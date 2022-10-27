@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 06/10/2022.
 //
 
-#ifndef UNTITLED2_GROUPEBOXCONTACT_H
-#define UNTITLED2_GROUPEBOXCONTACT_H
+#ifndef PROJET_QT_GROUPEBOXCONTACT_H
+#define PROJET_QT_GROUPEBOXCONTACT_H
 
 #include <QGroupBox>
 #include <QGridLayout>
@@ -54,4 +54,4 @@ signals:
 };
 
 
-#endif //UNTITLED2_GROUPEBOXCONTACT_H
+#endif //PROJET_QT_GROUPEBOXCONTACT_H

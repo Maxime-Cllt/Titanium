@@ -2,8 +2,8 @@
 // Created by Rahman  Yilmaz on 22/09/2022.
 //
 
-#ifndef UNTITLED2_MAINWINDOW_H
-#define UNTITLED2_MAINWINDOW_H
+#ifndef PROJET_QT_MAINWINDOW_H
+#define PROJET_QT_MAINWINDOW_H
 
 #include <QMainWindow>
 #include <QGridLayout>
@@ -55,4 +55,4 @@ protected:
 };
 
 
-#endif //UNTITLED2_MAINWINDOW_H
+#endif //PROJET_QT_MAINWINDOW_H
