@@ -46,8 +46,13 @@ int main(int argc, char *argv[])
     //ajout par pointeur
     listContact->addContact(c2);
 
+    c2->setNom("titi");
+//    // on peut ajouter des logs manuellement, ici on a modifié le nom de c2 donc on ajoute un log de type 1 qui correspond a une modification;
+    listContact->addLog(1, *c2);
+
     // suppresion d'un contact
     listContact->supContact(c2);
+
 
     // c1 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué pour un ajout avec valeur.
     delete c1;
@@ -72,7 +77,7 @@ int main(int argc, char *argv[])
     // supression d'une interaction
     listInteraction->supInteraction(i1);
 
-//     i1 i2 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué à chaque ajout.
+    // i2 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué à chaque ajout par reference ou copie.
     delete i2;
 
     std::cout << *listInteraction << std::endl;
@@ -94,6 +99,7 @@ int main(int argc, char *argv[])
     // ajout par valeur
     lstTache->addTache(*t2);
 
+    // t2 n'est plus utilisé car un nouveau pointeur avec copie des valeurs est effectué à chaque ajout par reference ou copie.
     delete t2;
 
     //suppression possible également
@@ -106,11 +112,8 @@ int main(int argc, char *argv[])
 
     listContact->getLstContact()->front()->setlstInteraction(listInteraction);
 
-    // listInteraction n'est plus utilisé car un nouveau pointeur avec création de nouveaux pointeurs des interactions à été effectuer avec le setter
 
     listContact->getLstContact()->front()->getLstInteraction()->getListInteraction()->front()->setLstTache(lstTache);
-
-    // lstTache n'est plus utilisé car un nouveau pointeur avec création de nouveaux pointeurs des taches à été effectuer avec le setter
 
     std::cout << "--------------------------------------------------------------------------" << std::endl;
     std::cout << *listContact->getLstContact()->front()->getLstInteraction() << std::endl;

@@ -6,16 +6,16 @@
 #define PROJET_QT_LISTINTERACTIONWIDGET_H
 
 #include <QWidget>
-#include "Interaction.h"
+#include "../Interaction.h"
 #include <QScrollArea>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "ListInteraction.h"
+#include "../ListInteraction.h"
 
 
 class ListInteractionWidget : public QWidget
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit ListInteractionWidget(ListInteraction *lstInteraction, QWidget *parent);
@@ -36,14 +36,14 @@ public:
 private
     slots:
 
-            void reactualiseUi();
+    void reactualiseUi();
 
     void ajoutInteraction();
 
-    signals:
+signals:
 
-            void updateNbInteraction(int
-    nbInteraction);
+    void updateNbInteraction(int
+                             nbInteraction);
 
 };
 

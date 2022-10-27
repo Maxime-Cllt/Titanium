@@ -14,7 +14,7 @@ QtContact TraductionQtStd::StdFicheContacttoQtFicheContact(const StdContact &con
     return QtContact(QString::fromStdString(contact.getNom()), QString::fromStdString(contact.getPrenom()),
                      QString::fromStdString(contact.getEntreprise()), QString::fromStdString(contact.getMail()),
                      QString::fromStdString(contact.getTelephone()), QString::fromStdString(contact.getPhoto()),
-                     contact.getDateCreation(), contact.getLstInteraction());
+                     contact.getDateCreation());
 }
 
 /**
@@ -27,5 +27,5 @@ StdContact TraductionQtStd::QtFicheContactToStdFicheContact(const QtContact &con
     return StdContact(contact.getNom().toStdString(), contact.getPrenom().toStdString(),
                       contact.getEntreprise().toStdString(), contact.getMail().toStdString(),
                       contact.getTelephone().toStdString(), contact.getPhoto().toStdString(), contact.getDateCreation(),
-                      contact.getLstInteraction());
+                      ListInteraction());
 }

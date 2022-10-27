@@ -7,7 +7,7 @@
 
 #include <QDialog>
 #include "ContactDialog.h"
-#include "../ListContactWidget/GroupeBoxContact.h"
+#include "../Contact/Widget/GroupeBoxContact.h"
 
 class ModifContactDialog : public ContactDialog
 {
@@ -20,6 +20,8 @@ public:
 
 private:
     StdContact *contact{};
+
+    QWidget *getMainWindow();
 
 
 };

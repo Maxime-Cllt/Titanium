@@ -24,7 +24,7 @@ public:
 protected:
     QVBoxLayout *layout{};
     QHBoxLayout *layoutTop{};
-    QVBoxLayout *layoutCenter{};
+    QHBoxLayout *layoutCenter{};
     QLabel *labIm{};
     QLabel *labDateCreation{};
     QLineEdit *line1{};
@@ -42,7 +42,7 @@ public slots:
 
     virtual void btActionClicked();
 
-    QtContact getContact(uint64_t time);
+    QtContact getContact();
 };
 
 

@@ -121,9 +121,9 @@ void BD::addModif(uint64_t idContact, const std::string &modif)
  * Retourne la liste des contacts de la table CONTACTS
  * @return lst
  */
-StdListContact BD::getContactData()
+StdListContact *BD::getContactData()
 {
-    StdListContact lst;
+    auto *lst = new StdListContact;
 
     QSqlQuery query("SELECT * FROM CONTACTS");
 
@@ -138,12 +138,11 @@ StdListContact BD::getContactData()
         qtContact.setTelephone(query.value(4).toString());
         qtContact.setPhoto(query.value(5).toString());
 
-        qtContact.setLstInteraction(getListInteractionData(query.value(6).toLongLong()));
+        auto *contact = new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
+        contact->setDateCreation(query.value(6).toLongLong());
+        contact->setlstInteraction(getListInteractionData(query.value(6).toLongLong()));
 
-        StdContact contact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
-        contact.setDateCreation(query.value(6).toLongLong());
-
-        lst.addContact(contact);
+        lst->addContact(contact);
 
     }
     return lst;
@@ -160,7 +159,7 @@ void BD::supContact(const StdContact &contact)
     QString date;
     date.setNum(contact.getDateCreation());
 
-    for (const auto interaction: *contact.getLstInteraction().getListInteraction())
+    for (const auto interaction: *contact.getLstInteraction()->getListInteraction())
     {
         supInteraction(*interaction);
     }

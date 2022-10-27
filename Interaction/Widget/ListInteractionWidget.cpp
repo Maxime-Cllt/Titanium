@@ -5,8 +5,8 @@
 #include "ListInteractionWidget.h"
 #include <QLabel>
 #include "GroupBoxInteraction.h"
-#include "../BaseDeDonne/BD.h"
-#include "../MainWindow/MainWindow.h"
+#include "../../BaseDeDonne/BD.h"
+#include "../../MainWindow/MainWindow.h"
 
 
 /**

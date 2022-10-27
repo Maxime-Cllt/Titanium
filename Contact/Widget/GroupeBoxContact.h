@@ -7,8 +7,8 @@
 
 #include <QGroupBox>
 #include <QGridLayout>
-#include "../Contact/StdListContact.h"
-#include "../Interaction/ListInteractionWidget.h"
+#include "../StdListContact.h"
+#include "../../Interaction/Widget/ListInteractionWidget.h"
 #include <QMouseEvent>
 #include <QMenu>
 

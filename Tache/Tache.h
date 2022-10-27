@@ -18,9 +18,9 @@ class Tache
 public:
     explicit Tache();
 
-    explicit Tache(std::string contenu);
+    explicit Tache(std::string);
 
-    Tache(const Tache &tache);
+    ~Tache();
 
 private:
     std::string contenu{};
@@ -29,21 +29,21 @@ private:
 public:
     friend std::ostream &operator<<(std::ostream &, const Tache &);
 
-    const std::string &getcontenu() const;
+    bool operator<(const Tache &) const;
 
-    void setcontenu(const std::string &contenu);
+    bool operator>(const Tache &) const;
 
-    uint64_t getdate() const;
+    bool operator<=(const Tache &) const;
 
-    void setdate(uint64_t date);
+    bool operator>=(const Tache &) const;
 
-    bool operator<(const Tache &rhs) const;
+    [[nodiscard]] const std::string &getcontenu() const;
 
-    bool operator>(const Tache &rhs) const;
+    void setcontenu(const std::string &);
 
-    bool operator<=(const Tache &rhs) const;
+    [[nodiscard]] uint64_t getdate() const;
 
-    bool operator>=(const Tache &rhs) const;
+    void setdate(uint64_t);
 };
 
 

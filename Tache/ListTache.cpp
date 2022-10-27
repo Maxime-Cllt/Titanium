@@ -20,19 +20,7 @@ ListTache::ListTache()
 ListTache::ListTache(uint64_t idInteraction)
 {
     lstTache = new std::list<Tache *>();
-    idInteraction = idInteraction;
-}
-
-/**
- * @details Destructeur qui supprime tous les pointeurs de Tache contenu dans lstTache.
- */
-ListTache::~ListTache()
-{
-    for (auto tache: *lstTache)
-    {
-        delete tache;
-    }
-    delete lstTache;
+    ListTache::idInteraction = idInteraction;
 }
 
 /**
@@ -83,8 +71,7 @@ void ListTache::addTache(const Tache &tache)
 }
 
 /**
- * @details Ajoute la tache en paramètre à la liste des taches en recréant un nouveau pointeur
- * qui pointe sur une nouvelle tache avec les attributs de memes valeur que la tache en paramètre.
+ * @details Ajoute la tache en paramètre à la liste des taches.
  * @param tache
  */
 void ListTache::addTache(Tache *tache)
@@ -93,7 +80,7 @@ void ListTache::addTache(Tache *tache)
 }
 
 /**
- * @details Supprime la tache de la liste.
+ * @details Supprime la tache de la liste des taches et le delete.
  * @param tache
  */
 void ListTache::suppTache(Tache *tache)
@@ -103,9 +90,26 @@ void ListTache::suppTache(Tache *tache)
 
 }
 
+/**
+ * @details Supprime la tache de la liste. des taches
+ * @param tache
+ */
+void ListTache::removeTache(Tache *tache)
+{
+    lstTache->remove(tache);
+}
 
 /**
- * @details Destructeur qui détruit tous les pointeurs de tache contenu dans la liste des taches.
+ * @brief Retourn la taille de la liste.
+ * @return
+ */
+int ListTache::size()
+{
+    return lstTache->size();
+}
+
+/**
+ * @details Constructeur par copie .
  * @param lst
  */
 ListTache::ListTache(const ListTache &lst)
@@ -113,8 +117,20 @@ ListTache::ListTache(const ListTache &lst)
     lstTache = new std::list<Tache *>();
     for (auto tache: *lst.lstTache)
     {
-        addTache(tache);
+        addTache(*tache);
     }
+}
+
+/**
+ * @details Destructeur.
+ */
+ListTache::~ListTache()
+{
+    for (auto tache: *lstTache)
+    {
+        delete tache;
+    }
+    delete lstTache;
 }
 
 /**

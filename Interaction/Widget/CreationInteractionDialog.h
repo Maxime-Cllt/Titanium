@@ -8,12 +8,12 @@
 #include <QDialog>
 #include <QTextEdit>
 #include <QPushButton>
-#include "../Contact/StdContact.h"
+#include "../../Contact/StdContact.h"
 
 class CreationInteractionDialog : public QDialog
 {
 
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit CreationInteractionDialog(StdContact *contact, QWidget *parent = nullptr);

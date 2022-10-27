@@ -3,6 +3,7 @@
 //
 
 #include <chrono>
+#include <utility>
 #include "Interaction.h"
 
 
@@ -10,33 +11,13 @@
  * @details Constructeur de la classe Interaction
  * @param contenu
  */
-Interaction::Interaction(const std::string &contenu)
+Interaction::Interaction(std::string contenu) : contenu(std::move(contenu))
 {
-    Interaction::contenu = contenu;
-
     // recuperation de la date de maintenant en microseconde
     dateCreation = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
     dateModif = dateCreation;
     lstTache = new ListTache;
-}
-
-/**
- * @details getter de contenu
- * @return Contenu de l'interaction
- */
-const std::string &Interaction::getContenu() const
-{
-    return contenu;
-}
-
-/**
- * @details setter de contenu
- * @param contenu
- */
-void Interaction::setContenu(const std::string &contenu)
-{
-    Interaction::contenu = contenu;
 }
 
 /**
@@ -52,8 +33,27 @@ Interaction::Interaction()
 
 }
 
+
 /**
- * @details getter de id
+ * @details Getter de contenu.
+ * @return Contenu de l'interaction
+ */
+const std::string &Interaction::getContenu() const
+{
+    return contenu;
+}
+
+/**
+ * @details Setter de contenu.
+ * @param contenu
+ */
+void Interaction::setContenu(const std::string &contenu)
+{
+    Interaction::contenu = contenu;
+}
+
+/**
+ * @details Getter de id
  * @return dateCreation
  */
 uint64_t Interaction::getDateCreation() const
@@ -62,7 +62,7 @@ uint64_t Interaction::getDateCreation() const
 }
 
 /**
- * @details setter de id
+ * @details Setter de id
  * @param id
  */
 void Interaction::setDateCreation(uint64_t dateCreation)
@@ -71,7 +71,7 @@ void Interaction::setDateCreation(uint64_t dateCreation)
 }
 
 /**
- * @details getter de dateModif
+ * @details Getter de dateModif
  * @return dateModif
  */
 uint64_t Interaction::getDateModif() const
@@ -80,7 +80,7 @@ uint64_t Interaction::getDateModif() const
 }
 
 /**
- * @details setter de DateModif
+ * @details Setter de DateModif
  * @param dateModif
  */
 void Interaction::setDateModif(uint64_t dateModif)
@@ -108,7 +108,7 @@ void Interaction::addTache(const Tache &tache)
 
 /**
  * @details Getter de lstTache.
- * @return lstTache
+ * @return La liste des taches
  */
 ListTache *Interaction::getLstTache() const
 {
@@ -116,8 +116,8 @@ ListTache *Interaction::getLstTache() const
 }
 
 /**
- * @details Setter de lstTache.
- * @return lstTache
+ * @details Setter de lstTache..
+ * @param lstTache
  */
 void Interaction::setLstTache(ListTache *lstTache)
 {
@@ -144,7 +144,7 @@ Interaction::~Interaction()
 }
 
 /**
- * @details Constructeur de copie.
+ * @details Constructeur par copie.
  * @param interaction
  */
 Interaction::Interaction(const Interaction &interaction)

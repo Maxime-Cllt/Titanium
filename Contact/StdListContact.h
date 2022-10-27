@@ -9,7 +9,6 @@
 #include <iostream>
 #include <list>
 #include "StdContact.h"
-#include "QtContact.h"
 #include "TraductionQtStd.h"
 
 /**
@@ -24,6 +23,13 @@ public:
 
     ~StdListContact();
 
+
+private:
+    std::list<StdContact *> *lstContact{};
+    std::list<std::string> lstLog{};
+
+public:
+
     friend std::ostream &operator<<(std::ostream &, const StdListContact &);
 
     void addContact(const StdContact &);
@@ -34,14 +40,22 @@ public:
 
     void removeContact(StdContact *);
 
+    void addLog(int, const StdContact &);
+
     std::list<StdContact *> *getLstContact();
+
+    [[nodiscard]] const std::list<std::string> &getLstLog() const;
+
+    void setLstLog(const std::list<std::string> &);
 
     void reverseDateCreation();
 
     void sortNom();
 
+    int size();
+
 private:
-    std::list<StdContact *> *lstContact{};
+    static std::string getDateNow();
 
 
 };

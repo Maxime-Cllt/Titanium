@@ -15,11 +15,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setMinimumHeight(500);
     bd = new BD;
-    listModification = new ListModification;
 
     setMenuBar(new MenuBar(this));
 
-    lstContact = new StdListContact(BD::getContactData());
+    lstContact = BD::getContactData();
     lstContact->reverseDateCreation();
 
     layoutGauche = new QHBoxLayout;
@@ -66,7 +65,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     QWidget::closeEvent(event);
     delete lstContact;
-    delete listModification;
     delete bd;
 }
 
@@ -124,7 +122,7 @@ void MainWindow::setListContactWidgetDefault()
     }
     if (listContactWidget)
     {
-        nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
+        nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->size()));
         listContactWidget->close();
     }
     listContactWidget = new ListContactWidget(lstContact, this);
@@ -134,7 +132,7 @@ void MainWindow::setListContactWidgetDefault()
 void MainWindow::updateNbContact()
 {
     nbContactLab->setText(
-            "Nombre de contact : " + QString::number(listContactWidget->getLstContact()->getLstContact()->size()));
+            "Nombre de contact : " + QString::number(listContactWidget->getLstContact()->size()));
 }
 
 void MainWindow::setNbInteraction(const QString &number)

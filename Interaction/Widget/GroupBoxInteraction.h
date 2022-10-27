@@ -6,14 +6,14 @@
 #define PROJET_QT_GROUPBOXINTERACTION_H
 
 #include <QGroupBox>
-#include "Interaction.h"
+#include "../Interaction.h"
 #include <QTextEdit>
 #include <QPushButton>
 #include <QLabel>
 
 class GroupBoxInteraction : public QGroupBox
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit GroupBoxInteraction(Interaction *interaction, QWidget *parent);
@@ -29,9 +29,9 @@ private:
 
     void parseTache(const QString &str);
 
-    signals:
+signals:
 
-            void * supBtnClicked(Interaction * interaction);
+    void *supBtnClicked(Interaction *interaction);
 
     void *modifBtnClicked();
 };

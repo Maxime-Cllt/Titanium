@@ -5,10 +5,10 @@
 #include "GroupeBoxContact.h"
 
 #include <QLabel>
-#include "../ContactDialog/ModifContactDialog.h"
-#include "../Interaction/CreationInteractionDialog.h"
-#include "../BaseDeDonne/BD.h"
-#include "../MainWindow/MainWindow.h"
+#include "../../ContactDialog/ModifContactDialog.h"
+#include "../../Interaction/Widget/CreationInteractionDialog.h"
+#include "../../BaseDeDonne/BD.h"
+#include "../../MainWindow/MainWindow.h"
 #include "ListContactWidget.h"
 
 

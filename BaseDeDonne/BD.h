@@ -18,7 +18,7 @@ public:
 
     static void addContactOnBD(StdListContact *);
 
-    static StdListContact getContactData();
+    static StdListContact *getContactData();
 
 
     static void addContactOnBD(const StdContact &);

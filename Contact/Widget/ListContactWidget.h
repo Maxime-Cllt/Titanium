@@ -8,7 +8,7 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QLayout>
-#include "../Contact/TraductionQtStd.h"
+#include "../TraductionQtStd.h"
 #include "ListContactWidget.h"
 #include "GroupeBoxContact.h"
 

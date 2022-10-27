@@ -27,9 +27,16 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 
     layout = new QVBoxLayout(this);
     layoutTop = new QHBoxLayout;
-    layoutCenter = new QVBoxLayout;
+    layoutCenter = new QHBoxLayout;
     layout->addLayout(layoutTop);
     layout->addLayout(layoutCenter);
+
+
+    auto *layGauche = new QVBoxLayout;
+    auto *layDroit = new QVBoxLayout;
+
+    layoutCenter->addLayout(layGauche);
+    layoutCenter->addLayout(layDroit);
 
     labIm = new QLabel(this);
     layoutTop->addWidget(labIm);
@@ -38,28 +45,39 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     labDateCreation->setAlignment(Qt::AlignTop | Qt::AlignRight);
     layoutTop->addWidget(labDateCreation);
 
-    auto *lab1 = new QLabel("Nom : ", this);
+    layGauche->addWidget(new QLabel("Nom : ", this));
+
     line1 = new QLineEdit(this);
-    layoutCenter->addLayout(getLay({lab1, line1}));
+    layDroit->addWidget(line1);
 
-    auto *lab2 = new QLabel("Prenom : ", this);
+
+    layGauche->addWidget(new QLabel("Prenom : ", this));
+
     line2 = new QLineEdit(this);
-    layoutCenter->addLayout(getLay({lab2, line2}));
+    layDroit->addWidget(line2);
 
-    auto *lab3 = new QLabel("Entreprise : ", this);
+
+    layGauche->addWidget(new QLabel("Entreprise : ", this));
+
     line3 = new QLineEdit(this);
-    layoutCenter->addLayout(getLay({lab3, line3}));
+    layDroit->addWidget(line3);
 
-    auto *lab4 = new QLabel("mail : ", this);
+
+    layGauche->addWidget(new QLabel("mail : ", this));
+
     line4 = new QLineEdit(this);
-    layoutCenter->addLayout(getLay({lab4, line4}));
+    layDroit->addWidget(line4);
 
-    auto *lab5 = new QLabel("Téléphone : ", this);
+
+    layGauche->addWidget(new QLabel("Téléphone : ", this));
+
     line5 = new QLineEdit(this);
     line5->setObjectName("tel");
-    layoutCenter->addLayout(getLay({lab5, line5}));
+    layDroit->addWidget(line5);
 
-    auto *lab6 = new QLabel("Photo : ", this);
+
+    layGauche->addWidget(new QLabel("Photo : ", this));
+
     line6 = new QLineEdit(this);
     line6->setReadOnly(true);
     bt6 = new QPushButton("Choisir image", this);
@@ -67,7 +85,7 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 
     connect(bt6, &QPushButton::clicked, this, &ContactDialog::bt6Clicked);
 
-    layoutCenter->addLayout(getLay({lab6, line6, bt6}));
+    layDroit->addLayout(getLay({line6, bt6}));
 
     btAction = new QPushButton(this);
     btAction->setDefault(true);
@@ -80,7 +98,6 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
     {
         line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     }
-    for (auto *lab: findChildren<QLabel *>()) { lab->setMinimumWidth(130); }
 
 }
 
@@ -114,10 +131,11 @@ void ContactDialog::btActionClicked()
  * @param time
  * @return QtContact
  */
-QtContact ContactDialog::getContact(uint64_t time)
+QtContact ContactDialog::getContact()
 {
-    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), time,
-                     ListInteraction(time));
+    uint64_t time = std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count();
+    return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), time);
 }
 
 /**

@@ -17,7 +17,7 @@ class ListTache
 public:
     explicit ListTache();
 
-    explicit ListTache(uint64_t idInteraction);
+    explicit ListTache(uint64_t);
 
     ~ListTache();
 
@@ -26,15 +26,18 @@ public:
 private:
     std::list<Tache *> *lstTache{};
     uint64_t idInteraction{};
-public:
-    uint64_t getIdInteraction() const;
-
-    void setIdInteraction(uint64_t idInteraction);
 
 public:
-    std::list<Tache *> *getLstTache() const;
 
-    void setLstTache(std::list<Tache *> *lstTache);
+    friend std::ostream &operator<<(std::ostream &, const ListTache &);
+
+    [[nodiscard]] uint64_t getIdInteraction() const;
+
+    void setIdInteraction(uint64_t);
+
+    [[nodiscard]] std::list<Tache *> *getLstTache() const;
+
+    void setLstTache(std::list<Tache *> *);
 
     void addTache(const Tache &);
 
@@ -42,7 +45,9 @@ public:
 
     void suppTache(Tache *);
 
-    friend std::ostream &operator<<(std::ostream &, const ListTache &);
+    void removeTache(Tache *);
+
+    int size();
 
 };
 

@@ -9,7 +9,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include "ListInteractionWidget.h"
-#include "../BaseDeDonne/BD.h"
+#include "../../BaseDeDonne/BD.h"
 
 /**
  * @details Constructeur de la classe GroupBoxInteraction

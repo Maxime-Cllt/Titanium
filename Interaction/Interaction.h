@@ -17,7 +17,7 @@ class Interaction
 {
 
 public:
-    explicit Interaction(const std::string &contenu);
+    explicit Interaction(std::string);
 
     Interaction(const Interaction &);
 
@@ -32,13 +32,7 @@ private:
     ListTache *lstTache{};
 
 public:
-    ListTache *getLstTache() const;
 
-    void setLstTache(ListTache *);
-
-    void setLstTache(const ListTache &);
-
-public:
     bool operator<(const Interaction &) const;
 
     bool operator>(const Interaction &) const;
@@ -49,17 +43,23 @@ public:
 
     friend std::ostream &operator<<(std::ostream &, const Interaction &);
 
-    uint64_t getDateModif() const;
+    [[nodiscard]] ListTache *getLstTache() const;
 
-    void setDateModif(uint64_t dateModif);
+    void setLstTache(ListTache *);
 
-    uint64_t getDateCreation() const;
+    void setLstTache(const ListTache &);
 
-    void setDateCreation(uint64_t dateCreation);
+    [[nodiscard]] uint64_t getDateModif() const;
 
-    const std::string &getContenu() const;
+    void setDateModif(uint64_t);
 
-    void setContenu(const std::string &contenu);
+    [[nodiscard]] uint64_t getDateCreation() const;
+
+    void setDateCreation(uint64_t);
+
+    [[nodiscard]] const std::string &getContenu() const;
+
+    void setContenu(const std::string &);
 
     void modif();
 

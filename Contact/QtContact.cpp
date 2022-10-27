@@ -3,6 +3,8 @@
 //
 
 #include "QtContact.h"
+
+#include <utility>
 #include "StdContact.h"
 
 
@@ -17,23 +19,26 @@
  * @param dateCreation
  * @param lstInteraction
  */
-QtContact::QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
-                     const QString &telephone, const QString &photo, const uint64_t &dateCreation,
-                     const ListInteraction &lstInteraction) : nom(nom), prenom(prenom), entreprise(entreprise),
-                                                              mail(mail), telephone(telephone), photo(photo),
-                                                              dateCreation(dateCreation),
-                                                              lstInteraction(new ListInteraction(lstInteraction)) {}
+QtContact::QtContact(QString nom, QString prenom, QString entreprise, QString mail,
+                     QString telephone, QString photo, const uint64_t &dateCreation) : nom(std::move(nom)),
+                                                                                       prenom(std::move(prenom)),
+                                                                                       entreprise(std::move(
+                                                                                               entreprise)),
+                                                                                       mail(std::move(mail)),
+                                                                                       telephone(std::move(
+                                                                                               telephone)),
+                                                                                       photo(std::move(photo)),
+                                                                                       dateCreation(
+                                                                                               dateCreation) {}
 
 /**
 * @details Constructeur par defaut de QtContact
 */
 QtContact::QtContact()
-{
-    lstInteraction = new ListInteraction;
-}
+= default;
 
 /**
- * @details getter de Nom
+ * @details Getter de Nom
  * @return le Nom du contact
  */
 const QString &QtContact::getNom() const
@@ -42,7 +47,7 @@ const QString &QtContact::getNom() const
 }
 
 /**
- * @details setter de Nom
+ * @details Setter de Nom
  * @param Nom du contact
  */
 void QtContact::setNom(const QString &nom)
@@ -51,7 +56,7 @@ void QtContact::setNom(const QString &nom)
 }
 
 /**
- * @details getter de Prenom
+ * @details Getter de Prenom
  * @return Le Prenom du contact
  */
 const QString &QtContact::getPrenom() const
@@ -61,7 +66,7 @@ const QString &QtContact::getPrenom() const
 
 
 /**
- * @details setter de Prenom
+ * @details Setter de Prenom
  * @param Prenom du contact
  */
 void QtContact::setPrenom(const QString &prenom)
@@ -70,7 +75,7 @@ void QtContact::setPrenom(const QString &prenom)
 }
 
 /**
- * @details getter de Entreprise
+ * @details Getter de Entreprise
  * @return L'Entreprise du contact
  */
 const QString &QtContact::getEntreprise() const
@@ -79,7 +84,7 @@ const QString &QtContact::getEntreprise() const
 }
 
 /**
- * @details setter de Entreprise
+ * @details Setter de Entreprise
  * @param Entreprise du contact
  */
 void QtContact::setEntreprise(const QString &entreprise)
@@ -88,7 +93,7 @@ void QtContact::setEntreprise(const QString &entreprise)
 }
 
 /**
- * @details getter de Mail
+ * @details Getter de Mail
  * @return Le Mail du contact
  */
 const QString &QtContact::getMail() const
@@ -97,7 +102,7 @@ const QString &QtContact::getMail() const
 }
 
 /**
- * @details setter de Mail
+ * @details Setter de Mail
  * @param Mail du contact
  */
 void QtContact::setMail(const QString &mail)
@@ -106,7 +111,7 @@ void QtContact::setMail(const QString &mail)
 }
 
 /**
- * @details getter de Telephone
+ * @details Getter de Telephone
  * @return Le Telephone du contact
  */
 const QString &QtContact::getTelephone() const
@@ -115,7 +120,7 @@ const QString &QtContact::getTelephone() const
 }
 
 /**
- * @details setter de Telephone
+ * @details Setter de Telephone
  * @param Telephone du contact
  */
 void QtContact::setTelephone(const QString &telephone)
@@ -124,7 +129,7 @@ void QtContact::setTelephone(const QString &telephone)
 }
 
 /**
- * @details getter de Photo
+ * @details Getter de Photo
  * @return La Photo du contact
  */
 const QString &QtContact::getPhoto() const
@@ -133,7 +138,7 @@ const QString &QtContact::getPhoto() const
 }
 
 /**
- * @details setter de Photo
+ * @details Setter de Photo
  * @param Photo du contact
  */
 void QtContact::setPhoto(const QString &photo)
@@ -141,36 +146,8 @@ void QtContact::setPhoto(const QString &photo)
     QtContact::photo = photo;
 }
 
-
 /**
- * @details getter de lstInteraction
- * @return Le Contenu du lstInteraction qui ne peut pas etre modifié.
- */
-const ListInteraction QtContact::getLstInteraction() const
-{
-    return *lstInteraction;
-}
-
-/**
- * @details setter de lstInteraction
- * @param lstInteraction du contact
- */
-void QtContact::setLstInteraction(const ListInteraction &lstInteraction)
-{
-    QtContact::lstInteraction = new ListInteraction(lstInteraction);
-}
-
-/**
- * @details getter de lstInteraction
- * @return lstInteraction.
- */
-ListInteraction *QtContact::getLstInteraction()
-{
-    return lstInteraction;
-}
-
-/**
- * @details getter de DateCreation
+ * @details Getter de DateCreation
  * @return DateCreation de creation du contact
  */
 uint64_t QtContact::getDateCreation() const
@@ -179,7 +156,7 @@ uint64_t QtContact::getDateCreation() const
 }
 
 /**
- * @details setter de DateCreation
+ * @details Setter de DateCreation
  * @param DateCreation du contact
  */
 void QtContact::setDateCreation(uint64_t dateCreation)
@@ -192,7 +169,6 @@ void QtContact::setDateCreation(uint64_t dateCreation)
  */
 QtContact::~QtContact()
 {
-    delete lstInteraction;
 }
 
 /**
@@ -208,7 +184,6 @@ QtContact::QtContact(const QtContact &qtContact)
     setTelephone(qtContact.getTelephone());
     setPhoto(qtContact.getPhoto());
     setDateCreation(qtContact.getDateCreation());
-    setLstInteraction(qtContact.getLstInteraction());
 
 }
 

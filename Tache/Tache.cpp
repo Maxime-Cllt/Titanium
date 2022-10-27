@@ -8,8 +8,7 @@
 #include <chrono>
 
 /**
- * @details Constructeur qui place contenu en paramètre à contenu l'attribut de l'objet Tache
- * et initialise la date de la tache à la date de la création de l'objet.
+ * @details Constructeur de Tache.
  * @param contenu
  */
 Tache::Tache(std::string contenu) : contenu(std::move(contenu))
@@ -19,7 +18,7 @@ Tache::Tache(std::string contenu) : contenu(std::move(contenu))
 }
 
 /**
- * @details Constructeur par défaut qui initialise la date de la tache à la date de la création de l'objet.
+ * @details Constructeur par défaut.
  */
 Tache::Tache()
 {
@@ -115,8 +114,9 @@ bool Tache::operator>=(const Tache &rhs) const
     return !(*this < rhs);
 }
 
-Tache::Tache(const Tache &tache)
-{
-    contenu = tache.contenu;
-    date = tache.date;
-}
+
+/**
+ * @details Destructeur.
+ */
+Tache::~Tache()
+= default;

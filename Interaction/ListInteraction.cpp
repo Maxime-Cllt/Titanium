@@ -16,8 +16,7 @@ ListInteraction::ListInteraction(uint64_t id) : idContact(id)
 }
 
 /**
- * @details Ajoute l'interaction en paramètre à la liste des interactions en recréant un nouveau pointeur
- * qui pointe sur une nouvelle interaction avec les attributs de memes valeur que l'interaction en paramètre.
+ * @details Ajoute l'interaction en paramètre à la liste des interaction.
  * @param interaction
  */
 void ListInteraction::addInteraction(Interaction *interaction)
@@ -43,6 +42,15 @@ void ListInteraction::supInteraction(Interaction *interaction)
 {
     listInteraction->remove(interaction);
     delete interaction;
+}
+
+/**
+ * @details Supprime l'interaction en paramètre de la liste.
+ * @param interaction
+ */
+void ListInteraction::removeInteraction(Interaction *interaction)
+{
+    listInteraction->remove(interaction);
 }
 
 /**
@@ -84,6 +92,13 @@ void ListInteraction::setListInteraction(std::list<Interaction *> *listInteracti
     }
 }
 
+/**
+ * @return La taille de la liste.
+ */
+int ListInteraction::size()
+{
+    return listInteraction->size();
+}
 
 /**
  * @details Destructeur de la classe ListInteraction qui delete tous les pointeurs D'interaction contenu dans listInteraction.
@@ -150,10 +165,3 @@ std::ostream &operator<<(std::ostream &os, const ListInteraction &lstInteraction
     return os;
 }
 
-/**
- * @return La taille de la liste.
- */
-int ListInteraction::size()
-{
-    return listInteraction->size();
-}

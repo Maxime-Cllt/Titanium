@@ -11,8 +11,7 @@
 #include <QLabel>
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
-#include "../ListContactWidget/ListContactWidget.h"
-#include "../Modification/ListModification.h"
+#include "../Contact/Widget/ListContactWidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -42,7 +41,6 @@ private:
     ListInteractionWidget *listInteractionWidget{};
 
     StdListContact *lstContact{};
-    ListModification *listModification{};
     BD *bd{};
 
     QLabel *nbContactLab{};

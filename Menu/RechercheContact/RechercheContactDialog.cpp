@@ -236,7 +236,7 @@ void RechercheContactDialog::rechercheParMail()
 {
     auto *lay = new QHBoxLayout;
 
-    auto *lab = new QLabel("Entreprise du contact :", this);
+    auto *lab = new QLabel("Mail du contact :", this);
     lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
     lstWidget.append(lab);
 
@@ -273,7 +273,7 @@ void RechercheContactDialog::rechercheParTelephone()
 {
     auto *lay = new QHBoxLayout;
 
-    auto *lab = new QLabel("Entreprise du contact :", this);
+    auto *lab = new QLabel("Téléphone du contact :", this);
     lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
     lstWidget.append(lab);
 
@@ -308,38 +308,62 @@ void RechercheContactDialog::rechercheParTelephone()
  */
 void RechercheContactDialog::rechercheParDateAjout()
 {
-    auto *lay = new QHBoxLayout;
+    auto *lay = new QGridLayout;
 
-    auto *lab = new QLabel("Entreprise du contact :", this);
+    auto *lab = new QLabel("Date d'ajout du contact :", this);
     lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    lab->setAlignment(Qt::AlignHCenter);
     lstWidget.append(lab);
 
-    lay->addWidget(lab);
+    centerLay->addWidget(lab, 0, 0);
 
-    auto *line = new QDateTimeEdit(this);
-    line->setMaximumDateTime(QDateTime::currentDateTime());
-    line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    lstWidget.append(line);
+    auto *labDebut = new QLabel("Debut : ", this);
+    lstWidget.append(labDebut);
+    lay->addWidget(labDebut, 0, 0);
 
-    connect(line, &QDateTimeEdit::dateChanged, this, [this, line]()
+    auto *lineDebut = new QDateTimeEdit(this);
+    lineDebut->setMaximumDateTime(QDateTime::currentDateTime());
+    lineDebut->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(lineDebut);
+    lay->addWidget(lineDebut, 0, 1);
+
+
+    auto *labFin = new QLabel("Fin : ", this);
+    lstWidget.append(labFin);
+    lay->addWidget(labFin, 1, 0);
+
+    auto *lineFin = new QDateTimeEdit(this);
+    lineFin->setDateTime(QDateTime::currentDateTime());
+    lineFin->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(lineFin);
+    lay->addWidget(lineFin, 1, 1);
+
+    connect(lineDebut, &QDateTimeEdit::dateChanged, this, [this, lineDebut, lineFin]()
     {
         lstContact->getLstContact()->clear();
         for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
         {
-            QDateTime date;
-            date.setMSecsSinceEpoch(contact->getDateCreation() / 1000);
-            if (line->date().day() == date.date().day() && line->date().month() == date.date().month() &&
-                line->date().year() == date.date().year())
-            {
+            if (contact->getDateCreation() > (lineDebut->dateTime().toMSecsSinceEpoch() * 1000) &&
+                contact->getDateCreation() < (lineFin->dateTime().toMSecsSinceEpoch() * 1000))
                 lstContact->addContact(contact);
-            }
         }
         qobject_cast<MainWindow *>(getMainWindowWidget())->rechercheListContactWidget(lstContact);
     });
 
-    lay->addWidget(line);
+    connect(lineFin, &QDateTimeEdit::dateChanged, this, [this, lineDebut, lineFin]()
+    {
+        lstContact->getLstContact()->clear();
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            if (contact->getDateCreation() > lineDebut->dateTime().toMSecsSinceEpoch() * 1000 &&
+                contact->getDateCreation() < lineFin->dateTime().toMSecsSinceEpoch() * 1000)
+                lstContact->addContact(contact);
+        }
+        qobject_cast<MainWindow *>(getMainWindowWidget())->rechercheListContactWidget(lstContact);
+    });
 
-    centerLay->addLayout(lay, 0, 0);
+
+    centerLay->addLayout(lay, 1, 0);
 }
 
 

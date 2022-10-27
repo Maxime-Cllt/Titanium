@@ -17,8 +17,8 @@
 class StdContact
 {
 public:
-    StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
-               const std::string &mail, const std::string &telephone, const std::string &photo,
+    StdContact(std::string nom, std::string prenom, std::string entreprise,
+               std::string mail, std::string telephone, std::string photo,
                const uint64_t &dateCreation, const ListInteraction &lstInteraction);
 
     explicit StdContact();
@@ -28,14 +28,14 @@ public:
     ~StdContact();
 
 private:
-    std::string nom;
-    std::string prenom;
-    std::string entreprise;
-    std::string mail;
-    std::string telephone;
-    std::string photo;
-    uint64_t dateCreation;
-    ListInteraction *lstInteraction;
+    std::string nom{};
+    std::string prenom{};
+    std::string entreprise{};
+    std::string mail{};
+    std::string telephone{};
+    std::string photo{};
+    uint64_t dateCreation{};
+    ListInteraction *lstInteraction{};
 public:
     bool operator<(const StdContact &) const;
 
@@ -47,37 +47,35 @@ public:
 
     friend std::ostream &operator<<(std::ostream &, const StdContact &);
 
-    const std::string &getNom() const;
+    [[nodiscard]] const std::string &getNom() const;
 
-    void setNom(const std::string &nom);
+    void setNom(const std::string &);
 
-    const std::string &getPrenom() const;
+    [[nodiscard]] const std::string &getPrenom() const;
 
-    void setPrenom(const std::string &prenom);
+    void setPrenom(const std::string &);
 
-    const std::string &getEntreprise() const;
+    [[nodiscard]] const std::string &getEntreprise() const;
 
-    void setEntreprise(const std::string &entreprise);
+    void setEntreprise(const std::string &);
 
-    const std::string &getMail() const;
+    [[nodiscard]] const std::string &getMail() const;
 
-    void setMail(const std::string &mail);
+    void setMail(const std::string &);
 
-    const std::string &getTelephone() const;
+    [[nodiscard]] const std::string &getTelephone() const;
 
-    void setTelephone(const std::string &telephone);
+    void setTelephone(const std::string &);
 
-    const std::string &getPhoto() const;
+    [[nodiscard]] const std::string &getPhoto() const;
 
-    void setPhoto(const std::string &photo);
+    void setPhoto(const std::string &);
 
-    const uint64_t &getDateCreation() const;
+    [[nodiscard]] const uint64_t &getDateCreation() const;
 
-    void setDateCreation(const uint64_t &dateCreation);
+    void setDateCreation(const uint64_t &);
 
-    const ListInteraction &getLstInteraction() const;
-
-    ListInteraction *getLstInteraction();
+    [[nodiscard]] ListInteraction *getLstInteraction() const;
 
     void setlstInteraction(const ListInteraction &);
 

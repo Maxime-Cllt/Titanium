@@ -84,9 +84,7 @@ void CreationContactDialog::btActionClicked()
             if (strcmp(mainWindow->metaObject()->className(), "MainWindow") == 0)
                 break;
         }
-        uint64_t time = duration_cast<std::chrono::microseconds>(
-                std::chrono::system_clock::now().time_since_epoch()).count();
-        QtContact qtContact(getContact(time));
+        QtContact qtContact(getContact());
 
         qobject_cast<MainWindow *>(mainWindow)->addContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
         BD::addContactOnBD(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));

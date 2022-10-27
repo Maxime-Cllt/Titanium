@@ -4,7 +4,7 @@
 
 #include "GroupeBoxContact.h"
 #include "ListContactWidget.h"
-#include "../MainWindow/MainWindow.h"
+#include "../../MainWindow/MainWindow.h"
 
 #include <QLabel>
 #include <QLineEdit>
@@ -42,7 +42,7 @@ ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) : QWi
         layScrollArea->addWidget(box);
         connect(box, &GroupeBoxContact::supBtnClicled, this, [=](StdContact *contact)
         {
-            lstContact->getLstContact()->remove(contact);
+            lstContact->removeContact(contact);
         });
     }
 
@@ -57,7 +57,7 @@ void ListContactWidget::addContactBox(StdContact *contact)
     layScrollArea->insertWidget(0, box);
     connect(box, &GroupeBoxContact::supBtnClicled, this, [=](StdContact *contact)
     {
-        lstContact->getLstContact()->remove(contact);
+        lstContact->removeContact(contact);
     });
 }
 

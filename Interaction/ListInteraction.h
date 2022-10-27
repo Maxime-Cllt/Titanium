@@ -15,7 +15,7 @@
 class ListInteraction
 {
 public:
-    ListInteraction(uint64_t id);
+    explicit ListInteraction(uint64_t);
 
     ListInteraction(const ListInteraction &);
 
@@ -37,16 +37,17 @@ public:
 
     void supInteraction(Interaction *);
 
-    uint64_t getidContact() const;
+    void removeInteraction(Interaction *);
 
-    void setidContact(uint64_t idContact);
+    [[nodiscard]] uint64_t getidContact() const;
 
+    void setidContact(uint64_t);
 
     void reverse();
 
-    std::list<Interaction *> *getListInteraction() const;
+    [[nodiscard]] std::list<Interaction *> *getListInteraction() const;
 
-    void setListInteraction(std::list<Interaction *> *lstInteraction);
+    void setListInteraction(std::list<Interaction *> *);
 
     int size();
 
