@@ -9,6 +9,10 @@
 #include <QDateTimeEdit>
 #include "../../MainWindow/MainWindow.h"
 
+/**
+ * @brief Constructeur de la classe RechercheContactDialog
+ * @param parent
+ */
 RechercheContactDialog::RechercheContactDialog(QWidget *parent) : QDialog(parent)
 {
     auto *lay = new QVBoxLayout(this);
@@ -78,6 +82,11 @@ void RechercheContactDialog::rechercheParNom()
 
 }
 
+
+/**
+ * @brief Création du widget de la recherche
+ * @return lstInteractionWidget
+ */
 QWidget *RechercheContactDialog::getMainWindowWidget()
 {
     auto *lstInteractionWidget = new QWidget(this);
@@ -90,6 +99,11 @@ QWidget *RechercheContactDialog::getMainWindowWidget()
     return lstInteractionWidget;
 }
 
+
+/**
+ * @brief Gestion de la combobox pour le mode de recherche
+ * @param str
+ */
 void RechercheContactDialog::comboBoxTextChanged(const QString &str)
 {
     clearBottomLayout();
@@ -127,6 +141,10 @@ void RechercheContactDialog::comboBoxTextChanged(const QString &str)
     }
 }
 
+
+/**
+ * @brief Fonction de recherche en fonction du preénom
+ */
 void RechercheContactDialog::rechercheParPrenom()
 {
     auto *lay = new QHBoxLayout;
@@ -161,6 +179,10 @@ void RechercheContactDialog::rechercheParPrenom()
     centerLay->addLayout(lay, 0, 0);
 }
 
+
+/**
+ * @brief Fonction de gestion du layout
+ */
 void RechercheContactDialog::clearBottomLayout()
 {
     for (auto wid: lstWidget)
@@ -169,6 +191,10 @@ void RechercheContactDialog::clearBottomLayout()
     }
 }
 
+
+/**
+ * @brief Fonction de recherche par entreprise
+ */
 void RechercheContactDialog::rechercheParEntreprise()
 {
     auto *lay = new QHBoxLayout;
@@ -203,6 +229,9 @@ void RechercheContactDialog::rechercheParEntreprise()
     centerLay->addLayout(lay, 0, 0);
 }
 
+/**
+ * @brief Fonction de recherche par mail
+ */
 void RechercheContactDialog::rechercheParMail()
 {
     auto *lay = new QHBoxLayout;
@@ -237,6 +266,9 @@ void RechercheContactDialog::rechercheParMail()
     centerLay->addLayout(lay, 0, 0);
 }
 
+/**
+ * @brief Fonction de recherche par mail
+ */
 void RechercheContactDialog::rechercheParTelephone()
 {
     auto *lay = new QHBoxLayout;
@@ -271,6 +303,9 @@ void RechercheContactDialog::rechercheParTelephone()
     centerLay->addLayout(lay, 0, 0);
 }
 
+/**
+ * @brief Fonction de recherche par date d'ajout
+ */
 void RechercheContactDialog::rechercheParDateAjout()
 {
     auto *lay = new QHBoxLayout;
@@ -307,14 +342,22 @@ void RechercheContactDialog::rechercheParDateAjout()
     centerLay->addLayout(lay, 0, 0);
 }
 
+
+/**
+ * @brief Destructeur de la classe
+ */
 RechercheContactDialog::~RechercheContactDialog()
 {
-    // on clear la liste avant car les contact seront delete par la liste dans le MainWindow
+    // on clear la liste avant car les contacts seront delete par la liste dans le MainWindow
     lstContact->getLstContact()->clear();
     delete lstContact;
 
 }
 
+/**
+ * @brief Gestion de fermeture du widget
+ * @param event
+ */
 void RechercheContactDialog::closeEvent(QCloseEvent *event)
 {
     qobject_cast<MainWindow *>(getMainWindowWidget())->setListContactWidgetDefault();
