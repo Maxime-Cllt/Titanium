@@ -13,7 +13,7 @@
 class CreationInteractionDialog : public QDialog
 {
 
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit CreationInteractionDialog(StdContact *contact, QWidget *parent = nullptr);

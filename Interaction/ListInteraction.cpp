@@ -10,7 +10,7 @@
  * @details Constructeur de la classe ListInteraction
  * @param id
  */
-ListInteraction::ListInteraction(uint64_t id) : contactId(id)
+ListInteraction::ListInteraction(uint64_t id) : idContact(id)
 {
     listInteraction = new std::list<Interaction *>();
 }
@@ -46,21 +46,21 @@ void ListInteraction::supInteraction(Interaction *interaction)
 }
 
 /**
- * @details Getter de contactId.
- * @return contactId
+ * @details Getter de idContact.
+ * @return idContact
  */
-uint64_t ListInteraction::getContactId() const
+uint64_t ListInteraction::getidContact() const
 {
-    return contactId;
+    return idContact;
 }
 
 /**
- * @details Setter de contactId.
- * @param contactId
+ * @details Setter de idContact.
+ * @param idContact
  */
-void ListInteraction::setContactId(uint64_t contactId)
+void ListInteraction::setidContact(uint64_t idContact)
 {
-    ListInteraction::contactId = contactId;
+    ListInteraction::idContact = idContact;
 }
 
 /**
@@ -116,7 +116,7 @@ ListInteraction::ListInteraction(const ListInteraction &lst)
     {
         addInteraction(*inter);
     }
-    contactId = lst.getContactId();
+    idContact = lst.getidContact();
 }
 
 /**
@@ -138,7 +138,7 @@ void ListInteraction::reverse()
  */
 std::ostream &operator<<(std::ostream &os, const ListInteraction &lstInteraction)
 {
-    os << "ListInteraction" << std::endl << "{" << std::endl << "\tcontactId: " << lstInteraction.contactId
+    os << "ListInteraction" << std::endl << "{" << std::endl << "\tidContact: " << lstInteraction.idContact
        << std::endl;
     int i = 1;
     for (const auto interaction: *lstInteraction.getListInteraction())

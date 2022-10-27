@@ -36,13 +36,17 @@ private:
     void createUi();
 
 private:
+public:
+    StdContact *getContact() const;
+
+private:
     QGridLayout *layout{};
 
     StdContact *contact{};
 
     ListInteractionWidget *listInteractionWidget{};
 
-    signals:
+signals:
 
     void supBtnClicled(StdContact *contact);
 

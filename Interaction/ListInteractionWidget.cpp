@@ -6,6 +6,7 @@
 #include <QLabel>
 #include "GroupBoxInteraction.h"
 #include "../BaseDeDonne/BD.h"
+#include "../MainWindow/MainWindow.h"
 
 
 /**
@@ -64,7 +65,7 @@ void ListInteractionWidget::ajoutInteraction()
         this->lstInteraction->supInteraction(interaction);
         emit updateNbInteraction(lstInteraction->size());
     });
-    BD::addInteraction(lstInteraction->getContactId(), *interaction);
+    BD::addInteraction(lstInteraction->getidContact(), *interaction);
     emit updateNbInteraction(lstInteraction->size());
 }
 
@@ -104,4 +105,17 @@ void ListInteractionWidget::createUi()
         connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::reactualiseUi);
         layoutScroll->addWidget(box);
     }
+}
+
+void ListInteractionWidget::cache()
+{
+    hide();
+    auto *mainWindow = new QWidget(this);
+    while (mainWindow->parentWidget())
+    {
+        mainWindow = mainWindow->parentWidget();
+        if (strcmp(mainWindow->metaObject()->className(), "ListContactWidget") == 0)
+            break;
+    }
+    qobject_cast<MainWindow *>(mainWindow)->setNbInteraction("");
 }

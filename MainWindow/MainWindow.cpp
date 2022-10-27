@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setMenuBar(new MenuBar(this));
 
     lstContact = new StdListContact(BD::getContactData());
-    lstContact->sortDateCreation();
+    lstContact->reverseDateCreation();
 
     layoutGauche = new QHBoxLayout;
     layoutDroit = new QHBoxLayout;
@@ -133,5 +133,11 @@ void MainWindow::setListContactWidgetDefault()
 
 void MainWindow::updateNbContact()
 {
-    nbContactLab->setText("Nombre de contact : " + QString::number(listContactWidget->getLstContact()->getLstContact()->size()));
+    nbContactLab->setText(
+            "Nombre de contact : " + QString::number(listContactWidget->getLstContact()->getLstContact()->size()));
+}
+
+void MainWindow::setNbInteraction(const QString &number)
+{
+    nbInetractionLab->setText("Nombre d'interaction : " + number);
 }

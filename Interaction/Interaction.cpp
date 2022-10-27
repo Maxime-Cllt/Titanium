@@ -122,6 +122,7 @@ ListTache *Interaction::getLstTache() const
 void Interaction::setLstTache(ListTache *lstTache)
 {
     Interaction::lstTache = lstTache;
+    lstTache->setIdInteraction(dateCreation);
 }
 
 /**
@@ -131,6 +132,7 @@ void Interaction::setLstTache(ListTache *lstTache)
 void Interaction::setLstTache(const ListTache &lstTache)
 {
     Interaction::lstTache = new ListTache(lstTache);
+    Interaction::lstTache->setIdInteraction(dateCreation);
 }
 
 /**
@@ -202,6 +204,7 @@ bool Interaction::operator>=(const Interaction &rhs) const
  */
 std::ostream &operator<<(std::ostream &os, const Interaction &interaction)
 {
-    os << "contenu: " << interaction.contenu << " id: " << interaction.dateCreation << " dateModif: " << interaction.dateModif;
+    os << "contenu: " << interaction.contenu << " id: " << interaction.dateCreation << " dateModif: "
+       << interaction.dateModif;
     return os;
 }

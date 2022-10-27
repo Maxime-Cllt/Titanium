@@ -18,7 +18,7 @@ class ListContactWidget : public QWidget
 Q_OBJECT
 
 public:
-    explicit ListContactWidget(StdListContact *lst,QWidget *parent);
+    explicit ListContactWidget(StdListContact *lst, QWidget *parent);
 
     void addContactBox(StdContact *contact);
 

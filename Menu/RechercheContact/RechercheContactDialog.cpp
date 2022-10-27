@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QDateTimeEdit>
 #include "../../MainWindow/MainWindow.h"
 
 RechercheContactDialog::RechercheContactDialog(QWidget *parent) : QDialog(parent)
@@ -24,19 +25,18 @@ RechercheContactDialog::RechercheContactDialog(QWidget *parent) : QDialog(parent
     topLay->addWidget(labComboBox);
 
     comboBox = new QComboBox(this);
-    comboBox->addItems({"Nom", "Prénom", "Entrepise", "Date d'ajout", "Téléphone", "Mail"});
+    comboBox->addItems({"Nom", "Prénom", "Entreprise", "Date d'ajout", "Téléphone", "Mail"});
     connect(comboBox, &QComboBox::currentTextChanged, this, &RechercheContactDialog::comboBoxTextChanged);
 
     topLay->addWidget(comboBox);
 
 
-    auto *quitBtn = new QPushButton("Quitter la recherche",this);
-    connect(quitBtn,&QPushButton::clicked, this,&RechercheContactDialog::close);
+    auto *quitBtn = new QPushButton("Quitter la recherche", this);
+    connect(quitBtn, &QPushButton::clicked, this, &RechercheContactDialog::close);
 
     lay->addLayout(topLay);
     lay->addLayout(centerLay);
     lay->addWidget(quitBtn);
-
 
 
     rechercheParNom();
@@ -57,11 +57,14 @@ void RechercheContactDialog::rechercheParNom()
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     lstWidget.append(line);
 
-    connect(line,&QLineEdit::textChanged,this,[this,line](){
+    connect(line, &QLineEdit::textChanged, this, [this, line]()
+    {
         lstContact->getLstContact()->clear();
-        for(auto contact : *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact()){
-            QString str = QString::fromStdString(contact->getNom());
-            if(str.contains(line->text())){
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            QString str = QString::fromStdString(contact->getNom()).toLower();
+            if (str.contains(line->text().toLower()))
+            {
                 lstContact->addContact(contact);
             }
         }
@@ -137,12 +140,16 @@ void RechercheContactDialog::rechercheParPrenom()
     auto *line = new QLineEdit(this);
     line->setPlaceholderText("Tutu");
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(line);
 
-    connect(line,&QLineEdit::textChanged,this,[this,line](){
+    connect(line, &QLineEdit::textChanged, this, [this, line]()
+    {
         lstContact->getLstContact()->clear();
-        for(auto contact : *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact()){
-            QString str = QString::fromStdString(contact->getPrenom());
-            if(str.contains(line->text())){
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            QString str = QString::fromStdString(contact->getPrenom()).toLower();
+            if (str.contains(line->text().toLower()))
+            {
                 lstContact->addContact(contact);
             }
         }
@@ -168,12 +175,28 @@ void RechercheContactDialog::rechercheParEntreprise()
 
     auto *lab = new QLabel("Entreprise du contact :", this);
     lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    lstWidget.append(lab);
 
     lay->addWidget(lab);
 
     auto *line = new QLineEdit(this);
     line->setPlaceholderText("sarl...");
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(line);
+
+    connect(line, &QLineEdit::textChanged, this, [this, line]()
+    {
+        lstContact->getLstContact()->clear();
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            QString str = QString::fromStdString(contact->getEntreprise()).toLower();
+            if (str.contains(line->text().toLower()))
+            {
+                lstContact->addContact(contact);
+            }
+        }
+        qobject_cast<MainWindow *>(getMainWindowWidget())->rechercheListContactWidget(lstContact);
+    });
 
     lay->addWidget(line);
 
@@ -182,17 +205,32 @@ void RechercheContactDialog::rechercheParEntreprise()
 
 void RechercheContactDialog::rechercheParMail()
 {
-    auto *lstContact = qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact();
     auto *lay = new QHBoxLayout;
 
     auto *lab = new QLabel("Entreprise du contact :", this);
     lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    lstWidget.append(lab);
 
     lay->addWidget(lab);
 
     auto *line = new QLineEdit(this);
     line->setPlaceholderText("Toto@tutu.com");
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(line);
+
+    connect(line, &QLineEdit::textChanged, this, [this, line]()
+    {
+        lstContact->getLstContact()->clear();
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            QString str = QString::fromStdString(contact->getMail()).toLower();
+            if (str.contains(line->text().toLower()))
+            {
+                lstContact->addContact(contact);
+            }
+        }
+        qobject_cast<MainWindow *>(getMainWindowWidget())->rechercheListContactWidget(lstContact);
+    });
 
     lay->addWidget(line);
 
@@ -201,17 +239,32 @@ void RechercheContactDialog::rechercheParMail()
 
 void RechercheContactDialog::rechercheParTelephone()
 {
-    auto *lstContact = qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact();
     auto *lay = new QHBoxLayout;
 
     auto *lab = new QLabel("Entreprise du contact :", this);
     lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    lstWidget.append(lab);
 
     lay->addWidget(lab);
 
     auto *line = new QLineEdit(this);
     line->setPlaceholderText("0123456789");
     line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(line);
+
+    connect(line, &QLineEdit::textChanged, this, [this, line]()
+    {
+        lstContact->getLstContact()->clear();
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            QString str = QString::fromStdString(contact->getTelephone()).toLower();
+            if (str.contains(line->text().toLower()))
+            {
+                lstContact->addContact(contact);
+            }
+        }
+        qobject_cast<MainWindow *>(getMainWindowWidget())->rechercheListContactWidget(lstContact);
+    });
 
     lay->addWidget(line);
 
@@ -220,7 +273,38 @@ void RechercheContactDialog::rechercheParTelephone()
 
 void RechercheContactDialog::rechercheParDateAjout()
 {
+    auto *lay = new QHBoxLayout;
 
+    auto *lab = new QLabel("Entreprise du contact :", this);
+    lab->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    lstWidget.append(lab);
+
+    lay->addWidget(lab);
+
+    auto *line = new QDateTimeEdit(this);
+    line->setMaximumDateTime(QDateTime::currentDateTime());
+    line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lstWidget.append(line);
+
+    connect(line, &QDateTimeEdit::dateChanged, this, [this, line]()
+    {
+        lstContact->getLstContact()->clear();
+        for (auto contact: *qobject_cast<MainWindow *>(getMainWindowWidget())->getLstContact()->getLstContact())
+        {
+            QDateTime date;
+            date.setMSecsSinceEpoch(contact->getDateCreation() / 1000);
+            if (line->date().day() == date.date().day() && line->date().month() == date.date().month() &&
+                line->date().year() == date.date().year())
+            {
+                lstContact->addContact(contact);
+            }
+        }
+        qobject_cast<MainWindow *>(getMainWindowWidget())->rechercheListContactWidget(lstContact);
+    });
+
+    lay->addWidget(line);
+
+    centerLay->addLayout(lay, 0, 0);
 }
 
 RechercheContactDialog::~RechercheContactDialog()

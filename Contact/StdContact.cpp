@@ -19,12 +19,12 @@
  */
 StdContact::StdContact(const std::string &nom, const std::string &prenom, const std::string &entreprise,
                        const std::string &mail, const std::string &telephone, const std::string &photo,
-                       const uint64_t &dateCreation, const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom),
-                                                                                              Entreprise(entreprise),
-                                                                                              Mail(mail),
-                                                                                              Telephone(telephone),
-                                                                                              Photo(photo),
-                                                                                              DateCreation(
+                       const uint64_t &dateCreation, const ListInteraction &lstInteraction) : nom(nom), prenom(prenom),
+                                                                                              entreprise(entreprise),
+                                                                                              mail(mail),
+                                                                                              telephone(telephone),
+                                                                                              photo(photo),
+                                                                                              dateCreation(
                                                                                                       dateCreation),
                                                                                               lstInteraction(
                                                                                                       new ListInteraction(
@@ -38,7 +38,7 @@ StdContact::StdContact(const std::string &nom, const std::string &prenom, const 
  */
 const std::string &StdContact::getNom() const
 {
-    return Nom;
+    return nom;
 }
 
 /**
@@ -47,7 +47,7 @@ const std::string &StdContact::getNom() const
  */
 void StdContact::setNom(const std::string &nom)
 {
-    Nom = nom;
+    StdContact::nom = nom;
 }
 
 /**
@@ -56,7 +56,7 @@ void StdContact::setNom(const std::string &nom)
  */
 const std::string &StdContact::getPrenom() const
 {
-    return Prenom;
+    return prenom;
 }
 
 /**
@@ -65,7 +65,7 @@ const std::string &StdContact::getPrenom() const
  */
 void StdContact::setPrenom(const std::string &prenom)
 {
-    Prenom = prenom;
+    StdContact::prenom = prenom;
 }
 
 /**
@@ -74,7 +74,7 @@ void StdContact::setPrenom(const std::string &prenom)
  */
 const std::string &StdContact::getEntreprise() const
 {
-    return Entreprise;
+    return entreprise;
 }
 
 /**
@@ -83,7 +83,7 @@ const std::string &StdContact::getEntreprise() const
  */
 void StdContact::setEntreprise(const std::string &entreprise)
 {
-    Entreprise = entreprise;
+    StdContact::entreprise = entreprise;
 }
 
 /**
@@ -92,7 +92,7 @@ void StdContact::setEntreprise(const std::string &entreprise)
  */
 const std::string &StdContact::getMail() const
 {
-    return Mail;
+    return mail;
 }
 
 /**
@@ -101,7 +101,7 @@ const std::string &StdContact::getMail() const
  */
 void StdContact::setMail(const std::string &mail)
 {
-    Mail = mail;
+    StdContact::mail = mail;
 }
 
 /**
@@ -110,7 +110,7 @@ void StdContact::setMail(const std::string &mail)
  */
 const std::string &StdContact::getTelephone() const
 {
-    return Telephone;
+    return telephone;
 }
 
 /**
@@ -119,7 +119,7 @@ const std::string &StdContact::getTelephone() const
  */
 void StdContact::setTelephone(const std::string &telephone)
 {
-    Telephone = telephone;
+    StdContact::telephone = telephone;
 }
 
 /**
@@ -128,7 +128,7 @@ void StdContact::setTelephone(const std::string &telephone)
  */
 const std::string &StdContact::getPhoto() const
 {
-    return Photo;
+    return photo;
 }
 
 /**
@@ -137,7 +137,7 @@ const std::string &StdContact::getPhoto() const
  */
 void StdContact::setPhoto(const std::string &photo)
 {
-    Photo = photo;
+    StdContact::photo = photo;
 }
 
 /**
@@ -146,7 +146,7 @@ void StdContact::setPhoto(const std::string &photo)
  */
 const uint64_t &StdContact::getDateCreation() const
 {
-    return DateCreation;
+    return dateCreation;
 }
 
 /**
@@ -155,7 +155,7 @@ const uint64_t &StdContact::getDateCreation() const
  */
 void StdContact::setDateCreation(const uint64_t &dateCreation)
 {
-    DateCreation = dateCreation;
+    StdContact::dateCreation = dateCreation;
 }
 
 /**
@@ -173,7 +173,8 @@ const ListInteraction &StdContact::getLstInteraction() const
  */
 void StdContact::setlstInteraction(const ListInteraction &lstInteraction)
 {
-    this->lstInteraction = new ListInteraction(lstInteraction);
+    StdContact::lstInteraction = new ListInteraction(lstInteraction);
+    StdContact::lstInteraction->setidContact(dateCreation);
 }
 
 /**
@@ -231,6 +232,7 @@ StdContact::StdContact() : lstInteraction(new ListInteraction(getDateCreation())
 void StdContact::setlstInteraction(ListInteraction *lstInteraction)
 {
     StdContact::lstInteraction = lstInteraction;
+    lstInteraction->setidContact(dateCreation);
 }
 
 /**
@@ -240,7 +242,7 @@ void StdContact::setlstInteraction(ListInteraction *lstInteraction)
  */
 bool StdContact::operator<(const StdContact &rhs) const
 {
-    return DateCreation < rhs.DateCreation;
+    return dateCreation < rhs.dateCreation;
 }
 
 /**

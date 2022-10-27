@@ -68,7 +68,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::RightButton)
     {
         if (listInteractionWidget != nullptr)
-            listInteractionWidget->hide();
+            listInteractionWidget->cache();
 
         auto *menu = new QMenu(this);
 
@@ -199,5 +199,10 @@ void GroupeBoxContact::cache()
 ListInteractionWidget *GroupeBoxContact::getListInteractionWidget()
 {
     return listInteractionWidget;
+}
+
+StdContact *GroupeBoxContact::getContact() const
+{
+    return contact;
 }
 

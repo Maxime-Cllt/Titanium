@@ -32,9 +32,11 @@ public:
 
     void supContact(StdContact *);
 
+    void removeContact(StdContact *);
+
     std::list<StdContact *> *getLstContact();
 
-    void sortDateCreation();
+    void reverseDateCreation();
 
     void sortNom();
 

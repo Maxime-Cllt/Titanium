@@ -23,6 +23,12 @@ public:
 
     ~ListInteraction();
 
+private:
+    uint64_t idContact{};
+    std::list<Interaction *> *listInteraction{};
+
+public:
+
     friend std::ostream &operator<<(std::ostream &, const ListInteraction &);
 
     void addInteraction(Interaction *);
@@ -31,9 +37,9 @@ public:
 
     void supInteraction(Interaction *);
 
-    uint64_t getContactId() const;
+    uint64_t getidContact() const;
 
-    void setContactId(uint64_t contactId);
+    void setidContact(uint64_t idContact);
 
 
     void reverse();
@@ -44,9 +50,6 @@ public:
 
     int size();
 
-private:
-    uint64_t contactId{};
-    std::list<Interaction *> *listInteraction{};
 };
 
 

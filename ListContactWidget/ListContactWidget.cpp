@@ -14,7 +14,7 @@
  *  @details Constructeur de la classe ListContactWidget
  * @param parent
  */
-ListContactWidget::ListContactWidget(StdListContact *lst,QWidget *parent) : QWidget(parent)
+ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) : QWidget(parent)
 {
     lstContact = lst;
 
@@ -38,9 +38,10 @@ ListContactWidget::ListContactWidget(StdListContact *lst,QWidget *parent) : QWid
 
     for (auto contact: *lstContact->getLstContact())
     {
-        auto* box = new GroupeBoxContact(contact, this);
+        auto *box = new GroupeBoxContact(contact, this);
         layScrollArea->addWidget(box);
-        connect(box,&GroupeBoxContact::supBtnClicled,this,[=](StdContact *contact){
+        connect(box, &GroupeBoxContact::supBtnClicled, this, [=](StdContact *contact)
+        {
             lstContact->getLstContact()->remove(contact);
         });
     }
@@ -52,9 +53,10 @@ ListContactWidget::ListContactWidget(StdListContact *lst,QWidget *parent) : QWid
  */
 void ListContactWidget::addContactBox(StdContact *contact)
 {
-    auto* box = new GroupeBoxContact(contact, this);
+    auto *box = new GroupeBoxContact(contact, this);
     layScrollArea->insertWidget(0, box);
-    connect(box,&GroupeBoxContact::supBtnClicled,this,[=](StdContact *contact){
+    connect(box, &GroupeBoxContact::supBtnClicled, this, [=](StdContact *contact)
+    {
         lstContact->getLstContact()->remove(contact);
     });
 }
@@ -80,6 +82,8 @@ void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactse
         //on remplace la liste des interaction par la nouvelle du contact selectionné
         this->lastConctactselected = lastConctactselected;
     }
+    qobject_cast<MainWindow *>(parentWidget()->parentWidget())->setNbInteraction(
+            QString::number(lastConctactselected->getContact()->getLstInteraction()->size()));
 }
 
 StdListContact *ListContactWidget::getLstContact() const

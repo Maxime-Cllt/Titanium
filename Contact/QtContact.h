@@ -34,13 +34,13 @@ public:
     ~QtContact();
 
 private:
-    QString Nom;
-    QString Prenom;
-    QString Entreprise;
-    QString Mail;
-    QString Telephone;
-    QString Photo;
-    std::uint64_t DateCreation{};
+    QString nom;
+    QString prenom;
+    QString entreprise;
+    QString mail;
+    QString telephone;
+    QString photo;
+    std::uint64_t dateCreation{};
     ListInteraction *lstInteraction{};
 
 public:

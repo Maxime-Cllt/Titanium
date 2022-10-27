@@ -62,7 +62,7 @@ std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
 }
 
 /**
- * @details retire le StdContact en paramètre de lstContact et le delete juste apres.
+ * @details retire le StdContact en paramètre de la liste des contacts et le delete juste apres.
  * @param StdContact
  */
 void StdListContact::supContact(StdContact *contact)
@@ -70,6 +70,16 @@ void StdListContact::supContact(StdContact *contact)
     lstContact->remove(contact);
     delete contact;
 }
+
+/**
+ * @details retire le StdContact en paramètre de la liste des contacts.
+ * @param StdContact
+ */
+void StdListContact::removeContact(StdContact *contact)
+{
+    lstContact->remove(contact);
+}
+
 
 /**
  *  @details Destructeur de la classe StdListContact
@@ -98,7 +108,7 @@ StdListContact::StdListContact(const StdListContact &lst)
 /**
  * @details Trie la liste des contacts dans l'ordre décroissant en fonction de la date de creation du contact.
  */
-void StdListContact::sortDateCreation()
+void StdListContact::reverseDateCreation()
 {
     lstContact->sort([](StdContact *contact1, StdContact *contact2)
                      {

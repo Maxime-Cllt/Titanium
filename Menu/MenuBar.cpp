@@ -36,10 +36,11 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
     });
     menu2->addAction(actionAbout);
 
-    auto *menu3 = new QMenu("Recherche",this);
+    auto *menu3 = new QMenu("Recherche", this);
 
-    auto *actionRecherche = new QAction("Rechercher un contact",this);
-    connect(actionRecherche, &QAction::triggered, this,[this](){
+    auto *actionRecherche = new QAction("Rechercher un contact", this);
+    connect(actionRecherche, &QAction::triggered, this, [this]()
+    {
         auto *dialog = new RechercheContactDialog(this);
         dialog->setModal(false);
         dialog->show();

@@ -15,7 +15,7 @@
 
 class ListInteractionWidget : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit ListInteractionWidget(ListInteraction *lstInteraction, QWidget *parent);
@@ -31,16 +31,19 @@ private:
 public:
     ListInteraction *getLstInteraction() const;
 
+    void cache();
 
-private slots:
+private
+    slots:
 
-    void reactualiseUi();
+            void reactualiseUi();
 
     void ajoutInteraction();
 
-signals:
+    signals:
 
-    void updateNbInteraction(int nbInteraction);
+            void updateNbInteraction(int
+    nbInteraction);
 
 };
 

@@ -13,7 +13,7 @@
 
 class GroupBoxInteraction : public QGroupBox
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit GroupBoxInteraction(Interaction *interaction, QWidget *parent);
@@ -29,9 +29,9 @@ private:
 
     void parseTache(const QString &str);
 
-signals:
+    signals:
 
-    void *supBtnClicked(Interaction *interaction);
+            void * supBtnClicked(Interaction * interaction);
 
     void *modifBtnClicked();
 };

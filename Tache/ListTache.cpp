@@ -125,7 +125,8 @@ ListTache::ListTache(const ListTache &lst)
  */
 std::ostream &operator<<(std::ostream &os, const ListTache &lstTache)
 {
-    os << "ListTache" << std::endl << "{" << std::endl;
+    os << "ListTache" << std::endl << "{" << std::endl << "\tidInteraction : " << lstTache.getIdInteraction()
+       << std::endl;
     int i = 1;
     for (auto tache: *lstTache.getLstTache())
     {

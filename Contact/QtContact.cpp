@@ -19,11 +19,10 @@
  */
 QtContact::QtContact(const QString &nom, const QString &prenom, const QString &entreprise, const QString &mail,
                      const QString &telephone, const QString &photo, const uint64_t &dateCreation,
-                     const ListInteraction &lstInteraction) : Nom(nom), Prenom(prenom), Entreprise(entreprise),
-                                                              Mail(mail), Telephone(telephone), Photo(photo),
-                                                              DateCreation(dateCreation),
-                                                              lstInteraction(new ListInteraction(lstInteraction))
-{}
+                     const ListInteraction &lstInteraction) : nom(nom), prenom(prenom), entreprise(entreprise),
+                                                              mail(mail), telephone(telephone), photo(photo),
+                                                              dateCreation(dateCreation),
+                                                              lstInteraction(new ListInteraction(lstInteraction)) {}
 
 /**
 * @details Constructeur par defaut de QtContact
@@ -39,7 +38,7 @@ QtContact::QtContact()
  */
 const QString &QtContact::getNom() const
 {
-    return Nom;
+    return nom;
 }
 
 /**
@@ -48,7 +47,7 @@ const QString &QtContact::getNom() const
  */
 void QtContact::setNom(const QString &nom)
 {
-    Nom = nom;
+    QtContact::nom = nom;
 }
 
 /**
@@ -57,7 +56,7 @@ void QtContact::setNom(const QString &nom)
  */
 const QString &QtContact::getPrenom() const
 {
-    return Prenom;
+    return prenom;
 }
 
 
@@ -67,7 +66,7 @@ const QString &QtContact::getPrenom() const
  */
 void QtContact::setPrenom(const QString &prenom)
 {
-    Prenom = prenom;
+    QtContact::prenom = prenom;
 }
 
 /**
@@ -76,7 +75,7 @@ void QtContact::setPrenom(const QString &prenom)
  */
 const QString &QtContact::getEntreprise() const
 {
-    return Entreprise;
+    return entreprise;
 }
 
 /**
@@ -85,7 +84,7 @@ const QString &QtContact::getEntreprise() const
  */
 void QtContact::setEntreprise(const QString &entreprise)
 {
-    Entreprise = entreprise;
+    QtContact::entreprise = entreprise;
 }
 
 /**
@@ -94,7 +93,7 @@ void QtContact::setEntreprise(const QString &entreprise)
  */
 const QString &QtContact::getMail() const
 {
-    return Mail;
+    return mail;
 }
 
 /**
@@ -103,7 +102,7 @@ const QString &QtContact::getMail() const
  */
 void QtContact::setMail(const QString &mail)
 {
-    Mail = mail;
+    QtContact::mail = mail;
 }
 
 /**
@@ -112,7 +111,7 @@ void QtContact::setMail(const QString &mail)
  */
 const QString &QtContact::getTelephone() const
 {
-    return Telephone;
+    return telephone;
 }
 
 /**
@@ -121,7 +120,7 @@ const QString &QtContact::getTelephone() const
  */
 void QtContact::setTelephone(const QString &telephone)
 {
-    Telephone = telephone;
+    QtContact::telephone = telephone;
 }
 
 /**
@@ -130,7 +129,7 @@ void QtContact::setTelephone(const QString &telephone)
  */
 const QString &QtContact::getPhoto() const
 {
-    return Photo;
+    return photo;
 }
 
 /**
@@ -139,7 +138,7 @@ const QString &QtContact::getPhoto() const
  */
 void QtContact::setPhoto(const QString &photo)
 {
-    Photo = photo;
+    QtContact::photo = photo;
 }
 
 
@@ -176,7 +175,7 @@ ListInteraction *QtContact::getLstInteraction()
  */
 uint64_t QtContact::getDateCreation() const
 {
-    return DateCreation;
+    return dateCreation;
 }
 
 /**
@@ -185,7 +184,7 @@ uint64_t QtContact::getDateCreation() const
  */
 void QtContact::setDateCreation(uint64_t dateCreation)
 {
-    DateCreation = dateCreation;
+    QtContact::dateCreation = dateCreation;
 }
 
 /**

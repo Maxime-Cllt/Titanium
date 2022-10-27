@@ -26,6 +26,8 @@ public:
 
     void updateNbContact();
 
+    void setNbInteraction(const QString &number);
+
     void rechercheListContactWidget(StdListContact *lst);
 
     void setListInteractionWidget(ListInteractionWidget *widget);

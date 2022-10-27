@@ -28,13 +28,13 @@ public:
     ~StdContact();
 
 private:
-    std::string Nom;
-    std::string Prenom;
-    std::string Entreprise;
-    std::string Mail;
-    std::string Telephone;
-    std::string Photo;
-    uint64_t DateCreation;
+    std::string nom;
+    std::string prenom;
+    std::string entreprise;
+    std::string mail;
+    std::string telephone;
+    std::string photo;
+    uint64_t dateCreation;
     ListInteraction *lstInteraction;
 public:
     bool operator<(const StdContact &) const;
