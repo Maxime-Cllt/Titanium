@@ -85,7 +85,6 @@ void StdListContact::supContact(StdContact *contact)
  */
 void StdListContact::removeContact(StdContact *contact)
 {
-//    addLog(2, *contact);
     lstContact->remove(contact);
 }
 

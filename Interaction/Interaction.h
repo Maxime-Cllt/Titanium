@@ -11,7 +11,7 @@
 #include "../Tache/ListTache.h"
 
 /**
- * @details Classe Interaction qui modélise une intércation avec les primitives c/c++.
+ * @details Classe Interaction qui modélise une interaction avec les primitives c/c++.
  */
 class Interaction
 {
