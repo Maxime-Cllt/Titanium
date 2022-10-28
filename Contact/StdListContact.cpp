@@ -85,7 +85,7 @@ void StdListContact::supContact(StdContact *contact)
  */
 void StdListContact::removeContact(StdContact *contact)
 {
-    addLog(2, *contact);
+//    addLog(2, *contact);
     lstContact->remove(contact);
 }
 
@@ -176,7 +176,7 @@ std::string StdListContact::getDateNow()
  * @details Ajoute un log dans la liste des logs en fonction du type de log,
  * 0 correspond à un ajout,
  * 1 à une modification,
- * 2 à une suppresion.
+ * 2 à une suppression.
  * @param type
  */
 void StdListContact::addLog(int type, const StdContact &contact)
