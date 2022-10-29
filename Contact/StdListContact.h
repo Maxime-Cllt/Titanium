@@ -25,6 +25,10 @@ public:
 
 
 private:
+public:
+    void setLstContact(std::list<StdContact *> *lstContact);
+
+private:
     std::list<StdContact *> *lstContact{};
     std::list<std::string> lstLog{};
 
@@ -42,7 +46,7 @@ public:
 
     void addLog(int, const StdContact &);
 
-    std::list<StdContact *> *getLstContact();
+    [[nodiscard]] std::list<StdContact *> *getLstContact() const;
 
     [[nodiscard]] const std::list<std::string> &getLstLog() const;
 

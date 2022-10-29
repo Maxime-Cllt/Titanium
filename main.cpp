@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     MainWindow mainWindow;
     mainWindow.show();
 
+
     // dans le tas
     // liste de contacts et contact
     std::cout << "*****************************************************************" << std::endl;

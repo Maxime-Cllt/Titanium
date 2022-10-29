@@ -37,7 +37,7 @@ void StdListContact::addContact(StdContact *contact)
  * @details Getter de lstContact
  * @return lstContact de la classe StdContact
  */
-std::list<StdContact *> *StdListContact::getLstContact()
+std::list<StdContact *> *StdListContact::getLstContact() const
 {
     return lstContact;
 }
@@ -204,4 +204,9 @@ void StdListContact::addLog(int type, const StdContact &contact)
 int StdListContact::size()
 {
     return lstContact->size();
+}
+
+void StdListContact::setLstContact(std::list<StdContact *> *lstContact)
+{
+    StdListContact::lstContact = lstContact;
 }
