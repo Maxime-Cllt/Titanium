@@ -37,31 +37,31 @@ private:
 
 public:
 
-    const QString &getNom() const;
+    [[nodiscard]] const QString &getNom() const;
 
     void setNom(const QString &nom);
 
-    const QString &getPrenom() const;
+    [[nodiscard]] const QString &getPrenom() const;
 
     void setPrenom(const QString &prenom);
 
-    const QString &getEntreprise() const;
+    [[nodiscard]] const QString &getEntreprise() const;
 
     void setEntreprise(const QString &entreprise);
 
-    const QString &getMail() const;
+    [[nodiscard]] const QString &getMail() const;
 
     void setMail(const QString &mail);
 
-    const QString &getTelephone() const;
+    [[nodiscard]] const QString &getTelephone() const;
 
     void setTelephone(const QString &telephone);
 
-    const QString &getPhoto() const;
+    [[nodiscard]] const QString &getPhoto() const;
 
     void setPhoto(const QString &photo);
 
-    uint64_t getDateCreation() const;
+    [[nodiscard]] uint64_t getDateCreation() const;
 
     void setDateCreation(uint64_t dateCreation);
 };

@@ -18,6 +18,21 @@ SOURCES += \
         Interaction/ListInteraction.cpp \
         Tache/Tache.cpp \
         Tache/ListTache.cpp \
+        Contact/QtContact.cpp \
+        MainWindow/MainWindow.cpp \
+        Contact/Widget/GroupeBoxContact.cpp \
+        Contact/Widget/ListContactWidget.cpp \
+        ContactDialog/ModifContactDialog.cpp \
+        ContactDialog/ContactDialog.cpp \
+        ContactDialog/CreationContactDialog.cpp \
+        Contact/TraductionQtStd.cpp \
+        Interaction/Widget/CreationInteractionDialog.cpp \
+        Interaction/Widget/GroupBoxInteraction.cpp \
+        Interaction/Widget/ListInteractionWidget.cpp \
+        BaseDeDonne/BD.cpp \
+        Menu/MenuBar.cpp \
+        Menu/RechercheContact/RechercheContactDialog.cpp
+
 
 
 HEADERS += \
@@ -27,3 +42,17 @@ HEADERS += \
         Interaction/ListInteraction.h \
         Tache/Tache.h \
         Tache/ListTache.h \
+        Contact/QtContact.h \
+        MainWindow/MainWindow.h \
+        Contact/Widget/GroupeBoxContact.h \
+        Contact/Widget/ListContactWidget.h \
+        ContactDialog/ModifContactDialog.h \
+        ContactDialog/ContactDialog.h \
+        ContactDialog/CreationContactDialog.h \
+        Contact/TraductionQtStd.h \
+        Interaction/Widget/CreationInteractionDialog.h \
+        Interaction/Widget/GroupBoxInteraction.h \
+        Interaction/Widget/ListInteractionWidget.h \
+        BaseDeDonne/BD.h \
+        Menu/MenuBar.h \
+        Menu/RechercheContact/RechercheContactDialog.h

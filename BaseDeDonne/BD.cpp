@@ -9,7 +9,7 @@
 
 
 /**
- * Constructeur de la classe BD pour la base de données de l'application
+ * @details Constructeur de la classe BD pour la base de données de l'application
  * @param parent
  */
 BD::BD(QObject *parent) : QObject(parent)
@@ -63,7 +63,7 @@ BD::BD(QObject *parent) : QObject(parent)
 }
 
 /**
- * Ajoute un contact dans la base de données via un StdContact
+ * @details Ajoute un contact dans la base de données via un StdContact
  * @param contact
  */
 void BD::addContactOnBD(const StdContact &contact)
@@ -92,7 +92,7 @@ void BD::addContactOnBD(const StdContact &contact)
 }
 
 /**
- * Ajoute un contact dans la base de données via une StdListContact
+ * @details Ajoute un contact dans la base de données via une StdListContact
  * @param contact
  */
 void BD::addContactOnBD(StdListContact *stdListContact)
@@ -103,7 +103,7 @@ void BD::addContactOnBD(StdListContact *stdListContact)
 }
 
 /**
- * Ajoute une modification d'un contact via son id et la modification
+ * @details Ajoute une modification d'un contact via son id et la modification
  * @param idContact
  * @param modif
  */
@@ -118,7 +118,7 @@ void BD::addModif(uint64_t idContact, const std::string &modif)
 }
 
 /**
- * Retourne la liste des contacts de la table CONTACTS
+ * @details Retourne la liste des contacts de la table CONTACTS
  * @return lst
  */
 StdListContact *BD::getContactData()
@@ -149,7 +149,7 @@ StdListContact *BD::getContactData()
 }
 
 /**
- * Supprimer un contact de la base de données
+ * @details Supprimer un contact de la base de données
  * @param contact
  */
 void BD::supContact(const StdContact &contact)
@@ -177,7 +177,7 @@ void BD::supContact(const StdContact &contact)
 }
 
 /**
- *  Modifier un contact de la base de données
+ * @details Modifier un contact de la base de données
  * @param contact
  * @return
  */
@@ -217,7 +217,7 @@ bool BD::modifyContact(const StdContact &contact)
 }
 
 /**
- * Ajouter une interaction d'un contact dans la base de données
+ * @details Ajouter une interaction d'un contact dans la base de données
  * @param idContact
  * @param interaction
  */
@@ -233,7 +233,7 @@ void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
 }
 
 /**
- * Supprimer une interaction d'un contact dans la base de données en fonction de son id
+ * @details Supprimer une interaction d'un contact dans la base de données en fonction de son id
  * @param interaction
  */
 void BD::supInteraction(const Interaction &interaction)
@@ -248,7 +248,7 @@ void BD::supInteraction(const Interaction &interaction)
 }
 
 /**
- * Modifier l'interaction d'un contact dans la base de données
+ * @details Modifier l'interaction d'un contact dans la base de données
  * @param interaction
  */
 void BD::modifyInteraction(const Interaction &interaction)
@@ -275,7 +275,7 @@ void BD::modifyInteraction(const Interaction &interaction)
 }
 
 /**
- * Obtenir la liste des interactions d'un contact via son id
+ * @details Obtenir la liste des interactions d'un contact via son id
  * @param idContact
  * @return listInteraction
  */
