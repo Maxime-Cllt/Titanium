@@ -63,7 +63,7 @@ BD::BD(QObject *parent) : QObject(parent)
 }
 
 /**
- * @details Ajoute un contact dans la base de données via un StdContact
+ * @details Ajoute un contact dans la base de données via un StdContact.
  * @param contact
  */
 void BD::addContactOnBD(const StdContact &contact)
@@ -89,6 +89,7 @@ void BD::addContactOnBD(const StdContact &contact)
     query.bindValue(":photo", photo);
     query.bindValue(":date", date);
     query.exec();
+
 }
 
 /**
@@ -263,14 +264,7 @@ void BD::modifyInteraction(const Interaction &interaction)
     query.addBindValue(QString::number(interaction.getDateCreation()));
     query.exec();
 
-    for (auto tache: *interaction.getLstTache()->getLstTache())
-    {
-        query.prepare("INSERT INTO TACHE VALUES (? , ? ,? );");
-        query.addBindValue(QString::number(interaction.getDateCreation()));
-        query.addBindValue(QString::number(tache->getdate()));
-        query.addBindValue(QString::fromStdString(tache->getcontenu()));
-        query.exec();
-    }
+    addTache(*interaction.getLstTache());
 
 }
 
@@ -336,4 +330,60 @@ void BD::supTache(const Tache &tache)
     QSqlQuery query("DELETE FROM TACHE WHERE ? = date");
     query.addBindValue(QString::number(tache.getdate()));
     query.exec();
+}
+
+/**
+ * @details Ajoute la liste de contact dans la base de données,
+ * pour chaque contact ajoute aussi sa liste d'interactions,
+ * pour chaque interaction ajoute aussi sa liste de taches.
+ * @param lst
+ */
+void BD::addFullContactAttributesOnBD(const StdListContact &lst)
+{
+    for (const auto &contact: *lst.getLstContact())
+    {
+        addContactOnBD(*contact);
+        addInteraction(*contact->getLstInteraction());
+        for(const auto &interaction : *contact->getLstInteraction()->getListInteraction()){
+            addTache(*interaction->getLstTache());
+        }
+    }
+
+}
+
+/**
+ * @brief Ajoute une liste d'interaction à la base de données.
+ * @param lst
+ */
+void BD::addInteraction(const ListInteraction &lst)
+{
+    for (const auto &intercation: *lst.getListInteraction())
+        addInteraction(lst.getidContact(), *intercation);
+}
+
+/**
+ * @brief Ajoute une tache à la base de données.
+ * @param idInteraction
+ * @param tache
+ */
+void BD::addTache(uint64_t idInteraction, const Tache &tache)
+{
+    QSqlQuery query("INSERT INTO TACHE VALUES (? , ? ,? );");
+
+    query.addBindValue(QString::number(idInteraction));
+    query.addBindValue(QString::number(tache.getdate()));
+    query.addBindValue(QString::fromStdString(tache.getcontenu()));
+    query.exec();
+
+}
+
+/**
+ * @brief Ajoute une liste de taches à la base de données.
+ * @param lst
+ */
+void BD::addTache(const ListTache &lst)
+{
+    for (const auto &tache: *lst.getLstTache())
+        addTache(lst.getIdInteraction(), *tache);
+
 }

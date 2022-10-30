@@ -18,6 +18,8 @@ public:
 
     static void addContactOnBD(StdListContact *);
 
+    static void addFullContactAttributesOnBD(const StdListContact &);
+
     static StdListContact *getContactData();
 
 
@@ -27,13 +29,19 @@ public:
 
     static bool modifyContact(const StdContact &);
 
-    void addModif(uint64_t idContact, const std::string &);
+    void addModif(uint64_t , const std::string &);
 
-    static void addInteraction(uint64_t idContact, const Interaction &);
+    static void addInteraction(uint64_t , const Interaction &);
+
+    static void addInteraction(const ListInteraction &);
 
     static void modifyInteraction(const Interaction &);
 
     static void supInteraction(const Interaction &);
+
+    static void addTache(uint64_t ,const Tache &);
+
+    static void addTache(const ListTache &);
 
     static void supTache(const Tache &);
 

@@ -28,9 +28,14 @@ private:
 
     [[nodiscard]] static QJsonObject interactionToJson(const ListInteraction &);
 
-    [[nodiscard]] static QJsonObject tacheToJson(const Tache & );
+    [[nodiscard]] static QJsonObject tacheToJson(const Tache &);
 
     [[nodiscard]] static QJsonObject tacheToJson(const ListTache &);
+
+
+    [[nodiscard]] static ListInteraction *getListInteraction(const QJsonObject &);
+
+    [[nodiscard]] static ListTache *getListTache(const QJsonObject &);
 
 
 };

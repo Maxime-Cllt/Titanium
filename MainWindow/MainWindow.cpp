@@ -22,24 +22,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     lstContact = BD::getContactData();
     lstContact->reverseDateCreation();
 
-    for (int i = 0; i < 10; i++)
-    {
-        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
-                                       std::chrono::duration_cast<std::chrono::microseconds>(
-                                               std::chrono::system_clock::now().time_since_epoch()).count(),
-                                       ListInteraction());
-        Interaction it("wesh");
-        it.addTache(Tache("@todo il fait beau"));
-        contact->addInteraction(Interaction("wesh"));
-        contact->addInteraction(it);
-        lstContact->addContact(contact);
-    }
+//    for (int i = 0; i < 10; i++)
+//    {
+//        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
+//                                       std::chrono::duration_cast<std::chrono::microseconds>(
+//                                               std::chrono::system_clock::now().time_since_epoch()).count(),
+//                                       ListInteraction());
+//        Interaction it("wesh");
+//        it.addTache(Tache("@todo il fait beau"));
+//        contact->addInteraction(Interaction("wesh"));
+//        contact->addInteraction(it);
+//        lstContact->addContact(contact);
+//    }
+//    BD::addContactOnBD(lstContact);
 
-    QFile file("aa.json");
-    file.open(QFile::WriteOnly);
-    file.write(QJsonDocument(JsonConverter::contactToJson(*lstContact)).toJson());
+//    QFile file("aa.json");
+//    file.open(QFile::WriteOnly);
+//    file.write(QJsonDocument(JsonConverter::contactToJson(*lstContact)).toJson());
+//    file.close();
 
-    file.close();
+//    lstContact->getLstContact()->splice(lstContact->getLstContact()->end(),*JsonConverter::getContact("aa.json")->getLstContact());
 
 
 

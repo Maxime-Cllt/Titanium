@@ -34,7 +34,7 @@ QJsonObject JsonConverter::contactToJson(const StdContact &contact)
     json.insert(QString::number(contact.getDateCreation()), jsonContact);
 
 
-    qDebug() << QJsonDocument(json).toJson(QJsonDocument::Indented);
+//    qDebug() << QJsonDocument(json).toJson(QJsonDocument::Indented);
     return json;
 }
 
@@ -122,7 +122,6 @@ QJsonObject JsonConverter::tacheToJson(const ListTache &lst)
 }
 
 
-
 /**
  * @details Crée un StdContact depuis un fichier json.
  * @param filePath
@@ -157,9 +156,51 @@ StdListContact *JsonConverter::getContact(const QString &filePath)
         auto mail = contactMap.value(key).toMap().value("mail").toString().toStdString();
         auto telephone = contactMap.value(key).toMap().value("telephone").toString().toStdString();
         auto photo = contactMap.value(key).toMap().value("photo").toString().toStdString();
-//        auto *contact = new StdContact(contactMap.value(key).toString().toStdString(),)
-//        lstContact->addContact()
+        auto *lstInteraction = getListInteraction(contactMap.value(key).toMap().value("interactions").toJsonObject());
+        auto *contact = new StdContact(nom, prenom, entreprise, mail, telephone, photo, key.toLongLong(),
+                                       *lstInteraction);
+        lstContact->addContact(contact);
     }
 
     return lstContact;
+}
+
+/**
+ * @details Retoune la liste des interactions contenu dans QJsonObject.
+ * @param json
+ * @return
+ */
+ListInteraction *JsonConverter::getListInteraction(const QJsonObject &json)
+{
+    auto *lst = new ListInteraction;
+
+    for (const auto &key: json.keys())
+    {
+        auto *interaction = new Interaction(json.value(key).toObject().value("contenu").toString().toStdString());
+        interaction->setDateCreation(key.toLongLong());
+        interaction->setDateModif(json.value(key).toObject().value("dateModif").toString().toLongLong());
+        interaction->setLstTache(getListTache(json.value(key).toObject().value("taches").toObject()));
+        lst->addInteraction(interaction);
+    }
+    return lst;
+}
+
+
+/**
+ * @details Retourne la liste des taches, contenu dans le QJsonObject.
+ * @param json
+ * @return  ListTache
+ */
+ListTache *JsonConverter::getListTache(const QJsonObject &json)
+{
+    auto *lst = new ListTache;
+
+    for (const auto &key: json.keys())
+    {
+        auto *tache = new Tache(json.value(key).toObject().value("contenu").toString().toStdString());
+        tache->setdate(json.value(key).toObject().value("date").toString().toLongLong());
+        lst->addTache(tache);
+    }
+
+    return lst;
 }
