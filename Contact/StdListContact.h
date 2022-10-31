@@ -25,8 +25,6 @@ public:
 
 
 private:
-public:
-    void setLstContact(std::list<StdContact *> *lstContact);
 
 private:
     std::list<StdContact *> *lstContact{};
@@ -46,11 +44,15 @@ public:
 
     void addLog(int, const StdContact &);
 
+    void append(const StdListContact &);
+
     [[nodiscard]] std::list<StdContact *> *getLstContact() const;
 
     [[nodiscard]] const std::list<std::string> &getLstLog() const;
 
     void setLstLog(const std::list<std::string> &);
+
+    void setLstContact(std::list<StdContact *> *lstContact);
 
     void reverseDateCreation();
 

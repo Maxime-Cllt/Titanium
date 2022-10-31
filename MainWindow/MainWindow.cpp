@@ -17,10 +17,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setMinimumHeight(500);
     bd = new BD;
 
-    setMenuBar(new MenuBar(this));
 
     lstContact = BD::getContactData();
     lstContact->reverseDateCreation();
+    qDebug() << lstContact;
+
+    setMenuBar(new MenuBar(lstContact, this));
 
 //    for (int i = 0; i < 10; i++)
 //    {
@@ -57,8 +59,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addLayout(layoutGauche);
     layout->addLayout(layoutDroit);
 
-    setListContactWidgetDefault();
-
     auto *status = new QStatusBar(this);
 
     nbContactLab = new QLabel("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     nbInetractionLab->setAlignment(Qt::AlignHCenter);
 
     setStatusBar(status);
+
+    resetListContactWidget();
 
 }
 
@@ -137,26 +139,27 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
             "Nombre d'interaction : " + QString::number(listInteractionWidget->getLstInteraction()->size()));
 }
 
-void MainWindow::setListContactWidgetDefault()
+/**
+ * @details Remet à 0 le widget qui affiche les contacts, c'est-à-dire supprime l'ancien listContactWidget,
+ * recrée une nouvelle listContactWidget avec les contacts dans lstContact, enlève aussi le widget qui affiche les interactions d'un contact s'il est affiché.
+ */
+void MainWindow::resetListContactWidget()
 {
     if (listInteractionWidget)
-    {
         layoutDroit->removeWidget(listInteractionWidget);
-        nbInetractionLab->setText("Nombre d'interaction : ");
-    }
     if (listContactWidget)
-    {
-        nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->size()));
         listContactWidget->close();
-    }
+
+    nbInetractionLab->setText("Nombre d'interaction : ");
+    nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->size()));
+
     listContactWidget = new ListContactWidget(lstContact, this);
     layoutGauche->addWidget(listContactWidget);
 }
 
 void MainWindow::updateNbContact()
 {
-    nbContactLab->setText(
-            "Nombre de contact : " + QString::number(listContactWidget->getLstContact()->size()));
+    nbContactLab->setText("Nombre de contact : " + QString::number(listContactWidget->getLstContact()->size()));
 }
 
 void MainWindow::setNbInteraction(const QString &number)

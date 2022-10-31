@@ -31,7 +31,7 @@ public:
 
     void setListInteractionWidget(ListInteractionWidget *widget);
 
-    void setListContactWidgetDefault();
+    void resetListContactWidget();
 
 private:
     QHBoxLayout *layoutGauche{};

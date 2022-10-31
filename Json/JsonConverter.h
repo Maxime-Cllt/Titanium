@@ -6,6 +6,7 @@
 #define PROJET_QT_JSONCONVERTER_H
 
 #include <QJsonObject>
+#include <QJsonDocument>
 #include "../Contact/StdListContact.h"
 
 class JsonConverter : public QObject

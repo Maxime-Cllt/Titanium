@@ -2,7 +2,6 @@
 // Created by Rahman  Yilmaz on 28/10/2022.
 //
 
-#include <QJsonDocument>
 #include <QFile>
 #include "JsonConverter.h"
 

@@ -14,14 +14,14 @@
  */
 BD::BD(QObject *parent) : QObject(parent)
 {
-    QString path("database.db");
+    QString path("database.sqlite");
     bool exist = QFileInfo::exists(path);
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
 
     if (!db.open())
     {
-        qDebug() << "Erreur; impossible de se connecter à la base de donné.";
+        qDebug() << "Erreur : impossible de se connecter à la base de donné.";
         exit(0);
     } else
     {
@@ -38,7 +38,7 @@ BD::BD(QObject *parent) : QObject(parent)
                    "Mail VARCHAR(255) not null,"
                    "Telephone VARCHAR(10) not null,"
                    "Photo TEXT not null,"
-                   "DateCreation BIGINT not null"
+                   "DateCreation BIGINT PRIMARY KEY"
                    ");");
 
         query.exec("CREATE TABLE IF NOT EXISTS MODIFICATIONS("
@@ -49,7 +49,7 @@ BD::BD(QObject *parent) : QObject(parent)
 
         query.exec("CREATE TABLE IF NOT EXISTS INTERACTIONS("
                    "IdContact BIGINT not null,"
-                   "IdInteraction BIGINT not null,"
+                   "IdInteraction BIGINT PRIMARY KEY,"
                    "DateModification BIGINT not null,"
                    "Contenu TEXT"
                    ");");

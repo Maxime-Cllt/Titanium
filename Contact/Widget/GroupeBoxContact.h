@@ -22,11 +22,14 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 public:
-    GroupeBoxContact(StdContact *contact, QWidget *parent = nullptr);
+    explicit GroupeBoxContact(StdContact *contact, QWidget *parent = nullptr);
 
     void reactualiseDonne();
 
-    void cache();
+    void cacheOuAfficheInteractions();
+
+    void cacheInteractions();
+    void afficheInteractions();
 
     ListInteractionWidget *getListInteractionWidget();
 

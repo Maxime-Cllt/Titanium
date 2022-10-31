@@ -6,14 +6,14 @@
 #include "../ContactDialog/CreationContactDialog.h"
 #include "RechercheContact/RechercheContactDialog.h"
 #include <QMessageBox>
-#include <QFileDialog>
 
 /**
  * @details Constructeur de la classe Menu
  * @param parent
  */
-MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
+MenuBar::MenuBar(StdListContact *lst ,QWidget *parent) : QMenuBar(parent) , lstContact(lst)
 {
+    qDebug() << lstContact;
     menu1 = new QMenu(tr("&Ajouter"), this);
 
     auto *addContactAction = new QAction("&Nouveau contact", this);
@@ -28,7 +28,7 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
         dialog.exec();
     });
 
-    auto *menu2 = new QMenu(tr("&À propos"), this);
+    menu2 = new QMenu(tr("&À propos"), this);
 
     auto *actionAbout = new QAction("&Qt", this);
     connect(actionAbout, &QAction::triggered, this, [this]()
@@ -37,7 +37,7 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
     });
     menu2->addAction(actionAbout);
 
-    auto *menu3 = new QMenu("&Recherche", this);
+    menu3 = new QMenu("&Recherche", this);
 
     auto *actionRecherche = new QAction("Rechercher un contact", this);
     connect(actionRecherche, &QAction::triggered, this, [this]()
@@ -50,25 +50,7 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
     menu3->addAction(actionRecherche);
 
 
-    auto *menu4 = new QMenu("&Json", this);
-
-    auto *actionImportJson = new QAction("Exporter", this);
-    connect(actionImportJson, &QAction::triggered, this, [=]()
-    {
-        auto *fileDiag = new QFileDialog;
-        fileDiag->setDirectory(QDir::homePath());
-        fileDiag->setModal(true);
-        QFile file(fileDiag->getSaveFileName());
-        QFileInfo fileInfo(file);
-        if(fileInfo.suffix().isEmpty() || fileInfo.suffix()!= "json"){
-            file.setFileName(file.fileName()+".json");
-        }
-        file.open(QFile::WriteOnly);
-        file.write("aa");
-        file.close();
-        delete fileDiag;
-    });
-    menu4->addAction(actionImportJson);
+    menu4 = new ExportImportMenu(lstContact,this);
 
 
     addMenu(menu1);

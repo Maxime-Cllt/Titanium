@@ -205,7 +205,16 @@ int StdListContact::size()
     return lstContact->size();
 }
 
+/**
+ * @details Setter de lstContact.
+ * @param lstContact
+ */
 void StdListContact::setLstContact(std::list<StdContact *> *lstContact)
 {
     StdListContact::lstContact = lstContact;
+}
+
+void StdListContact::append(const StdListContact &lst)
+{
+    lstContact->splice(lstContact->end(), *lst.getLstContact());
 }

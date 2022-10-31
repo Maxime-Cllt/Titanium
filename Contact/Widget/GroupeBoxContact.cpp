@@ -9,6 +9,7 @@
 #include "../../Interaction/Widget/CreationInteractionDialog.h"
 #include "../../BaseDeDonne/BD.h"
 #include "../../MainWindow/MainWindow.h"
+#include "../../Utility/Utility.h"
 #include "ListContactWidget.h"
 
 
@@ -97,16 +98,9 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         connect(action3, &QAction::triggered, this, [=]()
         {
             BD::supContact(*contact);
-            auto *mainWindow = new QObject(this);
-            while (mainWindow->parent())
-            {
-                mainWindow = mainWindow->parent();
-                if (strcmp(mainWindow->metaObject()->className(), "MainWindow") == 0)
-                    break;
-            }
-            qobject_cast<MainWindow *>(mainWindow)->getLstContact()->supContact(contact);
+            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->supContact(contact);
             emit supBtnClicled(contact);
-            qobject_cast<MainWindow *>(mainWindow)->updateNbContact();
+            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->updateNbContact();
             close();
         });
 
@@ -132,8 +126,7 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
     {
         if (!listInteractionWidget)
             listInteractionWidget = new ListInteractionWidget(contact->getLstInteraction(), this);
-        else
-            listInteractionWidget->show();
+
         auto *listContactWidget = new QWidget(this);
         while (listContactWidget->parentWidget())
         {
@@ -182,14 +175,17 @@ void GroupeBoxContact::createUi()
 }
 
 /**
- * @details Fonction qui cache le widget des Interactions.
+ * @details Fonction qui cacheInteractions le widget des Interactions.
+ * @return Retourne vrais si le widget est caché, non si elle est visible.
  */
-void GroupeBoxContact::cache()
+void GroupeBoxContact::cacheOuAfficheInteractions()
 {
-    listInteractionWidget->hide();
-    setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
-    for (auto lab: findChildren<QLabel *>())
-        lab->setStyleSheet("");
+    if(listInteractionWidget->isVisible())
+        cacheInteractions();
+    else{
+        afficheInteractions();
+    }
+
 }
 
 /**
@@ -204,5 +200,23 @@ ListInteractionWidget *GroupeBoxContact::getListInteractionWidget()
 StdContact *GroupeBoxContact::getContact() const
 {
     return contact;
+}
+
+void GroupeBoxContact::cacheInteractions()
+{
+    listInteractionWidget->setVisible(false);
+    setStyleSheet("QGroupBox#GroupBoxContact::title {subcontrol-origin: margin;subcontrol-position: top;}");
+    for (auto lab: findChildren<QLabel *>())
+        lab->setStyleSheet("");
+    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction("");
+
+}
+
+void GroupeBoxContact::afficheInteractions()
+{
+    listInteractionWidget->setVisible(true);
+    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction(
+            QString::number(getContact()->getLstInteraction()->size()));
+
 }
 

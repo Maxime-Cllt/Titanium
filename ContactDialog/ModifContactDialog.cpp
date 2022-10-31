@@ -5,6 +5,7 @@
 #include "ModifContactDialog.h"
 #include "../BaseDeDonne/BD.h"
 #include "../MainWindow/MainWindow.h"
+#include "../Utility/Utility.h"
 
 /**
  * @details Constructeur de la classe ModifContactDialog
@@ -88,7 +89,7 @@ void ModifContactDialog::btActionClicked()
         qtContact.setDateCreation(contact->getDateCreation());
         auto *lst = contact->getLstInteraction();
         *contact = TraductionQtStd::QtFicheContactToStdFicheContact(qtContact);
-        qobject_cast<MainWindow *>(getMainWindow())->getLstContact()->addLog(1, *contact);
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->addLog(1, *contact);
         contact->setlstInteraction(lst);
         int rep = BD::modifyContact(*contact);
         if (rep)
@@ -97,20 +98,4 @@ void ModifContactDialog::btActionClicked()
             close();
         }
     }
-}
-
-/**
-* @details Fonction qui retourne le widget MainWindow.
-* @return MainWindow.
-*/
-QWidget *ModifContactDialog::getMainWindow()
-{
-    auto *mainWindow = new QWidget(this);
-    while (mainWindow->parentWidget())
-    {
-        mainWindow = mainWindow->parentWidget();
-        if (strcmp(mainWindow->metaObject()->className(), "MainWindow") == 0)
-            break;
-    }
-    return mainWindow;
 }

@@ -18,7 +18,6 @@ public:
 
     ~RechercheContactDialog() override;
 
-private:
 protected:
     void closeEvent(QCloseEvent *event) override;
 
@@ -39,8 +38,6 @@ private:
     void rechercheParTelephone();
 
     void rechercheParDateAjout();
-
-    QWidget *getMainWindowWidget();
 
     void clearBottomLayout();
 

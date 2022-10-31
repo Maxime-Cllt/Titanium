@@ -21,8 +21,6 @@ public:
 private:
     StdContact *contact{};
 
-    QWidget *getMainWindow();
-
 
 };
 

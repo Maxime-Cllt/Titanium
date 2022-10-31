@@ -5,6 +5,7 @@
 #include "GroupeBoxContact.h"
 #include "ListContactWidget.h"
 #include "../../MainWindow/MainWindow.h"
+#include "../../Utility/Utility.h"
 
 #include <QLabel>
 #include <QLineEdit>
@@ -62,28 +63,29 @@ void ListContactWidget::addContactBox(StdContact *contact)
 }
 
 /**
- * @details Fonction qui cache la Liste des interactions d'un contact s'il n'est plus selectionné, et envoie au MainWindow
- * la nouvelle liste de inetraction du contact selectionné.
+ * @details Fonction qui cacheInteractions la Liste des interactions d'un contact s'il n'est plus sélectionné, et envoie au MainWindow
+ * la nouvelle liste des interactions du contact sélectionné.
  * @param lastConctactselected
  */
 void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactselected)
 {
-    //on regarde que la liste des inetractions qui est deja afficher est differente de lastConctactselected.
+    //on regarde que la liste des interactions qui est deja afficher est differente de lastConctactselected.
     if (this->lastConctactselected != lastConctactselected)
     {
         // si le pointeur n'est pas null on cache le widget.
         if (this->lastConctactselected)
         {
-            this->lastConctactselected->cache();
+            this->lastConctactselected->cacheInteractions();
         }
         // envoie au MainWindow qui se charge de l'ajouter a son propre layout.
-        qobject_cast<MainWindow *>(parentWidget()->parentWidget())->setListInteractionWidget(
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setListInteractionWidget(
                 lastConctactselected->getListInteractionWidget());
-        //on remplace la liste des interaction par la nouvelle du contact selectionné
+        //on remplace la liste des interactions par la nouvelle du contact selectionné
         this->lastConctactselected = lastConctactselected;
+        this->lastConctactselected->afficheInteractions();
+    }else{
+        this->lastConctactselected->cacheOuAfficheInteractions();
     }
-    qobject_cast<MainWindow *>(parentWidget()->parentWidget())->setNbInteraction(
-            QString::number(lastConctactselected->getContact()->getLstInteraction()->size()));
 }
 
 StdListContact *ListContactWidget::getLstContact() const
