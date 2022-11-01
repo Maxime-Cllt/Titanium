@@ -13,6 +13,7 @@ public:
     explicit Utility();
 
     static QWidget *getMainWindow(QWidget *);
+
     static QWidget *getLstInteractionWidget(QWidget *);
 
 

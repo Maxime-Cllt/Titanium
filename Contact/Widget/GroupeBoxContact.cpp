@@ -98,9 +98,8 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         connect(action3, &QAction::triggered, this, [=]()
         {
             BD::supContact(*contact);
-            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->supContact(contact);
+            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->suppContact(contact);
             emit supBtnClicled(contact);
-            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->updateNbContact();
             close();
         });
 
@@ -180,9 +179,10 @@ void GroupeBoxContact::createUi()
  */
 void GroupeBoxContact::cacheOuAfficheInteractions()
 {
-    if(listInteractionWidget->isVisible())
+    if (listInteractionWidget->isVisible())
         cacheInteractions();
-    else{
+    else
+    {
         afficheInteractions();
     }
 

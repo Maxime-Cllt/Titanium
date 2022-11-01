@@ -14,7 +14,7 @@ class MenuBar : public QMenuBar
 Q_OBJECT
 
 public:
-    explicit MenuBar(StdListContact *,QWidget * = nullptr);
+    explicit MenuBar(QWidget *);
 
 private:
     QMenu *menu1{};

@@ -12,7 +12,7 @@
 class ExportImportMenu : public QMenu
 {
 public:
-    explicit ExportImportMenu(StdListContact *,QWidget * = nullptr);
+    explicit ExportImportMenu(QWidget *);
 
 private:
     QAction *exportAction{};
@@ -20,7 +20,9 @@ private:
     StdListContact *lstContact{};
 
 private slots:
+
     void exportActionTriggered();
+
     void importActionTriggered();
 
 };

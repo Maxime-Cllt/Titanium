@@ -17,21 +17,28 @@ class MainWindow : public QMainWindow
 {
 Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget * = nullptr);
 
-    StdListContact *getLstContact();
+    StdListContact *getLstContact() const;
 
-    void addContact(const StdContact &contact);
+    StdListContact *getLstContactTmp() const;
+
+
+    void addContact(const StdContact &);
+
+    void suppContact(StdContact *);
 
     void updateNbContact();
 
-    void setNbInteraction(const QString &number);
+    void setNbInteraction(const QString &);
 
-    void rechercheListContactWidget(StdListContact *lst);
+    void rechercheListContactWidget(StdListContact *);
 
-    void setListInteractionWidget(ListInteractionWidget *widget);
+    void setListInteractionWidget(ListInteractionWidget *);
 
     void resetListContactWidget();
+
+    void reactualise();
 
 private:
     QHBoxLayout *layoutGauche{};
@@ -40,11 +47,14 @@ private:
     ListContactWidget *listContactWidget{};
     ListInteractionWidget *listInteractionWidget{};
 
-    StdListContact *lstContact{};
     BD *bd{};
+    StdListContact *lstContactTmp{};
+    StdListContact *lstContact{};
+
 
     QLabel *nbContactLab{};
     QLabel *nbInetractionLab{};
+
 
 protected:
     void closeEvent(QCloseEvent *event) override;

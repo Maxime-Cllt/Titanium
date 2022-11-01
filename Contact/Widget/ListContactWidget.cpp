@@ -83,7 +83,8 @@ void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactse
         //on remplace la liste des interactions par la nouvelle du contact selectionné
         this->lastConctactselected = lastConctactselected;
         this->lastConctactselected->afficheInteractions();
-    }else{
+    } else
+    {
         this->lastConctactselected->cacheOuAfficheInteractions();
     }
 }

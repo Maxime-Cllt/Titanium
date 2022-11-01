@@ -6,6 +6,7 @@
 #include <QStatusBar>
 #include "../ContactDialog/CreationContactDialog.h"
 #include "../Menu/MenuBar.h"
+#include "../ToolBar/TollBar.h"
 #include "../Json/JsonConverter.h"
 
 /**
@@ -20,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     lstContact = BD::getContactData();
     lstContact->reverseDateCreation();
-    qDebug() << lstContact;
+    lstContactTmp = lstContact;
 
-    setMenuBar(new MenuBar(lstContact, this));
+    setMenuBar(new MenuBar(this));
 
 //    for (int i = 0; i < 10; i++)
 //    {
@@ -61,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     auto *status = new QStatusBar(this);
 
+
     nbContactLab = new QLabel("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
     nbContactLab->setAlignment(Qt::AlignHCenter);
     status->addWidget(nbContactLab, 1);
@@ -70,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setStatusBar(status);
 
+    addToolBar(new TollBar(this));
+
     resetListContactWidget();
 
 }
@@ -78,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
  *
  * @return lstContact
  */
-StdListContact *MainWindow::getLstContact()
+StdListContact *MainWindow::getLstContact() const
 {
     return lstContact;
 }
@@ -92,6 +96,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QWidget::closeEvent(event);
     delete lstContact;
     delete bd;
+    if (lstContactTmp != lstContact)
+    {
+        lstContactTmp->getLstContact()->clear();
+        delete lstContactTmp;
+    }
+
 }
 
 /**
@@ -102,22 +112,32 @@ void MainWindow::addContact(const StdContact &contact)
 {
     auto *c = new StdContact(contact);
     lstContact->addContact(c);
+    if (lstContact != lstContactTmp)
+        lstContactTmp->addContact(c);
     listContactWidget->addContactBox(c);
-    nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
+    updateNbContact();
+}
+
+void MainWindow::suppContact(StdContact *contact)
+{
+    lstContact->supContact(contact);
+    lstContactTmp->removeContact(contact);
+    updateNbContact();
 }
 
 void MainWindow::rechercheListContactWidget(StdListContact *lst)
 {
+    lstContact = lst;
     listContactWidget->close();
     if (listContactWidget)
     {
         delete listContactWidget;
-        listContactWidget = new ListContactWidget(lst, this);
+        listContactWidget = new ListContactWidget(lstContact, this);
         layoutGauche->addWidget(listContactWidget);
-        nbContactLab->setText("Nombre de contact : " + QString::number(lst->getLstContact()->size()));
+        updateNbContact();
         if (listInteractionWidget)
             layoutDroit->removeWidget(listInteractionWidget);
-        nbInetractionLab->setText("Nombre d'interaction : ");
+        setNbInteraction("");
     }
 }
 
@@ -133,10 +153,9 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
     listInteractionWidget = widget;
     connect(listInteractionWidget, &ListInteractionWidget::updateNbInteraction, this, [this](int nbInteractions)
     {
-        nbInetractionLab->setText("Nombre d'interaction : " + QString::number(nbInteractions));
+        setNbInteraction(QString::number(nbInteractions));
     });
-    nbInetractionLab->setText(
-            "Nombre d'interaction : " + QString::number(listInteractionWidget->getLstInteraction()->size()));
+    setNbInteraction(QString::number(listInteractionWidget->getLstInteraction()->size()));
 }
 
 /**
@@ -145,24 +164,37 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
  */
 void MainWindow::resetListContactWidget()
 {
-    if (listInteractionWidget)
-        layoutDroit->removeWidget(listInteractionWidget);
-    if (listContactWidget)
-        listContactWidget->close();
-
-    nbInetractionLab->setText("Nombre d'interaction : ");
-    nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->size()));
-
-    listContactWidget = new ListContactWidget(lstContact, this);
-    layoutGauche->addWidget(listContactWidget);
+    lstContact = lstContactTmp;
+    lstContact->reverseDateCreation();
+    reactualise();
 }
 
 void MainWindow::updateNbContact()
 {
-    nbContactLab->setText("Nombre de contact : " + QString::number(listContactWidget->getLstContact()->size()));
+    nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->size()));
 }
 
 void MainWindow::setNbInteraction(const QString &number)
 {
     nbInetractionLab->setText("Nombre d'interaction : " + number);
+}
+
+StdListContact *MainWindow::getLstContactTmp() const
+{
+    return lstContactTmp;
+}
+
+void MainWindow::reactualise()
+{
+    if (listInteractionWidget)
+        layoutDroit->removeWidget(listInteractionWidget);
+    if (listContactWidget)
+        listContactWidget->close();
+
+
+    setNbInteraction("");
+    updateNbContact();
+
+    listContactWidget = new ListContactWidget(lstContact, this);
+    layoutGauche->addWidget(listContactWidget);
 }

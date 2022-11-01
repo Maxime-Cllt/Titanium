@@ -4,17 +4,15 @@
 
 #include "MenuBar.h"
 #include "../ContactDialog/CreationContactDialog.h"
-#include "RechercheContact/RechercheContactDialog.h"
 #include <QMessageBox>
 
 /**
  * @details Constructeur de la classe Menu
  * @param parent
  */
-MenuBar::MenuBar(StdListContact *lst ,QWidget *parent) : QMenuBar(parent) , lstContact(lst)
+MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
 {
-    qDebug() << lstContact;
-    menu1 = new QMenu(tr("&Ajouter"), this);
+    menu1 = new QMenu(tr("&Paramètre"), this);
 
     auto *addContactAction = new QAction("&Nouveau contact", this);
 
@@ -37,27 +35,13 @@ MenuBar::MenuBar(StdListContact *lst ,QWidget *parent) : QMenuBar(parent) , lstC
     });
     menu2->addAction(actionAbout);
 
-    menu3 = new QMenu("&Recherche", this);
 
-    auto *actionRecherche = new QAction("Rechercher un contact", this);
-    connect(actionRecherche, &QAction::triggered, this, [this]()
-    {
-        auto *dialog = new RechercheContactDialog(this);
-        dialog->setModal(false);
-        dialog->show();
-    });
-
-    menu3->addAction(actionRecherche);
-
-
-    menu4 = new ExportImportMenu(lstContact,this);
+    menu4 = new ExportImportMenu(this);
 
 
     addMenu(menu1);
 
     addMenu(menu2);
-
-    addMenu(menu3);
 
     addMenu(menu4);
 }

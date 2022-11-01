@@ -29,6 +29,7 @@ public:
     void cacheOuAfficheInteractions();
 
     void cacheInteractions();
+
     void afficheInteractions();
 
     ListInteractionWidget *getListInteractionWidget();

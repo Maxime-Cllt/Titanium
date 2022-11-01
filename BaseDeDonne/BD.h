@@ -29,9 +29,9 @@ public:
 
     static bool modifyContact(const StdContact &);
 
-    void addModif(uint64_t , const std::string &);
+    void addModif(uint64_t, const std::string &);
 
-    static void addInteraction(uint64_t , const Interaction &);
+    static void addInteraction(uint64_t, const Interaction &);
 
     static void addInteraction(const ListInteraction &);
 
@@ -39,7 +39,7 @@ public:
 
     static void supInteraction(const Interaction &);
 
-    static void addTache(uint64_t ,const Tache &);
+    static void addTache(uint64_t, const Tache &);
 
     static void addTache(const ListTache &);
 

@@ -6,6 +6,7 @@
 #include "StdContact.h"
 
 #include <utility>
+#include <chrono>
 #include "QtContact.h"
 
 /**

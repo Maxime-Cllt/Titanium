@@ -6,6 +6,7 @@
 #include "Interaction/ListInteraction.h"
 
 #include <chrono>
+#include <QStyleFactory>
 
 using namespace std::chrono;
 
@@ -17,6 +18,7 @@ using namespace std::chrono;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QApplication::setStyle(QStyleFactory::create("gtk2"));
     MainWindow mainWindow;
     mainWindow.show();
 

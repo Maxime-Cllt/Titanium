@@ -344,7 +344,8 @@ void BD::addFullContactAttributesOnBD(const StdListContact &lst)
     {
         addContactOnBD(*contact);
         addInteraction(*contact->getLstInteraction());
-        for(const auto &interaction : *contact->getLstInteraction()->getListInteraction()){
+        for (const auto &interaction: *contact->getLstInteraction()->getListInteraction())
+        {
             addTache(*interaction->getLstTache());
         }
     }
