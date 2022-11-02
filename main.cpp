@@ -18,7 +18,6 @@ using namespace std::chrono;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QApplication::setStyle(QStyleFactory::create("gtk2"));
     MainWindow mainWindow;
     mainWindow.show();
 

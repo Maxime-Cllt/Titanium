@@ -36,6 +36,8 @@ public:
 
     void recreateGroupeBoxContact();
 
+    void resetLastConctactselected();
+
 private:
     QVBoxLayout *lay{};
     QScrollArea *scrollArea{};
@@ -44,6 +46,8 @@ private:
     StdListContact *lstContact{};
 
     GroupeBoxContact *lastConctactselected{};
+public:
+    GroupeBoxContact *getLastConctactselected() const;
 
 
 };

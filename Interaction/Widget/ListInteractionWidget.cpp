@@ -23,7 +23,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
     setMinimumWidth(500);
     ajoutBtn->setDefault(true);
 
-    connect(ajoutBtn, &QPushButton::clicked, this, &ListInteractionWidget::ajoutInteraction);
+    connect(ajoutBtn, &QPushButton::clicked, this, &ListInteractionWidget::addInteraction);
 
     layout->addWidget(ajoutBtn);
 
@@ -51,22 +51,11 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
 /**
  * @details Ajoute une interaction dans la base de données
  */
-void ListInteractionWidget::ajoutInteraction()
+void ListInteractionWidget::addInteraction()
 {
     auto *interaction = new Interaction;
-    lstInteraction->addInteraction(interaction);
+    addInteraction1(interaction);
 
-    auto *box = new GroupBoxInteraction(interaction, scrollArea);
-    layoutScroll->insertWidget(0, box);
-
-    connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
-    {
-        BD::supInteraction(*interaction);
-        this->lstInteraction->supInteraction(interaction);
-        emit updateNbInteraction(QString::number(lstInteraction->size()));
-    });
-    BD::addInteraction(lstInteraction->getidContact(), *interaction);
-    emit updateNbInteraction(QString::number(lstInteraction->size()));
 }
 
 /**
@@ -128,6 +117,23 @@ void ListInteractionWidget::createUi()
 void ListInteractionWidget::cache()
 {
     hide();
+    emit updateNbInteraction(QString::number(lstInteraction->size()));
+}
+
+void ListInteractionWidget::addInteraction1(Interaction *interaction)
+{
+    lstInteraction->addInteraction(interaction);
+
+    auto *box = new GroupBoxInteraction(interaction, scrollArea);
+    layoutScroll->insertWidget(0, box);
+
+    connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
+    {
+        BD::supInteraction(*interaction);
+        this->lstInteraction->supInteraction(interaction);
+        emit updateNbInteraction(QString::number(lstInteraction->size()));
+    });
+    BD::addInteraction(lstInteraction->getidContact(), *interaction);
     emit updateNbInteraction(QString::number(lstInteraction->size()));
 }
 

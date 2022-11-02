@@ -7,7 +7,6 @@
 #include "../ContactDialog/CreationContactDialog.h"
 #include "../Menu/MenuBar.h"
 #include "../ToolBar/TollBar.h"
-#include "../Json/JsonConverter.h"
 
 /**
  * @details Constructeur de la classe MainWindow
@@ -18,34 +17,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setMinimumHeight(500);
     bd = new BD;
 
-
     lstContact = BD::getContactData();
     lstContact->reverseDateCreation();
     lstContactTmp = lstContact;
 
     setMenuBar(new MenuBar(this));
-
-//    for (int i = 0; i < 10; i++)
-//    {
-//        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
-//                                       std::chrono::duration_cast<std::chrono::microseconds>(
-//                                               std::chrono::system_clock::now().time_since_epoch()).count(),
-//                                       ListInteraction());
-//        Interaction it("wesh");
-//        it.addTache(Tache("@todo il fait beau"));
-//        contact->addInteraction(Interaction("wesh"));
-//        contact->addInteraction(it);
-//        lstContact->addContact(contact);
-//    }
-//    BD::addContactOnBD(lstContact);
-
-//    QFile file("aa.json");
-//    file.open(QFile::WriteOnly);
-//    file.write(QJsonDocument(JsonConverter::contactToJson(*lstContact)).toJson());
-//    file.close();
-
-//    lstContact->getLstContact()->splice(lstContact->getLstContact()->end(),*JsonConverter::getContact("aa.json")->getLstContact());
-
 
 
     layoutGauche = new QHBoxLayout;
@@ -53,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 
     setWindowTitle("Projet");
-    auto *central = new QWidget();
+    auto *central = new QWidget;
     auto *layout = new QHBoxLayout(central);
     setCentralWidget(central);
 
@@ -125,6 +101,7 @@ void MainWindow::addContact(const StdContact &contact)
     if (lstContact != lstContactTmp)
         lstContactTmp->addContact(c);
     listContactWidget->addContactBox(c);
+    BD::addContactOnBD(contact);
     updateNbContact();
 }
 

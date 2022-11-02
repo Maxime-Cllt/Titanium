@@ -21,6 +21,10 @@ public:
                std::string mail, std::string telephone, std::string photo,
                const uint64_t &dateCreation, const ListInteraction &lstInteraction);
 
+    bool operator==(const StdContact &rhs) const;
+
+    bool operator!=(const StdContact &rhs) const;
+
     explicit StdContact();
 
     StdContact(const StdContact &);

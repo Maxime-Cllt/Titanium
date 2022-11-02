@@ -23,6 +23,10 @@ private:
     QPushButton *ajouter{};
     StdContact *contact{};
 
+signals:
+
+    void addInteractionClicked(Interaction *);
+
 };
 
 

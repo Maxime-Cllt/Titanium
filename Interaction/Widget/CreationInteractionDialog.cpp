@@ -29,7 +29,7 @@ CreationInteractionDialog::CreationInteractionDialog(StdContact *contact, QWidge
             QMessageBox::warning(this, "Attention", "Le champs de texte est vide.");
         } else
         {
-            contact->addInteraction(Interaction(text->document()->toRawText().toStdString()));
+            emit addInteractionClicked(new Interaction(text->document()->toRawText().toStdString()));
             QMessageBox::information(this, "Succès", "Interaction ajouté avec succès.");
             close();
         }

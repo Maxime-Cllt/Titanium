@@ -290,3 +290,13 @@ StdContact::StdContact(const StdContact &contact)
     setDateCreation(contact.getDateCreation());
     setlstInteraction(*contact.getLstInteraction());
 }
+
+bool StdContact::operator==(const StdContact &rhs) const
+{
+    return dateCreation == rhs.dateCreation;
+}
+
+bool StdContact::operator!=(const StdContact &rhs) const
+{
+    return !(rhs == *this);
+}

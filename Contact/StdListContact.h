@@ -59,6 +59,8 @@ public:
 
     int size();
 
+    bool contains(const StdContact &);
+
 private:
     static std::string getDateNow();
 

@@ -2,6 +2,7 @@
 // Created by rahman on 09/10/22.
 //
 
+#include <algorithm>
 #include "StdListContact.h"
 
 /**
@@ -16,6 +17,7 @@ StdListContact::StdListContact()
  * @details Ajoute le contact en paramètre à la liste des contacts en recréant un nouveau pointeur
  * qui pointe sur un nouveau StdContact avec les attributs de meme valeur que le contact en paramètre.
  * @param StdContact
+ * @return True si le contact a été ajouté, false sinon.
  */
 void StdListContact::addContact(const StdContact &contact)
 {
@@ -26,6 +28,7 @@ void StdListContact::addContact(const StdContact &contact)
 /**
  * @details Ajoute le contact en paramètre à la liste des contacts.
  * @param contact
+ * @return True si le contact a été ajouté, false sinon.
  */
 void StdListContact::addContact(StdContact *contact)
 {
@@ -217,4 +220,16 @@ void StdListContact::setLstContact(std::list<StdContact *> *lstContact)
 void StdListContact::append(const StdListContact &lst)
 {
     lstContact->splice(lstContact->end(), *lst.getLstContact());
+}
+
+bool StdListContact::contains(const StdContact &contact)
+{
+    for (const auto c: *lstContact)
+    {
+        if (*c == contact)
+        {
+            return true;
+        }
+    }
+    return false;
 }

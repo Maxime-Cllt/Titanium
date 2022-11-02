@@ -64,8 +64,39 @@ void ExportImportMenu::importActionTriggered()
 
     QFile file(QFileDialog::getOpenFileName(this, "Import json", QDir::homePath(), "json (*.json)"));
     auto *lst = JsonConverter::getContact(file.fileName());
-    lstContact->append(*lst);
+
+    if (lst->size() == 0)
+    {
+        QMessageBox::warning(nullptr, "Erreur", "Le fichier n’est pas bon ou mal formaté.");
+        return;
+    }
+
+    QString str;
+    int i = 1;
+    for (auto contact: *lst->getLstContact())
+    {
+        if (lstContact->contains(*contact))
+        {
+            str += QString::number(i) + " : Le Contact : " + QString::fromStdString(contact->getNom()) + " " +
+                   QString::fromStdString(contact->getPrenom()) + " est deja present dans la liste.\n";
+            i++;
+        } else
+            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->addContact(*contact);
+    }
+    if (str.isEmpty())
+    {
+        QMessageBox::information(nullptr, "Succès", "L'importation a été réalisée avec succès.");
+    } else
+    {
+        QMessageBox msb(QMessageBox::Icon::Warning, "Informations", "Erreur sur l’importation des contacts",
+                        QMessageBox::StandardButton::Ok);
+        msb.setDetailedText(str);
+        msb.exec();
+    }
+
     delete lst;
 
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->resetListContactWidget();
+    lstContact->reverseDateCreation();
+    qobject_cast<MainWindow *>(
+            Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
 }

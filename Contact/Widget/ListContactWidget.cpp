@@ -58,6 +58,12 @@ void ListContactWidget::addContactBox(StdContact *contact) {
  * @param lastConctactselected
  */
 void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactselected) {
+
+    // si le GroupeBoxContact a été supprimer, il ne faut pas cacher un widget qui n'existe plus.
+    if (lastConctactselected == nullptr) {
+        this->lastConctactselected = nullptr;
+        return;
+    }
     //on regarde que la liste des interactions qui est deja afficher est differente de lastConctactselected.
     if (this->lastConctactselected != lastConctactselected) {
         // si le pointeur n'est pas null on cache le widget.
@@ -115,10 +121,18 @@ void ListContactWidget::afficheAllGroupeBox() {
         widget->show();
 }
 
+/**
+ * @brief Focntion qui supprime les GroupeBoxContact actuelle, puis en recrée des nouvelle et les ajoute au layout,
+ * cette fonction est appeler quand on tri la liste et que l'on doit reafficher correctement les contacts.
+ */
 void ListContactWidget::recreateGroupeBoxContact() {
+
+    // comme tous les GroupeBoxContact vont etre supprimé ont reset le pointeur du dernier contact selectionné.
+    resetLastConctactselected();
 
     for (auto widget: findChildren<GroupeBoxContact *>())
         delete widget;
+
 
     for (auto contact: *lstContact->getLstContact()) {
         auto *box = new GroupeBoxContact(contact, this);
@@ -127,4 +141,17 @@ void ListContactWidget::recreateGroupeBoxContact() {
             lstContact->removeContact(contact);
         });
     }
+}
+
+/**
+ * @brief Fonction qui remet a nullptr lastConctactselected et cache la liste des interactions du dernier contact selectionné s’il existe.
+ */
+void ListContactWidget::resetLastConctactselected() {
+    if (lastConctactselected)
+        this->lastConctactselected->getListInteractionWidget()->hide();
+    this->lastConctactselected = nullptr;
+}
+
+GroupeBoxContact *ListContactWidget::getLastConctactselected() const {
+    return lastConctactselected;
 }

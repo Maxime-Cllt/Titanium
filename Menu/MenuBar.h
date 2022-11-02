@@ -24,6 +24,10 @@ private:
 
     StdListContact *lstContact{};
 
+private slots:
+
+    void settingsClicked();
+
 };
 
 

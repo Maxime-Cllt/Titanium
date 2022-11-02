@@ -33,13 +33,15 @@ public:
 
     void cache();
 
+    void addInteraction1(Interaction *);
 
-private
-    slots:
+
+private slots:
 
     void reactualiseUi();
 
-    void ajoutInteraction();
+    void addInteraction();
+
 
 signals:
 
