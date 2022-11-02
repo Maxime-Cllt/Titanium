@@ -14,17 +14,6 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
 {
     menu1 = new QMenu(tr("&Paramètre"), this);
 
-    auto *addContactAction = new QAction("&Nouveau contact", this);
-
-    addContactAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
-
-    menu1->addAction(addContactAction);
-
-    connect(addContactAction, &QAction::triggered, this, [this]()
-    {
-        CreationContactDialog dialog(this);
-        dialog.exec();
-    });
 
     menu2 = new QMenu(tr("&À propos"), this);
 

@@ -19,10 +19,9 @@ Q_OBJECT
 public:
     explicit MainWindow(QWidget * = nullptr);
 
-    StdListContact *getLstContact() const;
+    [[nodiscard]] StdListContact *getLstContact() const;
 
-    StdListContact *getLstContactTmp() const;
-
+    [[nodiscard]] StdListContact *getLstContactTmp() const;
 
     void addContact(const StdContact &);
 
@@ -39,6 +38,8 @@ public:
     void resetListContactWidget();
 
     void reactualise();
+
+    void removeListInteractionWidget();
 
 private:
     QHBoxLayout *layoutGauche{};

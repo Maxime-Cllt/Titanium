@@ -74,17 +74,27 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     addToolBar(new TollBar(this));
 
-    resetListContactWidget();
-
+    lstContact->reverseDateCreation();
+    listContactWidget = new ListContactWidget(lstContact, this);
+    layoutGauche->addWidget(listContactWidget);
 }
 
 /**
- *
+ * @brief Setter de lstContact qui est la liste de contact utilisé qui stock les contacts de recherche ou tous les contacts.
  * @return lstContact
  */
 StdListContact *MainWindow::getLstContact() const
 {
     return lstContact;
+}
+
+/**
+ * @brief Setter de lstContactTmp qui est la liste de contact de base.
+ * @return lstContactTmp
+ */
+StdListContact *MainWindow::getLstContactTmp() const
+{
+    return lstContactTmp;
 }
 
 /**
@@ -105,7 +115,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 /**
- * Ajouter un StdContact dans la liste des contact et dans le widget des contacts pour l'afficher.
+ * Ajouter un StdContact dans la liste des contacts et dans le widget des contacts pour l'afficher.
  * @param contact
  */
 void MainWindow::addContact(const StdContact &contact)
@@ -128,17 +138,14 @@ void MainWindow::suppContact(StdContact *contact)
 void MainWindow::rechercheListContactWidget(StdListContact *lst)
 {
     lstContact = lst;
-    listContactWidget->close();
-    if (listContactWidget)
-    {
-        delete listContactWidget;
-        listContactWidget = new ListContactWidget(lstContact, this);
-        layoutGauche->addWidget(listContactWidget);
-        updateNbContact();
-        if (listInteractionWidget)
-            layoutDroit->removeWidget(listInteractionWidget);
-        setNbInteraction("");
-    }
+    listContactWidget->cacheGroupeBox(lst);
+
+    updateNbContact();
+
+    removeListInteractionWidget();
+
+    setNbInteraction("");
+
 }
 
 /**
@@ -147,14 +154,13 @@ void MainWindow::rechercheListContactWidget(StdListContact *lst)
  */
 void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
 {
-    if (listInteractionWidget)
-        layoutDroit->removeWidget(listInteractionWidget);
+    removeListInteractionWidget();
+
     layoutDroit->addWidget(widget);
     listInteractionWidget = widget;
-    connect(listInteractionWidget, &ListInteractionWidget::updateNbInteraction, this, [this](int nbInteractions)
-    {
-        setNbInteraction(QString::number(nbInteractions));
-    });
+
+
+    connect(listInteractionWidget, &ListInteractionWidget::updateNbInteraction, this, &MainWindow::setNbInteraction);
     setNbInteraction(QString::number(listInteractionWidget->getLstInteraction()->size()));
 }
 
@@ -169,32 +175,36 @@ void MainWindow::resetListContactWidget()
     reactualise();
 }
 
+/**
+ * @brief Fonction qui met à jour la valeur de nbContactLab qui indique le nombre de contacts visible.
+ */
 void MainWindow::updateNbContact()
 {
     nbContactLab->setText("Nombre de contact : " + QString::number(lstContact->size()));
 }
 
+/**
+ * @brief Fonction qui met à jour la valeur de nbInetractionLab qui indique le nombre de d'interaction du contact sélectionné.
+ */
 void MainWindow::setNbInteraction(const QString &number)
 {
     nbInetractionLab->setText("Nombre d'interaction : " + number);
 }
 
-StdListContact *MainWindow::getLstContactTmp() const
-{
-    return lstContactTmp;
-}
 
 void MainWindow::reactualise()
 {
-    if (listInteractionWidget)
-        layoutDroit->removeWidget(listInteractionWidget);
-    if (listContactWidget)
-        listContactWidget->close();
+    removeListInteractionWidget();
 
+    listContactWidget->afficheAllGroupeBox();
 
     setNbInteraction("");
     updateNbContact();
+}
 
-    listContactWidget = new ListContactWidget(lstContact, this);
-    layoutGauche->addWidget(listContactWidget);
+void MainWindow::removeListInteractionWidget()
+{
+
+    if (listInteractionWidget)
+        listInteractionWidget->hide();
 }

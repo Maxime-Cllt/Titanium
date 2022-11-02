@@ -15,6 +15,9 @@
 TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 {
 
+
+    setContextMenuPolicy(Qt::ActionsContextMenu);
+
     ajouter = new QAction(this);
     ajouter->setIcon(QIcon("../src/ajouter.png"));
     ajouter->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
@@ -32,9 +35,7 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    tri = new QAction(this);
-    tri->setIcon(QIcon("../src/tri.png"));
-    addAction(tri);
+    createTriBtn();
 
     addSeparator();
 
@@ -61,12 +62,14 @@ void TollBar::ajouterContact()
  */
 void TollBar::chercherContact()
 {
+
     resetActionTriggered();
     auto *dialog = new RechercheContactDialog(this);
     chercher->setDisabled(true);
     connect(dialog, &RechercheContactDialog::closeDialog, this, [this]()
     {
         chercher->setDisabled(false);
+        resetActionTriggered();
     });
     dialog->show();
 
@@ -80,7 +83,44 @@ void TollBar::resetActionTriggered()
     qobject_cast<MainWindow *>(Utility::getMainWindow(this))->resetListContactWidget();
 }
 
-void TollBar::triContacts()
+
+/**
+ * @brief Creation du menu pour le tri.
+ */
+void TollBar::createTriBtn()
 {
 
+    tri = new QToolButton(this);
+    tri->setIcon(QIcon("../src/tri.png"));
+
+    tri->setPopupMode(QToolButton::MenuButtonPopup);
+
+    auto *menu = new QMenu(tri);
+
+    auto *triNom = new QAction("Tri nom", menu);
+    auto *triDate = new QAction("Tri date", menu);
+
+    menu->addAction(triNom);
+    menu->addAction(triDate);
+
+    tri->setMenu(menu);
+
+    addWidget(tri);
+
+
+    // tri par nom (ordre croissant).
+    connect(triNom, &QAction::triggered, this, [this]()
+    {
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sortNom();
+        qobject_cast<MainWindow *>(
+                Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
+    });
+
+    // tri par date de creation le plus recent crée.
+    connect(triDate, &QAction::triggered, this, [this]()
+    {
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->reverseDateCreation();
+        qobject_cast<MainWindow *>(
+                Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
+    });
 }

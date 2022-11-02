@@ -39,9 +39,8 @@ private:
 
     void createUi();
 
-private:
 public:
-    StdContact *getContact() const;
+    [[nodiscard]] StdContact *getContact() const;
 
 private:
     QGridLayout *layout{};

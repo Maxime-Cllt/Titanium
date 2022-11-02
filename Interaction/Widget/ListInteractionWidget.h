@@ -33,6 +33,7 @@ public:
 
     void cache();
 
+
 private
     slots:
 
@@ -42,8 +43,10 @@ private
 
 signals:
 
-    void updateNbInteraction(int
-                             nbInteraction);
+    /**
+     * @brief Signal pour modifier le label qui indique le nombre d'interaction dans la statusbar.
+     */
+    void updateNbInteraction(const QString &);
 
 };
 

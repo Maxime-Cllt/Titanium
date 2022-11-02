@@ -8,7 +8,6 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QLayout>
-#include "../TraductionQtStd.h"
 #include "ListContactWidget.h"
 #include "GroupeBoxContact.h"
 
@@ -20,11 +19,22 @@ Q_OBJECT
 public:
     explicit ListContactWidget(StdListContact *lst, QWidget *parent);
 
+private:
+    QWidgetList lstWidget;
+
+
+public:
+    StdListContact *getLstContact() const;
+
+    void cacheGroupeBox(StdListContact *);
+
+    void afficheAllGroupeBox();
+
     void addContactBox(StdContact *contact);
 
     void setLastConctactselected(GroupeBoxContact *lastConctactselected);
 
-    StdListContact *getLstContact() const;
+    void recreateGroupeBoxContact();
 
 private:
     QVBoxLayout *lay{};

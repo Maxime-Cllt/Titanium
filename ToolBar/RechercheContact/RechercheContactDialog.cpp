@@ -114,31 +114,31 @@ void RechercheContactDialog::createAvanceUi()
     layoutCenterbottom->addLayout(layoutGauche);
     layoutCenterbottom->addLayout(layoutDroit);
 
-    auto *labNom = new QLabel("Nom : ");
+    auto *labNom = new QLabel("Nom : ", this);
     layoutGauche->addWidget(labNom);
     lineNom = new QLineEdit(this);
     lineNom->setPlaceholderText("toto");
     layoutDroit->addWidget(lineNom);
 
-    auto *labPrenom = new QLabel("prenom : ");
+    auto *labPrenom = new QLabel("prenom : ", this);
     layoutGauche->addWidget(labPrenom);
     linePrenom = new QLineEdit(this);
     linePrenom->setPlaceholderText("tutu");
     layoutDroit->addWidget(linePrenom);
 
-    auto *labEntreprise = new QLabel("Entreprise : ");
+    auto *labEntreprise = new QLabel("Entreprise : ", this);
     layoutGauche->addWidget(labEntreprise);
     lineEntreprise = new QLineEdit(this);
     lineEntreprise->setPlaceholderText("sarl....");
     layoutDroit->addWidget(lineEntreprise);
 
-    auto *labMail = new QLabel("Mail : ");
+    auto *labMail = new QLabel("Mail : ", this);
     layoutGauche->addWidget(labMail);
     lineMail = new QLineEdit(this);
     lineMail->setPlaceholderText("toto@titi.com");
     layoutDroit->addWidget(lineMail);
 
-    auto *labTel = new QLabel("Téléphone : ");
+    auto *labTel = new QLabel("Téléphone : ", this);
     layoutGauche->addWidget(labTel);
     lineTel = new QLineEdit(this);
     lineTel->setPlaceholderText("0123456789");
@@ -146,7 +146,7 @@ void RechercheContactDialog::createAvanceUi()
 
     auto layoutDate = new QHBoxLayout;
 
-    auto *labDate = new QLabel("Date d'ajout : ");
+    auto *labDate = new QLabel("Date d'ajout : ", this);
     layoutDate->addWidget(labDate);
     auto *lay = new QHBoxLayout;
 
@@ -154,15 +154,15 @@ void RechercheContactDialog::createAvanceUi()
     auto *lay2 = new QVBoxLayout;
 
 
-    auto *labDateDeb = new QLabel("Début : ");
+    auto *labDateDeb = new QLabel("Début : ", this);
     lay1->addWidget(labDateDeb);
-    lineDateDeb = new QDateTimeEdit;
+    lineDateDeb = new QDateTimeEdit(this);
     lineDateDeb->setMaximumDateTime(QDateTime::currentDateTimeUtc());
     lay1->addWidget(lineDateDeb);
 
-    auto *labDateFin = new QLabel("Fin : ");
+    auto *labDateFin = new QLabel("Fin : ", this);
     lay2->addWidget(labDateFin);
-    lineDateFin = new QDateTimeEdit;
+    lineDateFin = new QDateTimeEdit(this);
     lineDateFin->setMaximumDateTime(QDateTime::currentDateTimeUtc());
     lineDateFin->setDateTime(QDateTime::currentDateTimeUtc());
     lay2->addWidget(lineDateFin);

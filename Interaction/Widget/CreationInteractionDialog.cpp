@@ -22,7 +22,7 @@ CreationInteractionDialog::CreationInteractionDialog(StdContact *contact, QWidge
     layout->addWidget(text);
     layout->addWidget(ajouter);
 
-    connect(ajouter, &QPushButton::clicked, this, [=]()
+    connect(ajouter, &QPushButton::clicked, this, [=, this]()
     {
         if (text->document()->toRawText().isEmpty())
         {

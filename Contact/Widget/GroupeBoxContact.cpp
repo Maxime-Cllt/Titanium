@@ -83,19 +83,19 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         menu->addAction(action2);
         menu->addAction(action3);
 
-        connect(action1, &QAction::triggered, this, [=]()
+        connect(action1, &QAction::triggered, this, [=, this]()
         {
             CreationInteractionDialog diag(contact, this);
             diag.exec();
         });
 
-        connect(action2, &QAction::triggered, this, [=]()
+        connect(action2, &QAction::triggered, this, [=, this]()
         {
             ModifContactDialog modif(this->contact, this);
             modif.exec();
         });
 
-        connect(action3, &QAction::triggered, this, [=]()
+        connect(action3, &QAction::triggered, this, [=, this]()
         {
             BD::supContact(*contact);
             qobject_cast<MainWindow *>(Utility::getMainWindow(this))->suppContact(contact);
@@ -143,7 +143,7 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
  */
 void GroupeBoxContact::reactualiseDonne()
 {
-    QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
+    QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(*contact));
 
     QPixmap im(qtContact.getPhoto());
     findChildren<QLabel *>()[0]->setPixmap(im.scaled(50, 50, Qt::KeepAspectRatio));
@@ -159,7 +159,7 @@ void GroupeBoxContact::reactualiseDonne()
  */
 void GroupeBoxContact::createUi()
 {
-    QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
+    QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(*contact));
 
 
     QPixmap im(qtContact.getPhoto());

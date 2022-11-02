@@ -6,6 +6,7 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QMessageBox>
+#include "../Utility/Utility.h"
 
 
 /**
@@ -70,7 +71,7 @@ void BD::addContactOnBD(const StdContact &contact)
 {
 
     QSqlQuery query;
-    const QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(contact));
+    const QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(contact));
     const QString &nom(qtContact.getNom());
     const QString &prenom(qtContact.getPrenom());
     const QString &entreprise(qtContact.getEntreprise());
@@ -139,7 +140,7 @@ StdListContact *BD::getContactData()
         qtContact.setTelephone(query.value(4).toString());
         qtContact.setPhoto(query.value(5).toString());
 
-        auto *contact = new StdContact(TraductionQtStd::QtFicheContactToStdFicheContact(qtContact));
+        auto *contact = new StdContact(Utility::QtFicheContactToStdFicheContact(qtContact));
         contact->setDateCreation(query.value(6).toLongLong());
         contact->setlstInteraction(getListInteractionData(query.value(6).toLongLong()));
 
@@ -184,7 +185,7 @@ void BD::supContact(const StdContact &contact)
  */
 bool BD::modifyContact(const StdContact &contact)
 {
-    QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(contact));
+    QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(contact));
 
     QSqlQuery query;
 

@@ -9,7 +9,6 @@
 #include <iostream>
 #include <list>
 #include "StdContact.h"
-#include "TraductionQtStd.h"
 
 /**
  *  @details Classe StdListContact qui sert à stocker les objets de type StdContact et à réaliser divers operations.

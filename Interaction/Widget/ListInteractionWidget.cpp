@@ -3,10 +3,10 @@
 //
 
 #include "ListInteractionWidget.h"
-#include <QLabel>
 #include "GroupBoxInteraction.h"
 #include "../../BaseDeDonne/BD.h"
 #include "../../MainWindow/MainWindow.h"
+#include "../../Utility/Utility.h"
 
 
 /**
@@ -63,10 +63,10 @@ void ListInteractionWidget::ajoutInteraction()
     {
         BD::supInteraction(*interaction);
         this->lstInteraction->supInteraction(interaction);
-        emit updateNbInteraction(lstInteraction->size());
+        emit updateNbInteraction(QString::number(lstInteraction->size()));
     });
     BD::addInteraction(lstInteraction->getidContact(), *interaction);
-    emit updateNbInteraction(lstInteraction->size());
+    emit updateNbInteraction(QString::number(lstInteraction->size()));
 }
 
 /**
@@ -90,32 +90,44 @@ void ListInteractionWidget::reactualiseUi()
     createUi();
 }
 
+/**
+ * @brief Fonction qui crée le Ui design
+ */
 void ListInteractionWidget::createUi()
 {
     lstInteraction->reverse();
     for (auto interaction: *lstInteraction->getListInteraction())
     {
         auto *box = new GroupBoxInteraction(interaction, scrollArea);
+
+        // quand le boutton supprimé d'une interaction est clické.
         connect(box, &GroupBoxInteraction::supBtnClicked, this, [this](Interaction *interaction)
         {
+            // on supprime l'interaction de la base de donné
             BD::supInteraction(*interaction);
+
+            // on supprime l'interaction de la liste des interactions
             this->lstInteraction->supInteraction(interaction);
-            emit updateNbInteraction(lstInteraction->size());
+
+            // on emet un signal pour modifier le label qui indique le nombre d'interaction dans la statusbar.
+            emit updateNbInteraction(QString::number(lstInteraction->size()));
+
         });
+
+        // quand le boutton modifié d'une interaction est clické.
         connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::reactualiseUi);
+
         layoutScroll->addWidget(box);
     }
 }
 
+
+/**
+ * @brief Fonction qui cahce le widget.
+ */
 void ListInteractionWidget::cache()
 {
     hide();
-    auto *mainWindow = new QWidget(this);
-    while (mainWindow->parentWidget())
-    {
-        mainWindow = mainWindow->parentWidget();
-        if (strcmp(mainWindow->metaObject()->className(), "ListContactWidget") == 0)
-            break;
-    }
-    qobject_cast<MainWindow *>(mainWindow)->setNbInteraction("");
+    emit updateNbInteraction(QString::number(lstInteraction->size()));
 }
+

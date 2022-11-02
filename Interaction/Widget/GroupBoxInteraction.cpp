@@ -66,7 +66,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
     layBottom->addWidget(supBtn);
 
 
-    connect(textEdit, &QTextEdit::textChanged, this, [=]()
+    connect(textEdit, &QTextEdit::textChanged, this, [=, this]()
     {
         if (textEdit->document()->toRawText().toStdString() != this->interaction->getContenu())
             modifBtn->setEnabled(true);
@@ -74,7 +74,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
             modifBtn->setEnabled(false);
     });
 
-    connect(modifBtn, &QPushButton::clicked, this, [=]()
+    connect(modifBtn, &QPushButton::clicked, this, [=, this]()
     {
         parseTache(textEdit->toPlainText());
         QString str = textEdit->document()->toPlainText();
@@ -92,7 +92,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     });
 
-    connect(supBtn, &QPushButton::clicked, this, [=]()
+    connect(supBtn, &QPushButton::clicked, this, [=, this]()
     {
         emit supBtnClicked(this->interaction);
         close();

@@ -13,7 +13,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QDateTime>
-#include "../Contact/TraductionQtStd.h"
+#include "../Utility/Utility.h"
 
 class ContactDialog : public QDialog
 {

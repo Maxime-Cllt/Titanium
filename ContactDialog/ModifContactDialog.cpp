@@ -17,7 +17,7 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
 
     setWindowTitle("Modification de la fiche contact");
 
-    QtContact qtContact(TraductionQtStd::StdFicheContacttoQtFicheContact(*contact));
+    QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(*contact));
 
     QDateTime date;
     date.setMSecsSinceEpoch(this->contact->getDateCreation() / 1000);
@@ -88,7 +88,7 @@ void ModifContactDialog::btActionClicked()
         QtContact qtContact(getContact());
         qtContact.setDateCreation(contact->getDateCreation());
         auto *lst = contact->getLstInteraction();
-        *contact = TraductionQtStd::QtFicheContactToStdFicheContact(qtContact);
+        *contact = Utility::QtFicheContactToStdFicheContact(qtContact);
         qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->addLog(1, *contact);
         contact->setlstInteraction(lst);
         int rep = BD::modifyContact(*contact);
