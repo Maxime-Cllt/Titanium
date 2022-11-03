@@ -91,7 +91,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 /**
- * Ajouter un StdContact dans la liste des contacts et dans le widget des contacts pour l'afficher.
+ * Ajouter un StdContact dans la liste des contacts et dans le Widget des contacts pour l'afficher.
  * @param contact
  */
 void MainWindow::addContact(const StdContact &contact)
@@ -126,7 +126,7 @@ void MainWindow::rechercheListContactWidget(StdListContact *lst)
 }
 
 /**
- * Ajoute un widget avec la liste d'interaction
+ * Ajoute un Widget avec la liste d'interaction
  * @param widget
  */
 void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
@@ -142,8 +142,8 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
 }
 
 /**
- * @details Remet à 0 le widget qui affiche les contacts, c'est-à-dire supprime l'ancien listContactWidget,
- * recrée une nouvelle listContactWidget avec les contacts dans lstContact, enlève aussi le widget qui affiche les interactions d'un contact s'il est affiché.
+ * @details Remet à 0 le Widget qui affiche les contacts, c'est-à-dire supprime l'ancien listContactWidget,
+ * recrée une nouvelle listContactWidget avec les contacts dans lstContact, enlève aussi le Widget qui affiche les interactions d'un contact s'il est affiché.
  */
 void MainWindow::resetListContactWidget()
 {

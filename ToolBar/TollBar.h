@@ -10,7 +10,7 @@
 
 /**
  * @details Classe TollBar qui hérite de QToolBar qui servira pour les ajouts de contacts,
- * recherche de contacts, trié les contacts, remettre à zero le widget des contacts apres une recherche.
+ * recherche de contacts, trié les contacts, remettre à zero le Widget des contacts apres une recherche.
  */
 class TollBar : public QToolBar
 {

@@ -38,7 +38,7 @@ public:
 
 private slots:
 
-    void reactualiseUi();
+    void resetUi();
 
     void addInteraction();
 

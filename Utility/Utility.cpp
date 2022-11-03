@@ -35,7 +35,7 @@ StdContact Utility::QtFicheContactToStdFicheContact(const QtContact &contact)
 
 
 /**
-* @details Fonction qui retourne le widget MainWindow.
+* @details Fonction qui retourne le Widget MainWindow.
 * @param widgetDepart
 * @return MainWindow.
 */
@@ -52,7 +52,7 @@ QWidget *Utility::getMainWindow(QWidget *widgetDepart)
 }
 
 /**
-* @details Fonction qui retourne le widget du nom de className.
+* @details Fonction qui retourne le Widget du nom de className.
 * @param widgetDepart,className
 * @return MainWindow.
 */

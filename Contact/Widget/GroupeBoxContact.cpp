@@ -9,8 +9,8 @@
 #include "../../Interaction/Widget/CreationInteractionDialog.h"
 #include "../../BaseDeDonne/BD.h"
 #include "../../MainWindow/MainWindow.h"
-#include "../../Utility/Utility.h"
 #include "ListContactWidget.h"
+#include "../../Tache/Widget/RechercheTaches.h"
 
 
 /**
@@ -63,8 +63,10 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
     QGroupBox::mousePressEvent(event);
     setStyleSheet(
             "QGroupBox#GroupBoxContact{background-color: gray;color : white;border-radius : 10px;}");
-    for (auto lab: findChildren<QLabel *>())
-        lab->setStyleSheet("color : white;");
+    for (auto lab: findChildren<QLabel *>()){
+        if(lab->parent() == this)
+            lab->setStyleSheet("color : white;");
+    }
 
     if (event->button() == Qt::RightButton)
     {
@@ -79,15 +81,18 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         auto *action3 = new QAction("Supprimer");
 
-        auto *action4 = new QAction("Chercher un to");
+        auto *action4 = new QAction("Chercher un todo");
 
         menu->addAction(action1);
         menu->addAction(action2);
         menu->addAction(action3);
+        menu->addAction(action4);
 
         connect(action1, &QAction::triggered, this, [=, this]()
         {
-            CreationInteractionDialog diag(contact, this);
+            if(!listInteractionWidget)
+                listInteractionWidget = new ListInteractionWidget(contact->getLstInteraction(), this);
+            CreationInteractionDialog diag(this);
             connect(&diag, &CreationInteractionDialog::addInteractionClicked, listInteractionWidget,
                     &ListInteractionWidget::addInteraction1);
             diag.exec();
@@ -107,6 +112,12 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
             qobject_cast<ListContactWidget *>(
                     Utility::getWidget(this, (char *) "ListContactWidget"))->resetLastConctactselected();
             close();
+        });
+
+        connect(action4, &QAction::triggered, this, [=, this]()
+        {
+            RechercheTaches diag(contact->getLstInteraction(), this);
+            diag.exec();
         });
 
         menu->exec(event->globalPos());
@@ -145,8 +156,10 @@ void GroupeBoxContact::reactualiseDonne()
 {
     QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(*contact));
 
-    QPixmap im(qtContact.getPhoto());
-    findChildren<QLabel *>()[0]->setPixmap(im.scaled(50, 50, Qt::KeepAspectRatio));
+    if(QFile(qtContact.getPhoto()).exists()){
+        QPixmap im(qtContact.getPhoto());
+        findChildren<QLabel *>()[0]->setPixmap(im.scaled(50, 50, Qt::KeepAspectRatio));
+    }
     findChildren<QLabel *>()[1]->setText("Nom Prénom : " + qtContact.getNom() + " " + qtContact.getPrenom());
     findChildren<QLabel *>()[2]->setText("Entreprise : " + qtContact.getEntreprise());
     findChildren<QLabel *>()[3]->setText("Mail : " + qtContact.getMail());
@@ -161,11 +174,13 @@ void GroupeBoxContact::createUi()
 {
     QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(*contact));
 
-
-    QPixmap im(qtContact.getPhoto());
-    auto *labIm = new QLabel(this);
-    labIm->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
-    layout->addWidget(labIm, 1, 0, 2, 1);
+    if(QFile(qtContact.getPhoto()).exists())
+    {
+        QPixmap im(qtContact.getPhoto());
+        auto *labIm = new QLabel(this);
+        labIm->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
+        layout->addWidget(labIm, 1, 0, 2, 1);
+    }
     layout->addWidget(new QLabel("Nom Prénom : " + qtContact.getNom() + " " + qtContact.getPrenom(), this), 1, 1, 1, 1);
     layout->addWidget(new QLabel("Entreprise : " + qtContact.getEntreprise(), this), 1, 2, 1, 1);
     layout->addWidget(new QLabel("Mail : " + qtContact.getMail(), this), 2, 1, 1, 1);
@@ -174,18 +189,15 @@ void GroupeBoxContact::createUi()
 }
 
 /**
- * @details Fonction qui cacheInteractions le widget des Interactions.
- * @return Retourne vrais si le widget est caché, non si elle est visible.
+ * @details Fonction qui cacheInteractions le Widget des Interactions.
+ * @return Retourne vrais si le Widget est caché, non si elle est visible.
  */
 void GroupeBoxContact::cacheOuAfficheInteractions()
 {
     if (listInteractionWidget->isVisible())
         cacheInteractions();
     else
-    {
         afficheInteractions();
-    }
-
 }
 
 /**
@@ -217,6 +229,5 @@ void GroupeBoxContact::afficheInteractions()
     listInteractionWidget->setVisible(true);
     qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction(
             QString::number(getContact()->getLstInteraction()->size()));
-
 }
 

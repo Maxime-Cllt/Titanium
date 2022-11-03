@@ -49,7 +49,7 @@ ListInteractionWidget::ListInteractionWidget(ListInteraction *lstInteraction, QW
 }
 
 /**
- * @details Ajoute une interaction dans la base de données
+ * @brief Crée une nouvelle interaction et l’ajoute à la liste des interactions ainsi qu’à la base de données.
  */
 void ListInteractionWidget::addInteraction()
 {
@@ -68,14 +68,12 @@ ListInteraction *ListInteractionWidget::getLstInteraction() const
 }
 
 /**
- * @details Réactualise le widget qui contient les groupebox des interaction a chaque fois qu'une nouvelle interaction est ajouté.
+ * @details Recré le Widget en recreant tous les GroupBoxInteraction .
  */
-void ListInteractionWidget::reactualiseUi()
+void ListInteractionWidget::resetUi()
 {
     for (auto *widget: scrollArea->findChildren<GroupBoxInteraction *>())
-    {
-        widget->close();
-    }
+        delete widget;
     createUi();
 }
 
@@ -104,7 +102,7 @@ void ListInteractionWidget::createUi()
         });
 
         // quand le boutton modifié d'une interaction est clické.
-        connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::reactualiseUi);
+        connect(box, &GroupBoxInteraction::modifBtnClicked, this, &ListInteractionWidget::resetUi);
 
         layoutScroll->addWidget(box);
     }
@@ -112,7 +110,7 @@ void ListInteractionWidget::createUi()
 
 
 /**
- * @brief Fonction qui cahce le widget.
+ * @brief Fonction qui cache le Widget.
  */
 void ListInteractionWidget::cache()
 {
@@ -120,6 +118,10 @@ void ListInteractionWidget::cache()
     emit updateNbInteraction(QString::number(lstInteraction->size()));
 }
 
+/**
+ * @brief Ajoute une interaction.
+ * @param interaction
+ */
 void ListInteractionWidget::addInteraction1(Interaction *interaction)
 {
     lstInteraction->addInteraction(interaction);

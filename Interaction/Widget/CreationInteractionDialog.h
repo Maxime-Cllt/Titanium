@@ -5,8 +5,8 @@
 #ifndef PROJET_QT_CREATIONINTERACTIONDIALOG_H
 #define PROJET_QT_CREATIONINTERACTIONDIALOG_H
 
+#include "InteractionTextEdit.h"
 #include <QDialog>
-#include <QTextEdit>
 #include <QPushButton>
 #include "../../Contact/StdContact.h"
 
@@ -16,12 +16,11 @@ class CreationInteractionDialog : public QDialog
 Q_OBJECT
 
 public:
-    explicit CreationInteractionDialog(StdContact *contact, QWidget *parent = nullptr);
+    explicit CreationInteractionDialog( QWidget *parent = nullptr);
 
 private:
-    QTextEdit *text{};
+    InteractionTextEdit *text{};
     QPushButton *ajouter{};
-    StdContact *contact{};
 
 signals:
 

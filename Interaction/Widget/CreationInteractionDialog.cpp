@@ -12,11 +12,10 @@
  * @param contact
  * @param parent
  */
-CreationInteractionDialog::CreationInteractionDialog(StdContact *contact, QWidget *parent) : QDialog(parent),
-                                                                                             contact(contact)
+CreationInteractionDialog::CreationInteractionDialog(QWidget *parent) : QDialog(parent)
 {
     auto *layout = new QVBoxLayout(this);
-    text = new QTextEdit(this);
+    text = new InteractionTextEdit(nullptr, this);
     ajouter = new QPushButton("Ajouter", this);
 
     layout->addWidget(text);
@@ -26,10 +25,10 @@ CreationInteractionDialog::CreationInteractionDialog(StdContact *contact, QWidge
     {
         if (text->document()->toRawText().isEmpty())
         {
-            QMessageBox::warning(this, "Attention", "Le champs de texte est vide.");
+            QMessageBox::warning(this, "Attention", "Les champs de texte est vide.");
         } else
         {
-            emit addInteractionClicked(new Interaction(text->document()->toRawText().toStdString()));
+            emit addInteractionClicked(text->parseTache());
             QMessageBox::information(this, "Succès", "Interaction ajouté avec succès.");
             close();
         }

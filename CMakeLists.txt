@@ -28,7 +28,7 @@ add_executable(Projet-QT main.cpp Contact/QtContact.cpp Contact/QtContact.h Main
         Tache/Tache.cpp Tache/Tache.h Tache/ListTache.cpp Tache/ListTache.h Json/JsonConverter.cpp Json/JsonConverter.h
         Menu/ExportImportContacts/ExportImportMenu.cpp Menu/ExportImportContacts/ExportImportMenu.h Utility/Utility.cpp
         Utility/Utility.h ToolBar/TollBar.cpp ToolBar/TollBar.h ToolBar/RechercheContact/RechercheContactDialog.cpp
-        ToolBar/RechercheContact/RechercheContactDialog.h)
+        ToolBar/RechercheContact/RechercheContactDialog.h Interaction/Widget/InteractionTextEdit.cpp Interaction/Widget/InteractionTextEdit.h Tache/Widget/RechercheTaches.cpp Tache/Widget/RechercheTaches.h)
 
 target_link_libraries(Projet-QT
         Qt::Core

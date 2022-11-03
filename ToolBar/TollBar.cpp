@@ -76,7 +76,7 @@ void TollBar::chercherContact()
 }
 
 /**
- * @brief Remet a zero le widget des contacts dans la mainWindow.
+ * @brief Remet a zero le Widget des contacts dans la mainWindow.
  */
 void TollBar::resetActionTriggered()
 {

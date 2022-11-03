@@ -7,7 +7,7 @@
 
 #include <QGroupBox>
 #include "../Interaction.h"
-#include <QTextEdit>
+#include "InteractionTextEdit.h"
 #include <QPushButton>
 #include <QLabel>
 
@@ -23,9 +23,7 @@ private:
     QLabel *labDateModif{};
     QPushButton *modifBtn{};
     QPushButton *supBtn{};
-    QTextEdit *textEdit{};
-
-    QWidget *getListInteractionParent();
+    InteractionTextEdit *textEdit{};
 
     void parseTache(const QString &str);
 
