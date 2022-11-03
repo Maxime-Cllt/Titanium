@@ -107,14 +107,14 @@ StdListContact::~StdListContact()
  * @details Constructeur par copie.
  * @param lst
  */
-StdListContact::StdListContact(const StdListContact &lst)
+StdListContact::StdListContact(const StdListContact &listContact)
 {
     lstContact = new std::list<StdContact *>();
-    for (auto contact: *lst.lstContact)
+    for (auto contact: *listContact.lstContact)
     {
         addContact(*contact);
     }
-    lstLog = lst.getLstLog();
+    lstLog = listContact.getLstLog();
 }
 
 /**
@@ -222,6 +222,11 @@ void StdListContact::append(const StdListContact &lst)
     lstContact->splice(lstContact->end(), *lst.getLstContact());
 }
 
+/**
+ * @brief Permet de savoir si un contact est dans la liste.
+ * @param contact
+ * @return True si le contact est dans la liste false sinon.
+ */
 bool StdListContact::contains(const StdContact &contact)
 {
     for (const auto c: *lstContact)

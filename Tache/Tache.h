@@ -18,7 +18,7 @@ class Tache
 public:
     explicit Tache();
 
-    explicit Tache(std::string);
+    explicit Tache(std::string contenu);
 
     ~Tache();
 

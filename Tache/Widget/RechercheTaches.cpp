@@ -11,7 +11,8 @@
  * @param lst
  * @param parent
  */
-RechercheTaches::RechercheTaches(ListInteraction *lst, QWidget *parent) : QDialog(parent), lstInteraction(lst)
+RechercheTaches::RechercheTaches(ListInteraction *listInteraction, QWidget *parent) : QDialog(parent),
+                                                                                      lstInteraction(listInteraction)
 {
 
     setWindowTitle("Recherche de Todo");

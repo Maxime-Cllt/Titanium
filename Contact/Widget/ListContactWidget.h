@@ -30,9 +30,9 @@ public:
 
     void afficheAllGroupeBox();
 
-    void addContactBox(StdContact *contact);
+    void addContactBox(StdContact *);
 
-    void setLastConctactselected(GroupeBoxContact *lastConctactselected);
+    void setLastConctactselected(GroupeBoxContact *);
 
     void recreateGroupeBoxContact();
 
@@ -46,8 +46,6 @@ private:
     StdListContact *lstContact{};
 
     GroupeBoxContact *lastConctactselected{};
-public:
-    GroupeBoxContact *getLastConctactselected() const;
 
 
 };

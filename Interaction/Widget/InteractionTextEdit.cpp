@@ -16,12 +16,12 @@ InteractionTextEdit::InteractionTextEdit(Interaction *interaction, QWidget *pare
     if (this->interaction)
     {
         // on récupère le contenu de l’interaction et on remplace les retours à la ligne par des <br> car nous travaillons en html.
-        QString contenu= QString::fromStdString(interaction->getContenu());
+        QString contenu = QString::fromStdString(interaction->getContenu());
         contenu.replace("\n", "<br>");
 
-        QString str("<br><font color=red>");
+        QString str("<font color=red>");
         for (auto tache: *interaction->getLstTache()->getLstTache())
-            str += QString::fromStdString(tache->getcontenu()) ;
+            str += QString::fromStdString(tache->getcontenu()) + "<br>";
         str += "</font";
         insertHtml(contenu + str);
     }
@@ -62,7 +62,7 @@ Interaction *InteractionTextEdit::parseTache()
                                lstWord[o + 1].split("/")[0].toInt());
                     QDateTime dateTime;
                     dateTime.setDate(date);
-                    u_int64_t d = dateTime.toMSecsSinceEpoch() *1000;
+                    u_int64_t d = dateTime.toMSecsSinceEpoch() * 1000;
                     tache.setdate(d);
                     break;
                 }
@@ -76,9 +76,10 @@ Interaction *InteractionTextEdit::parseTache()
     for (auto tache: *lstTache->getLstTache())
         str.remove(QString::fromStdString(tache->getcontenu()));
     QString contenu;
-    for(const auto &line : str.split("\n")){
-        if(!line.isEmpty())
-            contenu+=line+"\n";
+    for (const auto &line: str.split("\n"))
+    {
+        if (!line.isEmpty())
+            contenu += line + "\n";
     }
     interaction->setContenu(contenu.toStdString());
 

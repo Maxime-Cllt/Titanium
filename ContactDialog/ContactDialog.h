@@ -6,8 +6,7 @@
 #define PROJET_QT_CONTACTDIALOG_H
 
 #include <QDialog>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QGridLayout>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QLabel>
@@ -22,9 +21,7 @@ public:
     explicit ContactDialog(QWidget *parent = nullptr);
 
 protected:
-    QVBoxLayout *layout{};
-    QHBoxLayout *layoutTop{};
-    QHBoxLayout *layoutCenter{};
+    QGridLayout *layout{};
     QLabel *labIm{};
     QLabel *labDateCreation{};
     QLineEdit *line1{};

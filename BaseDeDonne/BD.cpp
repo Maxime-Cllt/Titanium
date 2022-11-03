@@ -232,6 +232,9 @@ void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
     query.addBindValue(QString::number(interaction.getDateModif()));
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.exec();
+
+    addTache(*interaction.getLstTache());
+
 }
 
 /**
@@ -376,7 +379,6 @@ void BD::addTache(uint64_t idInteraction, const Tache &tache)
     query.addBindValue(QString::number(tache.getdate()));
     query.addBindValue(QString::fromStdString(tache.getcontenu()));
     query.exec();
-
 }
 
 /**

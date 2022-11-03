@@ -19,7 +19,7 @@ class Interaction
 public:
     explicit Interaction(std::string);
 
-    Interaction(const Interaction &);
+    Interaction(const Interaction &interaction);
 
     explicit Interaction();
 

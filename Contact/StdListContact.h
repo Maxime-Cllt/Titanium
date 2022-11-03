@@ -18,7 +18,7 @@ class StdListContact
 public:
     explicit StdListContact();
 
-    StdListContact(const StdListContact &);
+    StdListContact(const StdListContact &listContact);
 
     ~StdListContact();
 

@@ -11,15 +11,16 @@
 #include "../../Interaction/Widget/ListInteractionWidget.h"
 #include <QMouseEvent>
 #include <QMenu>
+#include <QLabel>
 
 
 class GroupeBoxContact : public QGroupBox
 {
 Q_OBJECT
 protected:
-    void mousePressEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *) override;
 
-    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *) override;
 
 public:
     explicit GroupeBoxContact(StdContact *contact, QWidget *parent = nullptr);
@@ -31,6 +32,8 @@ public:
     void cacheInteractions();
 
     void afficheInteractions();
+
+    void resetStyleSheet();
 
     ListInteractionWidget *getListInteractionWidget();
 
@@ -49,9 +52,21 @@ private:
 
     ListInteractionWidget *listInteractionWidget{};
 
+    QLabel *labImage{};
+    QLabel *labNomPrenom{};
+    QLabel *labEntreprise{};
+    QLabel *labMail{};
+    QLabel *labTel{};
+
 signals:
 
-    void supBtnClicled(StdContact *contact);
+    void supBtnClicled(StdContact *);
+
+private slots:
+
+    void menu1Triggered();
+
+    void menu3Triggered();
 
 
 };

@@ -136,6 +136,7 @@ void ListInteractionWidget::addInteraction1(Interaction *interaction)
         emit updateNbInteraction(QString::number(lstInteraction->size()));
     });
     BD::addInteraction(lstInteraction->getidContact(), *interaction);
+    std::cout << *interaction << std::endl;
     emit updateNbInteraction(QString::number(lstInteraction->size()));
 }
 

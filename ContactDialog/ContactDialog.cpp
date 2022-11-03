@@ -25,58 +25,48 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 
     setMinimumSize(QSize(500, 400));
 
-    layout = new QVBoxLayout(this);
-    layoutTop = new QHBoxLayout;
-    layoutCenter = new QHBoxLayout;
-    layout->addLayout(layoutTop);
-    layout->addLayout(layoutCenter);
+    layout = new QGridLayout(this);
 
-
-    auto *layGauche = new QVBoxLayout;
-    auto *layDroit = new QVBoxLayout;
-
-    layoutCenter->addLayout(layGauche);
-    layoutCenter->addLayout(layDroit);
 
     labIm = new QLabel(this);
-    layoutTop->addWidget(labIm);
+    layout->addWidget(labIm, 0, 0, 1, 2);
 
     labDateCreation = new QLabel(this);
     labDateCreation->setAlignment(Qt::AlignTop | Qt::AlignRight);
-    layoutTop->addWidget(labDateCreation);
+    layout->addWidget(labDateCreation, 0, 2, 1, 3);
 
-    layGauche->addWidget(new QLabel("Nom : ", this));
+    layout->addWidget(new QLabel("Nom : ", this), 1, 0, 1, 1);
 
     line1 = new QLineEdit(this);
-    layDroit->addWidget(line1);
+    layout->addWidget(line1, 1, 1, 1, 4);
 
 
-    layGauche->addWidget(new QLabel("Prenom : ", this));
+    layout->addWidget(new QLabel("Prenom : ", this), 2, 0, 1, 1);
 
     line2 = new QLineEdit(this);
-    layDroit->addWidget(line2);
+    layout->addWidget(line2, 2, 1, 1, 4);
 
 
-    layGauche->addWidget(new QLabel("Entreprise : ", this));
+    layout->addWidget(new QLabel("Entreprise : ", this), 3, 0, 1, 1);
 
     line3 = new QLineEdit(this);
-    layDroit->addWidget(line3);
+    layout->addWidget(line3, 3, 1, 1, 4);
 
 
-    layGauche->addWidget(new QLabel("mail : ", this));
+    layout->addWidget(new QLabel("mail : ", this), 4, 0, 1, 1);
 
     line4 = new QLineEdit(this);
-    layDroit->addWidget(line4);
+    layout->addWidget(line4, 4, 1, 1, 4);
 
 
-    layGauche->addWidget(new QLabel("Téléphone : ", this));
+    layout->addWidget(new QLabel("Téléphone : ", this), 5, 0, 1, 1);
 
     line5 = new QLineEdit(this);
     line5->setObjectName("tel");
-    layDroit->addWidget(line5);
+    layout->addWidget(line5, 5, 1, 1, 4);
 
 
-    layGauche->addWidget(new QLabel("Photo : ", this));
+    layout->addWidget(new QLabel("Photo : ", this), 6, 0, 1, 1);
 
     line6 = new QLineEdit(this);
     line6->setReadOnly(true);
@@ -85,24 +75,27 @@ ContactDialog::ContactDialog(QWidget *parent) : QDialog(parent)
 
     connect(bt6, &QPushButton::clicked, this, &ContactDialog::bt6Clicked);
 
-    layDroit->addLayout(getLay({line6, bt6}));
+    layout->addWidget(line6, 6, 1, 1, 3);
+    layout->addWidget(bt6, 6, 4, 1, 1);
 
     btAction = new QPushButton(this);
     btAction->setDefault(true);
 
     connect(btAction, &QPushButton::clicked, this, &ContactDialog::btActionClicked);
 
-    layout->addWidget(btAction);
+    layout->addWidget(btAction, 7, 0, 1, 5);
 
     for (auto *line: findChildren<QLineEdit *>())
-    {
         line->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    }
+    for (auto *line: findChildren<QLabel *>())
+        line->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    layout->setColumnStretch(1, 1);
 
 }
 
 /**
- * @details Clic sur bouton pour ouvrir QFileDialog
+ * @details Clic sur bouton pour ajouter une image au contact.
  */
 void ContactDialog::bt6Clicked()
 {
@@ -122,6 +115,10 @@ void ContactDialog::bt6Clicked()
     delete fileDiag;
 }
 
+/**
+ * @details Click pour le button ajouter.
+ * Fonction qui sera override par d’autres classes qui hériteront de celle-ci.
+ */
 void ContactDialog::btActionClicked()
 {
 }
@@ -136,19 +133,4 @@ QtContact ContactDialog::getContact()
     uint64_t time = std::chrono::duration_cast<std::chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
     return QtContact(line1->text(), line2->text(), line3->text(), line4->text(), line5->text(), line6->text(), time);
-}
-
-/**
- *
- * @param list
- * @return QHBoxLayout
- */
-QHBoxLayout *getLay(const QList<QWidget *> &list)
-{
-    auto *lay = new QHBoxLayout;
-    for (auto *wid: list)
-    {
-        lay->addWidget(wid);
-    }
-    return lay;
 }

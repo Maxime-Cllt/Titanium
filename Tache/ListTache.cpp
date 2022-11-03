@@ -17,10 +17,9 @@ ListTache::ListTache()
 /**
  * @details Constructeur avec l'id de l'interaction en paramètre.
  */
-ListTache::ListTache(uint64_t idInteraction)
+ListTache::ListTache(uint64_t idInteraction) : idInteraction(idInteraction)
 {
     lstTache = new std::list<Tache *>();
-    ListTache::idInteraction = idInteraction;
 }
 
 /**
@@ -112,10 +111,10 @@ int ListTache::size()
  * @details Constructeur par copie .
  * @param lst
  */
-ListTache::ListTache(const ListTache &lst)
+ListTache::ListTache(const ListTache &listTache)
 {
     lstTache = new std::list<Tache *>();
-    for (auto tache: *lst.lstTache)
+    for (auto tache: *listTache.lstTache)
     {
         addTache(*tache);
     }

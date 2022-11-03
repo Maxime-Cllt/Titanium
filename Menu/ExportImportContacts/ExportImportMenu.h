@@ -12,7 +12,7 @@
 class ExportImportMenu : public QMenu
 {
 public:
-    explicit ExportImportMenu(QWidget *);
+    explicit ExportImportMenu(QWidget *parent);
 
 private:
     QAction *exportAction{};

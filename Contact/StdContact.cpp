@@ -276,6 +276,27 @@ bool StdContact::operator>=(const StdContact &rhs) const
 }
 
 /**
+ * @details surcharge operateur ==.
+ * @param rhs
+ * @return
+ */
+bool StdContact::operator==(const StdContact &rhs) const
+{
+    return dateCreation == rhs.dateCreation;
+}
+
+/**
+ * @details surcharge operateur !=.
+ * @param rhs
+ * @return
+ */
+bool StdContact::operator!=(const StdContact &rhs) const
+{
+    return !(rhs == *this);
+}
+
+
+/**
  * @details Constructeur par copie.
  * @param contact
  */
@@ -289,14 +310,4 @@ StdContact::StdContact(const StdContact &contact)
     setPhoto(contact.getPhoto());
     setDateCreation(contact.getDateCreation());
     setlstInteraction(*contact.getLstInteraction());
-}
-
-bool StdContact::operator==(const StdContact &rhs) const
-{
-    return dateCreation == rhs.dateCreation;
-}
-
-bool StdContact::operator!=(const StdContact &rhs) const
-{
-    return !(rhs == *this);
 }

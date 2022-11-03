@@ -15,9 +15,9 @@
 class ListInteraction
 {
 public:
-    explicit ListInteraction(uint64_t);
+    explicit ListInteraction(uint64_t idContact);
 
-    ListInteraction(const ListInteraction &);
+    ListInteraction(const ListInteraction &listInteraction);
 
     explicit ListInteraction();
 

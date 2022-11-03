@@ -20,10 +20,10 @@ class RechercheTaches : public QDialog
 Q_OBJECT
 
 public:
-    explicit RechercheTaches(ListInteraction *, QWidget * = nullptr);
+    explicit RechercheTaches(ListInteraction *listInteraction, QWidget *parent = nullptr);
 
 private:
-    ListInteraction * lstInteraction{};
+    ListInteraction *lstInteraction{};
     QGridLayout *layout{};
     QDateTimeEdit *debut{};
     QDateTimeEdit *fin{};

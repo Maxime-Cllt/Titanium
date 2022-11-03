@@ -74,9 +74,8 @@ void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactse
     {
         // si le pointeur n'est pas null on cache le Widget.
         if (this->lastConctactselected)
-        {
             this->lastConctactselected->cacheInteractions();
-        }
+
         // envoie au MainWindow qui se charge de l'ajouter a son propre layout.
         qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setListInteractionWidget(
                 lastConctactselected->getListInteractionWidget());
@@ -168,11 +167,10 @@ void ListContactWidget::recreateGroupeBoxContact()
 void ListContactWidget::resetLastConctactselected()
 {
     if (lastConctactselected)
+    {
         this->lastConctactselected->getListInteractionWidget()->hide();
+        this->lastConctactselected->resetStyleSheet();
+        qDebug() << "ici";
+    }
     this->lastConctactselected = nullptr;
-}
-
-GroupeBoxContact *ListContactWidget::getLastConctactselected() const
-{
-    return lastConctactselected;
 }

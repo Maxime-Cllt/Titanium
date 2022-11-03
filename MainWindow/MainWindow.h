@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
 {
 Q_OBJECT
 public:
-    explicit MainWindow(QWidget * = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
 
     [[nodiscard]] StdListContact *getLstContact() const;
 

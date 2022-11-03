@@ -16,7 +16,7 @@ class CreationInteractionDialog : public QDialog
 Q_OBJECT
 
 public:
-    explicit CreationInteractionDialog( QWidget *parent = nullptr);
+    explicit CreationInteractionDialog(QWidget *parent = nullptr);
 
 private:
     InteractionTextEdit *text{};

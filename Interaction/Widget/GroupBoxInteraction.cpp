@@ -38,7 +38,7 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
 
     layout->addWidget(labDateModif);
 
-    textEdit = new InteractionTextEdit(interaction,this);
+    textEdit = new InteractionTextEdit(interaction, this);
     textEdit->setMinimumHeight(200);
 
     layout->addWidget(textEdit);

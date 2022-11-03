@@ -14,7 +14,7 @@ class MenuBar : public QMenuBar
 Q_OBJECT
 
 public:
-    explicit MenuBar(QWidget *);
+    explicit MenuBar(QWidget *parent);
 
 private:
     QMenu *menu1{};

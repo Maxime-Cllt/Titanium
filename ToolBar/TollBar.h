@@ -17,7 +17,7 @@ class TollBar : public QToolBar
 Q_OBJECT
 
 public:
-    explicit TollBar(QWidget *);
+    explicit TollBar(QWidget *parent);
 
 private:
 

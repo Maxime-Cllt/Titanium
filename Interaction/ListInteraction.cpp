@@ -10,7 +10,7 @@
  * @details Constructeur de la classe ListInteraction
  * @param id
  */
-ListInteraction::ListInteraction(uint64_t id) : idContact(id)
+ListInteraction::ListInteraction(uint64_t idContact) : idContact(idContact)
 {
     listInteraction = new std::list<Interaction *>();
 }
@@ -124,14 +124,14 @@ ListInteraction::ListInteraction()
  * @details Constructeur de copie.
  * @param lst
  */
-ListInteraction::ListInteraction(const ListInteraction &lst)
+ListInteraction::ListInteraction(const ListInteraction &listInteraction)
 {
-    listInteraction = new std::list<Interaction *>();
-    for (auto inter: *lst.getListInteraction())
+    ListInteraction::listInteraction = new std::list<Interaction *>();
+    for (auto inter: *listInteraction.getListInteraction())
     {
         addInteraction(*inter);
     }
-    idContact = lst.getidContact();
+    idContact = listInteraction.getidContact();
 }
 
 /**
