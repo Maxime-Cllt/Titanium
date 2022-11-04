@@ -12,12 +12,35 @@
 #include "../Contact/StdListContact.h"
 #include "../BaseDeDonne/BD.h"
 #include "../Contact/Widget/ListContactWidget.h"
+#include "../Historique/ListHistorique.h"
 
 class MainWindow : public QMainWindow
 {
 Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+
+private:
+    QHBoxLayout *layoutGauche{};
+    QHBoxLayout *layoutDroit{};
+
+    ListContactWidget *listContactWidget{};
+    ListInteractionWidget *listInteractionWidget{};
+
+    BD *bd{};
+    StdListContact *lstContactTmp{};
+    StdListContact *lstContact{};
+
+    ListHistorique *historique{};
+public:
+    ListHistorique *getHistorique() const;
+
+private:
+
+    QLabel *nbContactLab{};
+    QLabel *nbInetractionLab{};
+
+public:
 
     [[nodiscard]] StdListContact *getLstContact() const;
 
@@ -40,21 +63,6 @@ public:
     void reactualise();
 
     void removeListInteractionWidget();
-
-private:
-    QHBoxLayout *layoutGauche{};
-    QHBoxLayout *layoutDroit{};
-
-    ListContactWidget *listContactWidget{};
-    ListInteractionWidget *listInteractionWidget{};
-
-    BD *bd{};
-    StdListContact *lstContactTmp{};
-    StdListContact *lstContact{};
-
-
-    QLabel *nbContactLab{};
-    QLabel *nbInetractionLab{};
 
 
 protected:

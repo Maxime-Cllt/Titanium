@@ -89,7 +89,8 @@ void ModifContactDialog::btActionClicked()
         qtContact.setDateCreation(contact->getDateCreation());
         auto *lst = contact->getLstInteraction();
         *contact = Utility::QtFicheContactToStdFicheContact(qtContact);
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->addLog(1, *contact);
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->addLog(
+                ListHistorique::ModificationContact, *contact);
         contact->setlstInteraction(lst);
         int rep = BD::modifyContact(*contact);
         if (rep)

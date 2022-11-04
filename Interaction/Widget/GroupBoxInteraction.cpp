@@ -10,6 +10,8 @@
 #include <QMessageBox>
 #include "ListInteractionWidget.h"
 #include "../../BaseDeDonne/BD.h"
+#include "../../MainWindow/MainWindow.h"
+#include "../../Utility/Utility.h"
 
 /**
  * @details Constructeur de la classe GroupBoxInteraction
@@ -69,13 +71,16 @@ GroupBoxInteraction::GroupBoxInteraction(Interaction *interaction, QWidget *pare
         textEdit->parseTache()->modif();
         QMessageBox::information(this, "Succès", "La modification à bien été prise en compte.");
         BD::modifyInteraction(*this->interaction);
-
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->addLog(
+                ListHistorique::ModificationInteraction, *interaction);
         emit modifBtnClicked();
 
     });
 
     connect(supBtn, &QPushButton::clicked, this, [=, this]()
     {
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->addLog(
+                ListHistorique::SuppressionInteraction, *interaction);
         emit supBtnClicked(this->interaction);
         close();
     });

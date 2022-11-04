@@ -31,6 +31,8 @@ private:
     QDateTimeEdit *fin{};
     QTextEdit *textEdit{};
     int sort = 0;
+    bool afficheTachePasse = true;
+
 protected:
     void mousePressEvent(QMouseEvent *event);
 

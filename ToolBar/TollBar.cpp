@@ -6,6 +6,8 @@
 #include "../ContactDialog/CreationContactDialog.h"
 #include "RechercheContact/RechercheContactDialog.h"
 #include "../Utility/Utility.h"
+#include <QTextEdit>
+#include <QLayout>
 
 
 /**
@@ -48,6 +50,10 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 
     historique = new QAction("Historique", this);
     historique->setIcon(QIcon("../src/historique.png"));
+
+    connect(historique, &QAction::triggered, this, &TollBar::afficheHistorique);
+
+    addAction(historique);
 
 
 }
@@ -131,4 +137,49 @@ void TollBar::createTriBtn()
         qobject_cast<MainWindow *>(
                 Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
     });
+}
+
+/**
+ * @details Click sur l'action historique, qui affiche une fenêtre qui contient tous les historiques.
+ */
+void TollBar::afficheHistorique()
+{
+    QDialog dialog;
+    dialog.setWindowTitle("Historique");
+
+    QGridLayout layout(&dialog);
+
+    QTextEdit textEdit(&dialog);
+    textEdit.setReadOnly(true);
+
+    QString contenu;
+
+    int i = 1;
+    for (const auto &str: *qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique())
+    {
+        contenu += QString::number(i) + " : ";
+        if (i % 2)
+            contenu += "<font color=red>";
+        else
+            contenu += "<font color=blue>";
+        contenu += QString::fromStdString(str).replace("\n", " | ") + "</font><br>";
+        i++;
+    }
+
+    textEdit.insertHtml(contenu);
+
+    QPushButton effaceHistorique("Effacer l’historique", &dialog);
+
+    connect(&effaceHistorique, &QPushButton::clicked, this, [&, this]()
+    {
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->clear();
+        textEdit.clear();
+    });
+
+    layout.addWidget(&textEdit);
+
+    layout.addWidget(&effaceHistorique);
+
+    dialog.exec();
+
 }

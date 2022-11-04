@@ -21,7 +21,6 @@ StdListContact::StdListContact()
  */
 void StdListContact::addContact(const StdContact &contact)
 {
-    addLog(0, contact);
     lstContact->push_back(new StdContact(contact));
 }
 
@@ -32,7 +31,6 @@ void StdListContact::addContact(const StdContact &contact)
  */
 void StdListContact::addContact(StdContact *contact)
 {
-    addLog(0, *contact);
     lstContact->push_back(contact);
 }
 
@@ -61,12 +59,6 @@ std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
         os << "\tContact n°" << i << " { " << *contact << " }" << std::endl;
         i++;
     }
-    i = 1;
-    for (const auto &log: lst.getLstLog())
-    {
-        os << "\tlog n°" << i << " { " << log << " }" << std::endl;
-        i++;
-    }
     os << "}" << std::endl;
     return os;
 }
@@ -77,7 +69,6 @@ std::ostream &operator<<(std::ostream &os, const StdListContact &lst)
  */
 void StdListContact::supContact(StdContact *contact)
 {
-    addLog(2, *contact);
     lstContact->remove(contact);
     delete contact;
 }
@@ -114,7 +105,6 @@ StdListContact::StdListContact(const StdListContact &listContact)
     {
         addContact(*contact);
     }
-    lstLog = listContact.getLstLog();
 }
 
 /**
@@ -140,65 +130,6 @@ void StdListContact::sortNom()
                      });
 }
 
-/**
- * @details Getter de la liste des logs.
- * @return lstlog
- */
-const std::list<std::string> &StdListContact::getLstLog() const
-{
-    return lstLog;
-}
-
-/**
- * @details Setter de la liste des logs.
- * @param lstLog
- */
-void StdListContact::setLstLog(const std::list<std::string> &lstLog)
-{
-    StdListContact::lstLog = lstLog;
-}
-
-
-/**
- * @details Renvoie sous chaine de caractère la date de maintenant.
- */
-std::string StdListContact::getDateNow()
-{
-    char str[100];
-
-    auto t = time(nullptr);
-    auto *tm = localtime(&t);
-
-    strftime(str, 50, "%d/%m/%Y %H:%OM", tm);
-
-    return {str};
-}
-
-/**
- * @details Ajoute un log dans la liste des logs en fonction du type de log,
- * 0 correspond à un ajout,
- * 1 à une modification,
- * 2 à une suppression.
- * @param type
- */
-void StdListContact::addLog(int type, const StdContact &contact)
-{
-    if (type == 0)
-    {
-        lstLog.push_back(getDateNow() + " > Contact " + contact.getNom() + " " + contact.getPrenom() + " ajouté");
-        return;
-    }
-    if (type == 1)
-    {
-        lstLog.push_back(getDateNow() + " > Contact " + contact.getNom() + " " + contact.getPrenom() + " modifié");
-        return;
-    }
-    if (type == 2)
-    {
-        lstLog.push_back(getDateNow() + " > Contact " + contact.getNom() + " " + contact.getPrenom() + " supprimé");
-        return;
-    }
-}
 
 /**
  * @details Retourne la taille de la liste des contacts.

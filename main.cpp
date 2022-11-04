@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
 
     c2->setNom("titi");
 //    // on peut ajouter des logs manuellement, ici on a modifié le nom de c2 donc on ajoute un log de type 1 qui correspond a une modification;
-    listContact->addLog(1, *c2);
 
     // suppresion d'un contact
     listContact->supContact(c2);

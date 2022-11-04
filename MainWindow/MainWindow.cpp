@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setMinimumHeight(500);
     bd = new BD;
+    historique = new ListHistorique;
+    historique->loadData("log.txt");
 
     lstContact = BD::getContactData();
     lstContact->reverseDateCreation();
@@ -65,6 +67,15 @@ StdListContact *MainWindow::getLstContact() const
 }
 
 /**
+ * @brief Getter de la liste des historiques.
+ * @return
+ */
+ListHistorique *MainWindow::getHistorique() const
+{
+    return historique;
+}
+
+/**
  * @brief Setter de lstContactTmp qui est la liste de contact de base.
  * @return lstContactTmp
  */
@@ -74,7 +85,7 @@ StdListContact *MainWindow::getLstContactTmp() const
 }
 
 /**
- *
+ * @brief Surcharge de l’événement de fermeture.
  * @param event
  */
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -87,7 +98,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
         lstContactTmp->getLstContact()->clear();
         delete lstContactTmp;
     }
-
+    historique->saveData("log.txt");
+    delete historique;
 }
 
 /**
@@ -102,6 +114,7 @@ void MainWindow::addContact(const StdContact &contact)
         lstContactTmp->addContact(c);
     listContactWidget->addContactBox(c);
     BD::addContactOnBD(contact);
+    historique->addLog(ListHistorique::AjoutContact, *c);
     updateNbContact();
 }
 
@@ -109,6 +122,7 @@ void MainWindow::suppContact(StdContact *contact)
 {
     lstContact->supContact(contact);
     lstContactTmp->removeContact(contact);
+    historique->addLog(ListHistorique::SuppressionContact, *contact);
     updateNbContact();
 }
 

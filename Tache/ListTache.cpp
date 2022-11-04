@@ -155,7 +155,7 @@ std::ostream &operator<<(std::ostream &os, const ListTache &lstTache)
  */
 void ListTache::sortRecent()
 {
-    lstTache->sort([=, this](Tache *t1, Tache *t2)
+    lstTache->sort([](Tache *t1, Tache *t2)
                    {
                        return *t1 < *t2;
                    });
@@ -166,7 +166,7 @@ void ListTache::sortRecent()
  */
 void ListTache::sortAncien()
 {
-    lstTache->sort([=, this](Tache *t1, Tache *t2)
+    lstTache->sort([](Tache *t1, Tache *t2)
                    {
                        return *t1 > *t2;
                    });

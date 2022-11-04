@@ -38,6 +38,8 @@ private slots:
 
     void resetActionTriggered();
 
+    void afficheHistorique();
+
 };
 
 

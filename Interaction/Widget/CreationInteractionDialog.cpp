@@ -5,6 +5,8 @@
 #include "CreationInteractionDialog.h"
 #include <QVBoxLayout>
 #include <QMessageBox>
+#include "../../MainWindow/MainWindow.h"
+#include "../../Utility/Utility.h"
 
 
 /**
@@ -28,8 +30,11 @@ CreationInteractionDialog::CreationInteractionDialog(QWidget *parent) : QDialog(
             QMessageBox::warning(this, "Attention", "Les champs de texte est vide.");
         } else
         {
-            emit addInteractionClicked(text->parseTache());
+            auto *interaction = text->parseTache();
+            emit addInteractionClicked(interaction);
             QMessageBox::information(this, "Succès", "Interaction ajouté avec succès.");
+            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->addLog(
+                    ListHistorique::ModificationInteraction, *interaction);
             close();
         }
     });

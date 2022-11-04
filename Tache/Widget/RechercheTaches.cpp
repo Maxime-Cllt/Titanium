@@ -38,7 +38,6 @@ RechercheTaches::RechercheTaches(ListInteraction *listInteraction, QWidget *pare
 
     fin = new QDateTimeEdit(this);
     fin->setDateTime(QDateTime::currentDateTime());
-    fin->setMaximumDateTime(QDateTime::currentDateTime());
 
     layout->addWidget(fin, 2, 1, 1, 1);
 
@@ -68,6 +67,7 @@ void RechercheTaches::remplirTextEdit()
     // on récupère la date des QDateTimeEdit, on multiplie par 1000, car la date d'une tache est en microseconde.
     uint64_t dateDebut = debut->dateTime().toMSecsSinceEpoch() * 1000;
     uint64_t dateFin = fin->dateTime().toMSecsSinceEpoch() * 1000;
+    uint64_t currentTime = QDateTime::currentMSecsSinceEpoch() * 1000;
 
     textEdit->clear();
 
@@ -80,7 +80,17 @@ void RechercheTaches::remplirTextEdit()
         {
             // si la date de la tache est compris entre le debut et la fin des QDateTimeEdit
             if (tache->getdate() > dateDebut and tache->getdate() < dateFin)
-                lst.addTache(*tache);
+            {
+                // si afficheTachePasse est vrai, on ajoute la tache dans la liste
+                if (afficheTachePasse)
+                    lst.addTache(*tache);
+                    // si afficheTachePasse, on ajoute uniquement les taches à partir de la date de maintenant.
+                else
+                {
+                    if (tache->getdate() > currentTime)
+                        lst.addTache(*tache);
+                }
+            }
         }
     }
 
@@ -159,8 +169,22 @@ void RechercheTaches::mousePressEvent(QMouseEvent *event)
 
         menu->addSeparator();
 
+        auto *actionAfficheTachePasse = new QAction("Afficher les taches passées.", this);
+        if (afficheTachePasse)
+            actionAfficheTachePasse->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
+
+
+        connect(actionAfficheTachePasse, &QAction::triggered, this, [=, this]()
+        {
+            afficheTachePasse = !afficheTachePasse;
+            remplirTextEdit();
+        });
+
+
         menu->addAction(recent);
         menu->addAction(ancien);
+        menu->addSeparator();
+        menu->addAction(actionAfficheTachePasse);
 
         menu->exec(event->globalPos());
         delete menu;
