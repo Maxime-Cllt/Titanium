@@ -49,6 +49,10 @@ public:
 
     int size();
 
+    void sortRecent();
+
+    void sortAncien();
+
 };
 
 #endif //PROJET_QT_LISTTACHE_H

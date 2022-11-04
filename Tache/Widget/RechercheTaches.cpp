@@ -4,6 +4,12 @@
 
 #include "RechercheTaches.h"
 #include <QLabel>
+#include <QAction>
+#include <QMenu>
+#include <QDebug>
+#include <QMouseEvent>
+#include <QApplication>
+#include <QStyle>
 
 
 /**
@@ -41,6 +47,8 @@ RechercheTaches::RechercheTaches(ListInteraction *listInteraction, QWidget *pare
     textEdit->setReadOnly(true);
     textEdit->setWordWrapMode(QTextOption::NoWrap);
 
+    textEdit->setContextMenuPolicy(Qt::CustomContextMenu);
+
     layout->addWidget(textEdit, 3, 0, 1, 2);
 
     remplirTextEdit();
@@ -63,10 +71,8 @@ void RechercheTaches::remplirTextEdit()
 
     textEdit->clear();
 
-    int i = 1;
 
-    // variable qui stockera tout le contenu des taches.
-    QString str;
+    ListTache lst;
 
     for (const auto interaction: *lstInteraction->getListInteraction())
     {
@@ -74,22 +80,89 @@ void RechercheTaches::remplirTextEdit()
         {
             // si la date de la tache est compris entre le debut et la fin des QDateTimeEdit
             if (tache->getdate() > dateDebut and tache->getdate() < dateFin)
-            {
-                QDateTime dateTache;
-                dateTache.setMSecsSinceEpoch((qint64) tache->getdate() / 1000);
-
-                str += QString::number(i) + " : ";
-
-                // une fois sur deux la couleur de la tache ajoutée change pour plus de lisibilité.
-                if (i % 2)
-                    str += "<font color=red>";
-                else
-                    str += "<font color=blue>";
-                str += QString::fromStdString(tache->getcontenu()) + " -> [" +
-                       dateTache.toString("dd/MM/yyyy hh:mm:ss") + " ]</font><br>";
-                i++;
-            }
+                lst.addTache(*tache);
         }
     }
+
+    int i = 1;
+
+    // variable qui stockera tout le contenu des taches.
+    QString str;
+
+    QDateTime dateTache;
+
+
+    if (sort == Sort::Recent)
+        lst.sortRecent();
+    else
+        lst.sortAncien();
+
+    for (const auto tache: *lst.getLstTache())
+    {
+
+        dateTache.setMSecsSinceEpoch((qint64) tache->getdate() / 1000);
+
+        str += QString::number(i) + " : ";
+
+        // une fois sur deux la couleur de la tache ajoutée change pour plus de lisibilité.
+        if (i % 2)
+            str += "<font color=red>";
+        else
+            str += "<font color=blue>";
+        str += QString::fromStdString(tache->getcontenu()) + " -> [" +
+               dateTache.toString("dd/MM/yyyy hh:mm:ss") + " ]</font><br>";
+        i++;
+    }
+
     textEdit->insertHtml(str);
+}
+
+/**
+ * @brief Definit le mode de tri des taches.
+ * @param sortMode
+ */
+void RechercheTaches::setSortMode(RechercheTaches::Sort sortMode)
+{
+    RechercheTaches::sort = sortMode;
+}
+
+/**
+ * @details Surcharge de l'évènement click de la souris qui déclenche un menu personnalisé.
+ * @param event
+ */
+void RechercheTaches::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::MouseButton::RightButton)
+    {
+        auto *menu = textEdit->createStandardContextMenu();
+
+        auto *recent = new QAction("Tri récent", this);
+        if (sort == Sort::Recent)
+            recent->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
+
+        connect(recent, &QAction::triggered, this, [=, this]()
+        {
+            setSortMode(Sort::Recent);
+            remplirTextEdit();
+        });
+
+
+        auto *ancien = new QAction("Tri ancien", this);
+        if (sort == Sort::Ancien)
+            ancien->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
+
+        connect(ancien, &QAction::triggered, this, [=, this]()
+        {
+            setSortMode(Sort::Ancien);
+            remplirTextEdit();
+        });
+
+        menu->addSeparator();
+
+        menu->addAction(recent);
+        menu->addAction(ancien);
+
+        menu->exec(event->globalPos());
+        delete menu;
+    }
 }

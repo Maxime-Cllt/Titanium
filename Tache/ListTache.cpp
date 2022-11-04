@@ -3,7 +3,7 @@
 //
 
 #include "ListTache.h"
-
+#include <algorithm>
 
 /**
  * @details Constructeur par défaut.
@@ -126,9 +126,7 @@ ListTache::ListTache(const ListTache &listTache)
 ListTache::~ListTache()
 {
     for (auto tache: *lstTache)
-    {
         delete tache;
-    }
     delete lstTache;
 }
 
@@ -151,3 +149,26 @@ std::ostream &operator<<(std::ostream &os, const ListTache &lstTache)
     os << "}" << std::endl;
     return os;
 }
+
+/**
+ * @brief Tri la liste dans l'ordre croissant des dates des taches.
+ */
+void ListTache::sortRecent()
+{
+    lstTache->sort([=, this](Tache *t1, Tache *t2)
+                   {
+                       return *t1 < *t2;
+                   });
+}
+
+/**
+ * @brief Tri la liste dans l'ordre croissant des dates des taches.
+ */
+void ListTache::sortAncien()
+{
+    lstTache->sort([=, this](Tache *t1, Tache *t2)
+                   {
+                       return *t1 > *t2;
+                   });
+}
+

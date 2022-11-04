@@ -77,6 +77,13 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         qobject_cast<ListContactWidget *>(
                 Utility::getWidget(this, (char *) "ListContactWidget"))->resetLastConctactselected();
 
+        setStyleSheet(
+                "QGroupBox#GroupBoxContact{background-color: gray;color : white;border-radius : 10px;}");
+        for (auto lab: findChildren<QLabel *>())
+        {
+            if (lab->parent() == this)
+                lab->setStyleSheet("color : white;");
+        }
 
         auto *menu = new QMenu(this);
 

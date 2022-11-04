@@ -3,8 +3,6 @@
 //
 
 #include <QDate>
-#include <QDebug>
-
 #include "InteractionTextEdit.h"
 
 InteractionTextEdit::InteractionTextEdit(Interaction *interaction, QWidget *parent) : QTextEdit(parent),

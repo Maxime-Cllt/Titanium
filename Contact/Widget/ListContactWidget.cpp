@@ -170,7 +170,7 @@ void ListContactWidget::resetLastConctactselected()
     {
         this->lastConctactselected->getListInteractionWidget()->hide();
         this->lastConctactselected->resetStyleSheet();
-        qDebug() << "ici";
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction("");
     }
     this->lastConctactselected = nullptr;
 }

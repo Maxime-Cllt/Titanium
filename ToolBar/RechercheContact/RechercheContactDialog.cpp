@@ -4,7 +4,6 @@
 
 #include "RechercheContactDialog.h"
 #include <QTimeEdit>
-#include <QDebug>
 #include "../../Utility/Utility.h"
 #include "../../MainWindow/MainWindow.h"
 

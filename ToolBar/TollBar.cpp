@@ -15,10 +15,9 @@
 TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 {
 
-
     setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    ajouter = new QAction(this);
+    ajouter = new QAction("Ajouter un contact", this);
     ajouter->setIcon(QIcon("../src/ajouter.png"));
     ajouter->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
     addAction(ajouter);
@@ -27,7 +26,7 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    chercher = new QAction(this);
+    chercher = new QAction("Chercher un contact", this);
     chercher->setIcon(QIcon("../src/chercher.png"));
     addAction(chercher);
 
@@ -39,11 +38,16 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    resetListContactsWidget = new QAction(this);
+    resetListContactsWidget = new QAction("Afficher tous les contacts", this);
     resetListContactsWidget->setIcon(QIcon("../src/reset.png"));
     addAction(resetListContactsWidget);
 
     connect(resetListContactsWidget, &QAction::triggered, this, &TollBar::resetActionTriggered);
+
+    addSeparator();
+
+    historique = new QAction("Historique", this);
+    historique->setIcon(QIcon("../src/historique.png"));
 
 
 }
@@ -91,19 +95,23 @@ void TollBar::createTriBtn()
 {
 
     tri = new QToolButton(this);
-    tri->setIcon(QIcon("../src/tri.png"));
 
     tri->setPopupMode(QToolButton::MenuButtonPopup);
 
     auto *menu = new QMenu(tri);
 
     auto *triNom = new QAction("Tri nom", menu);
+    triNom->setIcon(QIcon("../src/tri.png"));
+
     auto *triDate = new QAction("Tri date", menu);
+    triDate->setIcon(QIcon("../src/tri.png"));
 
     menu->addAction(triNom);
     menu->addAction(triDate);
 
     tri->setMenu(menu);
+
+    tri->setDefaultAction(triDate);
 
     addWidget(tri);
 

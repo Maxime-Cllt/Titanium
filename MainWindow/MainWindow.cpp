@@ -112,6 +112,10 @@ void MainWindow::suppContact(StdContact *contact)
     updateNbContact();
 }
 
+/**
+ * @details Fonction utilisée lors d'une recherche de contacts, qui cache les contacts qui ne correspondent à la recherche.
+ * @param lst
+ */
 void MainWindow::rechercheListContactWidget(StdListContact *lst)
 {
     lstContact = lst;
@@ -126,7 +130,7 @@ void MainWindow::rechercheListContactWidget(StdListContact *lst)
 }
 
 /**
- * Ajoute un Widget avec la liste d'interaction
+ * @details setter du widget des interactions.
  * @param widget
  */
 void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
@@ -169,6 +173,9 @@ void MainWindow::setNbInteraction(const QString &number)
 }
 
 
+/**
+ * @details Réactualise l'UI, c’est-à-dire enlève le widget des interactions et affiche tous les contacts.
+ */
 void MainWindow::reactualise()
 {
     removeListInteractionWidget();
@@ -179,9 +186,14 @@ void MainWindow::reactualise()
     updateNbContact();
 }
 
+/**
+ * @brief Cache le widget des interactions.
+ */
 void MainWindow::removeListInteractionWidget()
 {
-
     if (listInteractionWidget)
+    {
         listInteractionWidget->hide();
+        setNbInteraction("");
+    }
 }

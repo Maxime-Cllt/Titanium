@@ -22,14 +22,24 @@ Q_OBJECT
 public:
     explicit RechercheTaches(ListInteraction *listInteraction, QWidget *parent = nullptr);
 
+    enum Sort { Recent, Ancien };
+
 private:
     ListInteraction *lstInteraction{};
     QGridLayout *layout{};
     QDateTimeEdit *debut{};
     QDateTimeEdit *fin{};
     QTextEdit *textEdit{};
+    int sort = 0;
+protected:
+    void mousePressEvent(QMouseEvent *event);
+
+private:
 
     void remplirTextEdit();
+
+public:
+    void setSortMode(Sort);
 
 };
 

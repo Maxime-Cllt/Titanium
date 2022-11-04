@@ -25,6 +25,7 @@ private:
     QAction *chercher{};
     QToolButton *tri{};
     QAction *resetListContactsWidget{};
+    QAction *historique{};
 
     void createTriBtn();
 
