@@ -20,6 +20,8 @@ public:
 
     static void addFullContactAttributesOnBD(const StdListContact &);
 
+    static void addFullContactAttributesOnBD(const StdContact &);
+
     static StdListContact *getContactData();
 
 

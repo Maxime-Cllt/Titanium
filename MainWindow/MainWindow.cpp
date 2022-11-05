@@ -113,7 +113,7 @@ void MainWindow::addContact(const StdContact &contact)
     if (lstContact != lstContactTmp)
         lstContactTmp->addContact(c);
     listContactWidget->addContactBox(c);
-    BD::addContactOnBD(contact);
+    BD::addFullContactAttributesOnBD(contact);
     historique->addLog(ListHistorique::AjoutContact, *c);
     updateNbContact();
 }

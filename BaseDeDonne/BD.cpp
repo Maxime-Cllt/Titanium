@@ -345,16 +345,23 @@ void BD::supTache(const Tache &tache)
 void BD::addFullContactAttributesOnBD(const StdListContact &lst)
 {
     for (const auto &contact: *lst.getLstContact())
-    {
-        addContactOnBD(*contact);
-        addInteraction(*contact->getLstInteraction());
-        for (const auto &interaction: *contact->getLstInteraction()->getListInteraction())
-        {
-            addTache(*interaction->getLstTache());
-        }
-    }
-
+        addFullContactAttributesOnBD(*contact);
 }
+
+/**
+ * @details Ajoute Un contact dans la base de données,
+ * pour chaque contact ajoute aussi sa liste d'interactions,
+ * pour chaque interaction ajoute aussi sa liste de taches.
+ * @param lst
+ */
+void BD::addFullContactAttributesOnBD(const StdContact &contact)
+{
+    addContactOnBD(contact);
+    addInteraction(*contact.getLstInteraction());
+    for (const auto &interaction: *contact.getLstInteraction()->getListInteraction())
+        addTache(*interaction->getLstTache());
+}
+
 
 /**
  * @brief Ajoute une liste d'interaction à la base de données.
@@ -389,5 +396,5 @@ void BD::addTache(const ListTache &lst)
 {
     for (const auto &tache: *lst.getLstTache())
         addTache(lst.getIdInteraction(), *tache);
-
 }
+
