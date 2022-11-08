@@ -116,14 +116,6 @@ void ContactDialog::bt6Clicked()
 }
 
 /**
- * @details Click pour le button ajouter.
- * Fonction qui sera override par d’autres classes qui hériteront de celle-ci.
- */
-void ContactDialog::btActionClicked()
-{
-}
-
-/**
  *
  * @param time
  * @return QtContact

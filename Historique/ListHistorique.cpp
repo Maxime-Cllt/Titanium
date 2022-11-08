@@ -21,12 +21,17 @@ ListHistorique::ListHistorique() = default;
 void ListHistorique::addLog(ListHistorique::Contact type, const StdContact &contact)
 {
 
-    if (type == Contact::AjoutContact)
-        push_back(getDateNow() + " > Contact {" + contact.getNom() + " - " + contact.getPrenom() + "} ajouté");
-    if (type == Contact::ModificationContact)
-        push_back(getDateNow() + " > Contact {" + contact.getNom() + " - " + contact.getPrenom() + "} modifié");
-    if (type == Contact::SuppressionContact)
-        push_back(getDateNow() + " > Contact {" + contact.getNom() + " - " + contact.getPrenom() + "} supprimé");
+    switch (type)
+    {
+        case Contact::AjoutContact:
+            push_back(getDateNow() + " > Contact {" + contact.getNom() + " - " + contact.getPrenom() + "} ajouté");
+            break;
+        case Contact::ModificationContact:
+            push_back(getDateNow() + " > Contact {" + contact.getNom() + " - " + contact.getPrenom() + "} modifié");
+            break;
+        case Contact::SuppressionContact:
+            push_back(getDateNow() + " > Contact {" + contact.getNom() + " - " + contact.getPrenom() + "} supprimé");
+    }
 }
 
 /**
@@ -37,12 +42,17 @@ void ListHistorique::addLog(ListHistorique::Contact type, const StdContact &cont
 void ListHistorique::addLog(ListHistorique::Interaction type, const ::Interaction &interaction)
 {
 
-    if (type == Interaction::AjoutInteraction)
-        push_back(getDateNow() + " > interaction {" + interaction.getContenu() + "} ajouté");
-    if (type == Interaction::ModificationInteraction)
-        push_back(getDateNow() + " > interaction {" + interaction.getContenu() + "} modifié");
-    if (type == Interaction::SuppressionInteraction)
-        push_back(getDateNow() + " > interaction {" + interaction.getContenu() + "} supprimé");
+    switch (type)
+    {
+        case Interaction::AjoutInteraction:
+            push_back(getDateNow() + " > interaction {" + interaction.getContenu() + "} ajouté");
+            break;
+        case Interaction::ModificationInteraction:
+            push_back(getDateNow() + " > interaction {" + interaction.getContenu() + "} modifié");
+            break;
+        case Interaction::SuppressionInteraction:
+            push_back(getDateNow() + " > interaction {" + interaction.getContenu() + "} supprimé");
+    }
 }
 
 

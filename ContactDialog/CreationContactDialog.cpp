@@ -86,7 +86,7 @@ void CreationContactDialog::btActionClicked()
         }
         QtContact qtContact(getContact());
 
-        qobject_cast<MainWindow *>(mainWindow)->addContact(Utility::QtFicheContactToStdFicheContact(qtContact));
+        emit btnActionClicked(new StdContact(Utility::QtFicheContactToStdFicheContact(qtContact)));
 
         int rep = QMessageBox::information(this, "Information", "Le contact à été ajouté avec succès.");
         if (rep == QMessageBox::Ok)

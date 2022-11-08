@@ -108,30 +108,6 @@ StdListContact::StdListContact(const StdListContact &listContact)
 }
 
 /**
- * @details Trie la liste des contacts dans l'ordre décroissant en fonction de la date de creation du contact.
- */
-void StdListContact::reverseDateCreation()
-{
-    lstContact->sort([](StdContact *contact1, StdContact *contact2)
-                     {
-                         return *contact1 > *contact2;
-                     });
-}
-
-
-/**
- * @details Trie la liste des contacts dans l'ordre croissant en fonction du nom du contact.
- */
-void StdListContact::sortNom()
-{
-    lstContact->sort([](StdContact *contact1, StdContact *contact2)
-                     {
-                         return contact1->getNom() < contact2->getNom();
-                     });
-}
-
-
-/**
  * @details Retourne la taille de la liste des contacts.
  */
 int StdListContact::size()
@@ -168,4 +144,22 @@ bool StdListContact::contains(const StdContact &contact)
         }
     }
     return false;
+}
+
+/**
+ * @details Fonction qui tri la liste en fonction du tri indiquer en parametre.
+ * @param sort
+ */
+void StdListContact::sort(StdListContact::Sort sort)
+{
+    switch (sort)
+    {
+        case Sort::Date :
+            lstContact->sort([](StdContact *contact1, StdContact *contact2) { return *contact1 > *contact2; });
+            break;
+        case Sort::Nom :
+            lstContact->sort(
+                    [](StdContact *contact1, StdContact *contact2) { return contact1->getNom() < contact2->getNom(); });
+            break;
+    }
 }

@@ -7,6 +7,7 @@
 
 #include <QToolBar>
 #include <QToolButton>
+#include "../Contact/StdContact.h"
 
 /**
  * @details Classe TollBar qui hérite de QToolBar qui servira pour les ajouts de contacts,
@@ -22,10 +23,12 @@ public:
 private:
 
     QAction *ajouter{};
-    QAction *chercher{};
+    QToolButton *chercher{};
     QToolButton *tri{};
     QAction *resetListContactsWidget{};
     QAction *historique{};
+
+    void createFindBtn();
 
     void createTriBtn();
 
@@ -36,9 +39,17 @@ private slots:
 
     void chercherContact();
 
+    void afficheHistorique();
+
+    void chercherTache();
+
+signals:
+
+    void clearHistoriqueClicked();
+
     void resetActionTriggered();
 
-    void afficheHistorique();
+    void addContact(StdContact *);
 
 };
 

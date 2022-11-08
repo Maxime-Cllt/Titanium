@@ -46,7 +46,7 @@ public:
 
     [[nodiscard]] StdListContact *getLstContactTmp() const;
 
-    void addContact(const StdContact &);
+    void addContact(StdContact *);
 
     void suppContact(StdContact *);
 
@@ -58,8 +58,6 @@ public:
 
     void setListInteractionWidget(ListInteractionWidget *);
 
-    void resetListContactWidget();
-
     void reactualise();
 
     void removeListInteractionWidget();
@@ -68,6 +66,10 @@ public:
 protected:
     void closeEvent(QCloseEvent *event) override;
 
+public slots:
+    void clearHistorique();
+
+    void resetListContactWidget();
 
 };
 

@@ -5,7 +5,6 @@
 #include "ModifContactDialog.h"
 #include "../BaseDeDonne/BD.h"
 #include "../MainWindow/MainWindow.h"
-#include "../Utility/Utility.h"
 
 /**
  * @details Constructeur de la classe ModifContactDialog
@@ -95,7 +94,7 @@ void ModifContactDialog::btActionClicked()
         int rep = BD::modifyContact(*contact);
         if (rep)
         {
-            qobject_cast<GroupeBoxContact *>(parent())->reactualiseDonne();
+            emit dataModified();
             close();
         }
     }

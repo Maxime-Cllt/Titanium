@@ -25,8 +25,6 @@ protected:
 public:
     explicit GroupeBoxContact(StdContact *contact, QWidget *parent = nullptr);
 
-    void reactualiseDonne();
-
     void cacheOuAfficheInteractions();
 
     void cacheInteractions();
@@ -67,6 +65,8 @@ private slots:
     void menu1Triggered();
 
     void menu3Triggered();
+
+    void reactualiseDonne();
 
 
 };

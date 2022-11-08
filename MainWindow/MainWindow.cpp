@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     historique->loadData("log.txt");
 
     lstContact = BD::getContactData();
-    lstContact->reverseDateCreation();
+    lstContact->sort(StdListContact::Date);
     lstContactTmp = lstContact;
 
     setMenuBar(new MenuBar(this));
@@ -50,11 +50,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setStatusBar(status);
 
-    addToolBar(new TollBar(this));
+    auto *tollBar = new TollBar(this);
+    connect(tollBar, &TollBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
+    connect(tollBar, &TollBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
+    connect(tollBar, &TollBar::addContact, this, &MainWindow::addContact);
 
-    lstContact->reverseDateCreation();
+    addToolBar(tollBar);
+
+    lstContact->sort(StdListContact::Date);
     listContactWidget = new ListContactWidget(lstContact, this);
     layoutGauche->addWidget(listContactWidget);
+
+//    for (int i = 0; i < 10; i++)
+//    {
+//        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
+//                                       std::chrono::duration_cast<std::chrono::microseconds>(
+//                                               std::chrono::system_clock::now().time_since_epoch()).count(),
+//                                       ListInteraction());
+//        Interaction it("wesh");
+//        it.addTache(Tache("@todo il fait beau"));
+//        contact->addInteraction(Interaction("wesh"));
+//        contact->addInteraction(it);
+//        addContact(*contact);
+//    }
 }
 
 /**
@@ -106,15 +124,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
  * Ajouter un StdContact dans la liste des contacts et dans le Widget des contacts pour l'afficher.
  * @param contact
  */
-void MainWindow::addContact(const StdContact &contact)
+void MainWindow::addContact(StdContact *contact)
 {
-    auto *c = new StdContact(contact);
-    lstContact->addContact(c);
+    lstContact->addContact(contact);
     if (lstContact != lstContactTmp)
-        lstContactTmp->addContact(c);
-    listContactWidget->addContactBox(c);
-    BD::addFullContactAttributesOnBD(contact);
-    historique->addLog(ListHistorique::AjoutContact, *c);
+        lstContactTmp->addContact(contact);
+    listContactWidget->addContactBox(contact);
+    BD::addFullContactAttributesOnBD(*contact);
+    historique->addLog(ListHistorique::AjoutContact, *contact);
     updateNbContact();
 }
 
@@ -165,8 +182,9 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
  */
 void MainWindow::resetListContactWidget()
 {
+    qDebug() << "ici";
     lstContact = lstContactTmp;
-    lstContact->reverseDateCreation();
+    lstContact->sort(StdListContact::Date);
     reactualise();
 }
 
@@ -210,4 +228,10 @@ void MainWindow::removeListInteractionWidget()
         listInteractionWidget->hide();
         setNbInteraction("");
     }
+}
+
+void MainWindow::clearHistorique()
+{
+    historique->clear();
+
 }

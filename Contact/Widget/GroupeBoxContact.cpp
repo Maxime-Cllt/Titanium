@@ -105,6 +105,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         connect(action2, &QAction::triggered, this, [=, this]()
         {
             ModifContactDialog modif(this->contact, this);
+            connect(&modif, &ModifContactDialog::dataModified, this,&GroupeBoxContact::reactualiseDonne);
             modif.exec();
         });
 

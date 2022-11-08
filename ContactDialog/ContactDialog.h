@@ -37,7 +37,11 @@ public slots:
 
     void bt6Clicked();
 
-    virtual void btActionClicked();
+/**
+ * @details Click pour le button action situé en bas de la fenêtre de dialog.
+ * Fonction qui sera override par d’autres classes qui hériteront de celle-ci.
+ */
+    virtual void btActionClicked() = 0;
 
     QtContact getContact();
 };

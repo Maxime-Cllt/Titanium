@@ -17,6 +17,10 @@ public:
 
 public:
     virtual void btActionClicked();
+
+signals:
+
+    void btnActionClicked(StdContact *);
 };
 
 

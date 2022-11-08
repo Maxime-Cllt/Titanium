@@ -81,7 +81,7 @@ void ExportImportMenu::importActionTriggered()
                    QString::fromStdString(contact->getPrenom()) + " est deja present dans la liste.\n";
             i++;
         } else
-            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->addContact(*contact);
+            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->addContact(contact);
     }
     if (str.isEmpty())
     {
@@ -93,10 +93,10 @@ void ExportImportMenu::importActionTriggered()
         msb.setDetailedText(str);
         msb.exec();
     }
-
+    lst->getLstContact()->clear();
     delete lst;
 
-    lstContact->reverseDateCreation();
+    lstContact->sort(StdListContact::Date);
     qobject_cast<MainWindow *>(
             Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
 }

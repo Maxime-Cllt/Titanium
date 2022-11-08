@@ -16,7 +16,7 @@ ListInteraction::ListInteraction(uint64_t idContact) : idContact(idContact)
 }
 
 /**
- * @details Ajoute l'interaction en paramètre à la liste des interaction.
+ * @details Ajoute l'interaction en paramètre à la liste des interactions.
  * @param interaction
  */
 void ListInteraction::addInteraction(Interaction *interaction)
@@ -135,7 +135,7 @@ ListInteraction::ListInteraction(const ListInteraction &listInteraction)
 }
 
 /**
- * @details Fonction qui applique un trie décroissant sur la liste des interactions.
+ * @details Fonction qui applique un tri décroissant sur la liste des interactions.
  */
 void ListInteraction::reverse()
 {

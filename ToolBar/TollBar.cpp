@@ -5,7 +5,6 @@
 #include "TollBar.h"
 #include "../ContactDialog/CreationContactDialog.h"
 #include "RechercheContact/RechercheContactDialog.h"
-#include "../Utility/Utility.h"
 #include <QTextEdit>
 #include <QLayout>
 
@@ -28,11 +27,7 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    chercher = new QAction("Chercher un contact", this);
-    chercher->setIcon(QIcon("src/chercher.png"));
-    addAction(chercher);
-
-    connect(chercher, &QAction::triggered, this, &TollBar::chercherContact);
+    createFindBtn();
 
     addSeparator();
 
@@ -44,7 +39,10 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
     resetListContactsWidget->setIcon(QIcon("src/reset.png"));
     addAction(resetListContactsWidget);
 
-    connect(resetListContactsWidget, &QAction::triggered, this, &TollBar::resetActionTriggered);
+    //Remet à zero le Widget des contacts dans la mainWindow.
+    connect(resetListContactsWidget, &QAction::triggered, this, [=,this](){
+        emit resetActionTriggered();
+    });
 
     addSeparator();
 
@@ -64,6 +62,9 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 void TollBar::ajouterContact()
 {
     CreationContactDialog dialog(this);
+    connect(&dialog,&CreationContactDialog::btnActionClicked, this, [this](StdContact *contact){
+        emit addContact(contact);
+    });
     dialog.exec();
 }
 
@@ -83,14 +84,6 @@ void TollBar::chercherContact()
     });
     dialog->show();
 
-}
-
-/**
- * @brief Remet a zero le Widget des contacts dans la mainWindow.
- */
-void TollBar::resetActionTriggered()
-{
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->resetListContactWidget();
 }
 
 
@@ -125,7 +118,7 @@ void TollBar::createTriBtn()
     // tri par nom (ordre croissant).
     connect(triNom, &QAction::triggered, this, [this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sortNom();
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::Nom);
         qobject_cast<MainWindow *>(
                 Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
     });
@@ -133,7 +126,7 @@ void TollBar::createTriBtn()
     // tri par date de creation le plus recent crée.
     connect(triDate, &QAction::triggered, this, [this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->reverseDateCreation();
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::Date);
         qobject_cast<MainWindow *>(
                 Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
     });
@@ -172,7 +165,7 @@ void TollBar::afficheHistorique()
 
     connect(&effaceHistorique, &QPushButton::clicked, this, [&, this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->clear();
+        emit clearHistoriqueClicked();
         textEdit.clear();
     });
 
@@ -181,5 +174,38 @@ void TollBar::afficheHistorique()
     layout.addWidget(&effaceHistorique);
 
     dialog.exec();
+
+}
+
+/**
+ * @brief Creation du menu pour la recherche.
+ */
+void TollBar::createFindBtn()
+{
+    chercher = new QToolButton(this);
+    chercher->setIcon(QIcon("src/chercher.png"));
+    addWidget(chercher);
+
+    chercher->setPopupMode(QToolButton::MenuButtonPopup);
+
+    auto *findContact = new QAction(this);
+    findContact->setIcon(QIcon("src/contact.png"));
+    connect(findContact,&QAction::triggered, this,&TollBar::chercherContact);
+
+    chercher->addAction(findContact);
+
+    auto *findTache = new QAction(this);
+    findTache->setIcon(QIcon("src/todo.png"));
+    connect(findTache, &QAction::triggered, this,&TollBar::chercherTache);
+
+    chercher->addAction(findTache);
+
+}
+
+/**
+ * @brief Click sur le boutton de recherche d'une tache.
+ */
+void TollBar::chercherTache()
+{
 
 }

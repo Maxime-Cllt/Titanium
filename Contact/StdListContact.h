@@ -22,6 +22,8 @@ public:
 
     ~StdListContact();
 
+    enum Sort {Date, Nom};
+
 
 private:
     std::list<StdContact *> *lstContact{};
@@ -44,9 +46,7 @@ public:
 
     void setLstContact(std::list<StdContact *> *lstContact);
 
-    void reverseDateCreation();
-
-    void sortNom();
+    void sort(Sort sort);
 
     int size();
 
