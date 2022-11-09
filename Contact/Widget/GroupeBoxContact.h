@@ -68,7 +68,6 @@ private slots:
 
     void reactualiseDonne();
 
-
 };
 
 

@@ -63,18 +63,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     layoutGauche->addWidget(listContactWidget);
 
-//    for (int i = 0; i < 10; i++)
-//    {
-//        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
-//                                       std::chrono::duration_cast<std::chrono::microseconds>(
-//                                               std::chrono::system_clock::now().time_since_epoch()).count(),
-//                                       ListInteraction());
-//        Interaction it("wesh");
-//        it.addTache(Tache("@todo il fait beau"));
-//        contact->addInteraction(Interaction("wesh"));
-//        contact->addInteraction(it);
-//        addContact(*contact);
-//    }
+    for (int i = 0; i < 2; i++)
+    {
+        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
+                                       std::chrono::duration_cast<std::chrono::microseconds>(
+                                               std::chrono::system_clock::now().time_since_epoch()).count(),
+                                       ListInteraction());
+        Interaction it("wesh");
+        it.addTache(Tache("@todo il fait beau"));
+        contact->addInteraction(Interaction("wesh"));
+        contact->addInteraction(it);
+        addContact(contact);
+    }
 }
 
 /**
@@ -139,9 +139,9 @@ void MainWindow::addContact(StdContact *contact)
 
 void MainWindow::suppContact(StdContact *contact)
 {
+    historique->addLog(ListHistorique::SuppressionContact, *contact);
     lstContact->supContact(contact);
     lstContactTmp->removeContact(contact);
-    historique->addLog(ListHistorique::SuppressionContact, *contact);
     updateNbContact();
 }
 

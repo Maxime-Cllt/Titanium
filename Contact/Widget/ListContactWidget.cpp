@@ -48,6 +48,7 @@ ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) : QWi
 void ListContactWidget::addContactBox(StdContact *contact)
 {
     auto *box = new GroupeBoxContact(contact, this);
+    box->setAttribute(Qt::WA_DeleteOnClose);
     layScrollArea->insertWidget(0, box);
     connect(box, &GroupeBoxContact::supBtnClicled, this, [=, this](StdContact *contact)
     {
@@ -132,8 +133,11 @@ void ListContactWidget::cacheGroupeBox(StdListContact *lst)
 void ListContactWidget::afficheAllGroupeBox()
 {
 
-    for (auto widget: findChildren<GroupeBoxContact *>())
+    for (auto widget: findChildren<GroupeBoxContact *>()){
+
         widget->show();
+        qDebug() << widget;
+    }
 }
 
 /**

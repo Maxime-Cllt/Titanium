@@ -6,9 +6,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "/home/rahman/Qt/5.15.2/gcc_64/lib/cmake/")
+set(CMAKE_PREFIX_PATH "/Users/sr-71/Qt/6.4.0/macos/lib/cmake/")
 
-find_package(Qt5 COMPONENTS
+find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
@@ -36,6 +36,7 @@ target_link_libraries(Projet-QT
         Qt::Widgets
         Qt::Sql
         )
+
 
 set_target_properties(Projet-QT PROPERTIES
         MACOSX_BUNDLE TRUE
