@@ -271,8 +271,8 @@ void GroupeBoxContact::menu1Triggered()
 void GroupeBoxContact::menu3Triggered()
 {
     BD::supContact(*contact);
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->suppContact(contact);
     emit supBtnClicled(contact);
+//    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->suppContact(contact);
     qobject_cast<ListContactWidget *>(
             Utility::getWidget(this, (char *) "ListContactWidget"))->resetLastConctactselected();
     close();

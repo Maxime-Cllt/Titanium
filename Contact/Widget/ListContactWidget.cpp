@@ -51,7 +51,7 @@ void ListContactWidget::addContactBox(StdContact *contact)
     layScrollArea->insertWidget(0, box);
     connect(box, &GroupeBoxContact::supBtnClicled, this, [=, this](StdContact *contact)
     {
-        lstContact->removeContact(contact);
+        emit suppContact(contact);
     });
 }
 
@@ -151,14 +151,7 @@ void ListContactWidget::recreateGroupeBoxContact()
 
 
     for (auto contact: *lstContact->getLstContact())
-    {
-        auto *box = new GroupeBoxContact(contact, this);
-        layScrollArea->addWidget(box);
-        connect(box, &GroupeBoxContact::supBtnClicled, this, [=, this](StdContact *contact)
-        {
-            lstContact->removeContact(contact);
-        });
-    }
+        addContactBox(contact);
 }
 
 /**

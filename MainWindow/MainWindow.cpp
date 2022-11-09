@@ -59,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     lstContact->sort(StdListContact::Date);
     listContactWidget = new ListContactWidget(lstContact, this);
+    connect(listContactWidget,&ListContactWidget::suppContact, this,&MainWindow::suppContact);
+
     layoutGauche->addWidget(listContactWidget);
 
 //    for (int i = 0; i < 10; i++)
@@ -182,7 +184,6 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
  */
 void MainWindow::resetListContactWidget()
 {
-    qDebug() << "ici";
     lstContact = lstContactTmp;
     lstContact->sort(StdListContact::Date);
     reactualise();

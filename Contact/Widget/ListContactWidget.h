@@ -48,6 +48,10 @@ private:
     GroupeBoxContact *lastConctactselected{};
 
 
+    signals:
+    void suppContact(StdContact *);
+
+
 };
 
 
