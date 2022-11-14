@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     layoutGauche->addWidget(listContactWidget);
 
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 5; i++)
     {
         auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
                                        std::chrono::duration_cast<std::chrono::microseconds>(
@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                                        ListInteraction());
         Interaction it("wesh");
         it.addTache(Tache("@todo il fait beau"));
+        it.addTache(Tache("@todo il fait mauvais @date 15/06/2023"));
         contact->addInteraction(Interaction("wesh"));
         contact->addInteraction(it);
         addContact(contact);

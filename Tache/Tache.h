@@ -18,7 +18,7 @@ class Tache
 public:
     explicit Tache();
 
-    explicit Tache(std::string contenu);
+    explicit Tache(const std::string& contenu);
 
     ~Tache();
 
@@ -44,6 +44,8 @@ public:
     [[nodiscard]] uint64_t getdate() const;
 
     void setdate(uint64_t);
+
+    [[nodiscard]] std::string getContenuWithoutTodo();
 };
 
 

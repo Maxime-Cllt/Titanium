@@ -7,6 +7,8 @@
 #include "RechercheContact/RechercheContactDialog.h"
 #include <QTextEdit>
 #include <QLayout>
+#include <QCalendarWidget>
+#include <QTreeWidget>
 
 
 /**
@@ -40,7 +42,8 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
     addAction(resetListContactsWidget);
 
     //Remet à zero le Widget des contacts dans la mainWindow.
-    connect(resetListContactsWidget, &QAction::triggered, this, [=,this](){
+    connect(resetListContactsWidget, &QAction::triggered, this, [=, this]()
+    {
         emit resetActionTriggered();
     });
 
@@ -62,7 +65,8 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 void TollBar::ajouterContact()
 {
     CreationContactDialog dialog(this);
-    connect(&dialog,&CreationContactDialog::btnActionClicked, this, [this](StdContact *contact){
+    connect(&dialog, &CreationContactDialog::btnActionClicked, this, [this](StdContact *contact)
+    {
         emit addContact(contact);
     });
     dialog.exec();
@@ -188,15 +192,15 @@ void TollBar::createFindBtn()
 
     chercher->setPopupMode(QToolButton::MenuButtonPopup);
 
-    auto *findContact = new QAction(this);
+    auto *findContact = new QAction("Chercher contact", this);
     findContact->setIcon(QIcon("src/contact.png"));
-    connect(findContact,&QAction::triggered, this,&TollBar::chercherContact);
+    connect(findContact, &QAction::triggered, this, &TollBar::chercherContact);
 
     chercher->addAction(findContact);
 
-    auto *findTache = new QAction(this);
+    auto *findTache = new QAction("Chercher taches", this);
     findTache->setIcon(QIcon("src/todo.png"));
-    connect(findTache, &QAction::triggered, this,&TollBar::chercherTache);
+    connect(findTache, &QAction::triggered, this, &TollBar::chercherTache);
 
     chercher->addAction(findTache);
 
@@ -207,5 +211,46 @@ void TollBar::createFindBtn()
  */
 void TollBar::chercherTache()
 {
+    QDialog diag;
 
+    QGridLayout lay(&diag);
+
+    QCalendarWidget cal;
+    cal.setSelectedDate(QDate::currentDate());
+    lay.addWidget(&cal, 0, 0, 1, 1);
+
+    auto *tree =new QTreeWidget();
+    tree->setMinimumSize(500,400);
+    tree->setAlternatingRowColors(true);
+    tree->setColumnWidth(0,300);
+    tree->setWordWrap(true);
+    tree->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lay.setColumnStretch(1, 1);
+    lay.addWidget(tree, 0, 1, 1, 2);
+
+    tree->setHeaderLabels({"Nom", "Prénom", "Mail"});
+
+    for (auto contact: *qobject_cast<MainWindow *>(
+            Utility::getMainWindow(this))->getLstContact()->getLstContact())
+    {
+        auto item  = new QTreeWidgetItem(tree);
+        item->setText(0,QString::fromStdString(contact->getNom()));
+        item->setText(1,QString::fromStdString(contact->getPrenom()));
+        item->setText(2,QString::fromStdString(contact->getMail()));
+
+        tree->addTopLevelItem(item);
+
+        for(auto interaction : *contact->getLstInteraction()->getListInteraction()){
+            for(auto tache : *interaction->getLstTache()->getLstTache()){
+                auto item1  = new QTreeWidgetItem();
+                item1->setText(0,QString::fromStdString(tache->getContenuWithoutTodo()));
+                QDateTime date;
+                date.setMSecsSinceEpoch((qint64) tache->getdate() /1000);
+                item1->setText(1,date.toString("dd/MM/yyyy hh:mm:ss"));
+                item->addChild(item1);
+            }
+        }
+    }
+
+    diag.exec();
 }

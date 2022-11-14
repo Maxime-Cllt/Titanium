@@ -21,6 +21,8 @@
 GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGroupBox(parent), contact(contact)
 {
 
+    setAttribute(Qt::WA_DeleteOnClose);
+
     QLocale local(QLocale::Language::French);
     QDateTime date;
     date.setMSecsSinceEpoch(this->contact->getDateCreation() / 1000);

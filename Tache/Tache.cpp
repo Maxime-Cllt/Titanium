@@ -11,10 +11,9 @@
  * @details Constructeur de Tache.
  * @param contenu
  */
-Tache::Tache(std::string contenu) : contenu(std::move(contenu))
+Tache::Tache(const std::string& contenu)
 {
-    date = std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count();
+    setcontenu(contenu);
 }
 
 /**
@@ -41,6 +40,18 @@ const std::string &Tache::getcontenu() const
  */
 void Tache::setcontenu(const std::string &contenu)
 {
+    if(contenu.contains("@date")){
+        int pos = contenu.find("@date")+ 6;
+
+        tm d = {0};
+
+        strptime(contenu.substr(pos, pos+9).c_str(), "%d/%m/%Y", &d);
+
+        setdate((uint64_t) mktime(&d) * 1000000);
+    } else{
+        date = std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::system_clock::now().time_since_epoch()).count();
+    }
     Tache::contenu = contenu;
 }
 
@@ -112,6 +123,36 @@ bool Tache::operator<=(const Tache &rhs) const
 bool Tache::operator>=(const Tache &rhs) const
 {
     return !(*this < rhs);
+}
+
+/**
+ * @details Fonction qui retourne le contenu sans les todos.
+ * @return string sans les todos.
+ */
+std::string Tache::getContenuWithoutTodo()
+{
+    std::string tmp = contenu;
+    tmp.erase(0, 5);
+    if (tmp.contains("@date"))
+    {
+        int pos = tmp.find("@date");
+        int longueur = 0;
+        int compteur = 0;
+        for (int i = pos; i < tmp.length() - 1; i++)
+        {
+            if (tmp[i] == '/')
+            {
+                compteur++;
+                if (compteur == 2)
+                {
+                    longueur = i + 5 - pos;
+                    break;
+                }
+            }
+        }
+        tmp.erase(pos, longueur);
+    }
+    return tmp;
 }
 
 

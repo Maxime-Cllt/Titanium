@@ -50,21 +50,6 @@ Interaction *InteractionTextEdit::parseTache()
         if (lstWord.contains("@todo"))
         {
             tache.setcontenu(line.toStdString());
-            int i = lstWord.indexOf("@todo");
-
-            for (int o = i + 2; o < lstWord.size(); o++)
-            {
-                if (lstWord[o] == "@date")
-                {
-                    QDate date(lstWord[o + 1].split("/")[2].toInt(), lstWord[o + 1].split("/")[1].toInt(),
-                               lstWord[o + 1].split("/")[0].toInt());
-                    QDateTime dateTime;
-                    dateTime.setDate(date);
-                    u_int64_t d = dateTime.toMSecsSinceEpoch() * 1000;
-                    tache.setdate(d);
-                    break;
-                }
-            }
             lstTache->addTache(tache);
         }
     }
