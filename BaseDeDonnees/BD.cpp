@@ -165,13 +165,7 @@ void BD::supContact(const StdContact &contact)
 
     query.prepare("DELETE FROM CONTACTS WHERE ? = DateCreation");
     query.addBindValue(date);
-    if (query.exec())
-    {
-        QMessageBox::information(nullptr, "Succes", "Le contact a été suprimé avec succes.");
-    } else
-    {
-        QMessageBox::warning(nullptr, "Erreur", "Une erreur est survenue lors de la supression du contact.");
-    }
+    query.exec();
 }
 
 /**

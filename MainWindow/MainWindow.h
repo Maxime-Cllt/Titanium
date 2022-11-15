@@ -50,6 +50,8 @@ public:
 
     void suppContact(StdContact *);
 
+    void suppContact(StdListContact *);
+
     void updateNbContact();
 
     void setNbInteraction(const QString &);

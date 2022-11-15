@@ -60,6 +60,13 @@ signals:
 
     void supBtnClicled(StdContact *);
 
+    void resetLastConctactselected();
+
+    void setContactSelected(GroupeBoxContact *);
+
+    void interactionShowedOrHided(bool);
+
+
 private slots:
 
     void menu1Triggered();

@@ -54,12 +54,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ToolBar, &ToolBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
     connect(ToolBar, &ToolBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
     connect(ToolBar, &ToolBar::addContact, this, &MainWindow::addContact);
+    connect(ToolBar, &ToolBar::suppContact, this, [=, this](StdListContact *lst)
+    {
+        suppContact(lst);
+        listContactWidget->recreateGroupeBoxContact();
+    });
 
     addToolBar(ToolBar);
 
     lstContact->sort(StdListContact::Date);
     listContactWidget = new ListContactWidget(lstContact, this);
-    connect(listContactWidget,&ListContactWidget::suppContact, this,&MainWindow::suppContact);
+    connect(listContactWidget, &ListContactWidget::suppContact, this, [=, this](StdContact *contact){
+        suppContact(contact);
+    });
+    connect(listContactWidget, &ListContactWidget::resetLastConctact, this, &MainWindow::removeListInteractionWidget);
+    connect(listContactWidget, &ListContactWidget::interactionWidgetsHidedOrShowed, this, [=,this](bool visible){
+        if(!visible)
+            setNbInteraction("");
+    });
 
     layoutGauche->addWidget(listContactWidget);
 
@@ -124,7 +136,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 /**
- * Ajouter un StdContact dans la liste des contacts et dans le Widget des contacts pour l'afficher.
+ * @details Ajouter un StdContact dans la liste des contacts et dans le Widget des contacts pour l'afficher.
  * @param contact
  */
 void MainWindow::addContact(StdContact *contact)
@@ -138,13 +150,36 @@ void MainWindow::addContact(StdContact *contact)
     updateNbContact();
 }
 
+/**
+ * @details Supprime un contact.
+ * @param contact
+ */
 void MainWindow::suppContact(StdContact *contact)
 {
+    BD::supContact(*contact);
     historique->addLog(ListHistorique::SuppressionContact, *contact);
     lstContact->supContact(contact);
     lstContactTmp->removeContact(contact);
     updateNbContact();
 }
+
+/**
+ * @details Supprime une liste de contact.
+ * @param lst
+ */
+void MainWindow::suppContact(StdListContact *lst)
+{
+    QString str;
+    for (auto contact: *lst->getLstContact())
+    {
+        str += QString::fromStdString(contact->getNom() + " - " + contact->getPrenom()) + "\n";
+        suppContact(contact);
+    }
+    QMessageBox msgb(QMessageBox::Icon::Information,"Succès","Suppression réalisée avec succès");
+    msgb.setDetailedText(str);
+    msgb.exec();
+}
+
 
 /**
  * @details Fonction utilisée lors d'une recherche de contacts, qui cache les contacts qui ne correspondent à la recherche.

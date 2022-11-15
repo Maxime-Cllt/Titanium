@@ -53,6 +53,9 @@ void ListContactWidget::addContactBox(StdContact *contact)
     {
         emit suppContact(contact);
     });
+    connect(box, &GroupeBoxContact::resetLastConctactselected, this,&ListContactWidget::resetLastConctactselected);
+    connect(box, &GroupeBoxContact::setContactSelected, this,&ListContactWidget::setLastConctactselected);
+    connect(box, &GroupeBoxContact::interactionShowedOrHided, this,&ListContactWidget::interactionWidgetsHideOrShow);
 }
 
 /**
@@ -137,8 +140,8 @@ void ListContactWidget::afficheAllGroupeBox()
 }
 
 /**
- * @brief Focntion qui supprime les GroupeBoxContact actuelle, puis en recrée des nouvelle et les ajoute au layout,
- * cette fonction est appeler quand on tri la liste et que l'on doit reafficher correctement les contacts.
+ * @brief Focntion qui supprime les GroupeBoxContact actuelle, puis en recréer des nouvelles et les ajoute au layout,
+ * cette fonction est appelé quand on tri la liste et que l'on doit réafficher correctement les contacts.
  */
 void ListContactWidget::recreateGroupeBoxContact()
 {
@@ -147,7 +150,7 @@ void ListContactWidget::recreateGroupeBoxContact()
     resetLastConctactselected();
 
     for (auto widget: findChildren<GroupeBoxContact *>())
-        delete widget;
+        widget->close();
 
 
     for (auto contact: *lstContact->getLstContact())
@@ -161,9 +164,18 @@ void ListContactWidget::resetLastConctactselected()
 {
     if (lastConctactselected)
     {
-        this->lastConctactselected->getListInteractionWidget()->hide();
+//        this->lastConctactselected->getListInteractionWidget()->hide();
         this->lastConctactselected->resetStyleSheet();
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction("");
+        emit resetLastConctact();
     }
     this->lastConctactselected = nullptr;
+}
+
+/**
+ * @brief Fonction qui envoie un signal, avec true si le widget des interactions est affiché ou false s’il n'est pas affiché.
+ * @param show
+ */
+void ListContactWidget::interactionWidgetsHideOrShow(bool show)
+{
+    emit interactionWidgetsHidedOrShowed(show);
 }

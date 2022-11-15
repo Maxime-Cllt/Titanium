@@ -7,7 +7,7 @@
 
 #include <QToolBar>
 #include <QToolButton>
-#include "../Contact/StdContact.h"
+#include "../Contact/StdListContact.h"
 
 /**
  * @details Classe ToolBar qui hérite de QToolBar qui servira pour les ajouts de contacts,
@@ -27,6 +27,7 @@ private:
     QToolButton *tri{};
     QAction *resetListContactsWidget{};
     QAction *historique{};
+    QAction *suppression{};
 
     void createFindBtn();
 
@@ -43,6 +44,8 @@ private slots:
 
     void chercherTache();
 
+    void supprimer();
+
 signals:
 
     void clearHistoriqueClicked();
@@ -50,6 +53,8 @@ signals:
     void resetActionTriggered();
 
     void addContact(StdContact *);
+
+    void suppContact(StdListContact *);
 
 };
 

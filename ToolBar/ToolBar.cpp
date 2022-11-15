@@ -6,10 +6,11 @@
 #include "../ContactDialog/CreationContactDialog.h"
 #include "RechercheContact/RechercheContactDialog.h"
 #include "RechercheTache/TreeTacheDialog.h"
+#include "Suppression/SuppressionDialog.h"
 #include <QTextEdit>
 #include <QLayout>
 #include <QListWidget>
-#include <QCalendarWidget>
+#include <QApplication>
 
 
 /**
@@ -56,6 +57,14 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
     connect(historique, &QAction::triggered, this, &ToolBar::afficheHistorique);
 
     addAction(historique);
+
+    addSeparator();
+
+    suppression = new QAction(QApplication::style()->standardIcon(QStyle::SP_DialogDiscardButton), "Suppression");
+
+    connect(suppression, &QAction::triggered, this, &ToolBar::supprimer);
+
+    addAction(suppression);
 
 
 }
@@ -206,4 +215,19 @@ void ToolBar::chercherTache()
             Utility::getMainWindow(this))->getLstContact());
 
     diag.exec();
+}
+
+
+/**
+ * @brief Click sur le boutton suppression.
+ */
+void ToolBar::supprimer()
+{
+    SuppressionDialog dialog(qobject_cast<MainWindow *>(
+            Utility::getMainWindow(this))->getLstContact());
+    connect(&dialog, &SuppressionDialog::contactSupprimer, this, [=, this](StdListContact *lst){
+        emit suppContact(lst);
+    });
+    dialog.exec();
+
 }

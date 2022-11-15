@@ -47,9 +47,17 @@ private:
 
     GroupeBoxContact *lastConctactselected{};
 
+public:
 
-    signals:
+    void interactionWidgetsHideOrShow(bool);
+
+signals:
+
     void suppContact(StdContact *);
+
+    void resetLastConctact();
+
+    void interactionWidgetsHidedOrShowed(bool);
 
 
 };

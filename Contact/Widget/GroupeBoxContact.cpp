@@ -76,8 +76,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         if (listInteractionWidget != nullptr)
             listInteractionWidget->cache();
 
-        qobject_cast<ListContactWidget *>(
-                Utility::getWidget(this, (char *) "ListContactWidget"))->resetLastConctactselected();
+        emit resetLastConctactselected();
 
         setStyleSheet(
                 "QGroupBox#GroupBoxContact{background-color: gray;color : white;border-radius : 10px;}");
@@ -140,8 +139,8 @@ void GroupeBoxContact::mouseReleaseEvent(QMouseEvent *event)
         if (!listInteractionWidget)
             listInteractionWidget = new ListInteractionWidget(contact->getLstInteraction(), this);
 
-        qobject_cast<ListContactWidget *>(
-                Utility::getWidget(this, (char *) "ListContactWidget"))->setLastConctactselected(this);
+        emit setContactSelected(this);
+
     }
 
 }
@@ -231,7 +230,7 @@ void GroupeBoxContact::cacheInteractions()
 {
     listInteractionWidget->hide();
     resetStyleSheet();
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction("");
+    emit interactionShowedOrHided(false);
 }
 
 /**
@@ -240,8 +239,7 @@ void GroupeBoxContact::cacheInteractions()
 void GroupeBoxContact::afficheInteractions()
 {
     listInteractionWidget->show();
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setNbInteraction(
-            QString::number(getContact()->getLstInteraction()->size()));
+    emit interactionShowedOrHided(true);
 }
 
 /**
@@ -274,7 +272,7 @@ void GroupeBoxContact::menu3Triggered()
 {
     BD::supContact(*contact);
     emit supBtnClicled(contact);
-    qobject_cast<ListContactWidget *>(
-            Utility::getWidget(this, (char *) "ListContactWidget"))->resetLastConctactselected();
+    emit resetLastConctactselected();
+    QMessageBox::information(nullptr, "Suppression", "Suppression réalisée avec succès.");
     close();
 }
