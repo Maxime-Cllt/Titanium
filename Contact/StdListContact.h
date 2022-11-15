@@ -22,7 +22,10 @@ public:
 
     ~StdListContact();
 
-    enum Sort {DateCroissant,DateDecroissant, NomCroissant, NomDecroissant};
+    enum Sort
+    {
+        DateCroissant, DateDecroissant, NomCroissant, NomDecroissant
+    };
 
 
 private:

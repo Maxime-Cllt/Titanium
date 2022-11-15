@@ -66,9 +66,9 @@ RechercheTaches::TreeWidget::TreeWidget(ListInteraction *listInteraction, QWidge
     setAlternatingRowColors(true);
     setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
     setHeaderLabels({"Détail", "Date"});
-    setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-    setColumnWidth(0,300);
-    setMinimumSize(500,300);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setColumnWidth(0, 300);
+    setMinimumSize(500, 300);
 }
 
 /**

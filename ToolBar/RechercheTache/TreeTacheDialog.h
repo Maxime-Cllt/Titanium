@@ -15,10 +15,10 @@
  */
 class TreeTacheDialog : public QDialog
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit TreeTacheDialog(StdListContact * lst, QWidget *parent = nullptr);
+    explicit TreeTacheDialog(StdListContact *lst, QWidget *parent = nullptr);
 
 private:
     /**
@@ -28,6 +28,7 @@ private:
     {
     public:
         explicit TreeWidget(StdListContact *lst, QWidget *parent = nullptr);
+
     private:
         StdListContact *listContact;
 
@@ -47,8 +48,6 @@ private:
     StdListContact *listContact{};
 
     TreeWidget *tree{};
-
-
 
 
 };

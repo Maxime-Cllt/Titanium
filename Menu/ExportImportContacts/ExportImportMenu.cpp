@@ -46,7 +46,8 @@ void ExportImportMenu::exportActionTriggered()
             file.write(json.toJson());
             file.close();
             QMessageBox::information(this, "Succès", "L'export a été réalisé avec succès !");
-        } else{
+        } else
+        {
             QMessageBox::information(this, "Erreur", "Un problème est survenue lors de l'export");
         }
     }
@@ -55,7 +56,7 @@ void ExportImportMenu::exportActionTriggered()
 /**
  * @details Importe depuis un fichier json la liste des contacts.
  */
-    void ExportImportMenu::importActionTriggered()
+void ExportImportMenu::importActionTriggered()
 {
     lstContact = qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact();
     QFile file(QFileDialog::getOpenFileName(this, "Import json", QDir::homePath(), "json (*.json)"));

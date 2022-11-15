@@ -21,7 +21,8 @@ public:
 private:
     StdContact *contact{};
 
-    signals:
+signals:
+
     void dataModified();
 };
 

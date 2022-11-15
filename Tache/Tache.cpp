@@ -11,7 +11,7 @@
  * @details Constructeur de Tache.
  * @param contenu
  */
-Tache::Tache(const std::string& contenu)
+Tache::Tache(const std::string &contenu)
 {
     setcontenu(contenu);
 }
@@ -40,15 +40,17 @@ const std::string &Tache::getcontenu() const
  */
 void Tache::setcontenu(const std::string &contenu)
 {
-    if(contenu.find("@date") !=std::string::npos){
-        int pos = contenu.find("@date")+ 6;
+    if (contenu.find("@date") != std::string::npos)
+    {
+        int pos = contenu.find("@date") + 6;
 
         tm d = {0};
 
-        strptime(contenu.substr(pos, pos+9).c_str(), "%d/%m/%Y", &d);
+        strptime(contenu.substr(pos, pos + 9).c_str(), "%d/%m/%Y", &d);
 
         setdate((uint64_t) mktime(&d) * 1000000);
-    } else{
+    } else
+    {
         date = std::chrono::duration_cast<std::chrono::microseconds>(
                 std::chrono::system_clock::now().time_since_epoch()).count();
     }
@@ -133,7 +135,7 @@ std::string Tache::getContenuWithoutTodo()
 {
     std::string tmp = contenu;
     tmp.erase(0, 5);
-    if (tmp.find("@date") !=std::string::npos)
+    if (tmp.find("@date") != std::string::npos)
     {
         int pos = tmp.find("@date");
         int longueur = 0;

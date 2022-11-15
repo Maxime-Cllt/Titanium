@@ -23,7 +23,10 @@ public:
 
     ListTache(const ListTache &listTache);
 
-    enum Sort {Ancien, Recent};
+    enum Sort
+    {
+        Ancien, Recent
+    };
 
 private:
     std::list<Tache *> *lstTache{};

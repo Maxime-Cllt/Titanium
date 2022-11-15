@@ -130,7 +130,8 @@ StdListContact *BD::getContactData()
     QSqlQuery query("SELECT * FROM CONTACTS");
 
 
-    while (query.next()) {
+    while (query.next())
+    {
         QtContact qtContact;
         qtContact.setNom(query.value(0).toString());
         qtContact.setPrenom(query.value(1).toString());

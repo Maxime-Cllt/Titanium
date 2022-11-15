@@ -55,8 +55,8 @@ void TreeTacheDialog::TreeWidget::createTache()
             for (auto tache: *interaction->getLstTache()->getLstTache())
             {
                 // si l'option cacher les taches passées est activé on n’ajoute pas la tache à la map.
-                if(cachePasse)
-                    if((QDateTime::currentMSecsSinceEpoch() * 1000) > tache->getdate())
+                if (cachePasse)
+                    if ((QDateTime::currentMSecsSinceEpoch() * 1000) > tache->getdate())
                         continue;
                 map.emplace(tache, contact);
             }
@@ -65,21 +65,24 @@ void TreeTacheDialog::TreeWidget::createTache()
     // declaration d’une liste pour trier toutes les taches.
     std::list<std::pair<Tache *, StdContact *> > pairs;
 
-    for(auto pair : map){
+    for (auto pair: map)
+    {
         pairs.emplace_back(pair);
     }
 
     // tri
-    pairs.sort([=](std::pair<Tache *, StdContact *>& a, std::pair<Tache *, StdContact *>& b){
-        return *a.first < *b.first;
-    });
+    pairs.sort([=](std::pair<Tache *, StdContact *> &a, std::pair<Tache *, StdContact *> &b)
+               {
+                   return *a.first < *b.first;
+               });
 
     QDateTime date;
     // creation des treeWidgetItems
-    for(auto pair :pairs){
+    for (auto pair: pairs)
+    {
         auto *item = new QTreeWidgetItem(this);
         item->setText(0, QString::fromStdString(pair.first->getContenuWithoutTodo()));
-        date.setMSecsSinceEpoch((qint64)pair.first->getdate()/1000);
+        date.setMSecsSinceEpoch((qint64) pair.first->getdate() / 1000);
         item->setText(1, date.toString("dd/MM/yyyy hh:mm:ss"));
         addTopLevelItem(item);
 
@@ -98,15 +101,17 @@ void TreeTacheDialog::TreeWidget::createTache()
 void TreeTacheDialog::TreeWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     QTreeView::mouseReleaseEvent(event);
-    if(event->button() == Qt::MouseButton::RightButton){
+    if (event->button() == Qt::MouseButton::RightButton)
+    {
         QMenu menu;
 
         QAction act1("Cacher les taches passées.");
 
-        if(cachePasse)
+        if (cachePasse)
             act1.setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
 
-        connect(&act1,&QAction::triggered, this,[=, this](){
+        connect(&act1, &QAction::triggered, this, [=, this]()
+        {
             cachePasse = !cachePasse;
             this->clear();
             createTache();

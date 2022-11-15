@@ -18,8 +18,14 @@ class ListHistorique : public std::list<std::string>
 public:
     explicit ListHistorique();
 
-    enum Contact { AjoutContact, ModificationContact, SuppressionContact };
-    enum Interaction { AjoutInteraction, ModificationInteraction, SuppressionInteraction };
+    enum Contact
+    {
+        AjoutContact, ModificationContact, SuppressionContact
+    };
+    enum Interaction
+    {
+        AjoutInteraction, ModificationInteraction, SuppressionInteraction
+    };
 
     void addLog(ListHistorique::Contact type, const StdContact &);
 
