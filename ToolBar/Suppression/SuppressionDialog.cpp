@@ -5,6 +5,11 @@
 #include "SuppressionDialog.h"
 
 
+/**
+ * @details Constructeur par défaut.
+ * @param lst
+ * @param parent
+ */
 SuppressionDialog::SuppressionDialog(StdListContact *lst, QWidget *parent) : QDialog(parent), listContact(lst)
 {
     setWindowTitle("Suppression");
@@ -12,7 +17,8 @@ SuppressionDialog::SuppressionDialog(StdListContact *lst, QWidget *parent) : QDi
 
     tree = new TreeWidget(lst);
 
-    connect(tree, &TreeWidget::suppClicked, this, [=, this](StdListContact *lst){
+    connect(tree, &TreeWidget::suppClicked, this, [=, this](StdListContact *lst)
+    {
         emit contactSupprimer(lst);
     });
 

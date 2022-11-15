@@ -6,7 +6,6 @@
 #include <QStatusBar>
 #include "../ContactDialog/CreationContactDialog.h"
 #include "../Menu/MenuBar.h"
-#include "../ToolBar/ToolBar.h"
 
 /**
  * @details Constructeur de la classe MainWindow
@@ -50,31 +49,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setStatusBar(status);
 
-    auto *ToolBar = new class ToolBar(this);
-    connect(ToolBar, &ToolBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
-    connect(ToolBar, &ToolBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
-    connect(ToolBar, &ToolBar::addContact, this, &MainWindow::addContact);
-    connect(ToolBar, &ToolBar::suppContact, this, [=, this](StdListContact *lst)
-    {
-        suppContact(lst);
-        lstContact->sort(StdListContact::Sort::DateDecroissant);
-        listContactWidget->recreateGroupeBoxContact();
-    });
+    toolBar = new ToolBar(this);
 
-    addToolBar(ToolBar);
+    addToolBar(toolBar);
 
     lstContact->sort(StdListContact::DateDecroissant);
     listContactWidget = new ListContactWidget(lstContact, this);
-    connect(listContactWidget, &ListContactWidget::suppContact, this, [=, this](StdContact *contact){
-        suppContact(contact);
-    });
-    connect(listContactWidget, &ListContactWidget::resetLastConctact, this, &MainWindow::removeListInteractionWidget);
-    connect(listContactWidget, &ListContactWidget::interactionWidgetsHidedOrShowed, this, [=,this](bool visible){
-        if(!visible)
-            setNbInteraction("");
-    });
+
 
     layoutGauche->addWidget(listContactWidget);
+
+    allConnnect();
 
 //    for (int i = 0; i < 5; i++)
 //    {
@@ -90,6 +75,46 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 //        addContact(contact);
 //    }
 }
+
+/**
+ * @brief Fonction où est réalisé toutes les connections signaux slots.
+ */
+void MainWindow::allConnnect()
+{
+    connect(toolBar, &ToolBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
+    connect(toolBar, &ToolBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
+    connect(toolBar, &ToolBar::addContact, this, &MainWindow::addContact);
+    connect(toolBar, &ToolBar::suppContact, this, [=, this](StdListContact *lst)
+    {
+        suppContact(lst);
+        lstContact->sort(StdListContact::Sort::DateDecroissant);
+        listContactWidget->recreateGroupeBoxContact();
+    });
+    connect(toolBar, &ToolBar::sorted, this, [=, this](StdListContact::Sort sort)
+    {
+        lstContact->sort(sort);
+        listContactWidget->recreateGroupeBoxContact();
+    });
+
+
+    connect(listContactWidget, &ListContactWidget::suppContact, this, [=, this](StdContact *contact)
+    {
+        suppContact(contact);
+    });
+    connect(listContactWidget, &ListContactWidget::resetLastConctact, this, &MainWindow::removeListInteractionWidget);
+    connect(listContactWidget, &ListContactWidget::interactionWidgetsHidedOrShowed, this, [=, this](bool visible)
+    {
+        if (!visible)
+            setNbInteraction("");
+    });
+    connect(listContactWidget, &ListContactWidget::contactSelected, this, [=, this](GroupeBoxContact *box)
+    {
+        setListInteractionWidget(box->getListInteractionWidget());
+    });
+
+
+}
+
 
 /**
  * @brief Setter de lstContact qui est la liste de contact utilisé qui stock les contacts de recherche ou tous les contacts.
@@ -177,7 +202,7 @@ void MainWindow::suppContact(StdListContact *lst)
         str += QString::fromStdString(contact->getNom() + " - " + contact->getPrenom()) + "\n";
         suppContact(contact);
     }
-    QMessageBox msgb(QMessageBox::Icon::Information,"Succès","Suppression réalisée avec succès");
+    QMessageBox msgb(QMessageBox::Icon::Information, "Succès", "Suppression réalisée avec succès");
     msgb.setDetailedText(str);
     msgb.exec();
 }

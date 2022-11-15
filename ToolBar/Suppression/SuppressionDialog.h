@@ -10,6 +10,9 @@
 #include <QLayout>
 #include "TreeWidget.h"
 
+/**
+ * @details Classe SuppressionDialog qui crée une fenêtre de dialogue avec un widget TreeWidget qui gere la suppression multiple.
+ */
 class SuppressionDialog : public QDialog
 {
 Q_OBJECT

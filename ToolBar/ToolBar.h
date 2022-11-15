@@ -56,6 +56,8 @@ signals:
 
     void suppContact(StdListContact *);
 
+    void sorted(StdListContact::Sort sort);
+
 };
 
 

@@ -60,7 +60,7 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    suppression = new QAction(QApplication::style()->standardIcon(QStyle::SP_DialogDiscardButton), "Suppression");
+    suppression = new QAction(QIcon("src/corbeille.png"), "Suppression");
 
     connect(suppression, &QAction::triggered, this, &ToolBar::supprimer);
 
@@ -91,9 +91,11 @@ void ToolBar::chercherContact()
     resetActionTriggered();
     auto *dialog = new RechercheContactDialog(this);
     chercher->setDisabled(true);
+    tri->setDisabled(true);
     connect(dialog, &RechercheContactDialog::closeDialog, this, [this]()
     {
         chercher->setDisabled(false);
+        tri->setDisabled(false);
         resetActionTriggered();
     });
     dialog->show();
@@ -113,36 +115,52 @@ void ToolBar::createTriBtn()
 
     auto *menu = new QMenu(tri);
 
-    auto *triNom = new QAction("Tri nom", menu);
-    triNom->setIcon(QIcon("src/tri.png"));
+    auto *triNomC = new QAction("Tri nom croissant", menu);
+    triNomC->setIcon(QIcon("src/tri.png"));
 
-    auto *triDate = new QAction("Tri date", menu);
-    triDate->setIcon(QIcon("src/tri.png"));
+    auto *triNomD = new QAction("Tri nom décroissant", menu);
+    triNomD->setIcon(QIcon("src/tri.png"));
 
-    menu->addAction(triNom);
-    menu->addAction(triDate);
+    auto *triDateC = new QAction("Tri date croissant", menu);
+    triDateC->setIcon(QIcon("src/tri.png"));
+
+    auto *triDateD = new QAction("Tri date décroissant", menu);
+    triDateD->setIcon(QIcon("src/tri.png"));
+
+
+    menu->addAction(triNomC);
+    menu->addAction(triNomD);
+    menu->addAction(triDateC);
+    menu->addAction(triDateD);
 
     tri->setMenu(menu);
 
-    tri->setDefaultAction(triDate);
+    tri->setDefaultAction(triDateD);
 
     addWidget(tri);
 
 
     // tri par nom (ordre croissant).
-    connect(triNom, &QAction::triggered, this, [this]()
+    connect(triNomC, &QAction::triggered, this, [this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::NomCroissant);
-        qobject_cast<MainWindow *>(
-                Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
+        emit sorted(StdListContact::NomCroissant);
+    });
+    // tri par nom (ordre décroissant).
+    connect(triNomD, &QAction::triggered, this, [this]()
+    {
+        emit sorted(StdListContact::NomDecroissant);
     });
 
+
     // tri par date de creation le plus recent crée.
-    connect(triDate, &QAction::triggered, this, [this]()
+    connect(triDateD, &QAction::triggered, this, [this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::NomCroissant);
-        qobject_cast<MainWindow *>(
-                Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
+        emit sorted(StdListContact::DateDecroissant);
+    });
+    // tri par date de creation le plus ancien crée.
+    connect(triDateC, &QAction::triggered, this, [this]()
+    {
+        emit sorted(StdListContact::DateCroissant);
     });
 }
 
@@ -158,7 +176,7 @@ void ToolBar::afficheHistorique()
 
     QGridLayout layout(&dialog);
 
-    QListWidget wid;
+    QListWidget wid(&dialog);
     wid.setAlternatingRowColors(true);
 
     for (const auto &str: *qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique())
@@ -225,7 +243,8 @@ void ToolBar::supprimer()
 {
     SuppressionDialog dialog(qobject_cast<MainWindow *>(
             Utility::getMainWindow(this))->getLstContact());
-    connect(&dialog, &SuppressionDialog::contactSupprimer, this, [=, this](StdListContact *lst){
+    connect(&dialog, &SuppressionDialog::contactSupprimer, this, [=, this](StdListContact *lst)
+    {
         emit suppContact(lst);
     });
     dialog.exec();

@@ -13,6 +13,8 @@
 #include "../BaseDeDonnees/BD.h"
 #include "../Contact/Widget/ListContactWidget.h"
 #include "../Historique/ListHistorique.h"
+#include "../ToolBar/ToolBar.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -32,6 +34,8 @@ private:
     StdListContact *lstContact{};
 
     ListHistorique *historique{};
+
+    ToolBar *toolBar{};
 public:
     ListHistorique *getHistorique() const;
 
@@ -39,6 +43,8 @@ private:
 
     QLabel *nbContactLab{};
     QLabel *nbInetractionLab{};
+
+    void allConnnect();
 
 public:
 
@@ -69,6 +75,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 public slots:
+
     void clearHistorique();
 
     void resetListContactWidget();

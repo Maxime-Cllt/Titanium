@@ -53,9 +53,9 @@ void ListContactWidget::addContactBox(StdContact *contact)
     {
         emit suppContact(contact);
     });
-    connect(box, &GroupeBoxContact::resetLastConctactselected, this,&ListContactWidget::resetLastConctactselected);
-    connect(box, &GroupeBoxContact::setContactSelected, this,&ListContactWidget::setLastConctactselected);
-    connect(box, &GroupeBoxContact::interactionShowedOrHided, this,&ListContactWidget::interactionWidgetsHideOrShow);
+    connect(box, &GroupeBoxContact::resetLastConctactselected, this, &ListContactWidget::resetLastConctactselected);
+    connect(box, &GroupeBoxContact::setContactSelected, this, &ListContactWidget::setLastConctactselected);
+    connect(box, &GroupeBoxContact::interactionShowedOrHided, this, &ListContactWidget::interactionWidgetsHideOrShow);
 }
 
 /**
@@ -80,8 +80,8 @@ void ListContactWidget::setLastConctactselected(GroupeBoxContact *lastConctactse
             this->lastConctactselected->cacheInteractions();
 
         // envoie au MainWindow qui se charge de l'ajouter a son propre layout.
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->setListInteractionWidget(
-                lastConctactselected->getListInteractionWidget());
+        emit contactSelected(lastConctactselected);
+
         //on remplace la liste des interactions par la nouvelle du contact selectionné
         this->lastConctactselected = lastConctactselected;
         this->lastConctactselected->afficheInteractions();
@@ -148,12 +148,15 @@ void ListContactWidget::recreateGroupeBoxContact()
     // comme tous les GroupeBoxContact vont etre supprimé ont reset le pointeur du dernier contact selectionné.
     resetLastConctactselected();
 
-    for (auto widget: findChildren<GroupeBoxContact *>())
-        widget->close();
 
+    for (auto widget: findChildren<GroupeBoxContact *>())
+    {
+        widget->close();
+    }
 
     for (auto contact: *lstContact->getLstContact())
         addContactBox(contact);
+
 }
 
 /**

@@ -59,6 +59,8 @@ signals:
 
     void interactionWidgetsHidedOrShowed(bool);
 
+    void contactSelected(GroupeBoxContact *);
+
 
 };
 

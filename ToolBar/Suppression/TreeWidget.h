@@ -8,6 +8,10 @@
 #include <QTreeWidget>
 #include "../../Contact/StdListContact.h"
 
+/**
+ * @details Classe TreeWidget qui gere l’affichage de tous les contacts et de leurs interactions
+ * et taches, chaque contact, interaction ou tache peut être supprimé individuellement ou par multi selection.
+ */
 class TreeWidget : public QTreeWidget
 {
 Q_OBJECT
@@ -24,7 +28,7 @@ private:
     private:
         Tache *tache;
     public:
-        Tache *getTache() ;
+        Tache *getTache();
     };
 
     class TreeItemInteraction : public QTreeWidgetItem
@@ -36,7 +40,9 @@ private:
         Interaction *interaction;
     public:
         QList<TreeItemTache *> lst;
+
         Interaction *getInteraction();
+
         void unselectChild();
 
     };
@@ -60,6 +66,7 @@ private:
     StdListContact *listContact{};
 
     void addOnTree();
+
 protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 

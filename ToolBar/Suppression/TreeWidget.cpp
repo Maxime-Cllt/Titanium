@@ -7,8 +7,13 @@
 #include <QMenu>
 #include <QMouseEvent>
 #include <QDebug>
+#include "../../BaseDeDonnees/BD.h"
 
-
+/**
+ * @details Constructeur par défaut.
+ * @param lst
+ * @param parent
+ */
 TreeWidget::TreeWidget(StdListContact *lst, QWidget *parent) : QTreeWidget(parent), listContact(lst)
 {
     setAlternatingRowColors(true);
@@ -38,6 +43,10 @@ TreeWidget::TreeWidget(StdListContact *lst, QWidget *parent) : QTreeWidget(paren
     addOnTree();
 }
 
+/**
+ * @details Surcharge évènement souris qui fait apparaitre un menu avec un click droit.
+ * @param event
+ */
 void TreeWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     QTreeView::mouseReleaseEvent(event);
@@ -63,15 +72,21 @@ void TreeWidget::mouseReleaseEvent(QMouseEvent *event)
                         if (!item->parent()->parent())
                         {
                             if (!item->parent()->isSelected())
+                            {
+                                BD::supInteraction(*reinterpret_cast<TreeItemInteraction *>(item)->getInteraction());
                                 reinterpret_cast<TreeItemContact *>(item->parent())->getContact()->getLstInteraction()->supInteraction(
                                         reinterpret_cast<TreeItemInteraction *>(item)->getInteraction());
+                            }
 
                             // item tache
                         } else
                         {
                             if (!item->parent()->isSelected() and !item->parent()->parent()->isSelected())
+                            {
+                                BD::supTache(*reinterpret_cast<TreeItemTache *>(item)->getTache());
                                 reinterpret_cast<TreeItemInteraction *>(item->parent())->getInteraction()->getLstTache()->suppTache(
                                         reinterpret_cast<TreeItemTache *>(item)->getTache());
+                            }
                         }
                     }
                 }
@@ -87,10 +102,14 @@ void TreeWidget::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
+/**
+ * @details Fonction qui ajoute au QTreeWidget tous les contacts, les interactions de chaque contact et les tache de chaque interaction.
+ */
 void TreeWidget::addOnTree()
 {
     clear();
 
+    // on tri pour que les contacts en haut de la list se retrouve en haut de QTreeWidget
     listContact->sort(StdListContact::Sort::DateCroissant);
 
     for (auto contact: *listContact->getLstContact())
@@ -115,6 +134,11 @@ void TreeWidget::addOnTree()
 
 }
 
+/**
+ * @details Constructeur par défaut de TreeItemContact.
+ * @param contact
+ * @param parent
+ */
 TreeWidget::TreeItemContact::TreeItemContact(StdContact *contact, QTreeWidget *parent) : contact(contact),
                                                                                          QTreeWidgetItem(parent)
 {
@@ -127,11 +151,18 @@ TreeWidget::TreeItemContact::TreeItemContact(StdContact *contact, QTreeWidget *p
     setText(4, date.toString("dd/MM/yyyy hh:mm:ss"));
 }
 
+/**
+ * @brief Getter de contact.
+ * @return
+ */
 StdContact *TreeWidget::TreeItemContact::getContact()
 {
     return contact;
 }
 
+/**
+ * @brief Fonction qui désélectionne tous les enfants item de l'item.
+ */
 void TreeWidget::TreeItemContact::unselectChild()
 {
     for (auto item: lst)
@@ -142,6 +173,11 @@ void TreeWidget::TreeItemContact::unselectChild()
 
 }
 
+/**
+ * @details Constructeur par défaut de TreeItemInteraction.
+ * @param interaction
+ * @param parent
+ */
 TreeWidget::TreeItemInteraction::TreeItemInteraction(Interaction *interaction, QTreeWidget *parent) : interaction(
         interaction),
                                                                                                       QTreeWidgetItem(
@@ -153,6 +189,9 @@ TreeWidget::TreeItemInteraction::TreeItemInteraction(Interaction *interaction, Q
     setText(4, date.toString("dd/MM/yyyy hh:mm:ss"));
 }
 
+/**
+ * @brief Fonction qui désélectionne tous les enfants item de l'item.
+ */
 void TreeWidget::TreeItemInteraction::unselectChild()
 {
     for (auto item: lst)
@@ -161,11 +200,20 @@ void TreeWidget::TreeItemInteraction::unselectChild()
     }
 }
 
+/**
+ * @brief Getter de interaction.
+ * @return
+ */
 Interaction *TreeWidget::TreeItemInteraction::getInteraction()
 {
     return interaction;
 }
 
+/**
+ * @details Constructeur de TreeItemTache.
+ * @param tache
+ * @param parent
+ */
 TreeWidget::TreeItemTache::TreeItemTache(Tache *tache, QTreeWidget *parent) : tache(tache),
                                                                               QTreeWidgetItem(
                                                                                       parent)
@@ -178,6 +226,10 @@ TreeWidget::TreeItemTache::TreeItemTache(Tache *tache, QTreeWidget *parent) : ta
 
 }
 
+/**
+ * @brief Getter de Tache.
+ * @return
+ */
 Tache *TreeWidget::TreeItemTache::getTache()
 {
     return tache;
