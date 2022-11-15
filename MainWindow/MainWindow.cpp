@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     historique->loadData("log.txt");
 
     lstContact = BD::getContactData();
-    lstContact->sort(StdListContact::Date);
+    lstContact->sort(StdListContact::DateDecroissant);
     lstContactTmp = lstContact;
 
     setMenuBar(new MenuBar(this));
@@ -57,12 +57,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ToolBar, &ToolBar::suppContact, this, [=, this](StdListContact *lst)
     {
         suppContact(lst);
+        lstContact->sort(StdListContact::Sort::DateDecroissant);
         listContactWidget->recreateGroupeBoxContact();
     });
 
     addToolBar(ToolBar);
 
-    lstContact->sort(StdListContact::Date);
+    lstContact->sort(StdListContact::DateDecroissant);
     listContactWidget = new ListContactWidget(lstContact, this);
     connect(listContactWidget, &ListContactWidget::suppContact, this, [=, this](StdContact *contact){
         suppContact(contact);
@@ -156,6 +157,7 @@ void MainWindow::addContact(StdContact *contact)
  */
 void MainWindow::suppContact(StdContact *contact)
 {
+
     BD::supContact(*contact);
     historique->addLog(ListHistorique::SuppressionContact, *contact);
     lstContact->supContact(contact);
@@ -221,7 +223,7 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
 void MainWindow::resetListContactWidget()
 {
     lstContact = lstContactTmp;
-    lstContact->sort(StdListContact::Date);
+    lstContact->sort(StdListContact::DateDecroissant);
     reactualise();
 }
 

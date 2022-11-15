@@ -16,6 +16,31 @@ public:
     explicit TreeWidget(StdListContact *lst, QWidget *parent = nullptr);
 
 private:
+    class TreeItemTache : public QTreeWidgetItem
+    {
+    public:
+        explicit TreeItemTache(Tache *tache, QTreeWidget *parent = nullptr);
+
+    private:
+        Tache *tache;
+    public:
+        Tache *getTache() ;
+    };
+
+    class TreeItemInteraction : public QTreeWidgetItem
+    {
+    public:
+        explicit TreeItemInteraction(Interaction *interaction, QTreeWidget *parent = nullptr);
+
+    private:
+        Interaction *interaction;
+    public:
+        QList<TreeItemTache *> lst;
+        Interaction *getInteraction();
+        void unselectChild();
+
+    };
+
     class TreeItemContact : public QTreeWidgetItem
     {
     public:
@@ -24,7 +49,11 @@ private:
     private:
         StdContact *contact;
     public:
-        StdContact *getContact() const;
+        QList<TreeItemInteraction *> lst;
+
+        StdContact *getContact();
+
+        void unselectChild();
     };
 
 private:

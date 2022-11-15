@@ -89,7 +89,7 @@ void ExportImportMenu::exportActionTriggered()
     }
     lst->getLstContact()->clear();
     delete lst;
-    lstContact->sort(StdListContact::Date);
+    lstContact->sort(StdListContact::DateDecroissant);
     qobject_cast<MainWindow *>(
             Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
 }

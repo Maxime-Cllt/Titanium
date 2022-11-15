@@ -132,7 +132,7 @@ void ToolBar::createTriBtn()
     // tri par nom (ordre croissant).
     connect(triNom, &QAction::triggered, this, [this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::Nom);
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::NomCroissant);
         qobject_cast<MainWindow *>(
                 Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
     });
@@ -140,7 +140,7 @@ void ToolBar::createTriBtn()
     // tri par date de creation le plus recent crée.
     connect(triDate, &QAction::triggered, this, [this]()
     {
-        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::Date);
+        qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact()->sort(StdListContact::NomCroissant);
         qobject_cast<MainWindow *>(
                 Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
     });

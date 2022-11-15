@@ -22,7 +22,7 @@ public:
 
     ~StdListContact();
 
-    enum Sort {Date, Nom};
+    enum Sort {DateCroissant,DateDecroissant, NomCroissant, NomDecroissant};
 
 
 private:
@@ -49,6 +49,8 @@ public:
     void sort(Sort sort);
 
     int size();
+
+    void clear();
 
     bool contains(const StdContact &);
 

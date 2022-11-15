@@ -145,7 +145,6 @@ void ListContactWidget::afficheAllGroupeBox()
  */
 void ListContactWidget::recreateGroupeBoxContact()
 {
-
     // comme tous les GroupeBoxContact vont etre supprimé ont reset le pointeur du dernier contact selectionné.
     resetLastConctactselected();
 

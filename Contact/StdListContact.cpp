@@ -154,12 +154,28 @@ void StdListContact::sort(StdListContact::Sort sort)
 {
     switch (sort)
     {
-        case Sort::Date :
+        case Sort::DateDecroissant :
+            lstContact->sort([](StdContact *contact1, StdContact *contact2) { return *contact1 < *contact2; });
+            break;
+        case Sort::DateCroissant :
             lstContact->sort([](StdContact *contact1, StdContact *contact2) { return *contact1 > *contact2; });
             break;
-        case Sort::Nom :
+        case Sort::NomCroissant :
+            lstContact->sort(
+                    [](StdContact *contact1, StdContact *contact2) { return contact1->getNom() > contact2->getNom(); });
+            break;
+        case Sort::NomDecroissant :
             lstContact->sort(
                     [](StdContact *contact1, StdContact *contact2) { return contact1->getNom() < contact2->getNom(); });
             break;
     }
+}
+
+/**
+ * @brief Clear la liste.
+ */
+void StdListContact::clear()
+{
+    lstContact->clear();
+
 }
