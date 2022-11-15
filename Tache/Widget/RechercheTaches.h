@@ -10,6 +10,7 @@
 #include <QGridLayout>
 #include <QDateTimeEdit>
 #include <QTextEdit>
+#include <QTreeWidget>
 #include "../../Interaction/ListInteraction.h"
 
 /**
@@ -22,26 +23,54 @@ Q_OBJECT
 public:
     explicit RechercheTaches(ListInteraction *listInteraction, QWidget *parent = nullptr);
 
-    enum Sort { Recent, Ancien };
+
+private:
+    /**
+     * @brief Classe TreeWidget qui gere l'affichage des taches d'un contact.
+     */
+    class TreeWidget : public QTreeWidget
+    {
+    public:
+        explicit TreeWidget(ListInteraction *listInteraction, QWidget *parent = nullptr);
+
+        enum Sort
+        {
+            Recent, Ancien
+        };
+
+
+        void setSortMode(Sort);
+
+        void remplirTextEdit();
+
+        void initDebFin(QDateTime deb, QDateTime fin);
+
+    private:
+        ListInteraction *lstInteraction{};
+        int sort = 0;
+        bool afficheTachePasse = true;
+
+        QDateTime deb;
+        QDateTime fin;
+
+
+    protected:
+        void mousePressEvent(QMouseEvent *event) override;
+
+    public:
+        void setDeb(QDateTime d);
+
+        void setFin(QDateTime d);
+
+    };
 
 private:
     ListInteraction *lstInteraction{};
     QGridLayout *layout{};
     QDateTimeEdit *debut{};
     QDateTimeEdit *fin{};
-    QTextEdit *textEdit{};
-    int sort = 0;
-    bool afficheTachePasse = true;
+    TreeWidget *listWidget{};
 
-protected:
-    void mousePressEvent(QMouseEvent *event);
-
-private:
-
-    void remplirTextEdit();
-
-public:
-    void setSortMode(Sort);
 
 };
 

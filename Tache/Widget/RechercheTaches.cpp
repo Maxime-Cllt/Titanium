@@ -41,35 +41,49 @@ RechercheTaches::RechercheTaches(ListInteraction *listInteraction, QWidget *pare
 
     layout->addWidget(fin, 2, 1, 1, 1);
 
-    textEdit = new QTextEdit(this);
-    textEdit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    textEdit->setReadOnly(true);
-    textEdit->setWordWrapMode(QTextOption::NoWrap);
+    listWidget = new TreeWidget(listInteraction, this);
 
-    textEdit->setContextMenuPolicy(Qt::CustomContextMenu);
+    layout->addWidget(listWidget, 3, 0, 1, 2);
 
-    layout->addWidget(textEdit, 3, 0, 1, 2);
+    listWidget->initDebFin(debut->dateTime(), fin->dateTime());
 
-    remplirTextEdit();
+    listWidget->remplirTextEdit();
 
-    connect(debut, &QDateTimeEdit::dateTimeChanged, this, &RechercheTaches::remplirTextEdit);
-    connect(fin, &QDateTimeEdit::dateTimeChanged, this, &RechercheTaches::remplirTextEdit);
+    connect(debut, &QDateTimeEdit::dateTimeChanged, listWidget, &TreeWidget::setDeb);
+    connect(fin, &QDateTimeEdit::dateTimeChanged, listWidget, &TreeWidget::setFin);
 
 
 }
 
 /**
- * @details Fonction qui est appelée a change fois que la date des QDateTimeEdit change et met à jour le contenu
- * de la QTextEdit.
+ * @brief Constructeur par défaut de TreeWidget.
+ * @param listInteraction
+ * @param parent
  */
-void RechercheTaches::remplirTextEdit()
+RechercheTaches::TreeWidget::TreeWidget(ListInteraction *listInteraction, QWidget *parent) : lstInteraction(
+        listInteraction)
 {
-    // on récupère la date des QDateTimeEdit, on multiplie par 1000, car la date d'une tache est en microseconde.
-    uint64_t dateDebut = debut->dateTime().toMSecsSinceEpoch() * 1000;
-    uint64_t dateFin = fin->dateTime().toMSecsSinceEpoch() * 1000;
-    uint64_t currentTime = QDateTime::currentMSecsSinceEpoch() * 1000;
+    setAlternatingRowColors(true);
+    setSelectionMode(QAbstractItemView::SelectionMode::NoSelection);
+    setHeaderLabels({"Détail", "Date"});
+    setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+    setColumnWidth(0,300);
+    setMinimumSize(500,300);
+}
 
-    textEdit->clear();
+/**
+ * @details Fonction qui est appelée a change fois que la date des QDateTimeEdit change et met à jour le contenu
+ * de la QTreeWidget.
+ */
+void RechercheTaches::TreeWidget::remplirTextEdit()
+{
+
+    clear();
+
+    // on récupère la date des QDateTimeEdit, on multiplie par 1000, car la date d'une tache est en microseconde.
+    uint64_t dateDebut = deb.toMSecsSinceEpoch() * 1000;
+    uint64_t dateFin = fin.toMSecsSinceEpoch() * 1000;
+    uint64_t currentTime = QDateTime::currentMSecsSinceEpoch() * 1000;
 
 
     ListTache lst;
@@ -94,7 +108,6 @@ void RechercheTaches::remplirTextEdit()
         }
     }
 
-    int i = 1;
 
     // variable qui stockera tout le contenu des taches.
     QString str;
@@ -109,42 +122,25 @@ void RechercheTaches::remplirTextEdit()
 
     for (const auto tache: *lst.getLstTache())
     {
-
+        auto *item = new QTreeWidgetItem(this);
+        item->setText(0, QString::fromStdString(tache->getContenuWithoutTodo()));
         dateTache.setMSecsSinceEpoch((qint64) tache->getdate() / 1000);
-
-        str += QString::number(i) + " : ";
-
-        // une fois sur deux la couleur de la tache ajoutée change pour plus de lisibilité.
-        if (i % 2)
-            str += "<font color=red>";
-        else
-            str += "<font color=blue>";
-        str += QString::fromStdString(tache->getcontenu()) + " -> [" +
-               dateTache.toString("dd/MM/yyyy hh:mm:ss") + " ]</font><br>";
-        i++;
+        item->setText(1, dateTache.toString("dd/MM/yyyy hh:mm:ss"));
+        addTopLevelItem(item);
     }
-
-    textEdit->insertHtml(str);
 }
 
-/**
- * @brief Definit le mode de tri des taches.
- * @param sortMode
- */
-void RechercheTaches::setSortMode(RechercheTaches::Sort sortMode)
-{
-    RechercheTaches::sort = sortMode;
-}
 
 /**
  * @details Surcharge de l'évènement click de la souris qui déclenche un menu personnalisé.
  * @param event
  */
-void RechercheTaches::mousePressEvent(QMouseEvent *event)
+void RechercheTaches::TreeWidget::mousePressEvent(QMouseEvent *event)
 {
+    QAbstractItemView::mousePressEvent(event);
     if (event->button() == Qt::MouseButton::RightButton)
     {
-        auto *menu = textEdit->createStandardContextMenu();
+        auto *menu = new QMenu;
 
         auto *recent = new QAction("Tri récent", this);
         if (sort == Sort::Recent)
@@ -189,4 +185,43 @@ void RechercheTaches::mousePressEvent(QMouseEvent *event)
         menu->exec(event->globalPos());
         delete menu;
     }
+}
+
+/**
+* @brief Définit le mode de tri des taches.
+* @param sortMode
+*/
+void RechercheTaches::TreeWidget::setSortMode(RechercheTaches::TreeWidget::Sort sortMode)
+{
+    RechercheTaches::TreeWidget::sort = sortMode;
+}
+
+/**
+ * @brief Setter de la date du debut qui appelle la fonction remplirTextEdit qui remplie le QTreeWiget avec les taches.
+ * @param d
+ */
+void RechercheTaches::TreeWidget::setDeb(QDateTime d)
+{
+    TreeWidget::deb = d;
+    remplirTextEdit();
+}
+
+/**
+ * @brief Setter de la date du debut qui appelle la fonction remplirTextEdit qui remplie le QTreeWiget avec les taches.
+ * @param d
+ */
+void RechercheTaches::TreeWidget::setFin(QDateTime d)
+{
+    TreeWidget::fin = d;
+    remplirTextEdit();
+}
+
+/**
+ * @brief Fonction pour initializer les dates au debut.
+ * @param deb, fin
+ */
+void RechercheTaches::TreeWidget::initDebFin(QDateTime deb, QDateTime fin)
+{
+    RechercheTaches::TreeWidget::deb = deb;
+    RechercheTaches::TreeWidget::fin = fin;
 }

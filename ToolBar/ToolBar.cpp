@@ -8,6 +8,7 @@
 #include "RechercheTache/TreeTacheDialog.h"
 #include <QTextEdit>
 #include <QLayout>
+#include <QListWidget>
 #include <QCalendarWidget>
 
 
@@ -141,39 +142,29 @@ void ToolBar::createTriBtn()
  */
 void ToolBar::afficheHistorique()
 {
+
+
     QDialog dialog;
     dialog.setWindowTitle("Historique");
 
     QGridLayout layout(&dialog);
 
-    QTextEdit textEdit(&dialog);
-    textEdit.setReadOnly(true);
+    QListWidget wid;
+    wid.setAlternatingRowColors(true);
 
-    QString contenu;
-
-    int i = 1;
     for (const auto &str: *qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique())
-    {
-        contenu += QString::number(i) + " : ";
-        if (i % 2)
-            contenu += "<font color=red>";
-        else
-            contenu += "<font color=blue>";
-        contenu += QString::fromStdString(str).replace("\n", " | ") + "</font><br>";
-        i++;
-    }
+        wid.addItem(QString::fromStdString(str).replace("\n", " | "));
 
-    textEdit.insertHtml(contenu);
 
     QPushButton effaceHistorique("Effacer l’historique", &dialog);
 
     connect(&effaceHistorique, &QPushButton::clicked, this, [&, this]()
     {
         emit clearHistoriqueClicked();
-        textEdit.clear();
+        wid.clear();
     });
 
-    layout.addWidget(&textEdit);
+    layout.addWidget(&wid);
 
     layout.addWidget(&effaceHistorique);
 

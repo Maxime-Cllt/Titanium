@@ -21,6 +21,9 @@ public:
     explicit TreeTacheDialog(StdListContact * lst, QWidget *parent = nullptr);
 
 private:
+    /**
+     * @brief Classe TreeWidget qui gere l'affichage des taches de tous les contacts.
+     */
     class TreeWidget : public QTreeWidget
     {
     public:
