@@ -2,7 +2,7 @@
 // Created by rahman on 01/11/22.
 //
 
-#include "TollBar.h"
+#include "ToolBar.h"
 #include "../ContactDialog/CreationContactDialog.h"
 #include "RechercheContact/RechercheContactDialog.h"
 #include "RechercheTache/TreeTacheDialog.h"
@@ -12,10 +12,10 @@
 
 
 /**
- * @brief Constructeur par défaut de la classe TollBar.
+ * @brief Constructeur par défaut de la classe ToolBar.
  * @param parent
  */
-TollBar::TollBar(QWidget *parent) : QToolBar(parent)
+ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
 {
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -25,7 +25,7 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
     ajouter->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
     addAction(ajouter);
 
-    connect(ajouter, &QAction::triggered, this, &TollBar::ajouterContact);
+    connect(ajouter, &QAction::triggered, this, &ToolBar::ajouterContact);
 
     addSeparator();
 
@@ -52,7 +52,7 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
     historique = new QAction("Historique", this);
     historique->setIcon(QIcon("src/historique.png"));
 
-    connect(historique, &QAction::triggered, this, &TollBar::afficheHistorique);
+    connect(historique, &QAction::triggered, this, &ToolBar::afficheHistorique);
 
     addAction(historique);
 
@@ -62,7 +62,7 @@ TollBar::TollBar(QWidget *parent) : QToolBar(parent)
 /**
  * @brief Ouvre une fenêtre de dialog pour ajouter un contact.
  */
-void TollBar::ajouterContact()
+void ToolBar::ajouterContact()
 {
     CreationContactDialog dialog(this);
     connect(&dialog, &CreationContactDialog::btnActionClicked, this, [this](StdContact *contact)
@@ -75,7 +75,7 @@ void TollBar::ajouterContact()
 /**
  * @brief Ouvre une fenêtre de dialog pour la recherche de contact.
  */
-void TollBar::chercherContact()
+void ToolBar::chercherContact()
 {
 
     resetActionTriggered();
@@ -94,7 +94,7 @@ void TollBar::chercherContact()
 /**
  * @brief Creation du menu pour le tri.
  */
-void TollBar::createTriBtn()
+void ToolBar::createTriBtn()
 {
 
     tri = new QToolButton(this);
@@ -139,7 +139,7 @@ void TollBar::createTriBtn()
 /**
  * @details Click sur l'action historique, qui affiche une fenêtre qui contient tous les historiques.
  */
-void TollBar::afficheHistorique()
+void ToolBar::afficheHistorique()
 {
     QDialog dialog;
     dialog.setWindowTitle("Historique");
@@ -184,7 +184,7 @@ void TollBar::afficheHistorique()
 /**
  * @brief Creation du menu pour la recherche.
  */
-void TollBar::createFindBtn()
+void ToolBar::createFindBtn()
 {
     chercher = new QToolButton(this);
     chercher->setIcon(QIcon("src/chercher.png"));
@@ -194,13 +194,13 @@ void TollBar::createFindBtn()
 
     auto *findContact = new QAction("Chercher contact", this);
     findContact->setIcon(QIcon("src/contact.png"));
-    connect(findContact, &QAction::triggered, this, &TollBar::chercherContact);
+    connect(findContact, &QAction::triggered, this, &ToolBar::chercherContact);
 
     chercher->addAction(findContact);
 
     auto *findTache = new QAction("Chercher taches", this);
     findTache->setIcon(QIcon("src/todo.png"));
-    connect(findTache, &QAction::triggered, this, &TollBar::chercherTache);
+    connect(findTache, &QAction::triggered, this, &ToolBar::chercherTache);
 
     chercher->addAction(findTache);
 
@@ -209,7 +209,7 @@ void TollBar::createFindBtn()
 /**
  * @brief Click sur le boutton de recherche d'une tache.
  */
-void TollBar::chercherTache()
+void ToolBar::chercherTache()
 {
     TreeTacheDialog diag(qobject_cast<MainWindow *>(
             Utility::getMainWindow(this))->getLstContact());

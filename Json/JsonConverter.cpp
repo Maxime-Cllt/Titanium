@@ -11,41 +11,34 @@ JsonConverter::JsonConverter(QObject *parent) : QObject(parent)
 }
 
 /**
- * @details Fonction qui prend un contact en parametre et crée un json avec tous les attributs du contact.
+ * @details Fonction qui prend un contact en paramètre et crée un json avec tous les attributs du contact.
  * @param contact
- * @return
+ * @return QJsonObject
  */
 QJsonObject JsonConverter::contactToJson(const StdContact &contact)
 {
     QJsonObject jsonContact;
-
     jsonContact.insert("nom", QString::fromStdString(contact.getNom()));
     jsonContact.insert("prenom", QString::fromStdString(contact.getPrenom()));
     jsonContact.insert("entreprise", QString::fromStdString(contact.getEntreprise()));
     jsonContact.insert("mail", QString::fromStdString(contact.getMail()));
     jsonContact.insert("telephone", QString::fromStdString(contact.getTelephone()));
     jsonContact.insert("photo", QString::fromStdString(contact.getPhoto()));
-
     jsonContact.insert("interactions", interactionToJson(*contact.getLstInteraction()));
-
-
     QJsonObject json;
     json.insert(QString::number(contact.getDateCreation()), jsonContact);
-
-
 //    qDebug() << QJsonDocument(json).toJson(QJsonDocument::Indented);
     return json;
 }
 
 /**
- * @details Fonction qui transforme une liste de contact en un objet json avec les donnés des contact.
+ * @details Fonction qui transforme une liste de contact en un objet json avec les donnés des contacts.
  * @param lst
- * @return
+ * @return QJsonObject
  */
 QJsonObject JsonConverter::contactToJson(const StdListContact &lst)
 {
     QJsonObject json;
-
     for (const auto &contact: *lst.getLstContact())
     {
         json.insert(QString::number(contact->getDateCreation()),
@@ -57,29 +50,25 @@ QJsonObject JsonConverter::contactToJson(const StdListContact &lst)
 /**
  * @details Renvoie sous forme de QJsonObjet les données d'une interaction.
  * @param interaction
- * @return json
+ * @return QJsonObject
  */
 QJsonObject JsonConverter::interactionToJson(const Interaction &interaction)
 {
     QJsonObject json;
-
     json.insert("contenu", QString::fromStdString(interaction.getContenu()));
     json.insert("dateModif", QString::number(interaction.getDateModif()));
-
     json.insert("taches", tacheToJson(*interaction.getLstTache()));
-
     return json;
 }
 
 /**
  * @details Renvoie sous forme de QJsonObjet les données d'une liste d'interactions.
  * @param lst
- * @return json
+ * @return QJsonObject
  */
 QJsonObject JsonConverter::interactionToJson(const ListInteraction &lst)
 {
     QJsonObject json;
-
     for (const auto &interaction: *lst.getListInteraction())
     {
         json.insert(QString::number(interaction->getDateCreation()), interactionToJson(*interaction));
@@ -90,27 +79,24 @@ QJsonObject JsonConverter::interactionToJson(const ListInteraction &lst)
 /**
  * @details Renvoie sous forme de QJsonObjet les données d'une tache.
  * @param tache
- * @return json
+ * @return QJsonObject
  */
 QJsonObject JsonConverter::tacheToJson(const Tache &tache)
 {
     QJsonObject json;
-
     json.insert("date", QString::number(tache.getdate()));
     json.insert("contenu", QString::fromStdString(tache.getcontenu()));
-
     return json;
 }
 
 /**
  * @details Renvoie sous forme de QJsonObjet les données d'une liste de taches.
  * @param lst
- * @return json
+ * @return QJsonObject
  */
 QJsonObject JsonConverter::tacheToJson(const ListTache &lst)
 {
     QJsonObject json;
-
     int i = 0;
     for (const auto &tache: *lst.getLstTache())
     {
@@ -124,20 +110,15 @@ QJsonObject JsonConverter::tacheToJson(const ListTache &lst)
 /**
  * @details Crée un StdContact depuis un fichier json.
  * @param filePath
- * @return
+ * @return StdListContact
  */
 StdListContact *JsonConverter::getContact(const QString &filePath)
 {
     auto *lstContact = new StdListContact;
-
     QFile file(filePath);
     int res = file.open(QIODevice::ReadOnly | QIODevice::Text);
-    if (res == false)
-        return lstContact;
-
+    if (res == false) return lstContact;
     QByteArray data = file.readAll();
-
-
     QJsonParseError error;
     QJsonDocument json = QJsonDocument::fromJson(data, &error);
 
@@ -145,7 +126,6 @@ StdListContact *JsonConverter::getContact(const QString &filePath)
     {
         return lstContact;
     }
-
     auto contactMap = json.toVariant().toMap();
     for (const auto &key: contactMap.keys())
     {
@@ -160,19 +140,17 @@ StdListContact *JsonConverter::getContact(const QString &filePath)
                                        *lstInteraction);
         lstContact->addContact(contact);
     }
-
     return lstContact;
 }
 
 /**
- * @details Retoune la liste des interactions contenu dans QJsonObject.
+ * @details Retourne la liste des interactions contenues dans QJsonObject.
  * @param json
- * @return
+ * @return ListInteraction
  */
 ListInteraction *JsonConverter::getListInteraction(const QJsonObject &json)
 {
     auto *lst = new ListInteraction;
-
     for (const auto &key: json.keys())
     {
         auto *interaction = new Interaction(json.value(key).toObject().value("contenu").toString().toStdString());
@@ -193,13 +171,11 @@ ListInteraction *JsonConverter::getListInteraction(const QJsonObject &json)
 ListTache *JsonConverter::getListTache(const QJsonObject &json)
 {
     auto *lst = new ListTache;
-
     for (const auto &key: json.keys())
     {
         auto *tache = new Tache(json.value(key).toObject().value("contenu").toString().toStdString());
         tache->setdate(json.value(key).toObject().value("date").toString().toLongLong());
         lst->addTache(tache);
     }
-
     return lst;
 }

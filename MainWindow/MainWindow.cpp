@@ -6,7 +6,7 @@
 #include <QStatusBar>
 #include "../ContactDialog/CreationContactDialog.h"
 #include "../Menu/MenuBar.h"
-#include "../ToolBar/TollBar.h"
+#include "../ToolBar/ToolBar.h"
 
 /**
  * @details Constructeur de la classe MainWindow
@@ -50,12 +50,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setStatusBar(status);
 
-    auto *tollBar = new TollBar(this);
-    connect(tollBar, &TollBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
-    connect(tollBar, &TollBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
-    connect(tollBar, &TollBar::addContact, this, &MainWindow::addContact);
+    auto *ToolBar = new class ToolBar(this);
+    connect(ToolBar, &ToolBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
+    connect(ToolBar, &ToolBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
+    connect(ToolBar, &ToolBar::addContact, this, &MainWindow::addContact);
 
-    addToolBar(tollBar);
+    addToolBar(ToolBar);
 
     lstContact->sort(StdListContact::Date);
     listContactWidget = new ListContactWidget(lstContact, this);

@@ -3,7 +3,7 @@
 //
 
 #include "ModifContactDialog.h"
-#include "../BaseDeDonne/BD.h"
+#include "../BaseDeDonnees/BD.h"
 #include "../MainWindow/MainWindow.h"
 
 /**

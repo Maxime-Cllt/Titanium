@@ -7,7 +7,7 @@
 #include <QLabel>
 #include "../../ContactDialog/ModifContactDialog.h"
 #include "../../Interaction/Widget/CreationInteractionDialog.h"
-#include "../../BaseDeDonne/BD.h"
+#include "../../BaseDeDonnees/BD.h"
 #include "../../MainWindow/MainWindow.h"
 #include "ListContactWidget.h"
 #include "../../Tache/Widget/RechercheTaches.h"

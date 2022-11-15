@@ -13,20 +13,24 @@
  * @details Constructeur de la classe BD pour la base de données de l'application
  * @param parent
  */
-BD::BD(QObject *parent) : QObject(parent) {
+BD::BD(QObject *parent) : QObject(parent)
+{
     QString path("database.sqlite");
     bool exist = QFileInfo::exists(path);
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
 
-    if (!db.open()) {
+    if (!db.open())
+    {
         qDebug() << "Erreur : impossible de se connecter à la base de donné.";
         exit(0);
-    } else {
+    } else
+    {
         qDebug() << "Database: connection ok";
     }
 
-    if (!exist) {
+    if (!exist)
+    {
         QSqlQuery query;
         query.exec("CREATE TABLE IF NOT EXISTS CONTACTS("
                    "Nom VARCHAR(255) not null,"
@@ -63,7 +67,8 @@ BD::BD(QObject *parent) : QObject(parent) {
  * @details Ajoute un contact dans la base de données via un StdContact.
  * @param contact
  */
-void BD::addContactOnBD(const StdContact &contact) {
+void BD::addContactOnBD(const StdContact &contact)
+{
 
     QSqlQuery query;
     const QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(contact));
@@ -92,7 +97,8 @@ void BD::addContactOnBD(const StdContact &contact) {
  * @details Ajoute un contact dans la base de données via une StdListContact
  * @param contact
  */
-void BD::addContactOnBD(StdListContact *stdListContact) {
+void BD::addContactOnBD(StdListContact *stdListContact)
+{
     for (const auto contact: *stdListContact->getLstContact())
         addContactOnBD(*contact);
 
@@ -103,7 +109,8 @@ void BD::addContactOnBD(StdListContact *stdListContact) {
  * @param idContact
  * @param modif
  */
-void BD::addModif(uint64_t idContact, const std::string &modif) {
+void BD::addModif(uint64_t idContact, const std::string &modif)
+{
     QSqlQuery query("INSERT INTO MODIFICATIONS "
                     "(IdContact, DateModification,Modification) "
                     "VALUES (? , ? , ?);");
@@ -116,7 +123,8 @@ void BD::addModif(uint64_t idContact, const std::string &modif) {
  * @details Retourne la liste des contacts de la table CONTACTS
  * @return lst
  */
-StdListContact *BD::getContactData() {
+StdListContact *BD::getContactData()
+{
     auto *lst = new StdListContact;
 
     QSqlQuery query("SELECT * FROM CONTACTS");
@@ -145,22 +153,23 @@ StdListContact *BD::getContactData() {
  * @details Supprimer un contact de la base de données
  * @param contact
  */
-void BD::supContact(const StdContact &contact) {
-
+void BD::supContact(const StdContact &contact)
+{
     QSqlQuery query;
     QString date;
     date.setNum(contact.getDateCreation());
-
-    for (const auto interaction: *contact.getLstInteraction()->getListInteraction()) {
+    for (const auto interaction: *contact.getLstInteraction()->getListInteraction())
+    {
         supInteraction(*interaction);
     }
 
     query.prepare("DELETE FROM CONTACTS WHERE ? = DateCreation");
     query.addBindValue(date);
-
-    if (query.exec()) {
+    if (query.exec())
+    {
         QMessageBox::information(nullptr, "Succes", "Le contact a été suprimé avec succes.");
-    } else {
+    } else
+    {
         QMessageBox::warning(nullptr, "Erreur", "Une erreur est survenue lors de la supression du contact.");
     }
 }
@@ -170,7 +179,8 @@ void BD::supContact(const StdContact &contact) {
  * @param contact
  * @return
  */
-bool BD::modifyContact(const StdContact &contact) {
+bool BD::modifyContact(const StdContact &contact)
+{
     QtContact qtContact(Utility::StdFicheContacttoQtFicheContact(contact));
 
     QSqlQuery query;
@@ -193,9 +203,11 @@ bool BD::modifyContact(const StdContact &contact) {
     dateCreation.setNum(qtContact.getDateCreation());
     query.addBindValue(dateCreation);
 
-    if (query.exec()) {
+    if (query.exec())
+    {
         int rep = QMessageBox::information(nullptr, "Information", "Le contact à été modifié avec succès.");
-        if (rep == QMessageBox::Ok) {
+        if (rep == QMessageBox::Ok)
+        {
             return true;
         }
     }
@@ -207,7 +219,8 @@ bool BD::modifyContact(const StdContact &contact) {
  * @param idContact
  * @param interaction
  */
-void BD::addInteraction(uint64_t idContact, const Interaction &interaction) {
+void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
+{
     QSqlQuery query(
             "INSERT INTO INTERACTIONS (IdContact ,IdInteraction,DateModification, Contenu) VALUES ( ? , ? , ? , ?);");
     query.addBindValue(QString::number(idContact));
@@ -224,8 +237,10 @@ void BD::addInteraction(uint64_t idContact, const Interaction &interaction) {
  * @details Supprimer une interaction d'un contact dans la base de données en fonction de son id
  * @param interaction
  */
-void BD::supInteraction(const Interaction &interaction) {
-    for (const auto tache: *interaction.getLstTache()->getLstTache()) {
+void BD::supInteraction(const Interaction &interaction)
+{
+    for (const auto tache: *interaction.getLstTache()->getLstTache())
+    {
         supTache(*tache);
     }
     QSqlQuery query("DELETE FROM INTERACTIONS WHERE ? = IdInteraction");
@@ -237,7 +252,8 @@ void BD::supInteraction(const Interaction &interaction) {
  * @details Modifier l'interaction d'un contact dans la base de données
  * @param interaction
  */
-void BD::modifyInteraction(const Interaction &interaction) {
+void BD::modifyInteraction(const Interaction &interaction)
+{
     QSqlQuery query("UPDATE INTERACTIONS SET Contenu = ?, DateModification = ? WHERE ? = IdInteraction;");
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.addBindValue(QString::number(interaction.getDateModif()));
@@ -257,15 +273,16 @@ void BD::modifyInteraction(const Interaction &interaction) {
  * @param idContact
  * @return listInteraction
  */
-ListInteraction BD::getListInteractionData(const uint64_t &idContact) {
+ListInteraction BD::getListInteractionData(const uint64_t &idContact)
+{
     QSqlQuery query("SELECT * FROM INTERACTIONS WHERE ? = IdContact");
     query.addBindValue(QString::number(idContact));
 
     ListInteraction listInteraction(idContact);
 
     query.exec();
-
-    while (query.next()) {
+    while (query.next())
+    {
         Interaction interaction;
 
         interaction.setDateCreation(query.value(1).toLongLong());
@@ -285,14 +302,15 @@ ListInteraction BD::getListInteractionData(const uint64_t &idContact) {
  * @param idInteraction
  * @return
  */
-ListTache BD::getListTacheData(const uint64_t &idInteraction) {
+ListTache BD::getListTacheData(const uint64_t &idInteraction)
+{
     QSqlQuery query("SELECT * FROM TACHE WHERE ? = IdInteraction");
     query.addBindValue(QString::number(idInteraction));
     query.exec();
 
     ListTache lst;
-
-    while (query.next()) {
+    while (query.next())
+    {
         Tache tache(query.value(2).toString().toStdString());
         tache.setdate(query.value(1).toLongLong());
         lst.addTache(tache);
@@ -305,7 +323,8 @@ ListTache BD::getListTacheData(const uint64_t &idInteraction) {
  * @details Fonction pour supprimer une tache via la date
  * @param tache
  */
-void BD::supTache(const Tache &tache) {
+void BD::supTache(const Tache &tache)
+{
     QSqlQuery query("DELETE FROM TACHE WHERE ? = date");
     query.addBindValue(QString::number(tache.getdate()));
     query.exec();
@@ -317,7 +336,8 @@ void BD::supTache(const Tache &tache) {
  * pour chaque interaction ajoute aussi sa liste de taches.
  * @param lst
  */
-void BD::addFullContactAttributesOnBD(const StdListContact &lst) {
+void BD::addFullContactAttributesOnBD(const StdListContact &lst)
+{
     for (const auto &contact: *lst.getLstContact())
         addFullContactAttributesOnBD(*contact);
 }
@@ -328,9 +348,12 @@ void BD::addFullContactAttributesOnBD(const StdListContact &lst) {
  * pour chaque interaction ajoute aussi sa liste de taches.
  * @param lst
  */
-void BD::addFullContactAttributesOnBD(const StdContact &contact) {
+void BD::addFullContactAttributesOnBD(const StdContact &contact)
+{
     addContactOnBD(contact);
     addInteraction(*contact.getLstInteraction());
+    for (const auto &interaction: *contact.getLstInteraction()->getListInteraction())
+        addTache(*interaction->getLstTache());
 }
 
 
@@ -338,7 +361,8 @@ void BD::addFullContactAttributesOnBD(const StdContact &contact) {
  * @brief Ajoute une liste d'interaction à la base de données.
  * @param lst
  */
-void BD::addInteraction(const ListInteraction &lst) {
+void BD::addInteraction(const ListInteraction &lst)
+{
     for (const auto &intercation: *lst.getListInteraction())
         addInteraction(lst.getidContact(), *intercation);
 }
@@ -348,7 +372,8 @@ void BD::addInteraction(const ListInteraction &lst) {
  * @param idInteraction
  * @param tache
  */
-void BD::addTache(uint64_t idInteraction, const Tache &tache) {
+void BD::addTache(uint64_t idInteraction, const Tache &tache)
+{
     QSqlQuery query("INSERT INTO TACHE VALUES (? , ? ,? );");
 
     query.addBindValue(QString::number(idInteraction));
@@ -361,7 +386,8 @@ void BD::addTache(uint64_t idInteraction, const Tache &tache) {
  * @brief Ajoute une liste de taches à la base de données.
  * @param lst
  */
-void BD::addTache(const ListTache &lst) {
+void BD::addTache(const ListTache &lst)
+{
     for (const auto &tache: *lst.getLstTache())
         addTache(lst.getIdInteraction(), *tache);
 }
