@@ -36,8 +36,8 @@ private:
         void createTache();
 
     protected:
-        void mouseReleaseEvent(QMouseEvent *event) override;
 
+        void mouseReleaseEvent(QMouseEvent *event) override;
     };
 
 private:
