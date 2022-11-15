@@ -40,7 +40,7 @@ const std::string &Tache::getcontenu() const
  */
 void Tache::setcontenu(const std::string &contenu)
 {
-    if(contenu.contains("@date")){
+    if(contenu.find("@date") !=std::string::npos){
         int pos = contenu.find("@date")+ 6;
 
         tm d = {0};
@@ -133,7 +133,7 @@ std::string Tache::getContenuWithoutTodo()
 {
     std::string tmp = contenu;
     tmp.erase(0, 5);
-    if (tmp.contains("@date"))
+    if (tmp.find("@date") !=std::string::npos)
     {
         int pos = tmp.find("@date");
         int longueur = 0;
