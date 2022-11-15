@@ -36,6 +36,7 @@ StdContact::StdContact(std::string nom, std::string prenom, std::string entrepri
                                                                                                       new ListInteraction(
                                                                                                               lstInteraction))
 {
+    StdContact::lstInteraction->setidContact(StdContact::dateCreation);
 }
 
 /**

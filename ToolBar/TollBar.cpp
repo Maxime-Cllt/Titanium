@@ -5,10 +5,10 @@
 #include "TollBar.h"
 #include "../ContactDialog/CreationContactDialog.h"
 #include "RechercheContact/RechercheContactDialog.h"
+#include "RechercheTache/TreeTacheDialog.h"
 #include <QTextEdit>
 #include <QLayout>
 #include <QCalendarWidget>
-#include <QTreeWidget>
 
 
 /**
@@ -211,46 +211,8 @@ void TollBar::createFindBtn()
  */
 void TollBar::chercherTache()
 {
-    QDialog diag;
-
-    QGridLayout lay(&diag);
-
-    QCalendarWidget cal;
-    cal.setSelectedDate(QDate::currentDate());
-    lay.addWidget(&cal, 0, 0, 1, 1);
-
-    auto *tree =new QTreeWidget();
-    tree->setMinimumSize(500,400);
-    tree->setAlternatingRowColors(true);
-    tree->setColumnWidth(0,300);
-    tree->setWordWrap(true);
-    tree->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    lay.setColumnStretch(1, 1);
-    lay.addWidget(tree, 0, 1, 1, 2);
-
-    tree->setHeaderLabels({"Nom", "Prénom", "Mail"});
-
-    for (auto contact: *qobject_cast<MainWindow *>(
-            Utility::getMainWindow(this))->getLstContact()->getLstContact())
-    {
-        auto item  = new QTreeWidgetItem(tree);
-        item->setText(0,QString::fromStdString(contact->getNom()));
-        item->setText(1,QString::fromStdString(contact->getPrenom()));
-        item->setText(2,QString::fromStdString(contact->getMail()));
-
-        tree->addTopLevelItem(item);
-
-        for(auto interaction : *contact->getLstInteraction()->getListInteraction()){
-            for(auto tache : *interaction->getLstTache()->getLstTache()){
-                auto item1  = new QTreeWidgetItem();
-                item1->setText(0,QString::fromStdString(tache->getContenuWithoutTodo()));
-                QDateTime date;
-                date.setMSecsSinceEpoch((qint64) tache->getdate() /1000);
-                item1->setText(1,date.toString("dd/MM/yyyy hh:mm:ss"));
-                item->addChild(item1);
-            }
-        }
-    }
+    TreeTacheDialog diag(qobject_cast<MainWindow *>(
+            Utility::getMainWindow(this))->getLstContact());
 
     diag.exec();
 }

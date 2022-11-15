@@ -151,24 +151,25 @@ std::ostream &operator<<(std::ostream &os, const ListTache &lstTache)
 }
 
 /**
- * @brief Tri la liste dans l'ordre croissant des dates des taches.
+ * @details Tri la liste selon le type de tri en parametre.
+ * @param type
  */
-void ListTache::sortRecent()
+void ListTache::sort(Sort type)
 {
-    lstTache->sort([](Tache *t1, Tache *t2)
-                   {
-                       return *t1 < *t2;
-                   });
-}
+    switch (type)
+    {
+        case Sort::Ancien :
+            lstTache->sort([](Tache *t1, Tache *t2)
+                           {
+                               return *t1 > *t2;
+                           });
+            break;
+        case Sort::Recent :
+            lstTache->sort([](Tache *t1, Tache *t2)
+                           {
+                               return *t1 < *t2;
+                           });
 
-/**
- * @brief Tri la liste dans l'ordre croissant des dates des taches.
- */
-void ListTache::sortAncien()
-{
-    lstTache->sort([](Tache *t1, Tache *t2)
-                   {
-                       return *t1 > *t2;
-                   });
-}
+    }
 
+}

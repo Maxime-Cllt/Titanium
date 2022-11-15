@@ -6,7 +6,6 @@
 #include "Interaction/ListInteraction.h"
 
 #include <chrono>
-#include <QStyleFactory>
 
 using namespace std::chrono;
 

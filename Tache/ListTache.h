@@ -23,6 +23,8 @@ public:
 
     ListTache(const ListTache &listTache);
 
+    enum Sort {Ancien, Recent};
+
 private:
     std::list<Tache *> *lstTache{};
     uint64_t idInteraction{};
@@ -49,9 +51,7 @@ public:
 
     int size();
 
-    void sortRecent();
-
-    void sortAncien();
+    void sort(Sort type);
 
 };
 

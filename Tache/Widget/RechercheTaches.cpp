@@ -103,9 +103,9 @@ void RechercheTaches::remplirTextEdit()
 
 
     if (sort == Sort::Recent)
-        lst.sortRecent();
+        lst.sort(ListTache::Recent);
     else
-        lst.sortAncien();
+        lst.sort(ListTache::Ancien);
 
     for (const auto tache: *lst.getLstTache())
     {
