@@ -6,7 +6,7 @@
 #include <QStatusBar>
 #include "../ContactDialog/CreationContactDialog.h"
 #include "../Menu/MenuBar.h"
-#include "../ToolBar/TollBar.h"
+#include "../ToolBar/ToolBar.h"
 
 /**
  * @details Constructeur de la classe MainWindow
@@ -50,12 +50,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setStatusBar(status);
 
-    auto *tollBar = new TollBar(this);
-    connect(tollBar, &TollBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
-    connect(tollBar, &TollBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
-    connect(tollBar, &TollBar::addContact, this, &MainWindow::addContact);
+    auto *ToolBar = new class ToolBar(this);
+    connect(ToolBar, &ToolBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
+    connect(ToolBar, &ToolBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
+    connect(ToolBar, &ToolBar::addContact, this, &MainWindow::addContact);
 
-    addToolBar(tollBar);
+    addToolBar(ToolBar);
 
     lstContact->sort(StdListContact::Date);
     listContactWidget = new ListContactWidget(lstContact, this);
@@ -63,19 +63,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     layoutGauche->addWidget(listContactWidget);
 
-    for (int i = 0; i < 5; i++)
-    {
-        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
-                                       std::chrono::duration_cast<std::chrono::microseconds>(
-                                               std::chrono::system_clock::now().time_since_epoch()).count(),
-                                       ListInteraction());
-        Interaction it("wesh");
-        it.addTache(Tache("@todo il fait beau"));
-        it.addTache(Tache("@todo il fait mauvais @date 15/06/2023"));
-        contact->addInteraction(Interaction("wesh"));
-        contact->addInteraction(it);
-        addContact(contact);
-    }
+//    for (int i = 0; i < 5; i++)
+//    {
+//        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
+//                                       std::chrono::duration_cast<std::chrono::microseconds>(
+//                                               std::chrono::system_clock::now().time_since_epoch()).count(),
+//                                       ListInteraction());
+//        Interaction it("wesh");
+//        it.addTache(Tache("@todo il fait beau"));
+//        it.addTache(Tache("@todo il fait mauvais @date 15/06/2023"));
+//        contact->addInteraction(Interaction("wesh"));
+//        contact->addInteraction(it);
+//        addContact(contact);
+//    }
 }
 
 /**

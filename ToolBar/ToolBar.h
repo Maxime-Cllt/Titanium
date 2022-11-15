@@ -2,23 +2,23 @@
 // Created by rahman on 01/11/22.
 //
 
-#ifndef PROJET_QT_TOLLBAR_H
-#define PROJET_QT_TOLLBAR_H
+#ifndef PROJET_QT_TOOLBAR_H
+#define PROJET_QT_TOOLBAR_H
 
 #include <QToolBar>
 #include <QToolButton>
 #include "../Contact/StdContact.h"
 
 /**
- * @details Classe TollBar qui hérite de QToolBar qui servira pour les ajouts de contacts,
+ * @details Classe ToolBar qui hérite de QToolBar qui servira pour les ajouts de contacts,
  * recherche de contacts, trié les contacts, remettre à zero le Widget des contacts apres une recherche.
  */
-class TollBar : public QToolBar
+class ToolBar : public QToolBar
 {
 Q_OBJECT
 
 public:
-    explicit TollBar(QWidget *parent);
+    explicit ToolBar(QWidget *parent);
 
 private:
 
@@ -54,4 +54,4 @@ signals:
 };
 
 
-#endif //PROJET_QT_TOLLBAR_H
+#endif //PROJET_QT_TOOLBAR_H

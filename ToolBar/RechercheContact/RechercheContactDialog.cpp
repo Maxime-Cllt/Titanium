@@ -119,7 +119,7 @@ void RechercheContactDialog::createAvanceUi()
     lineNom->setPlaceholderText("toto");
     layoutDroit->addWidget(lineNom);
 
-    auto *labPrenom = new QLabel("prenom : ", this);
+    auto *labPrenom = new QLabel("Prénom : ", this);
     layoutGauche->addWidget(labPrenom);
     linePrenom = new QLineEdit(this);
     linePrenom->setPlaceholderText("tutu");
@@ -134,7 +134,7 @@ void RechercheContactDialog::createAvanceUi()
     auto *labMail = new QLabel("Mail : ", this);
     layoutGauche->addWidget(labMail);
     lineMail = new QLineEdit(this);
-    lineMail->setPlaceholderText("toto@titi.com");
+    lineMail->setPlaceholderText("nom@mail.com");
     layoutDroit->addWidget(lineMail);
 
     auto *labTel = new QLabel("Téléphone : ", this);

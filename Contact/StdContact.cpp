@@ -58,7 +58,7 @@ void StdContact::setNom(const std::string &nom)
 
 /**
  * @details Getter de prenom.
- * @return prenom du Contact
+ * @return Prénom du Contact
  */
 const std::string &StdContact::getPrenom() const
 {
@@ -66,8 +66,8 @@ const std::string &StdContact::getPrenom() const
 }
 
 /**
- * @details Setter de prenom.
- * @param Prenom du Contact
+ * @details Setter de prénom.
+ * @param Prénom du Contact
  */
 void StdContact::setPrenom(const std::string &prenom)
 {
@@ -75,7 +75,7 @@ void StdContact::setPrenom(const std::string &prenom)
 }
 
 /**
- * @details Getter de entreprise.
+ * @details Getter de l'entreprise.
  * @return Entreprise du Contact
  */
 const std::string &StdContact::getEntreprise() const
@@ -84,7 +84,7 @@ const std::string &StdContact::getEntreprise() const
 }
 
 /**
- * @details Setter de entreprise.
+ * @details Setter de l'entreprise.
  * @param entreprise du Contact
  */
 void StdContact::setEntreprise(const std::string &entreprise)
@@ -217,7 +217,7 @@ StdContact::~StdContact()
 
 
 /**
- * @details constructeur par defaut
+ * @details Constructeur par défaut
  */
 StdContact::StdContact() : lstInteraction(new ListInteraction(getDateCreation()))
 {
@@ -236,7 +236,7 @@ void StdContact::setlstInteraction(ListInteraction *lstInteraction)
 }
 
 /**
- * @details surcharge operateur < qui compare les dates de creation des 2 StdContact.
+ * @details Surcharge opérateur < qui compare les dates de creation des 2 StdContact.
  * @param rhs
  * @return
  */
@@ -246,7 +246,7 @@ bool StdContact::operator<(const StdContact &rhs) const
 }
 
 /**
- * @details surcharge operateur >.
+ * @details Surcharge opérateur >.
  * @param rhs
  * @return
  */
@@ -256,7 +256,7 @@ bool StdContact::operator>(const StdContact &rhs) const
 }
 
 /**
- * @details surcharge operateur <=.
+ * @details Surcharge opérateur <=.
  * @param rhs
  * @return
  */
@@ -266,7 +266,7 @@ bool StdContact::operator<=(const StdContact &rhs) const
 }
 
 /**
- * @details surcharge operateur >=.
+ * @details Surcharge opérateur >=.
  * @param rhs
  * @return
  */
@@ -276,7 +276,7 @@ bool StdContact::operator>=(const StdContact &rhs) const
 }
 
 /**
- * @details surcharge operateur ==.
+ * @details Surcharge opérateur ==.
  * @param rhs
  * @return
  */
@@ -286,7 +286,7 @@ bool StdContact::operator==(const StdContact &rhs) const
 }
 
 /**
- * @details surcharge operateur !=.
+ * @details Surcharge opérateur !=.
  * @param rhs
  * @return
  */

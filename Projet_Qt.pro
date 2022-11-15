@@ -29,9 +29,10 @@ SOURCES += \
         Interaction/Widget/CreationInteractionDialog.cpp \
         Interaction/Widget/GroupBoxInteraction.cpp \
         Interaction/Widget/ListInteractionWidget.cpp \
-        BaseDeDonne/BD.cpp \
+        BaseDeDonnees/BD.cpp \
         Menu/MenuBar.cpp \
         Menu/RechercheContact/RechercheContactDialog.cpp
+        Json/JsonConverter.cpp \
 
 
 
@@ -53,6 +54,7 @@ HEADERS += \
         Interaction/Widget/CreationInteractionDialog.h \
         Interaction/Widget/GroupBoxInteraction.h \
         Interaction/Widget/ListInteractionWidget.h \
-        BaseDeDonne/BD.h \
+        BaseDeDonnees/BD.h \
         Menu/MenuBar.h \
-        Menu/RechercheContact/RechercheContactDialog.h
+        Menu/RechercheContact/RechercheContactDialog.h \
+        Json/JsonConverter.h

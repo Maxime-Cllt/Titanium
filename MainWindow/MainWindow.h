@@ -10,7 +10,7 @@
 #include <QWidget>
 #include <QLabel>
 #include "../Contact/StdListContact.h"
-#include "../BaseDeDonne/BD.h"
+#include "../BaseDeDonnees/BD.h"
 #include "../Contact/Widget/ListContactWidget.h"
 #include "../Historique/ListHistorique.h"
 

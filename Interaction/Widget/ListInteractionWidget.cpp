@@ -4,7 +4,7 @@
 
 #include "ListInteractionWidget.h"
 #include "GroupBoxInteraction.h"
-#include "../../BaseDeDonne/BD.h"
+#include "../../BaseDeDonnees/BD.h"
 #include "../../MainWindow/MainWindow.h"
 #include "../../Utility/Utility.h"
 
