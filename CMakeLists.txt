@@ -28,7 +28,10 @@ add_executable(Projet-QT main.cpp Contact/QtContact.cpp Contact/QtContact.h Main
         Menu/ExportImportContacts/ExportImportMenu.cpp Menu/ExportImportContacts/ExportImportMenu.h Utility/Utility.cpp
         Utility/Utility.h ToolBar/ToolBar.cpp ToolBar/ToolBar.h ToolBar/RechercheContact/RechercheContactDialog.cpp
         ToolBar/RechercheContact/RechercheContactDialog.h Interaction/Widget/InteractionTextEdit.cpp Interaction/Widget/InteractionTextEdit.h Tache/Widget/RechercheTaches.cpp
-        Tache/Widget/RechercheTaches.h Historique/ListHistorique.cpp Historique/ListHistorique.h ToolBar/RechercheTache/TreeTacheDialog.cpp ToolBar/RechercheTache/TreeTacheDialog.h ToolBar/Suppression/SuppressionDialog.cpp ToolBar/Suppression/SuppressionDialog.h ToolBar/Suppression/TreeWidget.cpp ToolBar/Suppression/TreeWidget.h)
+        Tache/Widget/RechercheTaches.h Historique/ListHistorique.cpp Historique/ListHistorique.h
+        ToolBar/RechercheTache/TreeTacheDialog.cpp ToolBar/RechercheTache/TreeTacheDialog.h
+        ToolBar/Suppression/SuppressionDialog.cpp ToolBar/Suppression/SuppressionDialog.h
+        ToolBar/Suppression/TreeWidget.cpp ToolBar/Suppression/TreeWidget.h)
 
 target_link_libraries(Projet-QT
         Qt::Core

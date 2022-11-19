@@ -163,10 +163,13 @@ void BD::supContact(const StdContact &contact)
     {
         supInteraction(*interaction);
     }
-
     query.prepare("DELETE FROM CONTACTS WHERE ? = DateCreation");
     query.addBindValue(date);
-    query.exec();
+
+    if(!query.exec())
+    {
+        QMessageBox::critical(nullptr, "Erreur", "Le contact n'a pas pu être supprimé");
+    }
 }
 
 /**
@@ -201,10 +204,11 @@ bool BD::modifyContact(const StdContact &contact)
     if (query.exec())
     {
         int rep = QMessageBox::information(nullptr, "Information", "Le contact à été modifié avec succès.");
-        if (rep == QMessageBox::Ok)
-        {
-            return true;
-        }
+        if (rep == QMessageBox::Ok) return true;
+    }
+    else{
+        int rep = QMessageBox::critical(nullptr, "Erreur", "Le contact n'a pas pu être modifié");
+        if (rep == QMessageBox::Ok) return false;
     }
     return false;
 }
@@ -223,9 +227,7 @@ void BD::addInteraction(uint64_t idContact, const Interaction &interaction)
     query.addBindValue(QString::number(interaction.getDateModif()));
     query.addBindValue(QString::fromStdString(interaction.getContenu()));
     query.exec();
-
     addTache(*interaction.getLstTache());
-
 }
 
 /**
@@ -279,21 +281,18 @@ ListInteraction BD::getListInteractionData(const uint64_t &idContact)
     while (query.next())
     {
         Interaction interaction;
-
         interaction.setDateCreation(query.value(1).toLongLong());
         interaction.setDateModif(query.value(2).toLongLong());
         interaction.setContenu(query.value(3).toString().toStdString());
         interaction.setLstTache(getListTacheData(interaction.getDateCreation()));
-
         listInteraction.addInteraction(interaction);
     }
-
     return listInteraction;
 }
 
 
 /**
- * @details Fonction pour récupérer la liste d'intéraction d'un contact via son id
+ * @details Fonction pour récupérer la liste d'interaction d'un contact via son id
  * @param idInteraction
  * @return
  */
@@ -378,7 +377,7 @@ void BD::addTache(uint64_t idInteraction, const Tache &tache)
 }
 
 /**
- * @brief Ajoute une liste de taches à la base de données.
+ * @brief Ajoute une liste de tâches à la base de données.
  * @param lst
  */
 void BD::addTache(const ListTache &lst)

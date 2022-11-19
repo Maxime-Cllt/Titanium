@@ -61,9 +61,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     allConnnect();
 
-//    for (int i = 0; i < 5; i++)
+//    for (int i = 0; i < 1; i++)
 //    {
-//        auto *contact = new StdContact(std::string("fc migrant"), {"tutu"}, "alo", "tdfd", "23442", "/Users/sr-71/Downloads/images.jpeg",
+//        auto *contact = new StdContact(std::string("SUPPR"), {"DELETE"}, "alo", "tdfd", "23442", "/home",
 //                                       std::chrono::duration_cast<std::chrono::microseconds>(
 //                                               std::chrono::system_clock::now().time_since_epoch()).count(),
 //                                       ListInteraction());
@@ -74,6 +74,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 //        contact->addInteraction(it);
 //        addContact(contact);
 //    }
+
 }
 
 /**

@@ -91,7 +91,7 @@ std::ostream &operator<<(std::ostream &os, const ListHistorique &historique)
 
 /**
  * @details Retourne sous un string tout l’historique.
- * @return
+ * @return string
  */
 std::string ListHistorique::affiche()
 {
@@ -140,7 +140,7 @@ void ListHistorique::loadData(const std::string &path)
         {
 
             int i = 0;
-            // on remplace toute les occurrences de | par des retours chariots.
+            // on remplace toutes les occurrences de | par des retours chariots.
             while (i != str.length() - 1)
             {
                 if (str[i] == '|')
