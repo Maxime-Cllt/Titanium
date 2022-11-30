@@ -242,7 +242,7 @@ void ToolBar::chercherTache()
 void ToolBar::supprimer()
 {
     SuppressionDialog dialog(qobject_cast<MainWindow *>(
-            Utility::getMainWindow(this))->getLstContact());
+            Utility::getMainWindow(this))->getLstContact(), this);
     connect(&dialog, &SuppressionDialog::contactSupprimer, this, [=, this](StdListContact *lst)
     {
         emit suppContact(lst);

@@ -8,6 +8,8 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include "../../BaseDeDonnees/BD.h"
+#include "../../MainWindow/MainWindow.h"
+#include "../../Utility/Utility.h"
 
 /**
  * @details Constructeur par défaut.
@@ -74,6 +76,9 @@ void TreeWidget::mouseReleaseEvent(QMouseEvent *event)
                             if (!item->parent()->isSelected())
                             {
                                 BD::supInteraction(*reinterpret_cast<TreeItemInteraction *>(item)->getInteraction());
+                                qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getHistorique()->addLog(
+                                        ListHistorique::SuppressionInteraction,
+                                        *reinterpret_cast<TreeItemInteraction *>(item)->getInteraction());
                                 reinterpret_cast<TreeItemContact *>(item->parent())->getContact()->getLstInteraction()->supInteraction(
                                         reinterpret_cast<TreeItemInteraction *>(item)->getInteraction());
                             }
