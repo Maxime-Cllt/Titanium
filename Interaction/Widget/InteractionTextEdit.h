@@ -21,8 +21,8 @@ public:
 
 private:
     Interaction *interaction{};
-protected:
-    void closeEvent(QCloseEvent *event) override;
+
+    void parseContenu();
 
 public:
     Interaction *parseTache();

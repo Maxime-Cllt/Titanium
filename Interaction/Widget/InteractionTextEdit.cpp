@@ -13,15 +13,7 @@ InteractionTextEdit::InteractionTextEdit(Interaction *interaction, QWidget *pare
     // si une interaction est passée au moment d’instancié l’objet, on insère le contenu de celui-ci dans le textEdit
     if (this->interaction)
     {
-        // on récupère le contenu de l’interaction et on remplace les retours à la ligne par des <br> car nous travaillons en html.
-        QString contenu = QString::fromStdString(interaction->getContenu());
-        contenu.replace("\n", "<br>");
-
-        QString str("<font color=red>");
-        for (auto tache: *interaction->getLstTache()->getLstTache())
-            str += QString::fromStdString(tache->getcontenu()) + "<br>";
-        str += "</font";
-        insertHtml(contenu + str);
+        parseContenu();
     }
 }
 
@@ -35,7 +27,6 @@ Interaction *InteractionTextEdit::parseTache()
     // si l’objet InteractionTextEdit a été instancié sans lui passer en paramètre une interaction, on la crée.
     if (!interaction)
         interaction = new Interaction;
-
 
     QStringList lst(document()->toPlainText().split("\n"));
 
@@ -66,11 +57,25 @@ Interaction *InteractionTextEdit::parseTache()
     }
     interaction->setContenu(contenu.toStdString());
 
+    parseContenu();
+
     return interaction;
 }
 
-void InteractionTextEdit::closeEvent(QCloseEvent *event)
+/**
+ * @details Parse le contenu de l'interaction, colories les todos en rouge.
+ */
+void InteractionTextEdit::parseContenu()
 {
-    QWidget::closeEvent(event);
-    delete interaction;
+    clear();
+
+    // on récupère le contenu de l’interaction et on remplace les retours à la ligne par des <br> car nous travaillons en html.
+    QString contenu = QString::fromStdString(interaction->getContenu());
+    contenu.replace("\n", "<br>");
+
+    QString str("<font color=red>");
+    for (auto tache: *interaction->getLstTache()->getLstTache())
+        str += QString::fromStdString(tache->getcontenu()) + "<br>";
+    str += "</font";
+    insertHtml( contenu+str);
 }

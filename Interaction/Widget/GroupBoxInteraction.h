@@ -25,8 +25,6 @@ private:
     QPushButton *supBtn{};
     InteractionTextEdit *textEdit{};
 
-    void parseTache(const QString &str);
-
 signals:
 
     void *supBtnClicked(Interaction *interaction);

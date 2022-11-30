@@ -42,12 +42,6 @@ BD::BD(QObject *parent) : QObject(parent)
                    "DateCreation BIGINT PRIMARY KEY"
                    ");");
 
-        query.exec("CREATE TABLE IF NOT EXISTS MODIFICATIONS("
-                   "IdContact BIGINT not null,"
-                   "DateModification BIGINT not null,"
-                   "Modification TEXT"
-                   ");");
-
         query.exec("CREATE TABLE IF NOT EXISTS INTERACTIONS("
                    "IdContact BIGINT not null,"
                    "IdInteraction BIGINT PRIMARY KEY,"
@@ -104,20 +98,6 @@ void BD::addContactOnBD(StdListContact *stdListContact)
 
 }
 
-/**
- * @details Ajoute une modification d'un contact via son id et la modification
- * @param idContact
- * @param modif
- */
-void BD::addModif(uint64_t idContact, const std::string &modif)
-{
-    QSqlQuery query("INSERT INTO MODIFICATIONS "
-                    "(IdContact, DateModification,Modification) "
-                    "VALUES (? , ? , ?);");
-    query.addBindValue(QString::number(idContact));
-    query.addBindValue(QString::fromStdString(modif));
-    query.addBindValue("?");
-}
 
 /**
  * @details Retourne la liste des contacts de la table CONTACTS
