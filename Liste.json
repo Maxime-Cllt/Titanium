@@ -1,0 +1,62 @@
+{
+    "1668330358500239": {
+        "entreprise": "FAC",
+        "interactions": {
+            "1668441122881921": {
+                "contenu": "",
+                "dateModif": "1668441122881921",
+                "taches": {
+                    "0": {
+                        "contenu": "@todo Rendre le Projet",
+                        "date": "1668441122881932"
+                    }
+                }
+            },
+            "1668505415946399": {
+                "contenu": "",
+                "dateModif": "1668505415946399",
+                "taches": {
+                    "0": {
+                        "contenu": "@todo Aller aux TD",
+                        "date": "1668505415946423"
+                    }
+                }
+            }
+        },
+        "mail": "mail.com",
+        "nom": "Colliat",
+        "photo": "/home/mcolliat21/utilisateur.png",
+        "prenom": "Maxime",
+        "telephone": "0123456789"
+    },
+    "1668337362357814": {
+        "entreprise": "Ford",
+        "interactions": {
+            "1668441243373219": {
+                "contenu": "",
+                "dateModif": "1668441243373219",
+                "taches": {
+                    "0": {
+                        "contenu": "@todo Exemple de todo",
+                        "date": "1668441243373227"
+                    }
+                }
+            }
+        },
+        "mail": "dom.tor.com",
+        "nom": "Toretto",
+        "photo": "/home/mcolliat21/car.png",
+        "prenom": "Dominique",
+        "telephone": "789456123"
+    },
+    "1668508505672318": {
+        "entreprise": "Apple",
+        "interactions": {
+        },
+        "mail": "t.c@mail.com",
+        "nom": "Cook",
+        "photo": "/home/mcolliat21/utilisateur.png",
+        "prenom": "Tim",
+        "telephone": "123321"
+    }
+}
