@@ -61,20 +61,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     allConnnect();
 
-//    for (int i = 0; i < 1; i++)
-//    {
-//        auto *contact = new StdContact(std::string("SUPPR"), {"DELETE"}, "alo", "tdfd", "23442", "/home",
-//                                       std::chrono::duration_cast<std::chrono::microseconds>(
-//                                               std::chrono::system_clock::now().time_since_epoch()).count(),
-//                                       ListInteraction());
-//        Interaction it("wesh");
-//        it.addTache(Tache("@todo il fait beau"));
-//        it.addTache(Tache("@todo il fait mauvais @date 15/06/2023"));
-//        contact->addInteraction(Interaction("wesh"));
-//        contact->addInteraction(it);
-//        addContact(contact);
-//    }
-
 }
 
 /**

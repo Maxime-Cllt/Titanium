@@ -60,7 +60,7 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    suppression = new QAction(QIcon("src/corbeille.png"), "Suppression");
+    suppression = new QAction(QIcon("src/corbeille.png"), "Suppression", this);
 
     connect(suppression, &QAction::triggered, this, &ToolBar::supprimer);
 
