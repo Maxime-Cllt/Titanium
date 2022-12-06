@@ -29,8 +29,7 @@ QtContact::QtContact(QString nom, QString prenom, QString entreprise, QString ma
                                                                                                telephone)),
                                                                                        photo(std::move(photo)),
                                                                                        dateCreation(
-                                                                                               dateCreation)
-{}
+                                                                                               dateCreation) {}
 
 /**
 * @details Constructeur par defaut de QtContact

@@ -45,9 +45,10 @@ ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) : QWi
  * @brief Ajoute un GroupeBoxContact crée à partir du contact en parameter au layout.
  * @param contact
  */
-void ListContactWidget::addContactBox(StdContact *contact)
+void ListContactWidget::addContactBox(StdContact *contact, bool visibility)
 {
     auto *box = new GroupeBoxContact(contact, this);
+    box->setVisible(visibility);
     layScrollArea->insertWidget(0, box);
     connect(box, &GroupeBoxContact::supBtnClicled, this, [=, this](StdContact *contact)
     {
@@ -148,15 +149,17 @@ void ListContactWidget::recreateGroupeBoxContact()
     // comme tous les GroupeBoxContact vont etre supprimé ont reset le pointeur du dernier contact selectionné.
     resetLastConctactselected();
 
+    QList<StdContact *> lst;
 
     for (auto widget: findChildren<GroupeBoxContact *>())
     {
+        if (widget->isHidden())
+            lst << widget->getContact();
         widget->close();
     }
 
     for (auto contact: *lstContact->getLstContact())
-        addContactBox(contact);
-
+        addContactBox(contact, !lst.contains(contact));
 }
 
 /**

@@ -15,7 +15,7 @@ SuppressionDialog::SuppressionDialog(StdListContact *lst, QWidget *parent) : QDi
     setWindowTitle("Suppression");
     lay = new QGridLayout(this);
 
-    tree = new TreeWidget(lst,this);
+    tree = new TreeWidget(lst, this);
 
     connect(tree, &TreeWidget::suppClicked, this, [=, this](StdListContact *lst)
     {

@@ -30,7 +30,7 @@ public:
 
     void afficheAllGroupeBox();
 
-    void addContactBox(StdContact *);
+    void addContactBox(StdContact *, bool visibility = true);
 
     void setLastConctactselected(GroupeBoxContact *);
 

@@ -16,6 +16,8 @@
  */
 TreeTacheDialog::TreeTacheDialog(StdListContact *lst, QWidget *parent) : QDialog(parent), listContact(lst)
 {
+    setWindowTitle("Recherche de taches");
+
     lay = new QGridLayout(this);
 
     tree = new TreeWidget(lst, this);

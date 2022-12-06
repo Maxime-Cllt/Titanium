@@ -93,6 +93,8 @@ void MainWindow::allConnnect()
     {
         if (!visible)
             setNbInteraction("");
+        else
+            setNbInteraction(QString::number(listInteractionWidget->getLstInteraction()->size()));
     });
     connect(listContactWidget, &ListContactWidget::contactSelected, this, [=, this](GroupeBoxContact *box)
     {

@@ -6,15 +6,28 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-
-find_package(Qt5 COMPONENTS
+find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
         Sql
         REQUIRED)
 
-add_executable(Projet-QT main.cpp Contact/QtContact.cpp Contact/QtContact.h MainWindow/MainWindow.cpp
+set(MACOSX_BUNDLE_ICON_FILE app.icns)
+
+set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/app.icns)
+set_source_files_properties(${myApp_ICON} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources")
+
+
+file(GLOB_RECURSE IMAGES CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.png
+        )
+
+set_source_files_properties(${IMAGES} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "MacOS/src")
+
+set(FILE main.cpp Contact/QtContact.cpp Contact/QtContact.h MainWindow/MainWindow.cpp
         MainWindow/MainWindow.h Contact/Widget/GroupeBoxContact.cpp Contact/Widget/GroupeBoxContact.cpp
         Contact/Widget/GroupeBoxContact.h Contact/Widget/ListContactWidget.cpp Contact/Widget/ListContactWidget.h
         ContactDialog/ModifContactDialog.cpp ContactDialog/ModifContactDialog.h ContactDialog/ContactDialog.cpp
@@ -33,6 +46,8 @@ add_executable(Projet-QT main.cpp Contact/QtContact.cpp Contact/QtContact.h Main
         ToolBar/Suppression/SuppressionDialog.cpp ToolBar/Suppression/SuppressionDialog.h
         ToolBar/Suppression/TreeWidget.cpp ToolBar/Suppression/TreeWidget.h)
 
+add_executable(Projet-QT MACOSX_BUNDLE ${myApp_ICON} ${IMAGES} ${FILE})
+
 target_link_libraries(Projet-QT
         Qt::Core
         Qt::Gui
@@ -40,8 +55,8 @@ target_link_libraries(Projet-QT
         Qt::Sql
         )
 
-
 set_target_properties(Projet-QT PROPERTIES
         MACOSX_BUNDLE TRUE
         )
+
 

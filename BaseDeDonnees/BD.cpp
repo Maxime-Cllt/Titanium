@@ -51,8 +51,9 @@ BD::BD(QObject *parent) : QObject(parent)
 
         query.exec("CREATE TABLE IF NOT EXISTS TACHE("
                    "IdInteraction BIGINT not null,"
-                   "date BIGINT not null,"
-                   "Contenu TEXT not null"
+                   "Date BIGINT not null,"
+                   "Contenu TEXT not null,"
+                   "unique(IdInteraction , date, Contenu)"
                    ");");
     }
 }
@@ -146,7 +147,7 @@ void BD::supContact(const StdContact &contact)
     query.prepare("DELETE FROM CONTACTS WHERE ? = DateCreation");
     query.addBindValue(date);
 
-    if(!query.exec())
+    if (!query.exec())
     {
         QMessageBox::critical(nullptr, "Erreur", "Le contact n'a pas pu être supprimé");
     }
@@ -185,8 +186,8 @@ bool BD::modifyContact(const StdContact &contact)
     {
         int rep = QMessageBox::information(nullptr, "Information", "Le contact à été modifié avec succès.");
         if (rep == QMessageBox::Ok) return true;
-    }
-    else{
+    } else
+    {
         int rep = QMessageBox::critical(nullptr, "Erreur", "Le contact n'a pas pu être modifié");
         if (rep == QMessageBox::Ok) return false;
     }

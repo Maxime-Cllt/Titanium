@@ -15,6 +15,8 @@
 RechercheContactDialog::RechercheContactDialog(QWidget *parent) : QDialog(parent)
 {
 
+    setWindowTitle("Recherche de contacts");
+
     lstContactReference = qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContactTmp();
     lstContact = new StdListContact;
 

@@ -77,5 +77,5 @@ void InteractionTextEdit::parseContenu()
     for (auto tache: *interaction->getLstTache()->getLstTache())
         str += QString::fromStdString(tache->getcontenu()) + "<br>";
     str += "</font";
-    insertHtml( contenu+str);
+    insertHtml(contenu + str);
 }
