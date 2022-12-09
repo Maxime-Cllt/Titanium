@@ -61,5 +61,3 @@ target_link_libraries(Projet-QT
 set_target_properties(Projet-QT PROPERTIES
         MACOSX_BUNDLE TRUE
         )
-
-
