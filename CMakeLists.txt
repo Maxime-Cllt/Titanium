@@ -13,8 +13,6 @@ find_package(Qt6 COMPONENTS
         Sql
         REQUIRED)
 
-set_source_files_properties(${IMAGES} PROPERTIES
-        MACOSX_PACKAGE_LOCATION "MacOS/src")
 
 set(FILE main.cpp Contact/QtContact.cpp Contact/QtContact.h MainWindow/MainWindow.cpp
         MainWindow/MainWindow.h Contact/Widget/GroupeBoxContact.cpp Contact/Widget/GroupeBoxContact.cpp
