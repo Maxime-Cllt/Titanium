@@ -13,17 +13,6 @@ find_package(Qt6 COMPONENTS
         Sql
         REQUIRED)
 
-set(MACOSX_BUNDLE_ICON_FILE app.icns)
-
-set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/app.icns)
-set_source_files_properties(${myApp_ICON} PROPERTIES
-        MACOSX_PACKAGE_LOCATION "Resources")
-
-
-file(GLOB_RECURSE IMAGES CONFIGURE_DEPENDS
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.png
-        )
-
 set_source_files_properties(${IMAGES} PROPERTIES
         MACOSX_PACKAGE_LOCATION "MacOS/src")
 
@@ -46,7 +35,21 @@ set(FILE main.cpp Contact/QtContact.cpp Contact/QtContact.h MainWindow/MainWindo
         ToolBar/Suppression/SuppressionDialog.cpp ToolBar/Suppression/SuppressionDialog.h
         ToolBar/Suppression/TreeWidget.cpp ToolBar/Suppression/TreeWidget.h)
 
-add_executable(Projet-QT MACOSX_BUNDLE ${myApp_ICON} ${IMAGES} ${FILE})
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(MACOSX TRUE)
+    set(MACOSX_BUNDLE_ICON_FILE app.icns)
+    set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/images/app.icns)
+    set_source_files_properties(${myApp_ICON} PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources")
+    add_executable(Projet-QT MACOSX_BUNDLE application.qrc ${myApp_ICON} ${FILE})
+elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    enable_language("RC")
+    set(WIN32_ICO ${CMAKE_CURRENT_SOURCE_DIR}/MyApp.rc)
+    add_executable(Projet-QT application.qrc ${WIN32_ICO} ${IMAGES} ${FILE})
+else ()
+    add_executable(Projet-QT application.qrc ${IMAGES} ${FILE})
+endif ()
+
 
 target_link_libraries(Projet-QT
         Qt::Core

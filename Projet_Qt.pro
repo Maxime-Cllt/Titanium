@@ -5,8 +5,8 @@ TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-ICON = src/app.icns
-RC_ICONS = src/app.ico
+ICON = images/app.icns
+RC_ICONS = images/app.ico
 
 SOURCES += \
         main.cpp \
@@ -70,3 +70,6 @@ HEADERS += \
         ToolBar/RechercheTache/TreeTacheDialog.h \
         ToolBar/Suppression/SuppressionDialog.h \
         ToolBar/Suppression/TreeWidget.h
+
+RESOURCES += \
+    application.qrc

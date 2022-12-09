@@ -158,7 +158,7 @@ void GroupeBoxContact::reactualiseDonne()
         labImage->setPixmap(im.scaled(50, 50, Qt::KeepAspectRatio));
     } else
     {
-        QPixmap im("src/contact.png");
+        QPixmap im(":/images/contact.png");
         labImage->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
     }
     labNomPrenom->setText("Nom Prénom : " + qtContact.getNom() + " " + qtContact.getPrenom());
@@ -182,7 +182,7 @@ void GroupeBoxContact::createUi()
         labImage->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
     } else
     {
-        QPixmap im("src/contact.png");
+        QPixmap im(":/images/contact.png");
         labImage->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
     }
     layout->addWidget(labImage, 1, 0, 2, 1);

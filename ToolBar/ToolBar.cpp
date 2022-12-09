@@ -23,7 +23,7 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
     setContextMenuPolicy(Qt::ActionsContextMenu);
 
     ajouter = new QAction("Ajouter un contact", this);
-    ajouter->setIcon(QIcon("src/ajouter.png"));
+    ajouter->setIcon(QIcon(":/images/ajouter.png"));
     ajouter->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
     addAction(ajouter);
 
@@ -40,7 +40,7 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
     addSeparator();
 
     resetListContactsWidget = new QAction("Afficher tous les contacts", this);
-    resetListContactsWidget->setIcon(QIcon("src/reset.png"));
+    resetListContactsWidget->setIcon(QIcon(":/images/reset.png"));
     addAction(resetListContactsWidget);
 
     //Remet à zero le Widget des contacts dans la mainWindow.
@@ -52,7 +52,7 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
     addSeparator();
 
     historique = new QAction("Historique", this);
-    historique->setIcon(QIcon("src/historique.png"));
+    historique->setIcon(QIcon(":/images/historique.png"));
 
     connect(historique, &QAction::triggered, this, &ToolBar::afficheHistorique);
 
@@ -60,7 +60,7 @@ ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
 
     addSeparator();
 
-    suppression = new QAction(QIcon("src/corbeille.png"), "Suppression", this);
+    suppression = new QAction(QIcon(":/images/corbeille.png"), "Suppression", this);
 
     connect(suppression, &QAction::triggered, this, &ToolBar::supprimer);
 
@@ -116,16 +116,16 @@ void ToolBar::createTriBtn()
     auto *menu = new QMenu(tri);
 
     auto *triNomC = new QAction("Tri nom croissant", menu);
-    triNomC->setIcon(QIcon("src/tri.png"));
+    triNomC->setIcon(QIcon(":/images/tri.png"));
 
     auto *triNomD = new QAction("Tri nom décroissant", menu);
-    triNomD->setIcon(QIcon("src/tri.png"));
+    triNomD->setIcon(QIcon(":/images/tri.png"));
 
     auto *triDateC = new QAction("Tri date croissant", menu);
-    triDateC->setIcon(QIcon("src/tri.png"));
+    triDateC->setIcon(QIcon(":/images/tri.png"));
 
     auto *triDateD = new QAction("Tri date décroissant", menu);
-    triDateD->setIcon(QIcon("src/tri.png"));
+    triDateD->setIcon(QIcon(":/images/tri.png"));
 
 
     menu->addAction(triNomC);
@@ -205,19 +205,19 @@ void ToolBar::afficheHistorique()
 void ToolBar::createFindBtn()
 {
     chercher = new QToolButton(this);
-    chercher->setIcon(QIcon("src/chercher.png"));
+    chercher->setIcon(QIcon(":/images/chercher.png"));
     addWidget(chercher);
 
     chercher->setPopupMode(QToolButton::MenuButtonPopup);
 
     auto *findContact = new QAction("Chercher contact", this);
-    findContact->setIcon(QIcon("src/contact.png"));
+    findContact->setIcon(QIcon(":/images/contact.png"));
     connect(findContact, &QAction::triggered, this, &ToolBar::chercherContact);
 
     chercher->addAction(findContact);
 
     auto *findTache = new QAction("Chercher taches", this);
-    findTache->setIcon(QIcon("src/todo.png"));
+    findTache->setIcon(QIcon(":/images/todo.png"));
     connect(findTache, &QAction::triggered, this, &ToolBar::chercherTache);
 
     chercher->addAction(findTache);
