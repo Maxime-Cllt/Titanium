@@ -40,6 +40,9 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set_source_files_properties(${myApp_ICON} PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources")
     add_executable(Projet-QT MACOSX_BUNDLE application.qrc ${myApp_ICON} ${FILE})
+    set_target_properties(Projet-QT PROPERTIES
+            MACOSX_BUNDLE TRUE
+            )
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     enable_language("RC")
     set(WIN32_ICO ${CMAKE_CURRENT_SOURCE_DIR}/MyApp.rc)
@@ -54,8 +57,4 @@ target_link_libraries(Projet-QT
         Qt::Gui
         Qt::Widgets
         Qt::Sql
-        )
-
-set_target_properties(Projet-QT PROPERTIES
-        MACOSX_BUNDLE TRUE
         )
