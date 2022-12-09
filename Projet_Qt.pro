@@ -6,7 +6,7 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
 ICON = src/app.icns
-
+RC_ICONS = src/app.ico
 
 SOURCES += \
         main.cpp \
