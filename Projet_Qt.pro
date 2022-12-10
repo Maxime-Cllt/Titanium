@@ -73,3 +73,5 @@ HEADERS += \
 
 RESOURCES += \
     application.qrc
+
+CONFIG -= console
