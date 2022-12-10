@@ -44,11 +44,29 @@ void Tache::setcontenu(const std::string &contenu)
     {
         int pos = contenu.find("@date") + 6;
 
-        tm d = {0};
+        int day, month, year;
 
-        strptime(contenu.substr(pos, pos + 9).c_str(), "%d/%m/%Y", &d);
+        try
+        {
+            day = std::stoi(contenu.substr(pos, pos + 2));
+            month = std::stoi(contenu.substr(pos + 3, pos + 5));
+            year = std::stoi(contenu.substr(pos + 6, pos + 9));
+        } catch (std::invalid_argument)
+        {
+            std::cout << "probleme convertion tache date" << std::endl;
+            day = month = year = 0;
+        }
 
-        setdate((uint64_t) mktime(&d) * 1000000);
+
+        tm tm = {0};
+        tm.tm_year = year - 1900;
+        tm.tm_mon = month - 1;
+        tm.tm_mday = day;
+
+        // Compatible uniquement systeme unix.
+//        strptime(contenu.substr(pos, pos + 9).c_str(), "%d/%m/%Y", &d);
+
+        setdate((uint64_t) mktime(&tm) * 1000000);
     } else
     {
         date = std::chrono::duration_cast<std::chrono::microseconds>(
