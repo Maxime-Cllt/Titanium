@@ -51,22 +51,22 @@ void Tache::setcontenu(const std::string &contenu)
             day = std::stoi(contenu.substr(pos, pos + 2));
             month = std::stoi(contenu.substr(pos + 3, pos + 5));
             year = std::stoi(contenu.substr(pos + 6, pos + 9));
+            tm tm = {0};
+            tm.tm_year = year - 1900;
+            tm.tm_mon = month - 1;
+            tm.tm_mday = day;
+            setdate((uint64_t) mktime(&tm) * 1000000);
         } catch (std::invalid_argument)
         {
             std::cout << "probleme convertion tache date" << std::endl;
-            day = month = year = 0;
+            setdate(std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::system_clock::now().time_since_epoch()).count());
         }
 
 
-        tm tm = {0};
-        tm.tm_year = year - 1900;
-        tm.tm_mon = month - 1;
-        tm.tm_mday = day;
 
         // Compatible uniquement systeme unix.
 //        strptime(contenu.substr(pos, pos + 9).c_str(), "%d/%m/%Y", &d);
-
-        setdate((uint64_t) mktime(&tm) * 1000000);
     } else
     {
         date = std::chrono::duration_cast<std::chrono::microseconds>(
