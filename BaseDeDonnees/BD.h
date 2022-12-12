@@ -24,14 +24,11 @@ public:
 
     static StdListContact *getContactData();
 
-
     static void addContactOnBD(const StdContact &);
 
     static void supContact(const StdContact &);
 
     static bool modifyContact(const StdContact &);
-
-    void addModif(uint64_t, const std::string &);
 
     static void addInteraction(uint64_t, const Interaction &);
 
