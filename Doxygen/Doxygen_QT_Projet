@@ -44,7 +44,7 @@ PROJECT_NUMBER         =
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "JALON - 1"
+PROJECT_BRIEF          =
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
@@ -455,7 +455,7 @@ TYPEDEF_HIDES_STRUCT   = NO
 # cache size is given by this formula: 2^(16+LOOKUP_CACHE_SIZE). The valid range
 # is 0..9, the default is 0, corresponding to a cache size of 2^16=65536
 # symbols. At the end of a run doxygen will report the cache usage and suggest
-# the optimal cacheInteractions size from a speed point of view.
+# the optimal cache size from a speed point of view.
 # Minimum value: 0, maximum value: 9, default value: 0.
 
 LOOKUP_CACHE_SIZE      = 0
