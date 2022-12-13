@@ -297,7 +297,7 @@ void RechercheContactDialog::rechercheAvance()
         if (!lineEntreprise->text().isEmpty())
         {
             QString str = QString::fromStdString(contact->getEntreprise()).toLower();
-            if (!str.contains(lineEntreprise->text().toLower()))
+            if (!str.contains(linePrenom->text().toLower()))
                 continue;
 
         }
