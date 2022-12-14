@@ -23,15 +23,22 @@ Application graphique de gestion de contact codée en c++ et en utilisant le fra
 
 ## Screenshots
 
-<img src="https://github.com/Sudo-Rahman/QT_L3/blob/main/presentation/presentation_1.png" width="300" height="300"/>
+##### Theme claire du système
+
+<img src="https://github.com/Sudo-Rahman/QT_L3/blob/main/presentation/presentation_1.png" width="350" height="300"/>
 
 </br>
 
-<img src="https://github.com/Sudo-Rahman/QT_L3/blob/main/presentation/presentation_2.png" width="300" height="300" />
+<img src="https://github.com/Sudo-Rahman/QT_L3/blob/main/presentation/presentation_2.png" width="400" height="300" />
+
+##### Theme sombre du système
+
+<img src="https://github.com/Sudo-Rahman/QT_L3/blob/main/presentation/presentation_3.png" width="400" height="300" />
+
 
 ## Compilation
 
-### Linux/MacOS
+### GNU/Linux et MacOS
 
 #### Prérequis
 * QT 5/6
