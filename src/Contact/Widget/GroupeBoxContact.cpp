@@ -93,7 +93,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
 
         auto *action3 = new QAction("Supprimer");
 
-        auto *action4 = new QAction("Chercher un todo");
+        auto *action4 = new QAction("Affichage tache");
 
         menu->addAction(action1);
         menu->addAction(action2);
