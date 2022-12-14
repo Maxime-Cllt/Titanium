@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS
+find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
@@ -36,11 +36,11 @@ set(FILE src/main.cpp src/Contact/QtContact.cpp src/Contact/QtContact.h src/Main
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
     set(MACOSX_BUNDLE_ICON_FILE app.icns)
-    set(myApp_ICON src/images/app.icns)
+    set(myApp_ICON images/app.icns)
     set_source_files_properties(${myApp_ICON} PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources")
     add_executable(Titanium MACOSX_BUNDLE application.qrc ${myApp_ICON} ${FILE})
-    set_target_properties(Projet-QT PROPERTIES
+    set_target_properties(Titanium PROPERTIES
             MACOSX_BUNDLE TRUE
             )
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")

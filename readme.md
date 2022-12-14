@@ -60,7 +60,7 @@ make
 mkdir build; cd build
 ```
 ```
-cmake -DCMAKE_PREFIX_PATH=path/to/Qt ../Titanium.pro 
+cmake -DCMAKE_PREFIX_PATH=path/to/Qt ../
 ```
 ```
 make
