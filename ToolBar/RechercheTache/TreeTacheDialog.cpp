@@ -16,7 +16,7 @@
  */
 TreeTacheDialog::TreeTacheDialog(StdListContact *lst, QWidget *parent) : QDialog(parent), listContact(lst)
 {
-    setWindowTitle("Recherche de taches");
+    setWindowTitle("Recherche de tache");
 
     lay = new QGridLayout(this);
 
@@ -107,7 +107,7 @@ void TreeTacheDialog::TreeWidget::mouseReleaseEvent(QMouseEvent *event)
     {
         QMenu menu;
 
-        QAction act1("Cacher les taches passées.");
+        QAction act1("Cacher les tâches passées.");
 
         if (cachePasse)
             act1.setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
