@@ -17,7 +17,7 @@
  * @brief Constructeur par défaut de la classe ToolBar.
  * @param parent
  */
-ToolBar::ToolBar(QWidget *parent) : QToolBar(parent)
+ToolBar::ToolBar(StdListContact *lstContact, QWidget *parent) : lstContact(lstContact), QToolBar(parent)
 {
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -89,7 +89,7 @@ void ToolBar::chercherContact()
 {
 
     resetActionTriggered();
-    auto *dialog = new RechercheContactDialog(this);
+    auto *dialog = new RechercheContactDialog(lstContact, this);
     chercher->setDisabled(true);
     tri->setDisabled(true);
     connect(dialog, &RechercheContactDialog::closeDialog, this, [this]()
@@ -98,6 +98,9 @@ void ToolBar::chercherContact()
         tri->setDisabled(false);
         resetActionTriggered();
     });
+
+    connect(dialog, &RechercheContactDialog::contactSought, this, [this](StdListContact *lst)
+    {emit contactSought(lst);});
     dialog->show();
 
 }
@@ -229,8 +232,7 @@ void ToolBar::createFindBtn()
  */
 void ToolBar::chercherTache()
 {
-    TreeTacheDialog diag(qobject_cast<MainWindow *>(
-            Utility::getMainWindow(this))->getLstContact());
+    TreeTacheDialog diag(lstContact);
 
     diag.exec();
 }
@@ -241,8 +243,7 @@ void ToolBar::chercherTache()
  */
 void ToolBar::supprimer()
 {
-    SuppressionDialog dialog(qobject_cast<MainWindow *>(
-            Utility::getMainWindow(this))->getLstContact(), this);
+    SuppressionDialog dialog(lstContact, this);
     connect(&dialog, &SuppressionDialog::contactSupprimer, this, [=, this](StdListContact *lst)
     {
         emit suppContact(lst);

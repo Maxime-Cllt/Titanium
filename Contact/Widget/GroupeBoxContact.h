@@ -69,9 +69,9 @@ signals:
 
 private slots:
 
-    void menu1Triggered();
+    void menu1AddInteraction();
 
-    void menu3Triggered();
+    void menu3Delete();
 
     void reactualiseDonne();
 

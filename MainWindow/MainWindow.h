@@ -14,6 +14,7 @@
 #include "../Contact/Widget/ListContactWidget.h"
 #include "../Historique/ListHistorique.h"
 #include "../ToolBar/ToolBar.h"
+#include "../Menu/MenuBar.h"
 
 
 class MainWindow : public QMainWindow
@@ -30,12 +31,13 @@ private:
     ListInteractionWidget *listInteractionWidget{};
 
     BD *bd{};
-    StdListContact *lstContactTmp{};
     StdListContact *lstContact{};
 
     ListHistorique *historique{};
 
     ToolBar *toolBar{};
+    MenuBar *menuBar{};
+
 public:
     ListHistorique *getHistorique() const;
 
@@ -56,7 +58,7 @@ public:
 
     void suppContact(StdContact *);
 
-    void suppContact(StdListContact *);
+    void suppContacts(StdListContact *);
 
     void updateNbContact();
 

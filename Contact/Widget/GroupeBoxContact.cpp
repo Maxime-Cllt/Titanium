@@ -37,7 +37,6 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
     layout->setSpacing(20);
 
     auto *labTitre = new QLabel("Date de creation : " + local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"), this);
-    labTitre->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     labTitre->setWordWrap(false);
     labTitre->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
     layout->addWidget(labTitre, 0, 0, 1, 3);
@@ -51,8 +50,8 @@ GroupeBoxContact::GroupeBoxContact(StdContact *contact, QWidget *parent) : QGrou
         lab->setWordWrap(true);
         lab->setMinimumWidth(150);
     }
-    labImage->setFixedWidth(75);
-
+    labTitre->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    labImage->setMinimumWidth(75);
 }
 
 
@@ -101,7 +100,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
         menu->addAction(action3);
         menu->addAction(action4);
 
-        connect(action1, &QAction::triggered, this, &GroupeBoxContact::menu1Triggered);
+        connect(action1, &QAction::triggered, this, &GroupeBoxContact::menu1AddInteraction);
 
         connect(action2, &QAction::triggered, this, [=, this]()
         {
@@ -110,7 +109,7 @@ void GroupeBoxContact::mousePressEvent(QMouseEvent *event)
             modif.exec();
         });
 
-        connect(action3, &QAction::triggered, this, &GroupeBoxContact::menu3Triggered);
+        connect(action3, &QAction::triggered, this, &GroupeBoxContact::menu3Delete);
 
         connect(action4, &QAction::triggered, this, [=, this]()
         {
@@ -155,11 +154,11 @@ void GroupeBoxContact::reactualiseDonne()
     if (QFile(qtContact.getPhoto()).exists())
     {
         QPixmap im(qtContact.getPhoto());
-        labImage->setPixmap(im.scaled(50, 50, Qt::KeepAspectRatio));
+        labImage->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     } else
     {
         QPixmap im(":/images/contact.png");
-        labImage->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
+        labImage->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
     labNomPrenom->setText("Nom Prénom : " + qtContact.getNom() + " " + qtContact.getPrenom());
     labEntreprise->setText("Entreprise : " + qtContact.getEntreprise());
@@ -179,11 +178,11 @@ void GroupeBoxContact::createUi()
     if (QFile(qtContact.getPhoto()).exists())
     {
         QPixmap im(qtContact.getPhoto());
-        labImage->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
+        labImage->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     } else
     {
         QPixmap im(":/images/contact.png");
-        labImage->setPixmap(im.scaled(75, 75, Qt::KeepAspectRatio));
+        labImage->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
     layout->addWidget(labImage, 1, 0, 2, 1);
 
@@ -263,7 +262,7 @@ void GroupeBoxContact::resetStyleSheet()
 /**
  * @brief Click sur l'action "Ajouter une interaction"
  */
-void GroupeBoxContact::menu1Triggered()
+void GroupeBoxContact::menu1AddInteraction()
 {
     if (!listInteractionWidget)
         listInteractionWidget = new ListInteractionWidget(contact->getLstInteraction(), this);
@@ -276,7 +275,7 @@ void GroupeBoxContact::menu1Triggered()
 /**
  * @brief Click sur l'action "Supprimer"
  */
-void GroupeBoxContact::menu3Triggered()
+void GroupeBoxContact::menu3Delete()
 {
     BD::supContact(*contact);
     emit supBtnClicled(contact);

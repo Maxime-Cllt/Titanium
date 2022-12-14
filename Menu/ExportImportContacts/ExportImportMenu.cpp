@@ -13,7 +13,7 @@
  * @details Constructeur de la classe ExportImportMenu
  * @param parent
  */
-ExportImportMenu::ExportImportMenu(QWidget *parent) : QMenu(parent)
+ExportImportMenu::ExportImportMenu(StdListContact *lstContact, QWidget *parent) : lstContact(lstContact), QMenu(parent)
 {
 
     setTitle("&Json");
@@ -30,7 +30,6 @@ ExportImportMenu::ExportImportMenu(QWidget *parent) : QMenu(parent)
  */
 void ExportImportMenu::exportActionTriggered()
 {
-    lstContact = qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact();
     QFile file(QFileDialog::getSaveFileName(this, "Enregistrez-sous", QDir::homePath(), "json (*.json)"));
 
     if (!file.fileName().isEmpty())
@@ -58,7 +57,6 @@ void ExportImportMenu::exportActionTriggered()
  */
 void ExportImportMenu::importActionTriggered()
 {
-    lstContact = qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContact();
     QFile file(QFileDialog::getOpenFileName(this, "Import json", QDir::homePath(), "json (*.json)"));
     auto *lst = JsonConverter::getContact(file.fileName());
     if (lst->size() == 0)
@@ -76,8 +74,12 @@ void ExportImportMenu::importActionTriggered()
                    QString::fromStdString(contact->getPrenom()) + " est déjà present dans la liste.\n";
             i++;
         } else
-            qobject_cast<MainWindow *>(Utility::getMainWindow(this))->addContact(contact);
+        {
+            lstContact->addContact(contact);
+            BD::addFullContactAttributesOnBD(*contact);
+        }
     }
+    emit contactImported();
     if (str.isEmpty())
     {
         QMessageBox::information(nullptr, "Succès", "L'importation a été réalisée avec succès.");
@@ -90,7 +92,4 @@ void ExportImportMenu::importActionTriggered()
     }
     lst->getLstContact()->clear();
     delete lst;
-    lstContact->sort(StdListContact::DateDecroissant);
-    qobject_cast<MainWindow *>(
-            Utility::getMainWindow(this))->findChildren<ListContactWidget *>().first()->recreateGroupeBoxContact();
 }

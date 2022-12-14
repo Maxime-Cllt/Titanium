@@ -15,10 +15,8 @@
  *  @details Constructeur de la classe ListContactWidget
  * @param parent
  */
-ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) : QWidget(parent)
+ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) :lstContact(lst), QWidget(parent)
 {
-    lstContact = lst;
-
     setMinimumWidth(500);
     lay = new QVBoxLayout(this);
 
@@ -107,7 +105,7 @@ StdListContact *ListContactWidget::getLstContact() const
  */
 void ListContactWidget::cacheGroupeBox(StdListContact *lst)
 {
-    lstWidget.clear();
+    QWidgetList lstWidget;
     for (auto contact: *lst->getLstContact())
     {
         for (auto widget: findChildren<GroupeBoxContact *>())
@@ -183,4 +181,21 @@ void ListContactWidget::resetLastConctactselected()
 void ListContactWidget::interactionWidgetsHideOrShow(bool show)
 {
     emit interactionWidgetsHidedOrShowed(show);
+}
+
+
+/**
+ * @details Retourne le nombre de GroupeBoxContact visible.
+ * @return compteur
+ */
+size_t ListContactWidget::getNbGroupeBoxVisible() const
+{
+    size_t compteur = 0;
+
+    for (auto widget: findChildren<GroupeBoxContact *>())
+    {
+        if (widget->isVisible())
+            compteur++;
+    }
+    return compteur;
 }

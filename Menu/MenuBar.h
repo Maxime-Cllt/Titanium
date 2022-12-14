@@ -9,24 +9,27 @@
 #include "../Contact/StdListContact.h"
 #include "ExportImportContacts/ExportImportMenu.h"
 
+
 class MenuBar : public QMenuBar
 {
 Q_OBJECT
 
 public:
-    explicit MenuBar(QWidget *parent);
+    explicit MenuBar(StdListContact *lstContact, QWidget *parent);
 
 private:
     QMenu *menu1{};
     QMenu *menu2{};
-    QMenu *menu3{};
-    ExportImportMenu *menu4{};
+    ExportImportMenu *menu3{};
 
     StdListContact *lstContact{};
 
 private slots:
 
-    void settingsClicked();
+    void settings();
+
+signals :
+    void contactImported();
 
 };
 

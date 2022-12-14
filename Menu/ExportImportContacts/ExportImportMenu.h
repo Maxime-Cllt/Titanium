@@ -11,8 +11,9 @@
 
 class ExportImportMenu : public QMenu
 {
+Q_OBJECT
 public:
-    explicit ExportImportMenu(QWidget *parent);
+    explicit ExportImportMenu(StdListContact *lstContact, QWidget *parent);
 
 private:
     QAction *exportAction{};
@@ -24,6 +25,10 @@ private slots:
     void exportActionTriggered();
 
     void importActionTriggered();
+
+signals:
+
+    void contactImported();
 
 };
 

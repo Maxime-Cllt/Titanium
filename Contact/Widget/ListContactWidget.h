@@ -19,12 +19,8 @@ Q_OBJECT
 public:
     explicit ListContactWidget(StdListContact *lst, QWidget *parent);
 
-private:
-    QWidgetList lstWidget;
-
-
 public:
-    StdListContact *getLstContact() const;
+    [[nodiscard]] StdListContact *getLstContact() const;
 
     void cacheGroupeBox(StdListContact *);
 
@@ -37,6 +33,8 @@ public:
     void recreateGroupeBoxContact();
 
     void resetLastConctactselected();
+
+    [[nodiscard]] size_t getNbGroupeBoxVisible() const;
 
 private:
     QVBoxLayout *lay{};

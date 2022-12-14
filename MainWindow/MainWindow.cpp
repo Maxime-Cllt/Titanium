@@ -5,7 +5,6 @@
 #include "MainWindow.h"
 #include <QStatusBar>
 #include "../ContactDialog/CreationContactDialog.h"
-#include "../Menu/MenuBar.h"
 
 /**
  * @details Constructeur de la classe MainWindow
@@ -13,6 +12,7 @@
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+
     setMinimumHeight(500);
     bd = new BD;
     historique = new ListHistorique;
@@ -20,9 +20,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     lstContact = BD::getContactData();
     lstContact->sort(StdListContact::DateDecroissant);
-    lstContactTmp = lstContact;
 
-    setMenuBar(new MenuBar(this));
+    menuBar = new MenuBar(lstContact, this);
+    setMenuBar(menuBar);
 
 
     layoutGauche = new QHBoxLayout;
@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     auto *status = new QStatusBar(this);
 
 
-    nbContactLab = new QLabel("Nombre de contact : " + QString::number(lstContact->getLstContact()->size()));
+    nbContactLab = new QLabel("Nombre de contact : " + QString::number(lstContact->size()));
     nbContactLab->setAlignment(Qt::AlignHCenter);
     status->addWidget(nbContactLab, 1);
     nbInetractionLab = new QLabel("Nombre d'interaction : ");
@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setStatusBar(status);
 
-    toolBar = new ToolBar(this);
+    toolBar = new ToolBar(lstContact, this);
 
     addToolBar(toolBar);
 
@@ -68,12 +68,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
  */
 void MainWindow::allConnnect()
 {
+
+    connect(menuBar, &MenuBar::contactImported, this, [=, this]()
+    {
+        lstContact->sort(StdListContact::Sort::DateDecroissant);
+        listContactWidget->recreateGroupeBoxContact();
+        updateNbContact();
+    });
+
     connect(toolBar, &ToolBar::clearHistoriqueClicked, this, &MainWindow::clearHistorique);
     connect(toolBar, &ToolBar::resetActionTriggered, this, &MainWindow::resetListContactWidget);
     connect(toolBar, &ToolBar::addContact, this, &MainWindow::addContact);
+    connect(toolBar, &ToolBar::contactSought, this, &MainWindow::rechercheListContactWidget);
     connect(toolBar, &ToolBar::suppContact, this, [=, this](StdListContact *lst)
     {
-        suppContact(lst);
+        suppContacts(lst);
         lstContact->sort(StdListContact::Sort::DateDecroissant);
         listContactWidget->recreateGroupeBoxContact();
     });
@@ -84,10 +93,7 @@ void MainWindow::allConnnect()
     });
 
 
-    connect(listContactWidget, &ListContactWidget::suppContact, this, [=, this](StdContact *contact)
-    {
-        suppContact(contact);
-    });
+    connect(listContactWidget, &ListContactWidget::suppContact, this, &MainWindow::suppContact);
     connect(listContactWidget, &ListContactWidget::resetLastConctact, this, &MainWindow::removeListInteractionWidget);
     connect(listContactWidget, &ListContactWidget::interactionWidgetsHidedOrShowed, this, [=, this](bool visible)
     {
@@ -123,14 +129,6 @@ ListHistorique *MainWindow::getHistorique() const
     return historique;
 }
 
-/**
- * @brief Setter de lstContactTmp qui est la liste de contact de base.
- * @return lstContactTmp
- */
-StdListContact *MainWindow::getLstContactTmp() const
-{
-    return lstContactTmp;
-}
 
 /**
  * @brief Surcharge de l’événement de fermeture.
@@ -141,11 +139,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QWidget::closeEvent(event);
     delete lstContact;
     delete bd;
-    if (lstContactTmp != lstContact)
-    {
-        lstContactTmp->getLstContact()->clear();
-        delete lstContactTmp;
-    }
     historique->saveData("log.txt");
     delete historique;
 }
@@ -157,8 +150,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::addContact(StdContact *contact)
 {
     lstContact->addContact(contact);
-    if (lstContact != lstContactTmp)
-        lstContactTmp->addContact(contact);
     listContactWidget->addContactBox(contact);
     BD::addFullContactAttributesOnBD(*contact);
     historique->addLog(ListHistorique::AjoutContact, *contact);
@@ -175,7 +166,6 @@ void MainWindow::suppContact(StdContact *contact)
     BD::supContact(*contact);
     historique->addLog(ListHistorique::SuppressionContact, *contact);
     lstContact->supContact(contact);
-    lstContactTmp->removeContact(contact);
     updateNbContact();
 }
 
@@ -183,7 +173,7 @@ void MainWindow::suppContact(StdContact *contact)
  * @details Supprime une liste de contact.
  * @param lst
  */
-void MainWindow::suppContact(StdListContact *lst)
+void MainWindow::suppContacts(StdListContact *lst)
 {
     QString str;
     for (auto contact: *lst->getLstContact())
@@ -203,10 +193,9 @@ void MainWindow::suppContact(StdListContact *lst)
  */
 void MainWindow::rechercheListContactWidget(StdListContact *lst)
 {
-    lstContact = lst;
     listContactWidget->cacheGroupeBox(lst);
 
-    updateNbContact();
+    nbContactLab->setText("Nombre de contact : " + QString::number(listContactWidget->getNbGroupeBoxVisible()));
 
     removeListInteractionWidget();
 
@@ -236,7 +225,6 @@ void MainWindow::setListInteractionWidget(ListInteractionWidget *widget)
  */
 void MainWindow::resetListContactWidget()
 {
-    lstContact = lstContactTmp;
     lstContact->sort(StdListContact::DateDecroissant);
     reactualise();
 }
@@ -286,5 +274,4 @@ void MainWindow::removeListInteractionWidget()
 void MainWindow::clearHistorique()
 {
     historique->clear();
-
 }

@@ -18,7 +18,7 @@ class ToolBar : public QToolBar
 Q_OBJECT
 
 public:
-    explicit ToolBar(QWidget *parent);
+    explicit ToolBar(StdListContact *lstContact, QWidget *parent);
 
 private:
 
@@ -28,6 +28,9 @@ private:
     QAction *resetListContactsWidget{};
     QAction *historique{};
     QAction *suppression{};
+
+    StdListContact *lstContact{};
+
 
     void createFindBtn();
 
@@ -57,6 +60,8 @@ signals:
     void suppContact(StdListContact *);
 
     void sorted(StdListContact::Sort sort);
+
+    void contactSought(StdListContact *lst);
 
 };
 

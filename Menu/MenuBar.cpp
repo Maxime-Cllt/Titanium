@@ -2,24 +2,22 @@
 // Created by Rahman  Yilmaz on 15/10/2022.
 //
 
-#include "MenuBar.h"
 #include "../ContactDialog/CreationContactDialog.h"
 #include <QMessageBox>
 #include <QFontDialog>
 #include <QApplication>
-#include "../Utility/Utility.h"
 
 /**
  * @details Constructeur de la classe Menu
  * @param parent
  */
-MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
+MenuBar::MenuBar(StdListContact *lstContact, QWidget *parent) : lstContact(lstContact), QMenuBar(parent)
 {
     menu1 = new QMenu(tr("&Paramètre"), this);
 
 
     auto actionSettings = new QAction("Settings", this);
-    connect(actionSettings, &QAction::triggered, this, &MenuBar::settingsClicked);
+    connect(actionSettings, &QAction::triggered, this, &MenuBar::settings);
 
     menu1->addAction(actionSettings);
 
@@ -28,23 +26,27 @@ MenuBar::MenuBar(QWidget *parent) : QMenuBar(parent)
 
     auto *actionAbout = new QAction("&Qt", this);
     connect(actionAbout, &QAction::triggered, this, [this]()
-    {
-        QMessageBox::aboutQt(this);
-    });
+    {QMessageBox::aboutQt(this);});
     menu2->addAction(actionAbout);
 
 
-    menu4 = new ExportImportMenu(this);
+    menu3 = new ExportImportMenu(MenuBar::lstContact, this);
+
+    connect(menu3, &ExportImportMenu::contactImported, this, [=, this]()
+    {emit contactImported();});
 
 
     addMenu(menu1);
 
     addMenu(menu2);
 
-    addMenu(menu4);
+    addMenu(menu3);
 }
 
-void MenuBar::settingsClicked()
+/**
+ * @details Fonction qui affiche une fenêtre de settings pour changer les paramètres le l'app.
+ */
+void MenuBar::settings()
 {
     QDialog dialog;
 

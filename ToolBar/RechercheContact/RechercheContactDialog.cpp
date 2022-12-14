@@ -12,13 +12,12 @@
  * @brief Constructeur de la classe RechercheContactDialog.
  * @param parent
  */
-RechercheContactDialog::RechercheContactDialog(QWidget *parent) : QDialog(parent)
+RechercheContactDialog::RechercheContactDialog(StdListContact *lstContact, QWidget *parent) : lstContactReference(lstContact), QDialog(parent)
 {
 
     setWindowTitle("Recherche de contacts");
 
-    lstContactReference = qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContactTmp();
-    lstContact = new StdListContact;
+    RechercheContactDialog::lstContact = new StdListContact;
 
     avance = false;
 
@@ -257,8 +256,8 @@ void RechercheContactDialog::allRechercheLineTextChanged()
             }
         }
     }
-    // on demande à la mainWindow de nous afficher la liste des contacts.
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->rechercheListContactWidget(lstContact);
+    // emission signal pour cacher les contacts qui ne sont pas dans la liste lstcontact
+    emit contactSought(lstContact);
 
 }
 
@@ -268,9 +267,6 @@ void RechercheContactDialog::allRechercheLineTextChanged()
 void RechercheContactDialog::rechercheAvance()
 {
     lstContact->getLstContact()->clear();
-
-    //creation d’un boolean qui va servir à savoir si les attributs d’un contact contiennent la chaine d’une lineEdit.
-    bool ok = true;
 
     for (auto contact: *lstContactReference->getLstContact())
     {
@@ -324,8 +320,8 @@ void RechercheContactDialog::rechercheAvance()
 
     }
 
-    // on demande à la mainWindow de nous afficher la liste des contacts.
-    qobject_cast<MainWindow *>(Utility::getMainWindow(this))->rechercheListContactWidget(lstContact);
+    // emission signal pour cacher les contacts qui ne sont pas dans la liste lstcontact
+    emit contactSought(lstContact);
 }
 
 

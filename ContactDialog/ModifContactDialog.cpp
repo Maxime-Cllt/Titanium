@@ -23,8 +23,15 @@ ModifContactDialog::ModifContactDialog(StdContact *contact, QWidget *parent) : C
     QLocale local(QLocale::Language::French);
     labDateCreation->setText(local.toString(date, "dddd, d MMMM yyyy hh:mm:ss"));
 
-    QPixmap im(qtContact.getPhoto());
-    labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
+    if (QFile(qtContact.getPhoto()).exists())
+    {
+        QPixmap im(qtContact.getPhoto());
+        labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
+    } else
+    {
+        QPixmap im(":/images/contact.png");
+        labIm->setPixmap(im.scaled(100, 100, Qt::KeepAspectRatio));
+    }
 
     line1->setText(qtContact.getNom());
     line2->setText(qtContact.getPrenom());

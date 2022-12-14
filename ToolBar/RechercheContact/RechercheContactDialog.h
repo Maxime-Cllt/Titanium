@@ -23,7 +23,7 @@ class RechercheContactDialog : public QDialog
 {
 Q_OBJECT
 public:
-    explicit RechercheContactDialog(QWidget *parent);
+    explicit RechercheContactDialog(StdListContact *lstContact, QWidget *parent);
 
     ~RechercheContactDialog() override;
 
@@ -67,6 +67,11 @@ private slots:
 signals:
 
     void closeDialog();
+
+    /**
+     * @brief signal quand un contact est recherché.
+     */
+    void contactSought(StdListContact *lst);
 
 };
 
