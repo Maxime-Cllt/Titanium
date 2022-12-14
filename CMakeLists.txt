@@ -14,29 +14,29 @@ find_package(Qt5 COMPONENTS
         REQUIRED)
 
 
-set(FILE main.cpp Contact/QtContact.cpp Contact/QtContact.h MainWindow/MainWindow.cpp
-        MainWindow/MainWindow.h Contact/Widget/GroupeBoxContact.cpp Contact/Widget/GroupeBoxContact.cpp
-        Contact/Widget/GroupeBoxContact.h Contact/Widget/ListContactWidget.cpp Contact/Widget/ListContactWidget.h
-        ContactDialog/ModifContactDialog.cpp ContactDialog/ModifContactDialog.h ContactDialog/ContactDialog.cpp
-        ContactDialog/ContactDialog.h Contact/StdContact.cpp Contact/StdContact.h ContactDialog/CreationContactDialog.cpp
-        ContactDialog/CreationContactDialog.h Contact/StdListContact.cpp
-        Contact/StdListContact.h Interaction/Interaction.cpp Interaction/Interaction.h Interaction/Widget/CreationInteractionDialog.cpp
-        Interaction/Widget/CreationInteractionDialog.h Interaction/Widget/GroupBoxInteraction.cpp Interaction/Widget/GroupBoxInteraction.h
-        Interaction/Widget/ListInteractionWidget.cpp Interaction/Widget/ListInteractionWidget.h BaseDeDonnees/BD.cpp
-        BaseDeDonnees/BD.h Menu/MenuBar.cpp Menu/MenuBar.h Interaction/ListInteraction.cpp Interaction/ListInteraction.h
-        Tache/Tache.cpp Tache/Tache.h Tache/ListTache.cpp Tache/ListTache.h Json/JsonConverter.cpp Json/JsonConverter.h
-        Menu/ExportImportContacts/ExportImportMenu.cpp Menu/ExportImportContacts/ExportImportMenu.h Utility/Utility.cpp
-        Utility/Utility.h ToolBar/ToolBar.cpp ToolBar/ToolBar.h ToolBar/RechercheContact/RechercheContactDialog.cpp
-        ToolBar/RechercheContact/RechercheContactDialog.h Interaction/Widget/InteractionTextEdit.cpp Interaction/Widget/InteractionTextEdit.h Tache/Widget/RechercheTaches.cpp
-        Tache/Widget/RechercheTaches.h Historique/ListHistorique.cpp Historique/ListHistorique.h
-        ToolBar/RechercheTache/TreeTacheDialog.cpp ToolBar/RechercheTache/TreeTacheDialog.h
-        ToolBar/Suppression/SuppressionDialog.cpp ToolBar/Suppression/SuppressionDialog.h
-        ToolBar/Suppression/TreeWidget.cpp ToolBar/Suppression/TreeWidget.h)
+set(FILE src/main.cpp src/Contact/QtContact.cpp src/Contact/QtContact.h src/MainWindow/MainWindow.cpp
+        src/MainWindow/MainWindow.h src/Contact/Widget/GroupeBoxContact.cpp src/Contact/Widget/GroupeBoxContact.cpp
+        src/Contact/Widget/GroupeBoxContact.h src/Contact/Widget/ListContactWidget.cpp src/Contact/Widget/ListContactWidget.h
+        src/ContactDialog/ModifContactDialog.cpp src/ContactDialog/ModifContactDialog.h src/ContactDialog/ContactDialog.cpp
+        src/ContactDialog/ContactDialog.h src/Contact/StdContact.cpp src/Contact/StdContact.h src/ContactDialog/CreationContactDialog.cpp
+        src/ContactDialog/CreationContactDialog.h src/Contact/StdListContact.cpp
+        src/Contact/StdListContact.h src/Interaction/Interaction.cpp src/Interaction/Interaction.h src/Interaction/Widget/CreationInteractionDialog.cpp
+        src/Interaction/Widget/CreationInteractionDialog.h src/Interaction/Widget/GroupBoxInteraction.cpp src/Interaction/Widget/GroupBoxInteraction.h
+        src/Interaction/Widget/ListInteractionWidget.cpp src/Interaction/Widget/ListInteractionWidget.h src/BaseDeDonnees/BD.cpp
+        src/BaseDeDonnees/BD.h src/Menu/MenuBar.cpp src/Menu/MenuBar.h src/Interaction/ListInteraction.cpp src/Interaction/ListInteraction.h
+        src/Tache/Tache.cpp src/Tache/Tache.h src/Tache/ListTache.cpp src/Tache/ListTache.h src/Json/JsonConverter.cpp src/Json/JsonConverter.h
+        src/Menu/ExportImportContacts/ExportImportMenu.cpp src/Menu/ExportImportContacts/ExportImportMenu.h src/Utility/Utility.cpp
+        src/Utility/Utility.h src/ToolBar/ToolBar.cpp src/ToolBar/ToolBar.h src/ToolBar/RechercheContact/RechercheContactDialog.cpp
+        src/ToolBar/RechercheContact/RechercheContactDialog.h src/Interaction/Widget/InteractionTextEdit.cpp src/Interaction/Widget/InteractionTextEdit.h src/Tache/Widget/RechercheTaches.cpp
+        src/Tache/Widget/RechercheTaches.h src/Historique/ListHistorique.cpp src/Historique/ListHistorique.h
+        src/ToolBar/RechercheTache/TreeTacheDialog.cpp src/ToolBar/RechercheTache/TreeTacheDialog.h
+        src/ToolBar/Suppression/SuppressionDialog.cpp src/ToolBar/Suppression/SuppressionDialog.h
+        src/ToolBar/Suppression/TreeWidget.cpp src/ToolBar/Suppression/TreeWidget.h)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
     set(MACOSX_BUNDLE_ICON_FILE app.icns)
-    set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/images/app.icns)
+    set(myApp_ICON src/images/app.icns)
     set_source_files_properties(${myApp_ICON} PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources")
     add_executable(Projet-QT MACOSX_BUNDLE application.qrc ${myApp_ICON} ${FILE})

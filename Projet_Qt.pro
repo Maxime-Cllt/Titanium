@@ -1,4 +1,4 @@
-QT       += core gui widgets sql
+QT += core gui widgets sql
 
 TARGET = Projet_Qt
 TEMPLATE = app
@@ -9,67 +9,67 @@ ICON = images/app.icns
 RC_ICONS = images/app.ico
 
 SOURCES += \
-        main.cpp \
-        Contact/QtContact.cpp \
-        MainWindow/MainWindow.cpp \
-        Contact/Widget/GroupeBoxContact.cpp \
-        Contact/Widget/ListContactWidget.cpp \
-        ContactDialog/ModifContactDialog.cpp \
-        ContactDialog/ContactDialog.cpp \
-        Contact/StdContact.cpp \
-        ContactDialog/CreationContactDialog.cpp \
-        Contact/StdListContact.cpp \
-        Interaction/Interaction.cpp \
-        Interaction/Widget/CreationInteractionDialog.cpp \
-        Interaction/Widget/GroupBoxInteraction.cpp \
-        Interaction/Widget/ListInteractionWidget.cpp \
-        BaseDeDonnees/BD.cpp \
-        Menu/MenuBar.cpp \
-        Interaction/ListInteraction.cpp \
-        Tache/Tache.cpp \
-        Tache/ListTache.cpp \
-        Json/JsonConverter.cpp \
-        Menu/ExportImportContacts/ExportImportMenu.cpp \
-        Utility/Utility.cpp \
-        ToolBar/ToolBar.cpp \
-        ToolBar/RechercheContact/RechercheContactDialog.cpp \
-        Interaction/Widget/InteractionTextEdit.cpp \
-        Tache/Widget/RechercheTaches.cpp \
-        Historique/ListHistorique.cpp \
-        ToolBar/RechercheTache/TreeTacheDialog.cpp \
-        ToolBar/Suppression/SuppressionDialog.cpp \
-        ToolBar/Suppression/TreeWidget.cpp
+        src/main.cpp \
+        src/Contact/QtContact.cpp \
+        src/MainWindow/MainWindow.cpp \
+        src/Contact/Widget/GroupeBoxContact.cpp \
+        src/Contact/Widget/ListContactWidget.cpp \
+        src/ContactDialog/ModifContactDialog.cpp \
+        src/ContactDialog/ContactDialog.cpp \
+        src/Contact/StdContact.cpp \
+        src/ContactDialog/CreationContactDialog.cpp \
+        src/Contact/StdListContact.cpp \
+        src/Interaction/Interaction.cpp \
+        src/Interaction/Widget/CreationInteractionDialog.cpp \
+        src/Interaction/Widget/GroupBoxInteraction.cpp \
+        src/Interaction/Widget/ListInteractionWidget.cpp \
+        src/BaseDeDonnees/BD.cpp \
+        src/Menu/MenuBar.cpp \
+        src/Interaction/ListInteraction.cpp \
+        src/Tache/Tache.cpp \
+        src/Tache/ListTache.cpp \
+        src/Json/JsonConverter.cpp \
+        src/Menu/ExportImportContacts/ExportImportMenu.cpp \
+        src/Utility/Utility.cpp \
+        src/ToolBar/ToolBar.cpp \
+        src/ToolBar/RechercheContact/RechercheContactDialog.cpp \
+        src/Interaction/Widget/InteractionTextEdit.cpp \
+        src/Tache/Widget/RechercheTaches.cpp \
+        src/Historique/ListHistorique.cpp \
+        src/ToolBar/RechercheTache/TreeTacheDialog.cpp \
+        src/ToolBar/Suppression/SuppressionDialog.cpp \
+        src/ToolBar/Suppression/TreeWidget.cpp
 
 HEADERS += \
-        Contact/QtContact.h \
-        MainWindow/MainWindow.h \
-        Contact/Widget/GroupeBoxContact.h \
-        Contact/Widget/ListContactWidget.h \
-        ContactDialog/ModifContactDialog.h \
-        ContactDialog/ContactDialog.h \
-        Contact/StdContact.h \
-        ContactDialog/CreationContactDialog.h \
-        Contact/StdListContact.h \
-        Interaction/Interaction.h \
-        Interaction/Widget/CreationInteractionDialog.h \
-        Interaction/Widget/GroupBoxInteraction.h \
-        Interaction/Widget/ListInteractionWidget.h \
-        BaseDeDonnees/BD.h \
-        Menu/MenuBar.h \
-        Interaction/ListInteraction.h \
-        Tache/Tache.h \
-        Tache/ListTache.h \
-        Json/JsonConverter.h \
-        Menu/ExportImportContacts/ExportImportMenu.h \
-        Utility/Utility.h \
-        ToolBar/ToolBar.h \
-        ToolBar/RechercheContact/RechercheContactDialog.h \
-        Interaction/Widget/InteractionTextEdit.h \
-        Tache/Widget/RechercheTaches.h \
-        Historique/ListHistorique.h \
-        ToolBar/RechercheTache/TreeTacheDialog.h \
-        ToolBar/Suppression/SuppressionDialog.h \
-        ToolBar/Suppression/TreeWidget.h
+        src/Contact/QtContact.h \
+        src/MainWindow/MainWindow.h \
+        src/Contact/Widget/GroupeBoxContact.h \
+        src/Contact/Widget/ListContactWidget.h \
+        src/ContactDialog/ModifContactDialog.h \
+        src/ContactDialog/ContactDialog.h \
+        src/Contact/StdContact.h \
+        src/ContactDialog/CreationContactDialog.h \
+        src/Contact/StdListContact.h \
+        src/Interaction/Interaction.h \
+        src/Interaction/Widget/CreationInteractionDialog.h \
+        src/Interaction/Widget/GroupBoxInteraction.h \
+        src/Interaction/Widget/ListInteractionWidget.h \
+        src/BaseDeDonnees/BD.h \
+        src/Menu/MenuBar.h \
+        src/Interaction/ListInteraction.h \
+        src/Tache/Tache.h \
+        src/Tache/ListTache.h \
+        src/Json/JsonConverter.h \
+        src/Menu/ExportImportContacts/ExportImportMenu.h \
+        src/Utility/Utility.h \
+        src/ToolBar/ToolBar.h \
+        src/ToolBar/RechercheContact/RechercheContactDialog.h \
+        src/Interaction/Widget/InteractionTextEdit.h \
+        src/Tache/Widget/RechercheTaches.h \
+        src/Historique/ListHistorique.h \
+        src/ToolBar/RechercheTache/TreeTacheDialog.h \
+        src/ToolBar/Suppression/SuppressionDialog.h \
+        src/ToolBar/Suppression/TreeWidget.h
 
 RESOURCES += \
     application.qrc
