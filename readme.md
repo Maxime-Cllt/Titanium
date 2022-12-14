@@ -60,8 +60,18 @@ make
 mkdir build; cd build
 ```
 ```
-cmake ../Titanium.pro 
+cmake -DCMAKE_PREFIX_PATH=path/to/Qt ../Titanium.pro 
 ```
 ```
 make
 ```
+
+### Windows
+
+Installer Qtcreator <a href="https://www.qt.io/download-open-source">ici</a>
+Ouvrez Qtcreator importer Titanium.pro, compiler le programme et utilisez windeployqt.exe pour les dependances et copier coller dans le dossier de l'application les fichiers :
+- libgcc_s_dw2-1.dll
+- libgcc_s_seh-1.dll
+- libstdc++-6.dll
+- libwinpthread-1.dll
+Contenu dans le dossier Qt\x.x.x\mingw_64\bin 
