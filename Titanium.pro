@@ -1,6 +1,6 @@
 QT += core gui widgets sql
 
-TARGET = Projet_Qt
+TARGET = Titanium
 TEMPLATE = app
 
 DEFINES += QT_DEPRECATED_WARNINGS
