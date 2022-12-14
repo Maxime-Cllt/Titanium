@@ -3,7 +3,7 @@
 
 
 /**
- * @details Fonction principale où est éxécuté mainWindow
+ * @details Fonction principale où est exécuté mainWindow
  * @param argc
  * @param argv
  */

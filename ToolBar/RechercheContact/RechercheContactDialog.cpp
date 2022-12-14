@@ -15,7 +15,7 @@
 RechercheContactDialog::RechercheContactDialog(QWidget *parent) : QDialog(parent)
 {
 
-    setWindowTitle("Recherche de contacts");
+    setWindowTitle("Recherche de contact");
 
     lstContactReference = qobject_cast<MainWindow *>(Utility::getMainWindow(this))->getLstContactTmp();
     lstContact = new StdListContact;
@@ -280,7 +280,7 @@ void RechercheContactDialog::rechercheAvance()
         {
             // on récupère l’attribut du contact.
             QString str = QString::fromStdString(contact->getNom()).toLower();
-            // si l'attribut ne ocntient pas la chaine
+            // si l'attribut ne contient pas la chaine
             if (!str.contains(lineNom->text().toLower()))
                 continue;
 
