@@ -74,4 +74,5 @@ Ouvrez Qtcreator importer Titanium.pro, compiler le programme et utilisez windep
 - libgcc_s_seh-1.dll
 - libstdc++-6.dll
 - libwinpthread-1.dll
+
 Contenu dans le dossier Qt\x.x.x\mingw_64\bin 
