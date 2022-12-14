@@ -15,7 +15,7 @@
  *  @details Constructeur de la classe ListContactWidget
  * @param parent
  */
-ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) :lstContact(lst), QWidget(parent)
+ListContactWidget::ListContactWidget(StdListContact *lst, QWidget *parent) : lstContact(lst), QWidget(parent)
 {
     setMinimumWidth(500);
     lay = new QVBoxLayout(this);

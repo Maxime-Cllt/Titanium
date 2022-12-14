@@ -100,7 +100,7 @@ void ToolBar::chercherContact()
     });
 
     connect(dialog, &RechercheContactDialog::contactSought, this, [this](StdListContact *lst)
-    {emit contactSought(lst);});
+    { emit contactSought(lst); });
     dialog->show();
 
 }

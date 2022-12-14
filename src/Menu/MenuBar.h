@@ -29,6 +29,7 @@ private slots:
     void settings();
 
 signals :
+
     void contactImported();
 
 };

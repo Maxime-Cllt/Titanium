@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Projet-QT)
+project(Titanium)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_AUTOMOC ON)
@@ -39,20 +39,20 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(myApp_ICON src/images/app.icns)
     set_source_files_properties(${myApp_ICON} PROPERTIES
             MACOSX_PACKAGE_LOCATION "Resources")
-    add_executable(Projet-QT MACOSX_BUNDLE application.qrc ${myApp_ICON} ${FILE})
+    add_executable(Titanium MACOSX_BUNDLE application.qrc ${myApp_ICON} ${FILE})
     set_target_properties(Projet-QT PROPERTIES
             MACOSX_BUNDLE TRUE
             )
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     enable_language("RC")
     set(WIN32_ICO ${CMAKE_CURRENT_SOURCE_DIR}/MyApp.rc)
-    add_executable(Projet-QT WIN32 application.qrc ${WIN32_ICO} ${IMAGES} ${FILE})
+    add_executable(Titanium WIN32 application.qrc ${WIN32_ICO} ${IMAGES} ${FILE})
 else ()
-    add_executable(Projet-QT application.qrc ${IMAGES} ${FILE})
+    add_executable(Titanium application.qrc ${IMAGES} ${FILE})
 endif ()
 
 
-target_link_libraries(Projet-QT
+target_link_libraries(Titanium
         Qt::Core
         Qt::Gui
         Qt::Widgets

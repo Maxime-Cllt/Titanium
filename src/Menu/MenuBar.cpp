@@ -16,7 +16,7 @@ MenuBar::MenuBar(StdListContact *lstContact, QWidget *parent) : lstContact(lstCo
     menu1 = new QMenu(tr("&Paramètre"), this);
 
 
-    auto actionSettings = new QAction("Settings", this);
+    auto actionSettings = new QAction("réglages", this);
     connect(actionSettings, &QAction::triggered, this, &MenuBar::settings);
 
     menu1->addAction(actionSettings);
@@ -26,14 +26,14 @@ MenuBar::MenuBar(StdListContact *lstContact, QWidget *parent) : lstContact(lstCo
 
     auto *actionAbout = new QAction("&Qt", this);
     connect(actionAbout, &QAction::triggered, this, [this]()
-    {QMessageBox::aboutQt(this);});
+    { QMessageBox::aboutQt(this); });
     menu2->addAction(actionAbout);
 
 
     menu3 = new ExportImportMenu(MenuBar::lstContact, this);
 
     connect(menu3, &ExportImportMenu::contactImported, this, [=, this]()
-    {emit contactImported();});
+    { emit contactImported(); });
 
 
     addMenu(menu1);
@@ -49,6 +49,7 @@ MenuBar::MenuBar(StdListContact *lstContact, QWidget *parent) : lstContact(lstCo
 void MenuBar::settings()
 {
     QDialog dialog;
+    dialog.setWindowTitle("réglages");
 
     auto *layout = new QGridLayout(&dialog);
 

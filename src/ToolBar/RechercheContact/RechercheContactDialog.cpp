@@ -12,7 +12,8 @@
  * @brief Constructeur de la classe RechercheContactDialog.
  * @param parent
  */
-RechercheContactDialog::RechercheContactDialog(StdListContact *lstContact, QWidget *parent) : lstContactReference(lstContact), QDialog(parent)
+RechercheContactDialog::RechercheContactDialog(StdListContact *lstContact, QWidget *parent) : lstContactReference(
+        lstContact), QDialog(parent)
 {
 
     setWindowTitle("Recherche de contact");

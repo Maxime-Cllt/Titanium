@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layoutDroit = new QHBoxLayout;
 
 
-    setWindowTitle("Projet");
+    setWindowTitle("Titanium");
     auto *central = new QWidget;
     auto *layout = new QHBoxLayout(central);
     setCentralWidget(central);
