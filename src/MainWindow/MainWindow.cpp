@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setMinimumHeight(500);
     bd = new BD;
     historique = new ListHistorique;
-    historique->loadData("log.txt");
+    historique->loadData(qApp->applicationDirPath().toStdString()+"/log.txt");
 
     lstContact = BD::getContactData();
     lstContact->sort(StdListContact::DateDecroissant);
@@ -139,7 +139,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QWidget::closeEvent(event);
     delete lstContact;
     delete bd;
-    historique->saveData("log.txt");
+    historique->saveData(qApp->applicationDirPath().toStdString()+"/log.txt");
     delete historique;
 }
 

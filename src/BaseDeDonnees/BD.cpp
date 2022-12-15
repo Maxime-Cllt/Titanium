@@ -15,7 +15,7 @@
  */
 BD::BD(QObject *parent) : QObject(parent)
 {
-    QString path("database.sqlite");
+    QString path(qApp->applicationDirPath()+"/database.sqlite");
     bool exist = QFileInfo::exists(path);
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(path);
